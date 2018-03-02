@@ -4,5 +4,6 @@
     <entity>contact</entity>
     <entity>opportunity</entity>
     <entity>quote</entity>
+    <entity>salesorder</entity>
   </entities>
 </filter>
