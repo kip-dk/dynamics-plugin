@@ -16,7 +16,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{A590DDDB-7B0D-4158-B0EC-F6AB9A7C3B95}"
 	ProjectSection(SolutionItems) = preProject
+		images\addproject.PNG = images\addproject.PNG
+		images\copyzip.PNG = images\copyzip.PNG
+		images\demofolder.PNG = images\demofolder.PNG
+		images\deploy.PNG = images\deploy.PNG
 		images\download.PNG = images\download.PNG
+		images\filterxml.PNG = images\filterxml.PNG
+		images\generate1.PNG = images\generate1.PNG
+		images\plugregappconfig.PNG = images\plugregappconfig.PNG
+		images\projectproperties.PNG = images\projectproperties.PNG
+		images\renamesolution.PNG = images\renamesolution.PNG
+		images\rungenerate.PNG = images\rungenerate.PNG
+		images\searchandreplace.PNG = images\searchandreplace.PNG
+		images\setupearlyboundentities.PNG = images\setupearlyboundentities.PNG
+		images\solutionfilstructure.PNG = images\solutionfilstructure.PNG
+		images\targetfolder.PNG = images\targetfolder.PNG
 	EndProjectSection
 EndProject
 Global
