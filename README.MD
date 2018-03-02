@@ -16,3 +16,10 @@ can registre you plugins if you decorate you plugin classes with Step(..) attrib
 
 This allow you to write codes that is telling how the assembly plugin type should be deployed, so your code and the actuall configuration is
 always in sync.
+
+#### Installation guide
+
+##### 1) Download the project from GIT
+
+![Download image](images/download.PNG)
+
