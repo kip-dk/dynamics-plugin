@@ -14,5 +14,5 @@ the tool only generate entities that is needed.
 Normally you would use the Dynamics 365 plugin registration tool to registre your plugins in Dynamics 365. This simple command line tool
 can registre you plugins if you decorate you plugin classes with Step(..) attributes, defined in Kipon.Dynamics.Plugin.Attributes.
 
-This allow you to write codes that is telling how the assembly plugin type should be deployed, so you code and the actuall configuration is
+This allow you to write codes that is telling how the assembly plugin type should be deployed, so your code and the actuall configuration is
 always in sync.
