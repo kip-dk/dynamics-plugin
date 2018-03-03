@@ -1,7 +1,7 @@
 ### Kipon Dynamics 365 plugin template
 This project is a Visual Studio template solution for builing Dynamics 365 plugins
 
-It has three sub projects
+It has three sub projects:
 
 #### Kipon.Dynamics.Plugin
 This is the assembly project. You are suppose to rename this to match your customer and needs, and build you own plugins here.
@@ -58,6 +58,7 @@ Navigate to the root folder and dobble click on the ?.sln file
 Make sure you have Visual Studio 2017 installed before you do that :-)
 
 ![Solution view](images/solutionstart.PNG)
+
 As you can see, the project is missing the Kipon.Dynamics.Plugin folder.
 That is because we renamed it in above steps. Simply delete the folder from the solution,
 and the add the solution fil from its new name:
@@ -73,9 +74,10 @@ package, the file can be found in your project under ..\yourproject\Kipon.Dynami
 
 #### 6) Now rename the namespace used for your plugin project (Demo.Plugin). 
 For the Kipon.Dynamics.SvcFilter and the Kipon.PluginRegistration, you can just keep the namespaces. It is very
-generic code that you will problerbly not need to change.
+generic code that you will problerbly not need to change, and this code will never be deployed elsewhere than
+on your developer box.
 
-You library, renamed from Kipon.Dynamics.Plugin to ex. Demo.Plugin, however should use a proper namespace.
+Your library, renamed from Kipon.Dynamics.Plugin to ex. Demo.Plugin, however should use a proper namespace.
 
 Rightclick in the solution view on the project folder, and navigate to properties.
 
@@ -85,9 +87,11 @@ Rightclick in the solution view on the project folder, and navigate to propertie
 
 Change the assembly name, and the namespace to fit your need.
 
+You should also change the namespace in the classes within the Demo.Plugin project. Simply use search and replace:
+
 ![Search and replace](images/searchandreplace.PNG)
 
-Simply replace "Kipon.Dynamics.Plugin" with "Demo.Plugin"
+Replace "Kipon.Dynamics.Plugin" with "Demo.Plugin"
 
 Now ensure that the solution can still compile. Because you did a global replace of namespace for single project containing your
 assembly code, it should all compile.
@@ -101,7 +105,7 @@ Open the Demo.Plugin project in the solution view, and navigate to the folder ca
 
 As you can see, this folder contains two central files. "filter.xml" and "generate.cmd".
 The filter.xml file is a simple XML file where you list the entities you need. That way the crmsvcutil only generates code that you actually need.
-The generate is a simple command line tool you can call to generate the entites.
+The generate.cmd is a simple command line tool you can call to generate the entites.
 
 You must adjust the filter.xml to match your need.
 
@@ -113,13 +117,14 @@ And you must adjust the generate.cmd to match your url, user and password.
 
 Now you should be able to generate early bind entities by calling the generate.cmd tool
 
-Open a command line, and navigate to the Demo.Plugin/Entities folder and rund the generate.cmd command tool
+Open a command line, and navigate to the Demo.Plugin/Entities folder and run the generate.cmd command tool
+
 ![run entity generate command tool](images/rungenerate.PNG)
 
 Now build your solution see that it still compiles.
 
 #### 8) Registre your plugin
-You can of cause choose to registre your plugin, simply by using the SDK pluginregistration tool. This solution does however
+You can ofcause choose to registre your plugin, simply by using the SDK pluginregistration tool. This solution does however
 offer an alternative approach, registre your plugins from class decorations.
 
 The Kipon.PluginRegistration command line tool, embeded in this template solution offer this functionality, but you need to configure
@@ -129,7 +134,7 @@ Open the Kipon.PluginRegistration project and navigate to the app.config file
 
 ![plugin registration app.config](images/plugregappconfig.PNG)
 
-In the file you will find a tag called <kiponSec .../>
+In this file you will find a tag called <kiponSec .../>
 You just need to adjust the url and the username password to match your need, and then recompile the solution.
 The file contains an active example on-premises, and also an example how to specify an online login.
 Remember to recompile. The app.config changes will not be populated to the bin folder before you compile.
@@ -142,8 +147,8 @@ a command line tool called Deploy.cmd. Open a command prompt and run that tool t
 
 
 #### To come for thouse who stay on.
-This project offer an AbstractBasePlugin that you can use to get started quickly. You can use this class
-as base class for your plugins to easy up the standard wiring on connecting to CRM. 
+This project offer an AbstractBasePlugin that you can be used as a solid base class for your plugins. You can let
+your plugins extend this class to easy up the standard wiring on connecting to CRM. 
 
 I will soon extend this documentation with detail description on how this base plugin is used to create
 high quality plugins with less hassel. So stay on.
