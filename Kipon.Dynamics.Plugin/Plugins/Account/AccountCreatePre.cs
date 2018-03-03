@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kipon.Dynamics.Plugin.Attributes;
+﻿using Kipon.Dynamics.Plugin.Attributes;
 using Kipon.Dynamics.Plugin.Entities;
 using Microsoft.Xrm.Sdk;
 using Kipon.Dynamics.Plugin.Extensions.String;
