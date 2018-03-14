@@ -120,6 +120,9 @@ The generate.cmd is a simple command line tool you can call to generate the enti
 
 You must adjust the filter.xml to match your need.
 
+The service name is your free choice for a name that will be used in the generated CrmUnitOfWork class, while the name inside the 
+entity class must match the entity name of CRM.
+
 ![Filter xml](images/filterxml.PNG)
 
 And you must adjust the generate.cmd to match your url, user and password.
