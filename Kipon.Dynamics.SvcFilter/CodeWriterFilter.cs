@@ -16,8 +16,10 @@ namespace Kipon.Dynamics.SvcFilter
     /// </summary>
     public class CodeWriterFilter : ICodeWriterFilterService
     {
+        public static Dictionary<string, string> ENTITIES = new Dictionary<string, string>();
+
         //list of entity names to generate classes for.
-        private HashSet<string> _validEntities = new HashSet<string>();
+        private Dictionary<string, string> _validEntities = new Dictionary<string, string>();
 
         //reference to the default service.
         private ICodeWriterFilterService _defaultService = null;
@@ -41,7 +43,8 @@ namespace Kipon.Dynamics.SvcFilter
             XElement entitiesElement = xml.Element("entities");
             foreach (XElement entityElement in entitiesElement.Elements("entity"))
             {
-                _validEntities.Add(entityElement.Value.ToLowerInvariant());
+                var uowName = entityElement.Attribute("servicename").Value;
+                _validEntities.Add(entityElement.Value.ToLowerInvariant(), uowName);
             }
         }
 
@@ -50,7 +53,12 @@ namespace Kipon.Dynamics.SvcFilter
         /// </summary>
         public bool GenerateEntity(EntityMetadata entityMetadata, IServiceProvider services)
         {
-            return (_validEntities.Contains(entityMetadata.LogicalName.ToLowerInvariant()));
+            var generate = _validEntities.ContainsKey(entityMetadata.LogicalName.ToLowerInvariant());
+            if (generate)
+            {
+                ENTITIES[entityMetadata.SchemaName] = _validEntities[entityMetadata.LogicalName.ToLowerInvariant()];
+            }
+            return generate;
         }
 
         //All other methods just use default implementation:

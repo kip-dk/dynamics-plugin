@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kipon.Dynamics.Plugin.Entities
 {
-    public class CrmUnitOfWork : IUnitOfWork, IDisposable
+    public partial class CrmUnitOfWork : IUnitOfWork, IDisposable
     {
         #region Members
         protected ContextService context;
@@ -78,65 +78,6 @@ namespace Kipon.Dynamics.Plugin.Entities
         {
             this.Service.Delete(entity.LogicalName, entity.Id);
         }
-        #endregion
-
-        #region dynamic standard entities
-        private IRepository<Account> _account;
-        public IRepository<Account> Accounts
-        {
-            get
-            {
-                if (_account == null)
-                {
-                    _account = new CrmRepository<Account>(this.context);
-                }
-
-                return _account;
-            }
-        }
-
-        private IRepository<Contact> _contact;
-        public IRepository<Contact> Contacts
-        {
-            get
-            {
-                if (_contact == null)
-                {
-                    _contact = new CrmRepository<Contact>(this.context);
-                }
-
-                return _contact;
-            }
-        }
-
-        private IRepository<Opportunity> _opportunities;
-        public IRepository<Opportunity> Opportunities
-        {
-            get
-            {
-                if (_opportunities == null)
-                {
-                    _opportunities = new CrmRepository<Opportunity>(this.context);
-                }
-
-                return _opportunities;
-            }
-        }
-
-        private IRepository<Quote> _quotes;
-        public IRepository<Quote> Quotes
-        {
-            get
-            {
-                if (_quotes == null)
-                {
-                    _quotes = new CrmRepository<Quote>(this.context);
-                }
-
-                return _quotes;
-            }
-        }
-
         #endregion
 
         public void ClearChanges()

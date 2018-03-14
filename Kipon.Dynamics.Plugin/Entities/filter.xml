@@ -1,9 +1,9 @@
 ﻿<filter>
   <entities>
-    <entity>account</entity>
-    <entity>contact</entity>
-    <entity>opportunity</entity>
-    <entity>quote</entity>
-    <entity>salesorder</entity>
+    <entity servicename="Accounts">account</entity>
+    <entity servicename="Contacts">contact</entity>
+    <entity servicename="Opportunities">opportunity</entity>
+    <entity servicename="Quotes">quote</entity>
+    <entity servicename="Salesorders">salesorder</entity>
   </entities>
 </filter>

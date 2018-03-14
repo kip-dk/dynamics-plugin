@@ -76,6 +76,7 @@
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Entities\CrmRepository.cs" />
     <Compile Include="Entities\CrmUnitOfWork.cs" />
+    <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
     <Compile Include="Entities\IRepository.cs" />
     <Compile Include="Entities\IUnitOfWork.cs" />
     <Compile Include="Extensions\String\StringMethods.cs" />
