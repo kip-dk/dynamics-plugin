@@ -39,15 +39,15 @@
     <AssemblyOriginatorKeyFile>kipon.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.0.7\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.0.7\lib\net452\Microsoft.Xrm.Sdk.dll</HintPath>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Xrm.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -67,12 +67,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ServiceAPI\IAccountService.cs" />
+    <Compile Include="Services\AccountService.cs" />
     <None Include="Deploy.cmd" />
     <None Include="Entities\generate.cmd" />
     <Compile Include="Attributes\CrmEventType.cs" />
     <Compile Include="Attributes\SolutionAttribute.cs" />
     <Compile Include="Attributes\StageEnum.cs" />
     <Compile Include="Attributes\StepAttribute.cs" />
+    <Compile Include="DI\Export.cs" />
+    <Compile Include="DI\Import.cs" />
+    <Compile Include="DI\ServiceFactory.cs" />
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Entities\CrmRepository.cs" />
     <Compile Include="Entities\CrmUnitOfWork.cs" />
@@ -82,12 +87,11 @@
     <Compile Include="Extensions\String\StringMethods.cs" />
     <Compile Include="Plugins\AbstractBasePlugin.cs" />
     <Compile Include="Plugins\Account\AccountCreatePre.cs" />
+    <Compile Include="DI\IPluginContext.cs" />
+    <Compile Include="DI\PluginContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ServiceAPI\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="kipon.snk" />
     <None Include="packages.config" />

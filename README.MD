@@ -8,7 +8,8 @@ This is the assembly project hosting the plugins. You are suppose to rename this
 
 #### Kipon.Dynamics.SvcFilter
 This is a very simple filter DLL, that can be added to the CrmSvcUtil.exe command line tool as /codewriterfilter to ensure that
-the crmsvcutil tool only generate entities that is needed.
+the crmsvcutil tool only generate entities that is needed. The DLL also offer a simple code generator to generate an implementation
+of IUnitOfWork, corresponding to the entities includind.
 
 #### Kipon.PluginRegistration
 Normally you would use the Dynamics 365 plugin registration tool to registre your plugins in Dynamics 365. This simple command line tool
@@ -22,6 +23,17 @@ always in sync.
 
 Be aware, that this tool only support a subset of the facilities in the standard SDK tool. These limitations are mainly based on experience on
 what I normally need in a project. Any valid suggestions for extending the tool is appriciated. Just post an issue on GIT.
+
+
+### Project offer
+* Quick startup of new plugin project.
+* Working example plugin included in the code, for Account entity
+* Working example on generating early bound entities, that is easier to work with due to compile time check and C# editor intelicense.
+* Architecture for building plugins using a service api architecture, including a simple dependency injection framework. This allow you to create unit test that can run outside a Dynamics 365 context.
+* Architecture for building plugins based on "unit of work" pattern. IUnitOfWork interface is included in the code, and crmscvutil is extended to generate repository implementations for all included entities.
+
+### Work in progress .. not yet there
+* A unit test library, with a mockup of the basic service, kick start a test driven approach for plugin development.
 
 
 ### Howto

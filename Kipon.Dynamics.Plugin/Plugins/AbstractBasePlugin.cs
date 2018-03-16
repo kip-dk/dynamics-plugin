@@ -7,10 +7,9 @@ namespace Kipon.Dynamics.Plugin.Plugins
     [Solution(Name = "<Enter your solution name here>")]
     public abstract class AbstractBasePlugin : IPlugin
     {
-
+        internal static DI.ServiceFactory serviceFaktory = DI.ServiceFactory.Instance;
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
-        public Guid UserId { get; private set; }
 
         #region constructors
         public AbstractBasePlugin() : base()
@@ -26,7 +25,6 @@ namespace Kipon.Dynamics.Plugin.Plugins
 
         #region Private members
         private IPluginExecutionContext context;
-        private CrmEventType eventType;
 
         #endregion
 
@@ -34,12 +32,8 @@ namespace Kipon.Dynamics.Plugin.Plugins
         public void Execute(IServiceProvider serviceProvider)
         {
             this.context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
-
             var serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-
-            this.UserId = context.UserId;
-
             Guid? userId = null;
 
             if (!RunWithSystemPriviliges)
@@ -49,17 +43,22 @@ namespace Kipon.Dynamics.Plugin.Plugins
 
             var service = serviceFactory.CreateOrganizationService(userId);
 
-            if (!Enum.TryParse<CrmEventType>(context.MessageName, out this.eventType))
-            {
-                this.eventType = CrmEventType.Other;
-            }
+            var et = CrmEventType.Other;
+
+            Enum.TryParse<CrmEventType>(context.MessageName, out et);
+            var di = new System.Collections.Generic.Dictionary<Type, object>();
 
             try
             {
-                using (var uow = new Entities.CrmUnitOfWork(service, serviceFactory))
-                {
-                    Execute(uow, tracingService);
-                }
+                var pc = new DI.PluginContext(this.UnsecureConfig, this.SecureConfig, context, tracingService, service, et, context.UserId, di);
+                di.Add(typeof(IServiceProvider), serviceProvider);
+                di.Add(typeof(IOrganizationServiceFactory), serviceFaktory);
+                di.Add(typeof(IPluginExecutionContext), context);
+                di.Add(typeof(ITracingService), tracingService);
+                di.Add(typeof(IOrganizationService), service);
+                di.Add(typeof(DI.IPluginContext), pc);
+
+                this.Execute(pc);
             }
             catch (Microsoft.Xrm.Sdk.SaveChangesException ste)
             {
@@ -100,6 +99,23 @@ namespace Kipon.Dynamics.Plugin.Plugins
                     throw new InvalidPluginExecutionException(ex.GetType().FullName + " " + ex.Message, ex);
                 }
             }
+            finally
+            {
+                foreach (var s in di.Keys)
+                {
+                    try
+                    {
+                        var o = di[s] as IDisposable;
+                        if (o != null)
+                        {
+                            o.Dispose();
+                        }
+                    } catch (Exception)
+                    {
+                        // if a cleanup fails, just continue with other cleanups.
+                    }
+                }
+            }
         }
 
         private string Log(ITracingService tracingService, Exception ex)
@@ -125,220 +141,18 @@ namespace Kipon.Dynamics.Plugin.Plugins
             }
             return result;
         }
-
-        /// <summary>
-        /// Create a full image of the entity in pre-operations including all changes.
-        /// </summary>
-        /// <param name="entity">Input entity.</param>
-        /// <param name="preImageName">Name of the pre-image.</param>
-        /// <param name="context">Pluging exection context.</param>
-        protected Entity GetFullImage()
-        {
-            if (this.EventType == CrmEventType.Create)
-            {
-                return this.Target;
-            }
-
-            Entity entity = null;
-
-            if (this.EventType == CrmEventType.Delete)
-            {
-                entity = new Entity();
-                entity.Id = this.TargetReference.Id;
-                entity.LogicalName = this.TargetReference.LogicalName;
-            }
-            else
-            {
-                entity = this.Target;
-            }
-
-            var full = new Entity();
-            full.LogicalName = entity.LogicalName;
-
-            if (context.PreEntityImages.ContainsKey("preimage"))
-            {
-                var preImage = context.PreEntityImages["preimage"];
-
-                foreach (var attribName in preImage.Attributes.Keys)
-                {
-                    full[attribName] = preImage[attribName];
-                }
-            }
-
-            foreach (var attribName in entity.Attributes.Keys)
-            {
-                full[attribName] = entity[attribName];
-            }
-
-            return full;
-        }
-
         #endregion
 
         #region Abstract members
 
-        public abstract void Execute(Entities.IUnitOfWork uow, ITracingService tracingService);
+        protected abstract void Execute(DI.IPluginContext pluginContext);
+
 
         public virtual bool RunWithSystemPriviliges
         {
             get
             {
                 return false;
-            }
-        }
-
-        #endregion
-
-        #region Properties
-
-        protected IPluginExecutionContext PluginExecutionContext
-        {
-            get
-            {
-                return context;
-            }
-        }
-
-        protected bool AttributeChanged(params string[] names)
-        {
-            if (names == null || names.Length == 0)
-            {
-                return false;
-            }
-            if (PluginExecutionContext.InputParameters.Contains("Target"))
-            {
-                var dy = context.InputParameters["Target"] as Microsoft.Xrm.Sdk.Entity;
-
-                if (dy != null)
-                {
-                    foreach (var name in names)
-                    {
-                        if (dy.Attributes.Contains(name))
-                        {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        protected Microsoft.Xrm.Sdk.EntityReference TargetReference
-        {
-            get
-            {
-                if (PluginExecutionContext.InputParameters.Contains("Target"))
-                {
-                    return (EntityReference)PluginExecutionContext.InputParameters["Target"];
-                }
-
-                return null;
-            }
-        }
-
-        protected Microsoft.Xrm.Sdk.EntityReferenceCollection Associations
-        {
-            get
-            {
-                if (PluginExecutionContext.InputParameters.Contains("RelatedEntities"))
-                {
-                    var dy = (Microsoft.Xrm.Sdk.EntityReferenceCollection)PluginExecutionContext.InputParameters["RelatedEntities"];
-                    return dy;
-                }
-
-                return null;
-            }
-        }
-
-        protected Microsoft.Xrm.Sdk.Entity Preimage
-        {
-            get
-            {
-                return this.GetPreimage("preimage");
-            }
-        }
-
-        protected Microsoft.Xrm.Sdk.Entity GetPreimage(string name)
-        {
-            return context.PreEntityImages[name];
-        }
-
-        protected Microsoft.Xrm.Sdk.Entity Target
-        {
-            get
-            {
-                if (PluginExecutionContext.InputParameters.Contains("Target"))
-                {
-                    var obj = PluginExecutionContext.InputParameters["Target"];
-                    if (obj is Microsoft.Xrm.Sdk.Entity)
-                    {
-                        return (Microsoft.Xrm.Sdk.Entity)obj;
-                    }
-
-                    if (obj is Microsoft.Xrm.Sdk.EntityReference)
-                    {
-                        var result = new Entity { Id = PluginExecutionContext.PrimaryEntityId, LogicalName = PluginExecutionContext.PrimaryEntityName };
-                        if (PluginExecutionContext.InputParameters.Contains("State"))
-                        {
-                            result["statecode"] = PluginExecutionContext.InputParameters["State"] as OptionSetValue;
-                        }
-
-                        if (PluginExecutionContext.InputParameters.Contains("Status"))
-                        {
-                            result["statuscode"] = PluginExecutionContext.InputParameters["Status"] as OptionSetValue;
-                        }
-                        return result;
-                    }
-                }
-                else
-                {
-                    if (PluginExecutionContext.InputParameters.Contains("EntityMoniker"))
-                    {
-                        var obj = PluginExecutionContext.InputParameters["EntityMoniker"] as EntityReference;
-                        var result = new Entity { Id = PluginExecutionContext.PrimaryEntityId, LogicalName = PluginExecutionContext.PrimaryEntityName };
-                        if (PluginExecutionContext.InputParameters.Contains("State"))
-                        {
-                            result["state"] = PluginExecutionContext.InputParameters["State"] as OptionSetValue;
-                        }
-
-                        if (PluginExecutionContext.InputParameters.Contains("Status"))
-                        {
-                            result["statuscode"] = PluginExecutionContext.InputParameters["Status"] as OptionSetValue;
-                        }
-                        return result;
-                    }
-                }
-                return null;
-            }
-        }
-
-        protected string Association
-        {
-            get
-            {
-                if (PluginExecutionContext.InputParameters.Contains("Relationship"))
-                {
-                    var rel = PluginExecutionContext.InputParameters["Relationship"] as Microsoft.Xrm.Sdk.Relationship;
-
-                    if (rel != null)
-                    {
-                        return rel.SchemaName;
-                    }
-                }
-
-                return null;
-            }
-        }
-
-        public CrmEventType EventType
-        {
-            get
-            {
-                return eventType;
             }
         }
 

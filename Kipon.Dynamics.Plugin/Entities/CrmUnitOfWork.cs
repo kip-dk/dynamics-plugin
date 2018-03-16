@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Kipon.Dynamics.Plugin.DI;
+using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,23 +8,34 @@ using System.Threading.Tasks;
 
 namespace Kipon.Dynamics.Plugin.Entities
 {
+    [Export(typeof(IUnitOfWork))]
     public partial class CrmUnitOfWork : IUnitOfWork, IDisposable
     {
         #region Members
-        protected ContextService context;
-        public IOrganizationService Service { get; private set; }
-        private IOrganizationServiceFactory ServiceFactory { get; set; }
+        private ContextService context;
+
+
+        private IOrganizationService _service;
+        [Import]
+        public IOrganizationService Service
+        {
+            get { return _service;  }
+            set
+            {
+                this._service = value;
+                this.context = new ContextService(_service);
+            }
+        }
+
+        [Import]
+        public IOrganizationServiceFactory ServiceFactory { get; set; }
         #endregion
 
         #region Constructor
 
-        public CrmUnitOfWork(IOrganizationService service, IOrganizationServiceFactory serviceFactory)
+        public CrmUnitOfWork()
         {
-            this.Service = service;
-            this.ServiceFactory = serviceFactory;
-            this.context = new ContextService(service);
         }
-
         #endregion
 
         #region IDisposable
