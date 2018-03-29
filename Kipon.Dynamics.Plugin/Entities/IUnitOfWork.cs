@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kipon.Dynamics.Plugin.Entities
 {
-    public interface IUnitOfWork : IDisposable
+    public partial interface IUnitOfWork : IDisposable
     {
         /// <summary>
         /// Commits the applied changes.
@@ -15,22 +15,6 @@ namespace Kipon.Dynamics.Plugin.Entities
 
 
         void SaveChanges();
-
-        #region Dynamic standard entities
-        /// <summary>
-        /// Accounts.
-        /// </summary>
-        IRepository<Account> Accounts { get; }
-        /// <summary>
-        /// Contacts.
-        /// </summary>
-        IRepository<Contact> Contacts { get; }
-
-        IRepository<Opportunity> Opportunities { get; }
-
-        IRepository<Quote> Quotes { get; }
-
-        #endregion
 
         /// <summary>
         /// Executes a CRM request.
