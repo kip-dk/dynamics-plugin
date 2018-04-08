@@ -1,3 +1,6 @@
+### 2018-04-08
+Wrong service factory was injected as IOrganizationServiceFactory, so any plugin requesting or importing this service would fail with invalid cast.
+
 ### 2018-03-29
 Both IUnitOfWork and CrmUnitOfWork are now partial, and the repository interface is generated with the entities\generate.cmd command line tool.
 

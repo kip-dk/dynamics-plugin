@@ -7,7 +7,6 @@ namespace Kipon.Dynamics.Plugin.Plugins
     [Solution(Name = "<Enter your solution name here>")]
     public abstract class AbstractBasePlugin : IPlugin
     {
-        internal static DI.ServiceFactory serviceFaktory = DI.ServiceFactory.Instance;
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -52,7 +51,7 @@ namespace Kipon.Dynamics.Plugin.Plugins
             {
                 var pc = new DI.PluginContext(this.UnsecureConfig, this.SecureConfig, context, tracingService, service, et, context.UserId, di);
                 di.Add(typeof(IServiceProvider), serviceProvider);
-                di.Add(typeof(IOrganizationServiceFactory), serviceFaktory);
+                di.Add(typeof(IOrganizationServiceFactory), serviceFactory);
                 di.Add(typeof(IPluginExecutionContext), context);
                 di.Add(typeof(ITracingService), tracingService);
                 di.Add(typeof(IOrganizationService), service);
