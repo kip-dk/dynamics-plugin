@@ -56,10 +56,10 @@ namespace Kipon.PluginRegistration.Model
                     case CrmEventType.SetStateDynamicEntity:
                     case CrmEventType.Close:
                         return "EntityMoniker";
-                    case CrmEventType.Create:
+                    case CrmEventType.Delete:
                     case CrmEventType.Update:
                         return "Target";
-                    case CrmEventType.Delete:
+                    case CrmEventType.Create:
                         return "Id";
                     default: throw new ArgumentException("MessagePropertyName has not been maped for " + EventType);
                 }
