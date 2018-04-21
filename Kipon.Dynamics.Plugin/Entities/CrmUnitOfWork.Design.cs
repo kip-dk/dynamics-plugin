@@ -65,5 +65,17 @@ namespace Kipon.Dynamics.Plugin.Entities
 				return _quotes;
 			}
 		}
+		private IRepository<SystemUser> _systemusers; 
+		public IRepository<SystemUser> Systemusers
+		{
+			get
+			{
+				if (_systemusers == null)
+					{
+						_systemusers = new CrmRepository<SystemUser>(this.context);
+					}
+				return _systemusers;
+			}
+		}
 	}
 }

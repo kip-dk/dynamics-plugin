@@ -1,7 +1,4 @@
 ﻿using Kipon.Dynamics.Plugin.Attributes;
-using Kipon.Dynamics.Plugin.Entities;
-using Microsoft.Xrm.Sdk;
-using Kipon.Dynamics.Plugin.Extensions.String;
 
 namespace Kipon.Dynamics.Plugin.Plugins.Account
 {

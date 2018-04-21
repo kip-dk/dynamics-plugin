@@ -11,6 +11,7 @@ namespace Kipon.Dynamics.Plugin.Entities
 		IRepository<Opportunity> Opportunities { get; }
 		IRepository<SalesOrder> Salesorders { get; }
 		IRepository<Quote> Quotes { get; }
+		IRepository<SystemUser> Systemusers { get; }
 		#endregion
 	}
 }

@@ -36,7 +36,7 @@ what I normally need in a project. Any valid suggestions for extending the tool 
 * A unit test library, with a mockup of the basic service, kick start a test driven approach for plugin development.
 
 
-### Howto
+### Howto 
 
 The following is a short guide on how to get started. Just walk through each step as described, and you should be up running, and ready to do some
 code.
@@ -172,12 +172,13 @@ a command line tool called Deploy.cmd. Open a command prompt and run that tool t
 ![Deploy command](images/deploy.PNG)
 
 
-#### To come for thouse who stay on.
-This project offer an AbstractBasePlugin that you can be used as a solid base class for your plugins. You can let
-your plugins extend this class to easy up the standard wiring on connecting to CRM. 
+#### Documentation.
+Learn how to create plugins with this tool. The documentation page contains a detailed description on what code tocreate and where to put it.
+Please follow below link:
 
-I will soon extend this documentation with detail description on how this base plugin is used to create
-high quality plugins with less hassel. So stay on.
+[Documentationpage](DODUMENTATION.MD)
+
+
 
 ### Happy plugin coding
 
