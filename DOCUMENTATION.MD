@@ -159,6 +159,48 @@ Line 3: We import the extensions string namespace, so we can use the extension m
 Line 7: We export our service, and is telling the framework, that whoever calls for i IAccountService, should get an instance of this cat.<br />
 Line 8 - 14: We implement the service, and manipulates the current name of the account to match our uppercase rule<br />
 
+The above example is very simple and can be done without usage of any services like IUnitOfWork or IOrganizationService. But often our services need to lookup data in other entities, or do
+reated updated of system maintained redundantcy. It such case, our service need other services. this framework offer a very simple dependency injection mechanism, that allow you to call for a
+service, simply by defining a property for the service, and decorate the service with the Import decoration class:
+
+```csharp
+using System.Linq;
+using Kipon.Dynamics.Plugin.DI;
+using Kipon.Dynamics.Plugin.Entities;
+using Kipon.Dynamics.Plugin.Extensions.String;
+using Microsoft.Xrm.Sdk;
+namespace Kipon.Dynamics.Plugin.Services
+{
+    [Export(typeof(ServiceAPI.IAccountService))]
+    public class AccountService : ServiceAPI.IAccountService
+    {
+		[Import]
+		public Entities.IUnitOfWork uow { get; set; }
+
+		[Import]
+		public IOrganizationService orgService { get; set; }
+
+		// implement the Service interface here
+    }
+}
+```
+
+In above example by service is requesting access to IUnitOfWorkService, and the SDK IOrganizationService. These properties will be populated automatically by the framework, so in 
+the implementation of the methods in your ServiceAPI, you can assume that they have a valid value.
+
+The following services are created by  the AbstractBasePlugin:
+
+* System.IServiceProvider, This is the service provider given by the Microsoft Dynamics 365 plugin infrastructure, and should rarly be used. The abstract plugin is already extracting whatever neede from that cat.
+* Microsoft.Xrm.Sdk.IOrganizationServiceFactory, a factory service than can cresate IOrganizationService. Should rarly be used. The abstract plugin is already preparing an IOrganizationService for you.
+* Microsoft.Xrm.Sdk.IPluginExecutionContext, the execution context provided by the CRM plugin infrastructure. Should rerly be used. This framework is exposing ned information in here by decorations and properties on the custom PluginContext
+* Microsoft.Xrm.Sdk.ITracingService, trace service, convinient if you need to add debugging information to your plugin.
+* Microsoft.Xrm.Sdk.IOrganizationService, an organization service that can be used to perform any SDK based operation. You should avoid using the service directly. Instead use IUnitOfWork.
+* DI.IPluginContext, The plugin context can be injected anywhere, and thereby you can expose the context to any service. 
+
+Any custom build service that you build in your plugin library must be decorated with [Export(typeof(whatever-interface-it-implements))]. That way, the service can be injected in any other service
+using the same import pattern.
+
+
 ### Attributes
 This folder contains class decoration properties that enable you to deploy the plugins without using the Plugin Registration tool. You should not need to change any code in there. Just leave it as
 is an enjoy the functionality offered.
