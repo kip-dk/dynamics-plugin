@@ -199,7 +199,7 @@ The following services are created by the AbstractBasePlugin:
 execute method. Making the interface visible in services might make it harder for you to create unit-test for such service, because you will need to mock the full functionality of this interface.
 
 Any custom build service that you build in your plugin library must be decorated with [Export(typeof(whatever-interface-it-implements))]. That way, the service can be injected in any other service
-using the same import pattern, and any plugin can request an instance of the service by calling pluginContext.GetService<whatever-service-interface-needed>();
+using the same import pattern, and any plugin can request an instance of the service by calling pluginContext.GetService< whatever-service-interface-needed >();
 
 
 ### Attributes
