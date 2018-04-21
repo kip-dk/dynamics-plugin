@@ -38,7 +38,8 @@ Line 9 - 10: Write some code that does something on the event.<br />
 Remember the following basic rules for plugins. 
 
 * Dynamics 365 engine reuses instance of the plugin, so you cannot add any member properties or fields to the plugin it self, because they would be shared cross several executions on the same plugin.
-* You cannot Import services directly on the plugin for the same reason. You have to use pluginContext.GetService<whatever-service-you-need>(); To get a specific service instance.
+* You cannot Import services directly on the plugin for the same reason. You have to use pluginContext.GetService<whatever-service-you-need>(); To get a specific service instance in the plugin. When one service
+on the other hand, need another service, you can use the Import decoration property. 
 
 
 ### Entities
