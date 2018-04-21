@@ -173,10 +173,10 @@ a command line tool called Deploy.cmd. Open a command prompt and run that tool t
 
 
 #### Documentation.
-Learn how to create plugins with this tool. The documentation page contains a detailed description on what code tocreate and where to put it.
+Learn how to create plugins with this tool. The documentation page contains a detailed description on what code to create and where to put it.
 Please follow below link:
 
-[Documentationpage](DODUMENTATION.MD)
+[Go to the how-to code documentation page](DOCUMENTATION.MD)
 
 
 
