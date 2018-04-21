@@ -29,11 +29,11 @@ namespace Kipon.Dynamics.Plugin.Plugins.Account
 }
 ```
 
-Line 1: Import the class decoration namespace, so you can decorate you plugin to be deployed using the Kipon.PluginRegistration tool.
-Line 4: Decorate the plugin class, in this case, listen on Create for entity type Account in stage PreOperation.
-Line 5: Always extend AbstractBasePlugin, all the injection preparation is being done there, so you must extend that cat.
-Line 8: Override the Execute method. You will get a pluginContext from where you can get everything else you need.
-Line 9 - 10: Write some code that does something on the event.
+Line 1: Import the class decoration namespace, so you can decorate you plugin to be deployed using the Kipon.PluginRegistration tool.<br />
+Line 4: Decorate the plugin class, in this case, listen on Create for entity type Account in stage PreOperation.<br />
+Line 5: Always extend AbstractBasePlugin, all the injection preparation is being done there, so you must extend that cat. <br />
+Line 8: Override the Execute method. You will get a pluginContext from where you can get everything else you need.<br />
+Line 9 - 10: Write some code that does something on the event.<br />
 
 Remember the following basic rules for plugins. 
 
@@ -153,10 +153,10 @@ namespace Kipon.Dynamics.Plugin.Services
 }
 ```
 
-Line 1: We import the dependency injection namespace so we can export our service to be visible whereever needed.
-Line 3: We import the extensions string namespace, so we can use the extension methods described above
-Line 7: We export our service, and is telling the framework, that whoever calls for i IAccountService, should get an instance of this cat.
-Line 8 - 14: We implement the service, and manipulates the current name of the account to match our uppercase rule
+Line 1: We import the dependency injection namespace so we can export our service to be visible whereever needed.<br />
+Line 3: We import the extensions string namespace, so we can use the extension methods described above<br />
+Line 7: We export our service, and is telling the framework, that whoever calls for i IAccountService, should get an instance of this cat.<br />
+Line 8 - 14: We implement the service, and manipulates the current name of the account to match our uppercase rule<br />
 
 ### Attributes
 This folder contains class decoration properties that enable you to deploy the plugins without using the Plugin Registration tool. You should not need to change any code in there. Just leave it as
