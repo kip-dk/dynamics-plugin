@@ -1,7 +1,7 @@
 ### Building solid and testable plugins.
 
 The purpose of this project is to create a baseline for easy creating plugins for Dynamics 365 that follow some
-good helthy patterns with service oriented structure of code, that makes the coder easyer to read, maintain and reuse
+good helthy patterns with service oriented structure of code, that makes the code easyer to read, maintain and reuse
 cross plugins, but also enable us to write unit test that potentially can be executed outside Dynamics 365.
 
 This page will give some guidance on how to build plugins.
