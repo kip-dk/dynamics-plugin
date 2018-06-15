@@ -9,7 +9,7 @@ using Kipon.PluginRegistration.Entities;
 
 namespace Kipon.PluginRegistration.Services
 {
-    public class PluginRegistrationService 
+    public class PluginRegistrationService
     {
         private Kipon.PluginRegistration.Entities.IUnitOfWork uow { get; set; }
 
@@ -112,6 +112,22 @@ namespace Kipon.PluginRegistration.Services
 
             #region find steps no longer in the solution and delete them
             {
+                var dubs = (from s in steps
+                            group s by s.UniqueName into grp
+                            select new
+                            {
+                                Name = grp.Key,
+                                Count = grp.Count()
+                            }).Where(r => r.Count > 1).ToArray();
+                if (dubs.Length > 0)
+                {
+                    foreach (var dub in dubs)
+                    {
+                        Console.WriteLine("Dublicate workflow: " + dub.Name);
+                    }
+                    return;
+                }
+
                 var newstepindex = steps.ToDictionary(s => s.UniqueName);
                 var gones = (from s in stepindex.Values where !newstepindex.ContainsKey(s.UniqueName) select s).ToArray();
                 foreach (var gon in gones)
@@ -212,6 +228,13 @@ namespace Kipon.PluginRegistration.Services
                         SdkMessageId = sdkMessageIndex[missing.EventType.ToString()].ToEntityReference(),
                         SdkMessageFilterId = filter != null ? filter.ToEntityReference() : null,
                     };
+
+                    if (missing.Stage == Model.StageEnum.PostOperationAsyncWithDelete)
+                    {
+                        step.AsyncAutoDelete = true;
+                    }
+
+
                     uow.Create(step);
                     stepindex.Add(step.UniqueName, step);
                     Console.WriteLine("Added step " + step.Name);
@@ -235,6 +258,24 @@ namespace Kipon.PluginRegistration.Services
                             uow.Update(clean);
                             Console.WriteLine("Changed supported deployment for " + edit.Name + " > " + deployment);
                         }
+
+                        if (edit.Stage == Model.StageEnum.PostOperationAsyncWithDelete && !(step.AsyncAutoDelete ?? false))
+                        {
+                            var clean = uow.SdkMessageProcessingSteps.Clean(step);
+                            clean.AsyncAutoDelete = true;
+                            uow.Update(clean);
+                            Console.WriteLine("Changed async delete policy deployment for " + edit.Name + " > " + deployment);
+                        }
+
+                        if (edit.Stage == Model.StageEnum.PostOperationAsyncWithoutDelete && (step.AsyncAutoDelete ?? false))
+                        {
+                            var clean = uow.SdkMessageProcessingSteps.Clean(step);
+                            clean.AsyncAutoDelete = false;
+                            uow.Update(clean);
+                            Console.WriteLine("Changed async deployment for " + edit.Name + " > " + deployment);
+                        }
+
+
                     }
                 }
             }
