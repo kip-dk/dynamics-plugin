@@ -18,7 +18,7 @@ namespace Kipon.Dynamics.Plugin.DI
         private ITracingService TracingService;
         private IOrganizationService OrganizationService;
 
-        internal PluginContext(string unsecureConfig, string secureConfig, IPluginExecutionContext pluginExecutionContext, ITracingService tracingService, IOrganizationService organizationService, CrmEventType eventType, Guid userid, System.Collections.Generic.Dictionary<Type, object> _di)
+        internal PluginContext(string unsecureConfig, string secureConfig, IPluginExecutionContext pluginExecutionContext, ITracingService tracingService, IOrganizationService organizationService, CrmEventType eventType, Guid userid, System.Collections.Generic.Dictionary<Type, object> _di, Type callingType)
         {
             this.UnsecureConfig = unsecureConfig;
             this.SecureConfig = secureConfig;
@@ -28,6 +28,7 @@ namespace Kipon.Dynamics.Plugin.DI
             this.EventType = eventType;
             this.UserId = userid;
             this.di = _di;
+            serviceFactory.RegisterExternalExports(callingType);
         }
 
         public string UnsecureConfig { get; private set; }
