@@ -18,6 +18,8 @@ namespace Kipon.PluginRegistration.Model
         RetrieveMultiple,
         Retrieve,
         Other,
-        Close
+        Close,
+        AddMember,
+        RemoveMember
     }
 }

@@ -17,6 +17,8 @@ namespace Kipon.Dynamics.Plugin.Attributes
         SetStateDynamicEntity,
         RetrieveMultiple,
         Retrieve,
-        Other
+        Other,
+        AddMember,
+        RemoveMember
     }
 }
