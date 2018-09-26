@@ -1,3 +1,6 @@
+### 2018-09-26
+AddMember, AddListMembers, RemoveMember triggers added.
+
 ### 2018-04-08
 Wrong service factory was injected as IOrganizationServiceFactory, so any plugin requesting or importing this service would fail with invalid cast.
 

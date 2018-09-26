@@ -20,6 +20,7 @@ namespace Kipon.PluginRegistration.Model
         Other,
         Close,
         AddMember,
+        AddListMembers,
         RemoveMember
     }
 }

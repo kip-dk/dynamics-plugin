@@ -19,6 +19,7 @@ namespace Kipon.Dynamics.Plugin.Attributes
         Retrieve,
         Other,
         AddMember,
+        AddListMembers,
         RemoveMember
     }
 }
