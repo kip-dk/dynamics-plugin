@@ -15,12 +15,14 @@ namespace Kipon.Dynamics.Plugin.Plugins.Contact
     {
         protected override void Execute(IPluginContext pluginContext)
         {
+            /*
             if (pluginContext.AttributeChanged("jobtitle"))
             {
                 var full = pluginContext.GetFullImage().ToEntity<Entities.Contact>();
                 var target = pluginContext.Target.ToEntity<Entities.Contact>();
                 pluginContext.GetService<ServiceAPI.IContactService>().UpdateKing(full, target.JobTitle);
             }
+            */
         }
     }
 }

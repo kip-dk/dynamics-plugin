@@ -13,8 +13,8 @@ namespace Kipon.Dynamics.Plugin.Plugins.Contact
     {
         protected override void Execute(IPluginContext pluginContext)
         {
-            var target = pluginContext.Target.ToEntity<Entities.Contact>();
-            pluginContext.GetService<ServiceAPI.IContactService>().UpdateKing(target);
+            //var target = pluginContext.Target.ToEntity<Entities.Contact>();
+            //pluginContext.GetService<ServiceAPI.IContactService>().UpdateKing(target);
         }
     }
 }

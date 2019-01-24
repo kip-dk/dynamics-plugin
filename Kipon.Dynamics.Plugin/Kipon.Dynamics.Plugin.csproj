@@ -70,6 +70,9 @@
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\IUnitOfWork.Design.cs" />
     <Compile Include="Plugins\Account\AccountUpdatePost.cs" />
+    <Compile Include="Plugins\Contact\ContactCpost.cs" />
+    <Compile Include="Plugins\Contact\ContactMpre.cs" />
+    <Compile Include="Plugins\Contact\ContactUpost.cs" />
     <Compile Include="ServiceAPI\IAccountService.cs" />
     <Compile Include="Services\AccountService.cs" />
     <None Include="Deploy.cmd" />
