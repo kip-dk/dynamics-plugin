@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kipon.Solid.Plugin.Attributes;
 
 namespace Kipon.Solid.Plugin.Entities
 {
@@ -14,13 +15,21 @@ namespace Kipon.Solid.Plugin.Entities
         IAccountNameChanged
     {
         public string Name { get; set; }
+        public Microsoft.Xrm.Sdk.Money Saldo { get; set; }
 
     }
 
     public interface IAccountNameChanged : IAccountTarget
     {
+        [Required]
         string Name { get; set; }
     }
+
+    public interface IAccountSaldoChanged : IAccountTarget
+    {
+        Microsoft.Xrm.Sdk.Money Saldo { get; }
+    }
+
 
     public partial interface IAccountTarget : Kipon.Solid.Plugin.Xrm.Target<Account> { }
     public partial interface IAccountPreimage : Kipon.Solid.Plugin.Xrm.Preimage<Account> { }
