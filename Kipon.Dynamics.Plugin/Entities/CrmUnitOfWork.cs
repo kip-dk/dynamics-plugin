@@ -11,7 +11,6 @@ namespace Kipon.Dynamics.Plugin.Entities
     [Export(typeof(IUnitOfWork))]
     public partial class CrmUnitOfWork : IUnitOfWork, IDisposable
     {
-        #region Members
         private ContextService context;
 
 
@@ -29,37 +28,30 @@ namespace Kipon.Dynamics.Plugin.Entities
 
         [Import]
         public IOrganizationServiceFactory ServiceFactory { get; set; }
-        #endregion
 
-        #region Constructor
 
         public CrmUnitOfWork()
         {
         }
-        #endregion
 
-        #region IDisposable
+        public void SaveChanges()
+        {
+            this.context.SaveChanges();
+        }
+
 
         public void Dispose()
         {
             context.Dispose();
         }
 
-        #endregion
-
-        #region IUnitOfWork
-
-        #region generic methods
-        public void SaveChanges()
+        public Microsoft.Xrm.Sdk.OrganizationResponse Execute(Microsoft.Xrm.Sdk.OrganizationRequest request, Guid runAsSystemUserID)
         {
-            this.context.SaveChanges();
+            var ser = this.ServiceFactory.CreateOrganizationService(runAsSystemUserID);
+            return ser.Execute(request);
         }
 
-        /// <summary>
-        /// Executes a CRM request.
-        /// </summary>
-        /// <typeparam name="R">Type of the response.</typeparam>
-        /// <param name="request">Request to execute.</param>
+
         public R ExecuteRequest<R>(Microsoft.Xrm.Sdk.OrganizationRequest request) where R : OrganizationResponse
         {
             return (R)this.context.Execute(request);
@@ -70,11 +62,6 @@ namespace Kipon.Dynamics.Plugin.Entities
             return this.context.Execute(request);
         }
 
-        public Microsoft.Xrm.Sdk.OrganizationResponse Execute(Microsoft.Xrm.Sdk.OrganizationRequest request, Guid runAsSystemUserID)
-        {
-            var ser = this.ServiceFactory.CreateOrganizationService(runAsSystemUserID);
-            return ser.Execute(request);
-        }
 
         public Guid Create(Microsoft.Xrm.Sdk.Entity entity)
         {
@@ -90,12 +77,25 @@ namespace Kipon.Dynamics.Plugin.Entities
         {
             this.Service.Delete(entity.LogicalName, entity.Id);
         }
-        #endregion
-
         public void ClearChanges()
         {
             this.context.ClearChanges();
         }
-        #endregion
+
+        public void Detach(string logicalName, Guid? id)
+        {
+            if (this.context != null)
+            {
+                var candidates = (from c in this.context.GetAttachedEntities() where c.LogicalName == logicalName select c);
+                if (id != null)
+                {
+                    candidates = (from c in candidates where c.Id == id.Value select c);
+                }
+                foreach (var r in candidates.ToArray())
+                {
+                    context.Detach(r);
+                }
+            }
+        }
     }
 }

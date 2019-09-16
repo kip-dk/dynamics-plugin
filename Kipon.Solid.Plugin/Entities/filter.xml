@@ -1,0 +1,10 @@
+﻿<filter>
+  <entities>
+    <entity servicename="Accounts">account</entity>
+    <entity servicename="Contacts">contact</entity>
+    <entity servicename="Opportunities">opportunity</entity>
+    <entity servicename="Quotes">quote</entity>
+    <entity servicename="Salesorders">salesorder</entity>
+    <entity servicename="Systemusers">systemuser</entity>
+  </entities>
+</filter>

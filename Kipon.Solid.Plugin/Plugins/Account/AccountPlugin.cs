@@ -9,6 +9,11 @@ namespace Kipon.Solid.Plugin.Plugins.Account
 {
     public class AccountPlugin
     {
+        [Privileged]
+        public void OnPreDelete(Entities.AccountReference accountRef)
+        {
+        }
+
         public void OnPreCreate(Entities.IAccountNameChanged target, ServiceAPI.IAccountService accountService)
         {
             accountService.OnNameChanged(target);
@@ -21,7 +26,7 @@ namespace Kipon.Solid.Plugin.Plugins.Account
         }
 
         [Sort(101)]
-        public void OnPreUpdate(Entities.IAccountSaldoChanged target)
+        public void OnPreUpdate(Entities.IOpenRevenueChanged target)
         {
             // do something when changes
         }
