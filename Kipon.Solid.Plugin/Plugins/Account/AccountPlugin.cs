@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Kipon.Solid.Plugin.Attributes;
+using Kipon.Xrm.Attributes;
 
 namespace Kipon.Solid.Plugin.Plugins.Account
 {
     public class AccountPlugin
     {
+#warning uncomment again
+        /*
         [Privileged]
         public void OnPreDelete(Entities.AccountReference accountRef)
         {
@@ -30,6 +32,6 @@ namespace Kipon.Solid.Plugin.Plugins.Account
         {
             // do something when changes
         }
-
+        */
     }
 }

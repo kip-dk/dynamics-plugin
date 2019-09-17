@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 
-namespace Kipon.Solid.Plugin.Xrm
+namespace Kipon.Xrm
 {
     public class BasePlugin : IPlugin
     {

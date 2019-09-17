@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Xrm
+namespace Kipon.Xrm
 {
     public abstract class TargetReference<T> where T: Microsoft.Xrm.Sdk.Entity
     {

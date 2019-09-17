@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Kipon.Solid.Plugin.Entities;
-using Kipon.Solid.Plugin.Extensions.Strings;
+using Kipon.Xrm.Extensions.Strings;
 
 namespace Kipon.Solid.Plugin.Service
 {
+#warning uncomment again
+    /*
     public class AccountService : ServiceAPI.IAccountService
     {
         public void OnNameChanged(IAccountNameChanged target)
@@ -19,4 +21,5 @@ namespace Kipon.Solid.Plugin.Service
             }
         }
     }
+    */
 }

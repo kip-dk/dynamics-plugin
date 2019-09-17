@@ -19,7 +19,7 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
             }
 
             var mt = new MethodTypeCache();
-            mt.Privileged = method.GetCustomAttributes(typeof(Attributes.PrivilegedAttribute), false).Any();
+            mt.Privileged = method.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.PrivilegedAttribute), false).Any();
             var parameters = method.GetParameters();
             if (parameters == null || parameters.Length == 0)
             {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Xrm
+namespace Kipon.Xrm
 {
     // Declarativ interface to represent a pre image.
     // any extension should only have get properties, because any change will not be pushed back to the server

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Xrm.Exceptions
+namespace Kipon.Xrm.Exceptions
 {
     public class TypeMismatchException : Exception
     {

@@ -62,15 +62,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\ExportAttribute.cs" />
-    <Compile Include="Attributes\ImportingConstructorAttribute.cs" />
-    <Compile Include="Attributes\PrivilegedAttribute.cs" />
-    <Compile Include="Attributes\RequiredAttribute.cs" />
-    <Compile Include="Attributes\SortAttribute.cs" />
+    <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
+    <Compile Include="Xrm\Attributes\ExportAttribute.cs" />
+    <Compile Include="Xrm\Attributes\ImportingConstructorAttribute.cs" />
+    <Compile Include="Xrm\Attributes\PrivilegedAttribute.cs" />
+    <Compile Include="Xrm\Attributes\RequiredAttribute.cs" />
+    <Compile Include="Xrm\Attributes\SortAttribute.cs" />
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\Context.design.cs" />
-    <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
-    <Compile Include="Extensions\Strings\StringMethods.cs" />
+    <Compile Include="Xrm\Extensions\Strings\StringMethods.cs" />
     <Compile Include="Plugins\Account\AccountPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceAPI\IAccountService.cs" />

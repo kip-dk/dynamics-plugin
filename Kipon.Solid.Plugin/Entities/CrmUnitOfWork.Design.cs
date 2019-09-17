@@ -72,8 +72,8 @@ namespace Kipon.Solid.Plugin.Entities
             this.context.SaveChanges();
         }
 
-		private Xrm.IRepository<Account> _accounts; 
-		public Xrm.IRepository<Account> Accounts
+		private Kipon.Xrm.IRepository<Account> _accounts; 
+		public Kipon.Xrm.IRepository<Account> Accounts
 		{
 			get
 			{
@@ -84,8 +84,8 @@ namespace Kipon.Solid.Plugin.Entities
 				return _accounts;
 			}
 		}
-		private Xrm.IRepository<Contact> _contacts; 
-		public Xrm.IRepository<Contact> Contacts
+		private Kipon.Xrm.IRepository<Contact> _contacts; 
+		public Kipon.Xrm.IRepository<Contact> Contacts
 		{
 			get
 			{
@@ -96,8 +96,8 @@ namespace Kipon.Solid.Plugin.Entities
 				return _contacts;
 			}
 		}
-		private Xrm.IRepository<Opportunity> _opportunities; 
-		public Xrm.IRepository<Opportunity> Opportunities
+		private Kipon.Xrm.IRepository<Opportunity> _opportunities; 
+		public Kipon.Xrm.IRepository<Opportunity> Opportunities
 		{
 			get
 			{
@@ -108,8 +108,8 @@ namespace Kipon.Solid.Plugin.Entities
 				return _opportunities;
 			}
 		}
-		private Xrm.IRepository<SalesOrder> _salesorders; 
-		public Xrm.IRepository<SalesOrder> Salesorders
+		private Kipon.Xrm.IRepository<SalesOrder> _salesorders; 
+		public Kipon.Xrm.IRepository<SalesOrder> Salesorders
 		{
 			get
 			{
@@ -120,8 +120,8 @@ namespace Kipon.Solid.Plugin.Entities
 				return _salesorders;
 			}
 		}
-		private Xrm.IRepository<Quote> _quotes; 
-		public Xrm.IRepository<Quote> Quotes
+		private Kipon.Xrm.IRepository<Quote> _quotes; 
+		public Kipon.Xrm.IRepository<Quote> Quotes
 		{
 			get
 			{
@@ -132,8 +132,8 @@ namespace Kipon.Solid.Plugin.Entities
 				return _quotes;
 			}
 		}
-		private Xrm.IRepository<SystemUser> _systemusers; 
-		public Xrm.IRepository<SystemUser> Systemusers
+		private Kipon.Xrm.IRepository<SystemUser> _systemusers; 
+		public Kipon.Xrm.IRepository<SystemUser> Systemusers
 		{
 			get
 			{
@@ -145,10 +145,10 @@ namespace Kipon.Solid.Plugin.Entities
 			}
 		}
 	}
-	public partial interface IAccountTarget : Kipon.Solid.Plugin.Xrm.Target<Account>{ }
-	public partial interface IAccountPreimage : Kipon.Solid.Plugin.Xrm.Preimage<Account>{ }
-	public partial interface IAccountPostimage : Kipon.Solid.Plugin.Xrm.Postimage<Account>{ }
-	public partial interface IAccountMergedimage : Kipon.Solid.Plugin.Xrm.Mergedimage<Account>{ }
+	public partial interface IAccountTarget : Kipon.Xrm.Target<Account>{ }
+	public partial interface IAccountPreimage : Kipon.Xrm.Preimage<Account>{ }
+	public partial interface IAccountPostimage : Kipon.Xrm.Postimage<Account>{ }
+	public partial interface IAccountMergedimage : Kipon.Xrm.Mergedimage<Account>{ }
 	public partial class Account :
 		IAccountTarget,
 		IAccountPreimage,
@@ -156,10 +156,10 @@ namespace Kipon.Solid.Plugin.Entities
 		IAccountMergedimage
 	{
 	}
-	public partial interface IContactTarget : Kipon.Solid.Plugin.Xrm.Target<Contact>{ }
-	public partial interface IContactPreimage : Kipon.Solid.Plugin.Xrm.Preimage<Contact>{ }
-	public partial interface IContactPostimage : Kipon.Solid.Plugin.Xrm.Postimage<Contact>{ }
-	public partial interface IContactMergedimage : Kipon.Solid.Plugin.Xrm.Mergedimage<Contact>{ }
+	public partial interface IContactTarget : Kipon.Xrm.Target<Contact>{ }
+	public partial interface IContactPreimage : Kipon.Xrm.Preimage<Contact>{ }
+	public partial interface IContactPostimage : Kipon.Xrm.Postimage<Contact>{ }
+	public partial interface IContactMergedimage : Kipon.Xrm.Mergedimage<Contact>{ }
 	public partial class Contact :
 		IContactTarget,
 		IContactPreimage,
@@ -167,10 +167,10 @@ namespace Kipon.Solid.Plugin.Entities
 		IContactMergedimage
 	{
 	}
-	public partial interface IOpportunityTarget : Kipon.Solid.Plugin.Xrm.Target<Opportunity>{ }
-	public partial interface IOpportunityPreimage : Kipon.Solid.Plugin.Xrm.Preimage<Opportunity>{ }
-	public partial interface IOpportunityPostimage : Kipon.Solid.Plugin.Xrm.Postimage<Opportunity>{ }
-	public partial interface IOpportunityMergedimage : Kipon.Solid.Plugin.Xrm.Mergedimage<Opportunity>{ }
+	public partial interface IOpportunityTarget : Kipon.Xrm.Target<Opportunity>{ }
+	public partial interface IOpportunityPreimage : Kipon.Xrm.Preimage<Opportunity>{ }
+	public partial interface IOpportunityPostimage : Kipon.Xrm.Postimage<Opportunity>{ }
+	public partial interface IOpportunityMergedimage : Kipon.Xrm.Mergedimage<Opportunity>{ }
 	public partial class Opportunity :
 		IOpportunityTarget,
 		IOpportunityPreimage,
@@ -178,10 +178,10 @@ namespace Kipon.Solid.Plugin.Entities
 		IOpportunityMergedimage
 	{
 	}
-	public partial interface ISalesOrderTarget : Kipon.Solid.Plugin.Xrm.Target<SalesOrder>{ }
-	public partial interface ISalesOrderPreimage : Kipon.Solid.Plugin.Xrm.Preimage<SalesOrder>{ }
-	public partial interface ISalesOrderPostimage : Kipon.Solid.Plugin.Xrm.Postimage<SalesOrder>{ }
-	public partial interface ISalesOrderMergedimage : Kipon.Solid.Plugin.Xrm.Mergedimage<SalesOrder>{ }
+	public partial interface ISalesOrderTarget : Kipon.Xrm.Target<SalesOrder>{ }
+	public partial interface ISalesOrderPreimage : Kipon.Xrm.Preimage<SalesOrder>{ }
+	public partial interface ISalesOrderPostimage : Kipon.Xrm.Postimage<SalesOrder>{ }
+	public partial interface ISalesOrderMergedimage : Kipon.Xrm.Mergedimage<SalesOrder>{ }
 	public partial class SalesOrder :
 		ISalesOrderTarget,
 		ISalesOrderPreimage,
@@ -189,10 +189,10 @@ namespace Kipon.Solid.Plugin.Entities
 		ISalesOrderMergedimage
 	{
 	}
-	public partial interface IQuoteTarget : Kipon.Solid.Plugin.Xrm.Target<Quote>{ }
-	public partial interface IQuotePreimage : Kipon.Solid.Plugin.Xrm.Preimage<Quote>{ }
-	public partial interface IQuotePostimage : Kipon.Solid.Plugin.Xrm.Postimage<Quote>{ }
-	public partial interface IQuoteMergedimage : Kipon.Solid.Plugin.Xrm.Mergedimage<Quote>{ }
+	public partial interface IQuoteTarget : Kipon.Xrm.Target<Quote>{ }
+	public partial interface IQuotePreimage : Kipon.Xrm.Preimage<Quote>{ }
+	public partial interface IQuotePostimage : Kipon.Xrm.Postimage<Quote>{ }
+	public partial interface IQuoteMergedimage : Kipon.Xrm.Mergedimage<Quote>{ }
 	public partial class Quote :
 		IQuoteTarget,
 		IQuotePreimage,
@@ -200,10 +200,10 @@ namespace Kipon.Solid.Plugin.Entities
 		IQuoteMergedimage
 	{
 	}
-	public partial interface ISystemUserTarget : Kipon.Solid.Plugin.Xrm.Target<SystemUser>{ }
-	public partial interface ISystemUserPreimage : Kipon.Solid.Plugin.Xrm.Preimage<SystemUser>{ }
-	public partial interface ISystemUserPostimage : Kipon.Solid.Plugin.Xrm.Postimage<SystemUser>{ }
-	public partial interface ISystemUserMergedimage : Kipon.Solid.Plugin.Xrm.Mergedimage<SystemUser>{ }
+	public partial interface ISystemUserTarget : Kipon.Xrm.Target<SystemUser>{ }
+	public partial interface ISystemUserPreimage : Kipon.Xrm.Preimage<SystemUser>{ }
+	public partial interface ISystemUserPostimage : Kipon.Xrm.Postimage<SystemUser>{ }
+	public partial interface ISystemUserMergedimage : Kipon.Xrm.Mergedimage<SystemUser>{ }
 	public partial class SystemUser :
 		ISystemUserTarget,
 		ISystemUserPreimage,
@@ -211,32 +211,32 @@ namespace Kipon.Solid.Plugin.Entities
 		ISystemUserMergedimage
 	{
 	}
-	public sealed class AccountReference : Kipon.Solid.Plugin.Xrm.TargetReference<Account>
+	public sealed class AccountReference : Kipon.Xrm.TargetReference<Account>
 	{
 		public AccountReference(EntityReference target): base(target){ }
 		protected sealed override string _logicalName => Account.EntityLogicalName;
 	}
-	public sealed class ContactReference : Kipon.Solid.Plugin.Xrm.TargetReference<Contact>
+	public sealed class ContactReference : Kipon.Xrm.TargetReference<Contact>
 	{
 		public ContactReference(EntityReference target): base(target){ }
 		protected sealed override string _logicalName => Contact.EntityLogicalName;
 	}
-	public sealed class OpportunityReference : Kipon.Solid.Plugin.Xrm.TargetReference<Opportunity>
+	public sealed class OpportunityReference : Kipon.Xrm.TargetReference<Opportunity>
 	{
 		public OpportunityReference(EntityReference target): base(target){ }
 		protected sealed override string _logicalName => Opportunity.EntityLogicalName;
 	}
-	public sealed class SalesOrderReference : Kipon.Solid.Plugin.Xrm.TargetReference<SalesOrder>
+	public sealed class SalesOrderReference : Kipon.Xrm.TargetReference<SalesOrder>
 	{
 		public SalesOrderReference(EntityReference target): base(target){ }
 		protected sealed override string _logicalName => SalesOrder.EntityLogicalName;
 	}
-	public sealed class QuoteReference : Kipon.Solid.Plugin.Xrm.TargetReference<Quote>
+	public sealed class QuoteReference : Kipon.Xrm.TargetReference<Quote>
 	{
 		public QuoteReference(EntityReference target): base(target){ }
 		protected sealed override string _logicalName => Quote.EntityLogicalName;
 	}
-	public sealed class SystemUserReference : Kipon.Solid.Plugin.Xrm.TargetReference<SystemUser>
+	public sealed class SystemUserReference : Kipon.Xrm.TargetReference<SystemUser>
 	{
 		public SystemUserReference(EntityReference target): base(target){ }
 		protected sealed override string _logicalName => SystemUser.EntityLogicalName;
@@ -253,15 +253,15 @@ namespace Kipon.Solid.Plugin.Entities
         void ClearChanges();
         void Detach(string logicalname, Guid? id);
 		#region entity repositories
-		Xrm.IRepository<Account> Accounts { get; }
-		Xrm.IRepository<Contact> Contacts { get; }
-		Xrm.IRepository<Opportunity> Opportunities { get; }
-		Xrm.IRepository<SalesOrder> Salesorders { get; }
-		Xrm.IRepository<Quote> Quotes { get; }
-		Xrm.IRepository<SystemUser> Systemusers { get; }
+		Kipon.Xrm.IRepository<Account> Accounts { get; }
+		Kipon.Xrm.IRepository<Contact> Contacts { get; }
+		Kipon.Xrm.IRepository<Opportunity> Opportunities { get; }
+		Kipon.Xrm.IRepository<SalesOrder> Salesorders { get; }
+		Kipon.Xrm.IRepository<Quote> Quotes { get; }
+		Kipon.Xrm.IRepository<SystemUser> Systemusers { get; }
 		#endregion
 	}
-   public class CrmRepository<T> : Xrm.IRepository<T> where T: Microsoft.Xrm.Sdk.Entity, new() 
+   public class CrmRepository<T> : Kipon.Xrm.IRepository<T> where T: Microsoft.Xrm.Sdk.Entity, new() 
     {
         private SolidContextService context;
 

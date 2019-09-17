@@ -80,7 +80,7 @@ namespace Kipon.Solid.SvcFilter
         }";
 
         // 0 = namespace, 1 = ctxName
-        private const string CRM_REPOSITORY_IMPL = @"   public class CrmRepository<T> : Xrm.IRepository<T> where T: Microsoft.Xrm.Sdk.Entity, new() 
+        private const string CRM_REPOSITORY_IMPL = @"   public class CrmRepository<T> : Kipon.Xrm.IRepository<T> where T: Microsoft.Xrm.Sdk.Entity, new() 
     {{
         private {1} context;
 
@@ -169,11 +169,13 @@ namespace Kipon.Solid.SvcFilter
                 writer.WriteLine(CRM_UNIT_OF_WORK_GENERIC);
                 writer.WriteLine("");
 
+                var xrmNS = "Kipon.Xrm";
+
                 foreach (var logicalname in entities.Keys)
                 {
                     var uowname = entities[logicalname];
-                    writer.WriteLine("\t\tprivate Xrm.IRepository<" + logicalname + "> _" + uowname.ToLower() + "; ");
-                    writer.WriteLine("\t\tpublic Xrm.IRepository<" + logicalname + "> " + uowname);
+                    writer.WriteLine($"\t\tprivate {xrmNS}.IRepository<" + logicalname + "> _" + uowname.ToLower() + "; ");
+                    writer.WriteLine($"\t\tpublic {xrmNS}.IRepository<" + logicalname + "> " + uowname);
                     /* R1 */ writer.WriteLine("\t\t{");
                     /*    */ writer.WriteLine("\t\t\tget");
                     /* R2 */ writer.WriteLine("\t\t\t{");
@@ -189,7 +191,6 @@ namespace Kipon.Solid.SvcFilter
                 #endregion
 
                 #region genrate based entity interfaces for target, preimage, postimage and mergedimage
-                var xrmNS = ns.ReplaceLastElement('.', "Xrm");
                 foreach (var logicalname in entities.Keys)
                 {
                     writer.WriteLine($"\tpublic partial interface I{logicalname}Target : {xrmNS}.Target<{logicalname}>"+"{ }");
@@ -226,7 +227,7 @@ namespace Kipon.Solid.SvcFilter
                 foreach (var logicalname in entities.Keys)
                 {
                     var uowname = entities[logicalname];
-                    writer.WriteLine("\t\tXrm.IRepository<" + logicalname + "> " + uowname + " { get; }");
+                    writer.WriteLine("\t\tKipon.Xrm.IRepository<" + logicalname + "> " + uowname + " { get; }");
                 }
                 writer.WriteLine("\t\t#endregion");
                 writer.WriteLine("\t}");

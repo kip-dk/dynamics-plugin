@@ -68,25 +68,25 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
             #region see if it is target, preimage post image or merged image
             if (type.IsInterface && type.IsGenericType && type.GetGenericArguments().Length == 1)
             {
-                if (type.Inheriting(typeof(Target<>)))
+                if (type.Inheriting(typeof(Kipon.Xrm.Target<>)))
                 {
                     var result = new TypeCache { FromType = type, ToType = type.GetGenericArguments()[0], IsTarget = true };
                     return ReturnIfOk(type, result);
                 }
 
-                if (type.Inheriting(typeof(Preimage<>)))
+                if (type.Inheriting(typeof(Kipon.Xrm.Preimage<>)))
                 {
                     var result = new TypeCache { FromType = type, ToType = type.GetGenericArguments()[0], IsPreimage = true };
                     return ReturnIfOk(type, result);
                 }
 
-                if (type.Inheriting(typeof(Mergedimage<>)))
+                if (type.Inheriting(typeof(Kipon.Xrm.Mergedimage<>)))
                 {
                     var result = new TypeCache { FromType = type, ToType = type.GetGenericArguments()[0], IsMergedimage = true };
                     return ReturnIfOk(type, result);
                 }
 
-                if (type.Inheriting(typeof(Mergedimage<>)))
+                if (type.Inheriting(typeof(Kipon.Xrm.Mergedimage<>)))
                 {
                     var result = new TypeCache { FromType = type, ToType = type.GetGenericArguments()[0], IsPostimage = true };
                     return ReturnIfOk(type, result);
@@ -109,7 +109,7 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
             }
             #endregion
 
-            throw new Exceptions.UnresolvableTypeException(type);
+            throw new Kipon.Xrm.Exceptions.UnresolvableTypeException(type);
         }
 
         private static Type GetInterfaceImplementation(Type type)
@@ -136,14 +136,14 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
 
             if (candidates.Count == 0)
             {
-                throw new Exceptions.UnresolvableTypeException(type);
+                throw new Kipon.Xrm.Exceptions.UnresolvableTypeException(type);
             }
 
             var all = candidates.ToArray();
             candidates.Clear();
             foreach (var t in all)
             {
-                var exported = t.GetCustomAttributes(typeof(Attributes.ExportAttribute), false).Any();
+                var exported = t.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.ExportAttribute), false).Any();
                 if (exported)
                 {
                     candidates.Add(t);
@@ -155,7 +155,7 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
                 return candidates[0];
             }
 
-            throw new Exceptions.UnresolvableTypeException(type);
+            throw new Kipon.Xrm.Exceptions.UnresolvableTypeException(type);
         }
 
         private static System.Reflection.ConstructorInfo GetConstructor(Type type)
@@ -174,7 +174,7 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
             List<System.Reflection.ConstructorInfo> candidates = new List<System.Reflection.ConstructorInfo>();
             foreach (var c in constructors)
             {
-                var ca = c.GetCustomAttributes(typeof(Attributes.ImportingConstructorAttribute), false).FirstOrDefault();
+                var ca = c.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.ImportingConstructorAttribute), false).FirstOrDefault();
                 if (ca != null)
                 {
                     candidates.Add(c);
@@ -185,14 +185,14 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
                 return candidates[0];
             }
 
-            throw new Exceptions.UnresolvableConstructorException(type);
+            throw new Kipon.Xrm.Exceptions.UnresolvableConstructorException(type);
         }
 
         private static TypeCache ReturnIfOk(Type from, TypeCache result)
         {
             if (from.IsInterface && !from.IsAssignableFrom(result.ToType))
             {
-                throw new Exceptions.TypeMismatchException(from, result.ToType);
+                throw new Kipon.Xrm.Exceptions.TypeMismatchException(from, result.ToType);
             }
 
             result.Constructor = GetConstructor(result.ToType);
