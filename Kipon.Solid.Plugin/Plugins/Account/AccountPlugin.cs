@@ -9,8 +9,6 @@ namespace Kipon.Solid.Plugin.Plugins.Account
 {
     public class AccountPlugin
     {
-#warning uncomment again
-        /*
         [Privileged]
         public void OnPreDelete(Entities.AccountReference accountRef)
         {
@@ -32,6 +30,5 @@ namespace Kipon.Solid.Plugin.Plugins.Account
         {
             // do something when changes
         }
-        */
     }
 }

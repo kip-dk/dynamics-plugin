@@ -33,6 +33,7 @@ namespace Kipon.Xrm
             var userId = context.UserId;
             var message = context.MessageName;
             var stage = context.Stage;
+            var isAsync = context.Mode == 1;
 
             // now reflect over my self, and for each matching method, perform validations, and if ok, execute the methods in correct order, parsing relevant arguments
         }

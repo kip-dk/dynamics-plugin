@@ -13,16 +13,6 @@ namespace Kipon.Solid.SvcFilter
     public class CustomizeCodeDomService : ICustomizeCodeDomService
     {
         #region static code to be generated
-        private const string IUNIT_OF_WORK_GENERIC = @"        R ExecuteRequest<R>(OrganizationRequest request) where R : OrganizationResponse;
-        OrganizationResponse Execute(OrganizationRequest request);
-
-        System.Guid Create(Entity entity);
-        void Update(Entity entity);
-        void Delete(Entity entity);
-        void SaveChanges();
-        void ClearChanges();
-        void Detach(string logicalname, Guid? id);";
-
         private const string CRM_UNIT_OF_WORK_GENERIC = @"        public void Dispose()
         {
             context.Dispose();
@@ -220,9 +210,8 @@ namespace Kipon.Solid.SvcFilter
                 #endregion
 
                 #region generate IUnitOfWork interface
-                writer.WriteLine("\tpublic partial interface IUnitOfWork");
+                writer.WriteLine("\tpublic partial interface IUnitOfWork : Kipon.Xrm.IUnitOfWork");
                 writer.WriteLine("\t{");
-                writer.WriteLine(IUNIT_OF_WORK_GENERIC);
                 writer.WriteLine("\t\t#region entity repositories");
                 foreach (var logicalname in entities.Keys)
                 {

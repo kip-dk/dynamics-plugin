@@ -8,8 +8,6 @@ using Kipon.Xrm.Extensions.Strings;
 
 namespace Kipon.Solid.Plugin.Service
 {
-#warning uncomment again
-    /*
     public class AccountService : ServiceAPI.IAccountService
     {
         public void OnNameChanged(IAccountNameChanged target)
@@ -21,5 +19,4 @@ namespace Kipon.Solid.Plugin.Service
             }
         }
     }
-    */
 }

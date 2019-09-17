@@ -8,9 +8,6 @@ namespace Kipon.Solid.Plugin.ServiceAPI
 {
     public interface IAccountService
     {
-#warning uncomment again
-        /*
         void OnNameChanged(Entities.IAccountNameChanged target);
-        */
     }
 }

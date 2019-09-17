@@ -24,8 +24,6 @@ namespace Kipon.Dynamics.Plugin.Plugins.Contact
             var name = (from c in uow.Contacts.GetQuery() where c.ContactId == target.Id select c.FullName).Single();
 
             var sub = ctx.InputParameters["SubordinateId"];
-
-            var dummy = "x";
         }
     }
 }

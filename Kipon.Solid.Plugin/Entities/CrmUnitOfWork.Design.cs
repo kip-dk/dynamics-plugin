@@ -241,17 +241,8 @@ namespace Kipon.Solid.Plugin.Entities
 		public SystemUserReference(EntityReference target): base(target){ }
 		protected sealed override string _logicalName => SystemUser.EntityLogicalName;
 	}
-	public partial interface IUnitOfWork
+	public partial interface IUnitOfWork : Kipon.Xrm.IUnitOfWork
 	{
-        R ExecuteRequest<R>(OrganizationRequest request) where R : OrganizationResponse;
-        OrganizationResponse Execute(OrganizationRequest request);
-
-        System.Guid Create(Entity entity);
-        void Update(Entity entity);
-        void Delete(Entity entity);
-        void SaveChanges();
-        void ClearChanges();
-        void Detach(string logicalname, Guid? id);
 		#region entity repositories
 		Kipon.Xrm.IRepository<Account> Accounts { get; }
 		Kipon.Xrm.IRepository<Contact> Contacts { get; }

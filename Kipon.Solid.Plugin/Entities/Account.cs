@@ -7,8 +7,6 @@ using Kipon.Xrm.Attributes;
 
 namespace Kipon.Solid.Plugin.Entities
 {
-#warning uncomment again
-    /*
         public partial class Account
         {
             public Microsoft.Xrm.Sdk.Money Saldo { get; set; }
@@ -24,5 +22,4 @@ namespace Kipon.Solid.Plugin.Entities
         {
             Microsoft.Xrm.Sdk.Money OpenRevenue { get; }
         }
-        */
 }

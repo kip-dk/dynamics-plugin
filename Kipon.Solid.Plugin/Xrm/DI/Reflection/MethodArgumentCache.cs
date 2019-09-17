@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
 {
-    public class MethodTypeCache
+    public class MethodArgumentCache
     {
-        private static readonly Dictionary<System.Reflection.MethodInfo, MethodTypeCache> methodTypes = new Dictionary<System.Reflection.MethodInfo, MethodTypeCache>();
+        private static readonly Dictionary<System.Reflection.MethodInfo, MethodArgumentCache> methodTypes = new Dictionary<System.Reflection.MethodInfo, MethodArgumentCache>();
 
 
-        public static MethodTypeCache ForMethod(System.Reflection.MethodInfo method)
+        public static MethodArgumentCache ForMethod(System.Reflection.MethodInfo method)
         {
             if (methodTypes.ContainsKey(method))
             {
                 return methodTypes[method];
             }
 
-            var mt = new MethodTypeCache();
+            var mt = new MethodArgumentCache();
             mt.Privileged = method.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.PrivilegedAttribute), false).Any();
             var parameters = method.GetParameters();
             if (parameters == null || parameters.Length == 0)

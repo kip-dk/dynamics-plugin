@@ -14,7 +14,7 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
         {
         }
 
-        public static TypeCache ForType(Type type, string parameterName = null)
+        public static TypeCache ForType(Type type, System.Reflection.ParameterInfo parameter = null)
         {
             if (resolvedTypes.ContainsKey(type))
             {
@@ -31,64 +31,106 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
                     resolvedTypes[type] = new TypeCache { FromType = type, ToType = type };
                     var isEntity = false;
 
-                    if (!string.IsNullOrEmpty(parameterName) && parameterName.ToLower() == "target" && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                    #region see if we can resolve parameter to the target as an entity
+                    if (parameter.MatchPattern(typeof(Kipon.Xrm.Attributes.TargetAttribute), "target") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
                     {
                         isEntity = true;
                         resolvedTypes[type].IsTarget = true;
                     }
                     else
-                    if (!string.IsNullOrEmpty(parameterName) && parameterName.ToLower() == "preimage" && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                    if (parameter.MatchPattern(typeof(Kipon.Xrm.Attributes.PreimageAttribute), "preimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
                     {
                         isEntity = true;
                         resolvedTypes[type].IsPreimage = true;
                     }
                     else
-                    if (!string.IsNullOrEmpty(parameterName) && parameterName.ToLower() == "mergedimage" && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                    if (parameter.MatchPattern(typeof(Kipon.Xrm.Attributes.MergedimageAttribute), "mergedimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
                     {
                         isEntity = true;
                         resolvedTypes[type].IsMergedimage = true;
                     }
                     else
-                    if (!string.IsNullOrEmpty(parameterName) && parameterName.ToLower() == "postimage" && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                    if (parameter.MatchPattern(typeof(Kipon.Xrm.Attributes.PostimageAttribute), "postimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
                     {
                         isEntity = true;
                         resolvedTypes[type].IsPostimage = true;
                     }
 
-                    if (!isEntity)
+                    if (isEntity)
+                    {
+                        var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(type);
+                        resolvedTypes[type].LogicalName = entity.LogicalName;
+                    }
+                    #endregion
+
+                    var isReference = false;
+
+                    #region see if we can resolve parameter to the target as en entity reference
+                    if (!isEntity && type.Inheriting(typeof(Kipon.Xrm.TargetReference<>)))
+                    {
+                        isReference = true;
+                        resolvedTypes[type].IsTarget = true;
+                        resolvedTypes[type].IsReference = true;
+                        resolvedTypes[type].ToType = type.GetGenericArguments()[0];
+
+                        var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(resolvedTypes[type].ToType);
+                        resolvedTypes[type].LogicalName = entity.LogicalName;
+                    }
+
+                    if (!isEntity  && !isReference && type == typeof(Microsoft.Xrm.Sdk.EntityReference))
+                    {
+                        if (parameter.MatchPattern(typeof(Kipon.Xrm.Attributes.TargetAttribute), "target"))
+                        {
+                            isReference = true;
+                            resolvedTypes[type].IsTarget = true;
+                            resolvedTypes[type].IsReference = true;
+                            resolvedTypes[type].ToType = type;
+                        }
+                    }
+                    #endregion
+
+                    if (!isEntity && !isReference)
                     {
                         resolvedTypes[type].Constructor = GetConstructor(type);
                     }
-
                     return resolvedTypes[type];
                 }
             }
             #endregion
 
-            #region see if it is target, preimage post image or merged image
+            #region see if it is target, preimage post image or merged image interface
             if (type.IsInterface && type.IsGenericType && type.GetGenericArguments().Length == 1)
             {
                 if (type.Inheriting(typeof(Kipon.Xrm.Target<>)))
                 {
                     var result = new TypeCache { FromType = type, ToType = type.GetGenericArguments()[0], IsTarget = true };
+                    var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
+                    result.LogicalName = entity.LogicalName;
+
                     return ReturnIfOk(type, result);
                 }
 
                 if (type.Inheriting(typeof(Kipon.Xrm.Preimage<>)))
                 {
                     var result = new TypeCache { FromType = type, ToType = type.GetGenericArguments()[0], IsPreimage = true };
+                    var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
+                    result.LogicalName = entity.LogicalName;
                     return ReturnIfOk(type, result);
                 }
 
                 if (type.Inheriting(typeof(Kipon.Xrm.Mergedimage<>)))
                 {
                     var result = new TypeCache { FromType = type, ToType = type.GetGenericArguments()[0], IsMergedimage = true };
+                    var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
+                    result.LogicalName = entity.LogicalName;
                     return ReturnIfOk(type, result);
                 }
 
                 if (type.Inheriting(typeof(Kipon.Xrm.Mergedimage<>)))
                 {
                     var result = new TypeCache { FromType = type, ToType = type.GetGenericArguments()[0], IsPostimage = true };
+                    var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
+                    result.LogicalName = entity.LogicalName;
                     return ReturnIfOk(type, result);
                 }
             }
@@ -143,8 +185,8 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
             candidates.Clear();
             foreach (var t in all)
             {
-                var exported = t.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.ExportAttribute), false).Any();
-                if (exported)
+                var exported = (Kipon.Xrm.Attributes.ExportAttribute)t.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.ExportAttribute), false).SingleOrDefault();
+                if (exported != null && exported.Type == type)
                 {
                     candidates.Add(t);
                 }
@@ -207,9 +249,11 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
         public System.Reflection.ConstructorInfo Constructor { get; private set; }
 
         public bool IsTarget { get; private set; }
+        public bool IsReference { get; private set; }
         public bool IsPreimage { get; private set; }
         public bool IsMergedimage { get; private set; }
         public bool IsPostimage { get; set; }
+        public string LogicalName { get; set; }
     }
 
 
@@ -227,6 +271,21 @@ namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
                 return value.BaseType.Inheriting(other);
             }
             return false;
+        }
+
+        public static bool MatchPattern(this System.Reflection.ParameterInfo parameter, Type customAttribute, string attributeName)
+        {
+            if (parameter == null)
+            {
+                return false;
+            }
+            var hasCA = parameter.GetCustomAttributes(customAttribute, false).Any();
+            if (hasCA)
+            {
+                return true;
+            }
+
+            return !string.IsNullOrEmpty(attributeName) && parameter.Name.ToLower().Equals(attributeName.ToLower());
         }
     }
 }
