@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Xrm.DI.Reflection
+namespace Kipon.Xrm.DI.Reflection
 {
     public class PluginMethodCache
     {

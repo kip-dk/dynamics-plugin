@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kipon.Xrm.Exceptions
 {
-    public class UnresolvableTypeException : Exception
+    public class UnresolvableTypeException : BaseException
     {
         public UnresolvableTypeException(Type fromType) : base($"{fromType.FullName} could not be resolved to a class with an available public constructor.")
         {

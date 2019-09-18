@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
+    <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="Xrm\Attributes\ExportAttribute.cs" />
     <Compile Include="Xrm\Attributes\ImportingConstructorAttribute.cs" />
     <Compile Include="Xrm\Attributes\MergedimageAttribute.cs" />
@@ -75,6 +76,8 @@
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Xrm\Attributes\TargetAttribute.cs" />
     <Compile Include="Xrm\DI\Reflection\PluginMethodCache.cs" />
+    <Compile Include="Xrm\Exceptions\BaseException.cs" />
+    <Compile Include="Xrm\Exceptions\MultiImplementationOfSameInterfaceException.cs" />
     <Compile Include="Xrm\Extensions\Strings\StringMethods.cs" />
     <Compile Include="Plugins\Account\AccountPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

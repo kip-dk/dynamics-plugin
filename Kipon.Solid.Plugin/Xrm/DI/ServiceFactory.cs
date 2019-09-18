@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Xrm.DI
+namespace Kipon.Xrm.DI
 {
     public class ServiceFactory
     {
