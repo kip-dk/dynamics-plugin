@@ -17,6 +17,9 @@ namespace Kipon.Solid.Plugin.Service
                 var names = target.Name.Split(' ').Select(r => r.FirstToUpper());
                 target.Name = string.Join(" ", names);
             }
+
+
+            var ent = new Microsoft.Xrm.Sdk.Entity(Entities.Account.EntityLogicalName);
         }
     }
 }

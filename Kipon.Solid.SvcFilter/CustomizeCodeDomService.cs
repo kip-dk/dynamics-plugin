@@ -245,6 +245,21 @@ namespace Kipon.Solid.SvcFilter
                 /* NS */
                 writer.WriteLine("}");
 
+                #region xrm extension methods
+                /*    */ writer.WriteLine("namespace Kipon.Xrm.Extensions.Sdk");
+                /* NS */ writer.WriteLine("{");
+                /*    */ writer.WriteLine("\tpublic static partial class KiponSdkGeneratedExtensionMethods");
+                /* CL */ writer.WriteLine("\t{");
+                /*    */ writer.WriteLine("\t\tstatic KiponSdkGeneratedExtensionMethods()");
+                /* SC */ writer.WriteLine("\t\t{");
+                foreach (var logicalname in entities.Keys)
+                {
+                    writer.WriteLine($"\t\t\tentittypes[{ns}.{logicalname}.EntityLogicalName] = typeof({ns}.{logicalname});");
+                }
+                /* SC */ writer.WriteLine("\t\t}");
+                /* CL */ writer.WriteLine("\t}");
+                /* NS */ writer.WriteLine("}");
+                #endregion
             }
         }
     }

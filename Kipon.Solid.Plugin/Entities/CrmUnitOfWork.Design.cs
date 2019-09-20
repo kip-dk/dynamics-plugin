@@ -313,3 +313,18 @@ namespace Kipon.Solid.Plugin.Entities
         }
     }
 }
+namespace Kipon.Xrm.Extensions.Sdk
+{
+	public static partial class KiponSdkGeneratedExtensionMethods
+	{
+		static KiponSdkGeneratedExtensionMethods()
+		{
+			entittypes[Kipon.Solid.Plugin.Entities.Account.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.Account);
+			entittypes[Kipon.Solid.Plugin.Entities.Contact.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.Contact);
+			entittypes[Kipon.Solid.Plugin.Entities.Opportunity.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.Opportunity);
+			entittypes[Kipon.Solid.Plugin.Entities.SalesOrder.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.SalesOrder);
+			entittypes[Kipon.Solid.Plugin.Entities.Quote.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.Quote);
+			entittypes[Kipon.Solid.Plugin.Entities.SystemUser.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.SystemUser);
+		}
+	}
+}

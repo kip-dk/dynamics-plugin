@@ -286,6 +286,14 @@ namespace Kipon.Xrm.DI.Reflection
         public bool IsMergedimage { get; private set; }
         public bool IsPostimage { get; private set; }
         public string LogicalName { get; private set; }
+
+        public bool RequirePluginContext
+        {
+            get
+            {
+                return IsTarget || IsReference || IsPreimage || IsPostimage || IsMergedimage;
+            }
+        }
     }
 
 
