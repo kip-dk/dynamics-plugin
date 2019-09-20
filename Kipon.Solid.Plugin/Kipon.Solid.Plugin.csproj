@@ -69,15 +69,16 @@
     <Compile Include="Xrm\Attributes\MergedimageAttribute.cs" />
     <Compile Include="Xrm\Attributes\PostimageAttribute.cs" />
     <Compile Include="Xrm\Attributes\PreimageAttribute.cs" />
-    <Compile Include="Xrm\Attributes\PrivilegedAttribute.cs" />
     <Compile Include="Xrm\Attributes\RequiredAttribute.cs" />
     <Compile Include="Xrm\Attributes\SortAttribute.cs" />
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\Context.design.cs" />
+    <Compile Include="Xrm\Attributes\StepAttribute.cs" />
     <Compile Include="Xrm\Attributes\TargetAttribute.cs" />
     <Compile Include="Xrm\DI\Reflection\PluginMethodCache.cs" />
     <Compile Include="Xrm\Exceptions\BaseException.cs" />
     <Compile Include="Xrm\Exceptions\MultiImplementationOfSameInterfaceException.cs" />
+    <Compile Include="Xrm\Exceptions\UnresolvablePluginMethodException.cs" />
     <Compile Include="Xrm\Extensions\Strings\StringMethods.cs" />
     <Compile Include="Plugins\Account\AccountPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Xrm\DI\ServiceFactory.cs" />
     <Compile Include="Xrm\Exceptions\TypeMismatchException.cs" />
     <Compile Include="Xrm\Exceptions\UnresolvableConstructorException.cs" />
+    <Compile Include="Xrm\IAdminUnitOfWork.cs" />
     <Compile Include="Xrm\IRepository.cs" />
     <Compile Include="Xrm\IUnitOfWork.cs" />
     <Compile Include="Xrm\Mergedimage.cs" />

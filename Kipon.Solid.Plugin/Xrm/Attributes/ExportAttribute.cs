@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Kipon.Xrm.Attributes
 {
-    public class ExportAttribute
+
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
+    public class ExportAttribute : Attribute
     {
         private Type type;
         public ExportAttribute(Type type)

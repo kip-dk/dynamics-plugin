@@ -6,6 +6,8 @@ using System.Linq;
 using Microsoft.Xrm.Sdk;
 namespace Kipon.Solid.Plugin.Entities
 {
+	[Kipon.Xrm.Attributes.Export(typeof(IUnitOfWork))]
+	[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IUnitOfWork))]
 	public partial class CrmUnitOfWork: IUnitOfWork, IDisposable
 	{
 		private SolidContextService context;
@@ -145,6 +147,12 @@ namespace Kipon.Solid.Plugin.Entities
 			}
 		}
 	}
+	[Kipon.Xrm.Attributes.Export(typeof(IAdminUnitOfWork))]
+	[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IAdminUnitOfWork))]
+	public partial class AdminCrmUnitOfWork : CrmUnitOfWork, Kipon.Xrm.IAdminUnitOfWork
+	{
+		public AdminCrmUnitOfWork(Microsoft.Xrm.Sdk.IOrganizationService org) : base(org) { }
+	}
 	public partial interface IAccountTarget : Kipon.Xrm.Target<Account>{ }
 	public partial interface IAccountPreimage : Kipon.Xrm.Preimage<Account>{ }
 	public partial interface IAccountPostimage : Kipon.Xrm.Postimage<Account>{ }
@@ -252,6 +260,7 @@ namespace Kipon.Solid.Plugin.Entities
 		Kipon.Xrm.IRepository<SystemUser> Systemusers { get; }
 		#endregion
 	}
+	public partial interface IAdminUnitOfWork : Kipon.Xrm.IAdminUnitOfWork, IUnitOfWork { }
    public class CrmRepository<T> : Kipon.Xrm.IRepository<T> where T: Microsoft.Xrm.Sdk.Entity, new() 
     {
         private SolidContextService context;

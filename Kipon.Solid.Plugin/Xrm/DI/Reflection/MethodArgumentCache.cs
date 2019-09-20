@@ -19,7 +19,6 @@ namespace Kipon.Xrm.DI.Reflection
             }
 
             var mt = new MethodArgumentCache();
-            mt.Privileged = method.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.PrivilegedAttribute), false).Any();
             var parameters = method.GetParameters();
             if (parameters == null || parameters.Length == 0)
             {
@@ -39,7 +38,6 @@ namespace Kipon.Xrm.DI.Reflection
             return mt;
         }
 
-        public bool Privileged { get; set; }
         public Type[] Types { get; set; }
 
 

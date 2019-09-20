@@ -9,7 +9,6 @@ namespace Kipon.Solid.Plugin.Plugins.Account
 {
     public class AccountPlugin
     {
-        [Privileged]
         public void OnPreDelete(Entities.AccountReference accountRef)
         {
         }

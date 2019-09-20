@@ -140,9 +140,11 @@ namespace Kipon.Solid.SvcFilter
                 writer.WriteLine("using System.Linq;");
                 writer.WriteLine("using Microsoft.Xrm.Sdk;");
                 writer.WriteLine("namespace " + ns);
-                /* NS */ writer.WriteLine("{"); 
+                /* NS */ writer.WriteLine("{");
 
                 #region generate crmunitofwork
+                writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(IUnitOfWork))]");
+                writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IUnitOfWork))]");
                 writer.WriteLine("\tpublic partial class CrmUnitOfWork: IUnitOfWork, IDisposable");
                 /* UOW */ writer.WriteLine("\t{");
 
@@ -178,6 +180,16 @@ namespace Kipon.Solid.SvcFilter
                     /* R1 */ writer.WriteLine("\t\t}");
                 }
                 /* UOW */ writer.WriteLine("\t}");
+                #endregion
+
+                #region generate admin unit of work
+                writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(IAdminUnitOfWork))]");
+                writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IAdminUnitOfWork))]");
+                writer.WriteLine("\tpublic partial class AdminCrmUnitOfWork : CrmUnitOfWork, Kipon.Xrm.IAdminUnitOfWork");
+                writer.WriteLine("\t{");
+                writer.WriteLine("\t\tpublic AdminCrmUnitOfWork(Microsoft.Xrm.Sdk.IOrganizationService org) : base(org) { }");
+                writer.WriteLine("\t}");
+
                 #endregion
 
                 #region genrate based entity interfaces for target, preimage, postimage and mergedimage
@@ -220,6 +232,10 @@ namespace Kipon.Solid.SvcFilter
                 }
                 writer.WriteLine("\t\t#endregion");
                 writer.WriteLine("\t}");
+                #endregion
+
+                #region admin unitof work
+                writer.WriteLine("\tpublic partial interface IAdminUnitOfWork : Kipon.Xrm.IAdminUnitOfWork, IUnitOfWork { }");
                 #endregion
 
                 #region CRMRepository Impl

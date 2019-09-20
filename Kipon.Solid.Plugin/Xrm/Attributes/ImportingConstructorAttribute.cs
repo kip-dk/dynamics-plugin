@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kipon.Xrm.Attributes
 {
-    [AttributeUsage(AttributeTargets.Constructor)]
+    [AttributeUsage(AttributeTargets.Constructor, AllowMultiple = false)]
     public class ImportingConstructorAttribute : Attribute
     {
     }

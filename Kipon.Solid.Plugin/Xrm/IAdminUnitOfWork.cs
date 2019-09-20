@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Xrm.Attributes
+namespace Kipon.Xrm
 {
-    [AttributeUsage(AttributeTargets.Method)]
-    public class PrivilegedAttribute: Attribute
+    public interface IAdminUnitOfWork : IUnitOfWork
     {
     }
 }
