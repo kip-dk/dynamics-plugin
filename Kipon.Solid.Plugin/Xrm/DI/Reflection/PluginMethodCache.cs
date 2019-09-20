@@ -147,6 +147,7 @@ namespace Kipon.Xrm.DI.Reflection
         private static PluginMethodCache CreateFrom(System.Reflection.MethodInfo method)
         {
             var result = new PluginMethodCache();
+            result.method = method;
             var parameters = method.GetParameters().DefaultIfEmpty().ToArray();
 
             result.Parameters = new TypeCache[parameters.Length];
@@ -169,12 +170,18 @@ namespace Kipon.Xrm.DI.Reflection
         }
 
 
+        private System.Reflection.MethodInfo method;
         public int Sort { get; set; }
         public TypeCache[] Parameters { get; private set; }
 
         public bool HasPreimage()
         {
             return this.Parameters != null && (this.Parameters.Where(r => r.IsPreimage || r.IsMergedimage)).Any();
+        }
+
+        public void Invoke(object instance, object[] args)
+        {
+            this.method.Invoke(instance, args);
         }
 
         public bool HasPostimage()
