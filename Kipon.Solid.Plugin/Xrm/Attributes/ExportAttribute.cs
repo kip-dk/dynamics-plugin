@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Kipon.Xrm.Attributes
 {
-
+    /// <summary>
+    /// Use Export attribute as decoration for interfaces with multi implementation to state the one and only to be used.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public class ExportAttribute : Attribute
     {

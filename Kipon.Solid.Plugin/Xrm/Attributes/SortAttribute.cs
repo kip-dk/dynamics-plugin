@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Kipon.Xrm.Attributes
 {
-    [AttributeUsage(AttributeTargets.Method)]
+    /// <summary>
+    /// Use the parameter on plugin methods to indicate order of execution for methods triggered by the same event
+    /// The lowest value for a plugin will be used as the deployment value as well.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class SortAttribute : Attribute
     {
 

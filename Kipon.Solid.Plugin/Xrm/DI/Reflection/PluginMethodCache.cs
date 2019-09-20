@@ -33,6 +33,7 @@ namespace Kipon.Xrm.DI.Reflection
 
             foreach (var method in methods)
             {
+                #region explicit step decoration mathing
                 var cas = method.GetCustomAttributes(typeof(Attributes.StepAttribute), false);
                 var found = false;
                 foreach (Attributes.StepAttribute ca in cas)
@@ -40,7 +41,7 @@ namespace Kipon.Xrm.DI.Reflection
                     if ((int)ca.Stage == stepStage && ca.Message.ToString() == message && ca.PrimaryEntityName == primaryEntityName && ca.IsAsync == isAsync)
                     {
                         var next = CreateFrom(method);
-                        results.Add(next);
+                        AddIfConsistent(type, method, results, next, message, stage);
                         found = true;
                         break;
                     }
@@ -51,11 +52,60 @@ namespace Kipon.Xrm.DI.Reflection
                     continue;
                 }
 
+                if (cas.Length > 0)
+                {
+                    continue;
+                }
+                #endregion
+
+                #region find by naming convention
                 if (method.Name == lookFor)
                 {
                     var next = CreateFrom(method);
+                    var logicalNames = (from n in next.Parameters where n.LogicalName != null select n.LogicalName).Distinct().ToArray();
 
+                    if (logicalNames.Length == 1)
+                    {
+                        if (logicalNames[0] == primaryEntityName)
+                        {
+                            AddIfConsistent(type, method, results, next, message, stage);
+                            found = true;
+                        }
+                        continue;
+                    }
+
+                    if (logicalNames.Length > 1)
+                    {
+                        throw new Exceptions.MultipleLogicalNamesException(type, method);
+                    }
+
+                    var hasTargetPrePost = (from n in next.Parameters
+                                            where n.IsMergedimage || 
+                                                n.IsPostimage || 
+                                                n.IsPreimage || 
+                                                n.IsTarget
+                                            select n).Any();
+
+                    if (hasTargetPrePost)
+                    {
+                        var logicalNamesAttrs = method.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.LogicalNameAttribute), false).ToArray();
+                        foreach (Kipon.Xrm.Attributes.LogicalNameAttribute attr in logicalNamesAttrs)
+                        {
+                            if (attr.Value == primaryEntityName)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        if (found)
+                        {
+                            AddIfConsistent(type, method, results, next, message, stage);
+                            continue;
+                        }
+                    }
                 }
+                #endregion
             }
 
             if (results.Count == 0)
@@ -63,8 +113,36 @@ namespace Kipon.Xrm.DI.Reflection
                 throw new Exceptions.UnresolvablePluginMethodException(type);
             }
 
-            cache[key] = results.ToArray();
+            cache[key] = results.OrderBy(r => r.Sort).ToArray();
             return cache[key];
+        }
+
+        private static void AddIfConsistent(Type type, System.Reflection.MethodInfo method, List<PluginMethodCache> results, PluginMethodCache result, string message, int stage)
+        {
+            switch ((Kipon.Xrm.Attributes.StepAttribute.StageEnum)stage)
+            {
+                case Attributes.StepAttribute.StageEnum.Validate:
+                case Attributes.StepAttribute.StageEnum.Pre:
+                    /* pre image pre event */
+                    if (result.HasPreimage() && message == Kipon.Xrm.Attributes.StepAttribute.MessageEnum.Create.ToString())
+                    {
+                        throw new Exceptions.UnavailableImageException(type, method, "Preimage", stage, message);
+                    }
+                    /* post image pre event */
+                    if (result.HasPostimage())
+                    {
+                        throw new Exceptions.UnavailableImageException(type, method, "Postimage", stage, message);
+                    }
+                    break;
+                case Attributes.StepAttribute.StageEnum.Post:
+                case Attributes.StepAttribute.StageEnum.PostAsync:
+                    if (result.HasPostimage() && message == Kipon.Xrm.Attributes.StepAttribute.MessageEnum.Delete.ToString())
+                    {
+                        throw new Exceptions.UnavailableImageException(type, method, "Postimage", stage, message);
+                    }
+                    break;
+            }
+            results.Add(result);
         }
 
         private static PluginMethodCache CreateFrom(System.Reflection.MethodInfo method)
@@ -79,12 +157,36 @@ namespace Kipon.Xrm.DI.Reflection
                 result.Parameters[ix] = TypeCache.ForParameter(parameter);
                 ix++;
             }
+
+            var sortAttr = (Attributes.SortAttribute)method.GetCustomAttributes(typeof(Attributes.SortAttribute), false).SingleOrDefault();
+            if (sortAttr != null)
+            {
+                result.Sort = sortAttr.Value;
+            } else
+            {
+                result.Sort = 1;
+            }
             return result;
         }
 
 
+        public int Sort { get; set; }
         public TypeCache[] Parameters { get; private set; }
 
+        public bool HasPreimage()
+        {
+            return this.Parameters != null && (this.Parameters.Where(r => r.IsPreimage || r.IsMergedimage)).Any();
+        }
+
+        public bool HasPostimage()
+        {
+            return this.Parameters != null && (this.Parameters.Where(r => r.IsPostimage)).Any();
+        }
+
+        public bool HasTarget()
+        {
+            return this.Parameters != null && (this.Parameters.Where(r => r.IsTarget)).Any();
+        }
     }
 
     internal static class PluginMethodCacheLocalExtensions

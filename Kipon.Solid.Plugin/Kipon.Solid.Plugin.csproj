@@ -66,6 +66,7 @@
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="Xrm\Attributes\ExportAttribute.cs" />
     <Compile Include="Xrm\Attributes\ImportingConstructorAttribute.cs" />
+    <Compile Include="Xrm\Attributes\LogicalNameAttribute.cs" />
     <Compile Include="Xrm\Attributes\MergedimageAttribute.cs" />
     <Compile Include="Xrm\Attributes\PostimageAttribute.cs" />
     <Compile Include="Xrm\Attributes\PreimageAttribute.cs" />
@@ -78,6 +79,8 @@
     <Compile Include="Xrm\DI\Reflection\PluginMethodCache.cs" />
     <Compile Include="Xrm\Exceptions\BaseException.cs" />
     <Compile Include="Xrm\Exceptions\MultiImplementationOfSameInterfaceException.cs" />
+    <Compile Include="Xrm\Exceptions\MultipleLogicalNamesException.cs" />
+    <Compile Include="Xrm\Exceptions\UnavailableImageException.cs" />
     <Compile Include="Xrm\Exceptions\UnresolvablePluginMethodException.cs" />
     <Compile Include="Xrm\Extensions\Strings\StringMethods.cs" />
     <Compile Include="Plugins\Account\AccountPlugin.cs" />
@@ -104,6 +107,7 @@
     <None Include="kipon.snk" />
     <None Include="packages.config" />
     <None Include="Entities\generate.cmd" />
+    <None Include="Xrm\README.MD" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entities\filter.xml" />
