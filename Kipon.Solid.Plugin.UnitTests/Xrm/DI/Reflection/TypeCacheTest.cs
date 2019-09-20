@@ -84,6 +84,17 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
                 Assert.IsNull(t1.LogicalName);
                 Assert.IsNotNull(t1.Constructor);
             }
+
+            {
+                var t1 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[5]);
+                Assert.AreEqual(typeof(Entities.Account), t1.ToType);
+                Assert.IsFalse(t1.IsTarget);
+                Assert.IsFalse(t1.IsPreimage);
+                Assert.IsFalse(t1.IsPostimage);
+                Assert.IsTrue(t1.IsMergedimage);
+                Assert.AreEqual(Entities.Account.EntityLogicalName, t1.LogicalName);
+                Assert.IsNull(t1.Constructor);
+            }
         }
 
         [TestMethod]
@@ -106,7 +117,8 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
                 Entities.IAccountPreimage history, 
                 Entities.IAccountNameChanged nameChanged, 
                 [Kipon.Xrm.Attributes.Target]Entities.Account someName,
-                ServiceAPI.IAccountService accountService)
+                ServiceAPI.IAccountService accountService,
+                Entities.IAccountMergedimage merged)
             {
             }
 

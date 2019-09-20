@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xrm\DI\Reflection\TypeCacheTest.cs" />
+    <Compile Include="Xrm\DI\Reflection\PluginMethodCacheTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

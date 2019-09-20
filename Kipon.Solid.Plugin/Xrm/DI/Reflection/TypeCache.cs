@@ -142,7 +142,7 @@ namespace Kipon.Xrm.DI.Reflection
                 }
 
                 toType = type.ImplementsGenericInterface(typeof(Kipon.Xrm.Mergedimage<>));
-                if (type.Implements(typeof(Kipon.Xrm.Mergedimage<>)))
+                if (toType != null)
                 {
                     var result = new TypeCache { FromType = type, ToType = toType, IsMergedimage = true };
                     var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
@@ -157,7 +157,7 @@ namespace Kipon.Xrm.DI.Reflection
                 toType = type.ImplementsGenericInterface(typeof(Kipon.Xrm.Postimage<>));
                 if (toType != null)
                 {
-                    var result = new TypeCache { FromType = type, ToType = type.GetGenericArguments()[0], IsPostimage = true };
+                    var result = new TypeCache { FromType = type, ToType = toType, IsPostimage = true };
                     var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
                     result.LogicalName = entity.LogicalName;
                     if (ReturnIfOk(type, result))

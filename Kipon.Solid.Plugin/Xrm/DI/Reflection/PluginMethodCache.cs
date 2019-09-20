@@ -8,7 +8,7 @@ namespace Kipon.Xrm.DI.Reflection
 {
     public class PluginMethodCache
     {
-        public static readonly Dictionary<string, PluginMethodCache[]> cache = new Dictionary<string, PluginMethodCache[]>();
+        private static readonly Dictionary<string, PluginMethodCache[]> cache = new Dictionary<string, PluginMethodCache[]>();
 
         private PluginMethodCache()
         {
@@ -79,14 +79,7 @@ namespace Kipon.Xrm.DI.Reflection
                         throw new Exceptions.MultipleLogicalNamesException(type, method);
                     }
 
-                    var hasTargetPrePost = (from n in next.Parameters
-                                            where n.IsMergedimage || 
-                                                n.IsPostimage || 
-                                                n.IsPreimage || 
-                                                n.IsTarget
-                                            select n).Any();
-
-                    if (hasTargetPrePost)
+                    if (next.HasTargetPreOrPost())
                     {
                         var logicalNamesAttrs = method.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.LogicalNameAttribute), false).ToArray();
                         foreach (Kipon.Xrm.Attributes.LogicalNameAttribute attr in logicalNamesAttrs)
@@ -103,6 +96,12 @@ namespace Kipon.Xrm.DI.Reflection
                             AddIfConsistent(type, method, results, next, message, stage);
                             continue;
                         }
+                    }
+                    else
+                    {
+#warning TO-DO
+                        // TO-DO: what to do, we have a method match, but no entities. Some methods ex. assosiate does not have target in deployment process.
+                        throw new NotImplementedException("handling method not attached to an logicalname is not supported yet.");
                     }
                 }
                 #endregion
@@ -186,6 +185,11 @@ namespace Kipon.Xrm.DI.Reflection
         public bool HasTarget()
         {
             return this.Parameters != null && (this.Parameters.Where(r => r.IsTarget)).Any();
+        }
+
+        public bool HasTargetPreOrPost()
+        {
+            return this.Parameters != null && this.Parameters.Where(r => r.IsTarget || r.IsPreimage || r.IsMergedimage || r.IsPostimage).Any();
         }
     }
 
