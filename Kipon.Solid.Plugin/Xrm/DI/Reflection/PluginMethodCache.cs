@@ -118,6 +118,7 @@ namespace Kipon.Xrm.DI.Reflection
 
         private static void AddIfConsistent(Type type, System.Reflection.MethodInfo method, List<PluginMethodCache> results, PluginMethodCache result, string message, int stage)
         {
+            #region validate pre and post image consistancy
             switch ((Kipon.Xrm.Attributes.StepAttribute.StageEnum)stage)
             {
                 case Attributes.StepAttribute.StageEnum.Validate:
@@ -141,6 +142,15 @@ namespace Kipon.Xrm.DI.Reflection
                     }
                     break;
             }
+            #endregion
+
+            #region validate target consistancy
+            if (result.HasTarget() && message == Kipon.Xrm.Attributes.StepAttribute.MessageEnum.Delete.ToString())
+            {
+                throw new Exceptions.UnavailableImageException(type, method, "Target", stage, message);
+            }
+            #endregion
+
             results.Add(result);
         }
 
