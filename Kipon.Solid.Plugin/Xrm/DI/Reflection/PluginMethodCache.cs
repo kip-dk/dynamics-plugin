@@ -184,6 +184,46 @@ namespace Kipon.Xrm.DI.Reflection
         public int Sort { get; set; }
         public TypeCache[] Parameters { get; private set; }
 
+        private bool? _filterAllProperties;
+        public bool FilterAllProperties
+        {
+            get
+            {
+                if (_filterAllProperties == null)
+                {
+                    _filterAllProperties = this.Parameters != null && this.Parameters.Where(r => r.AllProperties).Any();
+                }
+                return _filterAllProperties.Value;
+            }
+        }
+
+        private CommonPropertyCache[] _filteredProperties;
+        public CommonPropertyCache[] FilteredProperties
+        {
+            get
+            {
+                if (_filteredProperties == null)
+                {
+                    if (Parameters != null)
+                    {
+                        var result = new List<CommonPropertyCache>();
+                        foreach (var p in Parameters)
+                        {
+                            if (p.FilteredProperties != null && p.FilteredProperties.Length > 0)
+                            {
+                                result.AddRange(p.FilteredProperties);
+                            }
+                        }
+                        _filteredProperties = result.ToArray();
+                    } else
+                    {
+                        _filteredProperties = new CommonPropertyCache[0];
+                    }
+                }
+                return _filteredProperties;
+            }
+        }
+
         public bool HasPreimage()
         {
             return this.Parameters != null && (this.Parameters.Where(r => r.IsPreimage || r.IsMergedimage)).Any();

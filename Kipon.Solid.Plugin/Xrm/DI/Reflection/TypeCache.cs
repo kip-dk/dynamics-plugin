@@ -69,6 +69,7 @@ namespace Kipon.Xrm.DI.Reflection
                     {
                         var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(type);
                         result.LogicalName = entity.LogicalName;
+                        result.ResolveProperties();
                     }
                     #endregion
 
@@ -120,6 +121,7 @@ namespace Kipon.Xrm.DI.Reflection
                     var result = new TypeCache { FromType = type, ToType = toType, IsTarget = true };
                     var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
                     result.LogicalName = entity.LogicalName;
+                    result.ResolveProperties();
 
                     if (ReturnIfOk(type, result))
                     {
@@ -134,6 +136,7 @@ namespace Kipon.Xrm.DI.Reflection
                     var result = new TypeCache { FromType = type, ToType = toType, IsPreimage = true };
                     var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
                     result.LogicalName = entity.LogicalName;
+                    result.ResolveProperties();
                     if (ReturnIfOk(type, result))
                     {
                         resolvedTypes[ck] = result;
@@ -147,6 +150,7 @@ namespace Kipon.Xrm.DI.Reflection
                     var result = new TypeCache { FromType = type, ToType = toType, IsMergedimage = true };
                     var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
                     result.LogicalName = entity.LogicalName;
+                    result.ResolveProperties();
                     if (ReturnIfOk(type, result))
                     {
                         resolvedTypes[ck] = result;
@@ -160,6 +164,7 @@ namespace Kipon.Xrm.DI.Reflection
                     var result = new TypeCache { FromType = type, ToType = toType, IsPostimage = true };
                     var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
                     result.LogicalName = entity.LogicalName;
+                    result.ResolveProperties();
                     if (ReturnIfOk(type, result))
                     {
                         resolvedTypes[ck] = result;
@@ -190,6 +195,7 @@ namespace Kipon.Xrm.DI.Reflection
             throw new Kipon.Xrm.Exceptions.UnresolvableTypeException(type);
         }
 
+        #region private static helpers
         private static Type GetInterfaceImplementation(Type type)
         {
             var allTypes = typeof(TypeCache).Assembly.GetTypes();
@@ -274,7 +280,25 @@ namespace Kipon.Xrm.DI.Reflection
             }
             return true;
         }
+        #endregion
 
+        #region private helpers
+        private void ResolveProperties()
+        {
+            if (this.FromType.Inheriting(typeof(Microsoft.Xrm.Sdk.Entity)))
+            {
+                this.AllProperties = true;
+                return;
+            }
+
+            if (this.ToType.Inheriting(typeof(Microsoft.Xrm.Sdk.Entity)))
+            {
+                this.FilteredProperties = CommonPropertyCache.ForType(this.FromType, this.ToType);
+            }
+        }
+        #endregion
+
+        #region properties
         public Type FromType { get; private set; }
         public Type ToType { get; private set; }
 
@@ -287,6 +311,9 @@ namespace Kipon.Xrm.DI.Reflection
         public bool IsPostimage { get; private set; }
         public string LogicalName { get; private set; }
 
+        public bool AllProperties { get; private set; }
+        public CommonPropertyCache[] FilteredProperties { get; private set; }
+
         public bool RequirePluginContext
         {
             get
@@ -294,6 +321,7 @@ namespace Kipon.Xrm.DI.Reflection
                 return IsTarget || IsReference || IsPreimage || IsPostimage || IsMergedimage;
             }
         }
+        #endregion
     }
 
 

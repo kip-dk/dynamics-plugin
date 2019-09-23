@@ -76,6 +76,7 @@
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Xrm\Attributes\StepAttribute.cs" />
     <Compile Include="Xrm\Attributes\TargetAttribute.cs" />
+    <Compile Include="Xrm\DI\Reflection\CommonPropertyCache.cs" />
     <Compile Include="Xrm\DI\Reflection\ServiceConstructorCache.cs" />
     <Compile Include="Xrm\DI\Reflection\PluginMethodCache.cs" />
     <Compile Include="Xrm\Exceptions\BaseException.cs" />

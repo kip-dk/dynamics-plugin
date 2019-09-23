@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Xrm\DI\Reflection\CommonPropertyCacheTest.cs" />
     <Compile Include="Xrm\DI\Reflection\ServiceConstructorCacheTest.cs" />
     <Compile Include="Xrm\DI\Reflection\TypeCacheTest.cs" />
     <Compile Include="Xrm\DI\Reflection\PluginMethodCacheTest.cs" />

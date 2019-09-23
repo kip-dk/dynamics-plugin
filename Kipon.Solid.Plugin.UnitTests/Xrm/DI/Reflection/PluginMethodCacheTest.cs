@@ -51,6 +51,23 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
 
         }
 
+        [TestMethod]
+        public void ForTypeFilteredAttributeTest()
+        {
+            var methods = Kipon.Xrm.DI.Reflection.PluginMethodCache.ForPlugin(typeof(FilteredAttributePlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
+            Assert.AreEqual(1, methods.Length);
+            Assert.IsFalse(methods[0].FilterAllProperties);
+            Assert.AreEqual(1, methods[0].FilteredProperties.Length);
+        }
+
+
+        public class FilteredAttributePlugin
+        {
+            public void OnPreUpdate(Entities.IOpenRevenueChanged ac)
+            {
+            }
+        }
+
         public class MultiPurposePlugin
         {
             public void OnPreUpdate(Entities.IAccountTarget tg, Entities.IAccountPreimage pre)
