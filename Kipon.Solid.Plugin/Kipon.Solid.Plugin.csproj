@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\AdminCrmUnitOfWork.cs" />
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="Xrm\Attributes\ExportAttribute.cs" />

@@ -191,7 +191,7 @@ namespace Kipon.Xrm.DI.Reflection
             {
                 if (_filterAllProperties == null)
                 {
-                    _filterAllProperties = this.Parameters != null && this.Parameters.Where(r => r.AllProperties).Any();
+                    _filterAllProperties = this.Parameters != null && this.Parameters.Where(r => r.IsTarget && r.AllProperties).Any();
                 }
                 return _filterAllProperties.Value;
             }
@@ -209,7 +209,7 @@ namespace Kipon.Xrm.DI.Reflection
                         var result = new List<CommonPropertyCache>();
                         foreach (var p in Parameters)
                         {
-                            if (p.FilteredProperties != null && p.FilteredProperties.Length > 0)
+                            if (p.IsTarget && p.FilteredProperties != null && p.FilteredProperties.Length > 0)
                             {
                                 result.AddRange(p.FilteredProperties);
                             }

@@ -17,14 +17,14 @@ namespace Kipon.Xrm.DI.Reflection
         private IPluginExecutionContext pluginExecutionContext;
         private IOrganizationServiceFactory organizationServiceFactory;
 
-        public ServiceCache(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService, Guid userId)
+        public ServiceCache(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService)
         {
             this.pluginExecutionContext = pluginExecutionContext;
             this.organizationServiceFactory = organizationServiceFactory;
-            this.services.Add(typeof(InvalidPluginExecutionException).FullName, pluginExecutionContext);
+            this.services.Add(typeof(IPluginExecutionContext).FullName, pluginExecutionContext);
             this.services.Add(typeof(IOrganizationServiceFactory).FullName, organizationServiceFactory);
             this.services.Add(typeof(ITracingService).FullName, traceService);
-            this.systemuserid = userId;
+            this.systemuserid = pluginExecutionContext.UserId;
         }
 
         public object Resolve(TypeCache type)
@@ -78,8 +78,15 @@ namespace Kipon.Xrm.DI.Reflection
                 return services[type.ObjectInstanceKey];
             }
 
+            if (type.FromType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
+            {
+                services[type.ObjectInstanceKey] = this.organizationServiceFactory.CreateOrganizationService(this.systemuserid);
+                return services[type.ObjectInstanceKey];
+            }
             // TO DO - resolved ref
 #warning ref not impl.
+
+
 
             return this.CreateServiceInstance(type);
         }
@@ -107,26 +114,47 @@ namespace Kipon.Xrm.DI.Reflection
                 var ix = 0;
                 foreach (var argType in argTypes)
                 {
-                    if (services.ContainsKey(argType.ObjectInstanceKey))
-                    {
-                        args[ix] = services[argType.ObjectInstanceKey];
-                        ix++;
-                        continue;
-                    }
-
                     if (argType.FromType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
                     {
-                        // We are asking for the organization service, that comes in two flavors, admin and not admin. The outer type determins the relevant
-                        if (type.ToType != null && type.ToType.Implements(typeof(Kipon.Xrm.IAdminUnitOfWork)))
+                        if (type.RequireAdminService)
                         {
-                            services[argType.ObjectInstanceKey] = this.organizationServiceFactory.CreateOrganizationService(null);
-                            args[ix] = services[argType.ObjectInstanceKey];
+                            var key = typeof(Microsoft.Xrm.Sdk.IOrganizationService).FullName + ":admin";
+                            if (services.ContainsKey(key))
+                            {
+                                args[ix] = services[key];
+                                ix++;
+                                continue;
+                            }
+                            else
+                            {
+                                services[key] = this.organizationServiceFactory.CreateOrganizationService(null);
+                                args[ix] = services[key];
+                                ix++;
+                                continue;
+                            }
                         }
                         else
                         {
-                            services[argType.ObjectInstanceKey] = this.organizationServiceFactory.CreateOrganizationService(this.systemuserid);
-                            args[ix] = services[argType.ObjectInstanceKey];
+                            var key = typeof(Microsoft.Xrm.Sdk.IOrganizationService).FullName;
+                            if (services.ContainsKey(key))
+                            {
+                                args[ix] = services[key];
+                                ix++;
+                                continue;
+                            }
+                            else
+                            {
+                                services[key] = this.organizationServiceFactory.CreateOrganizationService(this.systemuserid);
+                                args[ix] = services[key];
+                                ix++;
+                                continue;
+                            }
                         }
+                    }
+
+                    if (services.ContainsKey(argType.ObjectInstanceKey))
+                    {
+                        args[ix] = services[argType.ObjectInstanceKey];
                         ix++;
                         continue;
                     }

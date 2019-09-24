@@ -12,10 +12,10 @@ namespace Kipon.Xrm.DI
         private Reflection.ServiceCache serviceCache;
         private IPluginExecutionContext pluginExecutionContext;
 
-        public ServiceFactory(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService, Guid userId)
+        public ServiceFactory(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService)
         {
             this.pluginExecutionContext = pluginExecutionContext;
-            this.serviceCache = new Reflection.ServiceCache(pluginExecutionContext, organizationServiceFactory, traceService, userId);
+            this.serviceCache = new Reflection.ServiceCache(pluginExecutionContext, organizationServiceFactory, traceService);
         }
 
         public void Execute(Microsoft.Xrm.Sdk.IPlugin plugin)
@@ -29,6 +29,18 @@ namespace Kipon.Xrm.DI
 
             foreach (var method in methods)
             {
+                if (this.pluginExecutionContext.MessageName == Kipon.Xrm.Attributes.StepAttribute.MessageEnum.Update.ToString() && !method.FilterAllProperties && method.FilteredProperties != null && method.FilteredProperties.Length > 0)
+                {
+                    var target = (Microsoft.Xrm.Sdk.Entity)this.pluginExecutionContext.InputParameters["Target"];
+                    var doProcess = (from k in target.Attributes.Keys
+                                 join a in method.FilteredProperties on k equals a.LogicalName
+                                 select k).Any();
+                    if (!doProcess)
+                    {
+                        continue;
+                    }
+                }
+
                 var objs = new object[method.Parameters == null ? 0 : method.Parameters.Length];
 
                 var ix = 0;
