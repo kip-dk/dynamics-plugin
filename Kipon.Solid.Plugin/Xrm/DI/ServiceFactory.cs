@@ -9,20 +9,13 @@ namespace Kipon.Xrm.DI
 {
     public class ServiceFactory
     {
-        private Dictionary<Type, object> services = new Dictionary<Type, object>();
-        private Guid systemuserid;
-
+        private Reflection.ServiceCache serviceCache;
         private IPluginExecutionContext pluginExecutionContext;
-        private IOrganizationServiceFactory organizationServiceFactory;
 
-        public  ServiceFactory(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService, Guid userId)
+        public ServiceFactory(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService, Guid userId)
         {
             this.pluginExecutionContext = pluginExecutionContext;
-            this.organizationServiceFactory = organizationServiceFactory;
-            this.services.Add(typeof(InvalidPluginExecutionException), pluginExecutionContext);
-            this.services.Add(typeof(IOrganizationServiceFactory), organizationServiceFactory);
-            this.services.Add(typeof(ITracingService), traceService);
-            this.systemuserid = userId;
+            this.serviceCache = new Reflection.ServiceCache(pluginExecutionContext, organizationServiceFactory, traceService, userId);
         }
 
         public void Execute(Microsoft.Xrm.Sdk.IPlugin plugin)
@@ -37,7 +30,12 @@ namespace Kipon.Xrm.DI
             foreach (var method in methods)
             {
                 var objs = new object[method.Parameters == null ? 0 : method.Parameters.Length];
-#warning impl. resolve of each parameter to an object instance before invoking methods
+
+                var ix = 0;
+                foreach (var type in method.Parameters)
+                {
+                    objs[ix] = serviceCache.Resolve(type);
+                }
 
                 method.Invoke(plugin, objs);
 

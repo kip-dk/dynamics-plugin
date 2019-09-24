@@ -172,6 +172,7 @@ namespace Kipon.Dynamics.Plugin.DI
             }
 
             var full = new Entity();
+            full.Id = entity.Id;
             full.LogicalName = entity.LogicalName;
 
             if (PluginExecutionContext.PreEntityImages.ContainsKey("preimage"))

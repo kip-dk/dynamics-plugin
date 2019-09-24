@@ -128,6 +128,8 @@ namespace Kipon.Solid.SvcFilter
         void ICustomizeCodeDomService.CustomizeCodeDom(CodeCompileUnit codeUnit, IServiceProvider services)
         {
             var ns = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/namespace:") select c.Split(':')[1]).Single();
+            var xrmNS = "Kipon.Xrm";
+
             var ctxName = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/ServiceContextName") select c.Split(':')[1]).Single();
 
             var entities = CodeWriterFilter.ENTITIES;
@@ -142,52 +144,63 @@ namespace Kipon.Solid.SvcFilter
                 writer.WriteLine("namespace " + ns);
                 /* NS */ writer.WriteLine("{");
 
+
+                #region unitOfWork work print methods
+                void printConstructor(string name)
+                {
+                    writer.WriteLine($"\t\tprivate {ctxName} context;");
+                    writer.WriteLine("\t\tprivate IOrganizationService _service;");
+
+                    /*    */ writer.WriteLine($"\t\tpublic {name}(IOrganizationService orgService)");
+                    /* CO */ writer.WriteLine("\t\t{");
+                    /*    */ writer.WriteLine($"\t\t\tthis._service = orgService;");
+                    /*    */ writer.WriteLine($"\t\t\tthis.context = new {ctxName}(_service);");
+                    /* CO */ writer.WriteLine("\t\t}");
+                }
+
+                void printGenericAndRepositories()
+                {
+                    writer.WriteLine("");
+                    writer.WriteLine(CRM_UNIT_OF_WORK_GENERIC);
+                    writer.WriteLine("");
+
+                    foreach (var logicalname in entities.Keys)
+                    {
+                        var uowname = entities[logicalname];
+                        writer.WriteLine($"\t\tprivate {xrmNS}.IRepository<" + logicalname + "> _" + uowname.ToLower() + "; ");
+                        writer.WriteLine($"\t\tpublic {xrmNS}.IRepository<" + logicalname + "> " + uowname);
+                        /* R1 */ writer.WriteLine("\t\t{");
+                        /*    */ writer.WriteLine("\t\t\tget");
+                        /* R2 */ writer.WriteLine("\t\t\t{");
+                        /*    */ writer.WriteLine("\t\t\t\tif (_" + uowname.ToLower() + " == null)");
+                        /* R3 */ writer.WriteLine("\t\t\t\t\t{");
+                        /*    */ writer.WriteLine("\t\t\t\t\t\t_" + uowname.ToLower() + " = new CrmRepository<" + logicalname + ">(this.context);");
+                        /* R3 */ writer.WriteLine("\t\t\t\t\t}");
+                        /*    */ writer.WriteLine("\t\t\t\treturn _" + uowname.ToLower() + ";");
+                        /* R2 */ writer.WriteLine("\t\t\t}");
+                        /* R1 */ writer.WriteLine("\t\t}");
+                    }
+                }
+                #endregion
+
                 #region generate crmunitofwork
                 writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(IUnitOfWork))]");
                 writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IUnitOfWork))]");
-                writer.WriteLine("\tpublic partial class CrmUnitOfWork: IUnitOfWork, IDisposable");
+                writer.WriteLine("\tpublic sealed partial class CrmUnitOfWork: IUnitOfWork, IDisposable");
                 /* UOW */ writer.WriteLine("\t{");
-
-                writer.WriteLine($"\t\tprivate {ctxName} context;");
-                writer.WriteLine("\t\tprivate IOrganizationService _service;");
-
-                /*    */ writer.WriteLine($"\t\tpublic CrmUnitOfWork(IOrganizationService orgService)");
-                /* CO */ writer.WriteLine("\t\t{");
-                /*    */ writer.WriteLine($"\t\t\tthis._service = orgService;");
-                /*    */ writer.WriteLine($"\t\t\tthis.context = new {ctxName}(_service);");
-                /* CO */ writer.WriteLine("\t\t}");
-
-                writer.WriteLine("");
-                writer.WriteLine(CRM_UNIT_OF_WORK_GENERIC);
-                writer.WriteLine("");
-
-                var xrmNS = "Kipon.Xrm";
-
-                foreach (var logicalname in entities.Keys)
-                {
-                    var uowname = entities[logicalname];
-                    writer.WriteLine($"\t\tprivate {xrmNS}.IRepository<" + logicalname + "> _" + uowname.ToLower() + "; ");
-                    writer.WriteLine($"\t\tpublic {xrmNS}.IRepository<" + logicalname + "> " + uowname);
-                    /* R1 */ writer.WriteLine("\t\t{");
-                    /*    */ writer.WriteLine("\t\t\tget");
-                    /* R2 */ writer.WriteLine("\t\t\t{");
-                    /*    */ writer.WriteLine("\t\t\t\tif (_" + uowname.ToLower() + " == null)");
-                    /* R3 */ writer.WriteLine("\t\t\t\t\t{");
-                    /*    */ writer.WriteLine("\t\t\t\t\t\t_" + uowname.ToLower() + " = new CrmRepository<" + logicalname + ">(this.context);");
-                    /* R3 */ writer.WriteLine("\t\t\t\t\t}");
-                    /*    */ writer.WriteLine("\t\t\t\treturn _" + uowname.ToLower() + ";");
-                    /* R2 */ writer.WriteLine("\t\t\t}");
-                    /* R1 */ writer.WriteLine("\t\t}");
-                }
+                printConstructor("CrmUnitOfWork");
+                printGenericAndRepositories();
                 /* UOW */ writer.WriteLine("\t}");
                 #endregion
 
                 #region generate admin unit of work
                 writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(IAdminUnitOfWork))]");
                 writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IAdminUnitOfWork))]");
-                writer.WriteLine("\tpublic partial class AdminCrmUnitOfWork : CrmUnitOfWork, Kipon.Xrm.IAdminUnitOfWork");
-                writer.WriteLine("\t{");
-                writer.WriteLine("\t\tpublic AdminCrmUnitOfWork(Microsoft.Xrm.Sdk.IOrganizationService org) : base(org) { }");
+                writer.WriteLine("\tpublic sealed partial class AdminCrmUnitOfWork : IAdminUnitOfWork, IDisposable");
+                /* UOW */ writer.WriteLine("\t{");
+                printConstructor("AdminCrmUnitOfWork");
+                printGenericAndRepositories();
+                /* UOW */
                 writer.WriteLine("\t}");
 
                 #endregion

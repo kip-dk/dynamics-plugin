@@ -30,6 +30,12 @@ namespace Kipon.Xrm.DI.Reflection
                 return resolvedTypes[ck];
             }
 
+            if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
+            {
+                resolvedTypes[type] = new TypeCache { FromType = type };
+                return resolvedTypes[type];
+            }
+
             #region not an abstract, and not an interface, the type can be used directly, see if the name indicates that it is target, preimage, mergedimage or postimage
             if (!type.IsInterface && !type.IsAbstract)
             {
@@ -319,6 +325,26 @@ namespace Kipon.Xrm.DI.Reflection
             get
             {
                 return IsTarget || IsReference || IsPreimage || IsPostimage || IsMergedimage;
+            }
+        }
+
+        private string _ik;
+        public string ObjectInstanceKey
+        {
+            get
+            {
+                if (_ik == null)
+                {
+                    if (this.IsTarget) this._ik = "target:" + this.ToType.FullName;
+                    else if (this.IsPreimage) this._ik = "preimage:" + this.ToType.FullName;
+                    else if (this.IsMergedimage) this._ik = "mergedimage:" + this.ToType.FullName;
+                    else if (this.IsPostimage) this._ik = "postimage:" + this.ToType.FullName;
+                    else if (this.IsReference) this._ik = "ref:" + this.ToType.FullName;
+                    else if (this.ToType.Implements(typeof(Kipon.Xrm.IAdminUnitOfWork))) this._ik = typeof(Kipon.Xrm.IAdminUnitOfWork).FullName;
+                    else if (this.ToType.Implements(typeof(Kipon.Xrm.IUnitOfWork))) this._ik = typeof(Kipon.Xrm.IUnitOfWork).FullName;
+                    else this._ik = this.FromType.FullName;
+                }
+                return _ik;
             }
         }
         #endregion

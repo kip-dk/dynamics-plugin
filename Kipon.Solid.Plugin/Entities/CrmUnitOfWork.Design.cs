@@ -8,7 +8,7 @@ namespace Kipon.Solid.Plugin.Entities
 {
 	[Kipon.Xrm.Attributes.Export(typeof(IUnitOfWork))]
 	[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IUnitOfWork))]
-	public partial class CrmUnitOfWork: IUnitOfWork, IDisposable
+	public sealed partial class CrmUnitOfWork: IUnitOfWork, IDisposable
 	{
 		private SolidContextService context;
 		private IOrganizationService _service;
@@ -149,9 +149,144 @@ namespace Kipon.Solid.Plugin.Entities
 	}
 	[Kipon.Xrm.Attributes.Export(typeof(IAdminUnitOfWork))]
 	[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IAdminUnitOfWork))]
-	public partial class AdminCrmUnitOfWork : CrmUnitOfWork, Kipon.Xrm.IAdminUnitOfWork
+	public sealed partial class AdminCrmUnitOfWork : IAdminUnitOfWork, IDisposable
 	{
-		public AdminCrmUnitOfWork(Microsoft.Xrm.Sdk.IOrganizationService org) : base(org) { }
+		private SolidContextService context;
+		private IOrganizationService _service;
+		public AdminCrmUnitOfWork(IOrganizationService orgService)
+		{
+			this._service = orgService;
+			this.context = new SolidContextService(_service);
+		}
+
+        public void Dispose()
+        {
+            context.Dispose();
+        }
+
+        public R ExecuteRequest<R>(OrganizationRequest request) where R : OrganizationResponse
+        {
+            return (R)this.context.Execute(request);
+        }
+
+        public OrganizationResponse Execute(OrganizationRequest request)
+        {
+            return this.context.Execute(request);
+        }
+
+
+        public Guid Create(Entity entity)
+        {
+            return this._service.Create(entity);
+        }
+
+        public void Update(Entity entity)
+        {
+            this._service.Update(entity);
+        }
+
+        public void Delete(Entity entity)
+        {
+            this._service.Delete(entity.LogicalName, entity.Id);
+        }
+        public void ClearChanges()
+        {
+            this.context.ClearChanges();
+        }
+
+        public void Detach(string logicalName, Guid? id)
+        {
+            if (this.context != null)
+            {
+                var candidates = (from c in this.context.GetAttachedEntities() where c.LogicalName == logicalName select c);
+                if (id != null)
+                {
+                    candidates = (from c in candidates where c.Id == id.Value select c);
+                }
+                foreach (var r in candidates.ToArray())
+                {
+                    context.Detach(r);
+                }
+            }
+        }
+
+        public void SaveChanges() 
+        {
+            this.context.SaveChanges();
+        }
+
+		private Kipon.Xrm.IRepository<Account> _accounts; 
+		public Kipon.Xrm.IRepository<Account> Accounts
+		{
+			get
+			{
+				if (_accounts == null)
+					{
+						_accounts = new CrmRepository<Account>(this.context);
+					}
+				return _accounts;
+			}
+		}
+		private Kipon.Xrm.IRepository<Contact> _contacts; 
+		public Kipon.Xrm.IRepository<Contact> Contacts
+		{
+			get
+			{
+				if (_contacts == null)
+					{
+						_contacts = new CrmRepository<Contact>(this.context);
+					}
+				return _contacts;
+			}
+		}
+		private Kipon.Xrm.IRepository<Opportunity> _opportunities; 
+		public Kipon.Xrm.IRepository<Opportunity> Opportunities
+		{
+			get
+			{
+				if (_opportunities == null)
+					{
+						_opportunities = new CrmRepository<Opportunity>(this.context);
+					}
+				return _opportunities;
+			}
+		}
+		private Kipon.Xrm.IRepository<SalesOrder> _salesorders; 
+		public Kipon.Xrm.IRepository<SalesOrder> Salesorders
+		{
+			get
+			{
+				if (_salesorders == null)
+					{
+						_salesorders = new CrmRepository<SalesOrder>(this.context);
+					}
+				return _salesorders;
+			}
+		}
+		private Kipon.Xrm.IRepository<Quote> _quotes; 
+		public Kipon.Xrm.IRepository<Quote> Quotes
+		{
+			get
+			{
+				if (_quotes == null)
+					{
+						_quotes = new CrmRepository<Quote>(this.context);
+					}
+				return _quotes;
+			}
+		}
+		private Kipon.Xrm.IRepository<SystemUser> _systemusers; 
+		public Kipon.Xrm.IRepository<SystemUser> Systemusers
+		{
+			get
+			{
+				if (_systemusers == null)
+					{
+						_systemusers = new CrmRepository<SystemUser>(this.context);
+					}
+				return _systemusers;
+			}
+		}
 	}
 	public partial interface IAccountTarget : Kipon.Xrm.Target<Account>{ }
 	public partial interface IAccountPreimage : Kipon.Xrm.Preimage<Account>{ }
