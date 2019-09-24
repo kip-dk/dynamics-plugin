@@ -32,7 +32,25 @@ namespace Kipon.Xrm.DI.Reflection
 
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
             {
-                resolvedTypes[type] = new TypeCache { FromType = type };
+                resolvedTypes[type] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[type];
+            }
+
+            if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationServiceFactory))
+            {
+                resolvedTypes[type] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[type];
+            }
+
+            if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IPluginExecutionContext))
+            {
+                resolvedTypes[type] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[type];
+            }
+
+            if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.ITracingService))
+            {
+                resolvedTypes[type] = new TypeCache { FromType = type, ToType = type };
                 return resolvedTypes[type];
             }
 
@@ -317,6 +335,7 @@ namespace Kipon.Xrm.DI.Reflection
         public bool IsPostimage { get; private set; }
         public string LogicalName { get; private set; }
 
+        public bool RequireAdminService { get; private set; }
         public bool AllProperties { get; private set; }
         public CommonPropertyCache[] FilteredProperties { get; private set; }
 
@@ -340,8 +359,13 @@ namespace Kipon.Xrm.DI.Reflection
                     else if (this.IsMergedimage) this._ik = "mergedimage:" + this.ToType.FullName;
                     else if (this.IsPostimage) this._ik = "postimage:" + this.ToType.FullName;
                     else if (this.IsReference) this._ik = "ref:" + this.ToType.FullName;
-                    else if (this.ToType.Implements(typeof(Kipon.Xrm.IAdminUnitOfWork))) this._ik = typeof(Kipon.Xrm.IAdminUnitOfWork).FullName;
-                    else if (this.ToType.Implements(typeof(Kipon.Xrm.IUnitOfWork))) this._ik = typeof(Kipon.Xrm.IUnitOfWork).FullName;
+                    else if (this.FromType.Implements(typeof(Kipon.Xrm.IAdminUnitOfWork)))
+                    {
+                        this._ik = typeof(Kipon.Xrm.IAdminUnitOfWork).FullName;
+                        this.RequireAdminService = true;
+                    }
+                    else if (this.FromType.Implements(typeof(Kipon.Xrm.IUnitOfWork))) this._ik = typeof(Kipon.Xrm.IUnitOfWork).FullName;
+                    else if (this.ToType != null) this._ik = this.ToType.FullName;
                     else this._ik = this.FromType.FullName;
                 }
                 return _ik;
