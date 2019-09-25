@@ -79,7 +79,7 @@ namespace Kipon.Xrm.DI.Reflection
                         throw new Exceptions.MultipleLogicalNamesException(type, method);
                     }
 
-                    if (next.HasTargetPreOrPost())
+                    if (next.HasTargetPreOrPost() || next.HasTargetReference())
                     {
                         var logicalNamesAttrs = method.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.LogicalNameAttribute), false).ToArray();
                         foreach (Kipon.Xrm.Attributes.LogicalNameAttribute attr in logicalNamesAttrs)
@@ -148,6 +148,22 @@ namespace Kipon.Xrm.DI.Reflection
             if (result.HasTarget() && message == Kipon.Xrm.Attributes.StepAttribute.MessageEnum.Delete.ToString())
             {
                 throw new Exceptions.UnavailableImageException(type, method, "Target", stage, message);
+            }
+
+            if (result.HasTargetReference())
+            {
+                var inError = true;
+                if (message == Kipon.Xrm.Attributes.StepAttribute.MessageEnum.Delete.ToString())
+                {
+                    inError = false;
+                }
+
+                // ADD other conditions where target is relevant, ex associate
+
+                if (inError)
+                {
+                    throw new Exceptions.UnavailableImageException(type, method, "Target", stage, message);
+                }
             }
             #endregion
 
@@ -247,6 +263,11 @@ namespace Kipon.Xrm.DI.Reflection
         public bool HasTargetPreOrPost()
         {
             return this.Parameters != null && this.Parameters.Where(r => r.IsTarget || r.IsPreimage || r.IsMergedimage || r.IsPostimage).Any();
+        }
+
+        public bool HasTargetReference()
+        {
+            return this.Parameters != null && this.Parameters.Where(r => r.IsReference).Any();
         }
     }
 

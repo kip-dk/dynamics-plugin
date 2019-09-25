@@ -62,6 +62,23 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
         }
 
 
+        [TestMethod]
+        public void WrongTargetTypeTest()
+        {
+            // TO DO -- below will throw unavailableimage by design ... test that it works
+            //var methods = Kipon.Xrm.DI.Reflection.PluginMethodCache.ForPlugin(typeof(WrongTargetPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
+        }
+
+
+        public class WrongTargetPlugin
+        {
+            [Sort(10)]
+            public void OnPreCreate(Entities.AccountReference account)
+            {
+            }
+        }
+
+
         public class FilteredAttributePlugin
         {
             [Sort(10)]

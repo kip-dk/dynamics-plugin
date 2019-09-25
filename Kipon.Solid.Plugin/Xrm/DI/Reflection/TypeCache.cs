@@ -100,15 +100,16 @@ namespace Kipon.Xrm.DI.Reflection
                     var isReference = false;
 
                     #region see if we can resolve parameter to the target as en entity reference
-                    if (!isEntity && type.Inheriting(typeof(Kipon.Xrm.TargetReference<>)))
+                    if (!isEntity && type.ExtendsGenericClassOf(typeof(Kipon.Xrm.TargetReference<>)))
                     {
                         isReference = true;
                         result.IsTarget = true;
                         result.IsReference = true;
-                        result.ToType = type.GetGenericArguments()[0];
+                        result.ToType = type.BaseType.GetGenericArguments()[0];
 
-                        var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(resolvedTypes[type].ToType);
+                        var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
                         result.LogicalName = entity.LogicalName;
+                        result.Constructor = type.GetConstructor(new Type[] { typeof(Microsoft.Xrm.Sdk.EntityReference) });
                     }
 
                     if (!isEntity  && !isReference && type == typeof(Microsoft.Xrm.Sdk.EntityReference))
@@ -119,6 +120,7 @@ namespace Kipon.Xrm.DI.Reflection
                             result.IsTarget = true;
                             result.IsReference = true;
                             result.ToType = type;
+                            result.Constructor = null;
                         }
                     }
                     #endregion
@@ -384,6 +386,11 @@ namespace Kipon.Xrm.DI.Reflection
                 return true;
             }
 
+            if (value.IsSubclassOf(other))
+            {
+                return true;
+            }
+
             if (value.BaseType != null)
             {
                 return value.BaseType.Inheriting(other);
@@ -414,6 +421,21 @@ namespace Kipon.Xrm.DI.Reflection
             }
 
             return null;
+        }
+
+
+        public static bool ExtendsGenericClassOf(this Type toCheck, Type generic)
+        {
+            while (toCheck != null && toCheck != typeof(object))
+            {
+                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
+                if (generic == cur)
+                {
+                    return true;
+                }
+                toCheck = toCheck.BaseType;
+            }
+            return false;
         }
 
         public static bool MatchPattern(this System.Reflection.ParameterInfo parameter, Type customAttribute, string attributeName)

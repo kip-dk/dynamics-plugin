@@ -48,8 +48,6 @@ namespace Kipon.Xrm.Attributes
             Delete,
             Associate,
             Disassociate,
-            SetState,
-            SetStateDynamicEntity,
             RetrieveMultiple,
             Retrieve,
             Other,

@@ -78,15 +78,24 @@ namespace Kipon.Xrm.DI.Reflection
                 return services[type.ObjectInstanceKey];
             }
 
+            if (type.IsReference)
+            {
+                var target = (Microsoft.Xrm.Sdk.EntityReference)pluginExecutionContext.InputParameters["Target"];
+                if (type.Constructor != null)
+                {
+                    services[type.ObjectInstanceKey] = type.Constructor.Invoke(new object[] { target });
+                } else
+                {
+                    services[type.ObjectInstanceKey] = target;
+                }
+                return services[type.ObjectInstanceKey];
+            }
+
             if (type.FromType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
             {
                 services[type.ObjectInstanceKey] = this.organizationServiceFactory.CreateOrganizationService(this.systemuserid);
                 return services[type.ObjectInstanceKey];
             }
-            // TO DO - resolved ref
-#warning ref not impl.
-
-
 
             return this.CreateServiceInstance(type);
         }
