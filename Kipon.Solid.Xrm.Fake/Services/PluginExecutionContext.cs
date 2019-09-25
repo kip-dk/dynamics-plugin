@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 
-namespace Kipon.Solid.Plugin.UnitTests.Xrm.Fake
+namespace Kipon.Xrm.Fake.Services
 {
     public class PluginExecutionContext : Microsoft.Xrm.Sdk.IPluginExecutionContext
     {

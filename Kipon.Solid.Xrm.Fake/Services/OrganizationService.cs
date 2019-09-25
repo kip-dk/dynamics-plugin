@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 
-namespace Kipon.Solid.Plugin.UnitTests.Xrm.Fake
+namespace Kipon.Xrm.Fake.Services
 {
     public class OrganizationService : Microsoft.Xrm.Sdk.IOrganizationService
     {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kipon.Xrm.Fake.Services;
 
 namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
 {
@@ -12,8 +13,8 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
     public class ServiceCacheTest
     {
 
-        private Fake.OrganizationServiceFactory organizationServiceFactory = new Fake.OrganizationServiceFactory();
-        private Fake.TracingService traceService = new Fake.TracingService();
+        private OrganizationServiceFactory organizationServiceFactory = new OrganizationServiceFactory();
+        private TracingService traceService = new TracingService();
 
         [TestMethod]
         public void ForTypeTest()
@@ -21,7 +22,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
             var method = typeof(TestPlugin).GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)[0];
             var account = new Entities.Account { AccountId = Guid.NewGuid() };
 
-            var context = Fake.PluginExecutionContext.ForMethodWithTarget(method, account);
+            var context = PluginExecutionContext.ForMethodWithTarget(method, account);
             var serviceCache = new Kipon.Xrm.DI.Reflection.ServiceCache(context, organizationServiceFactory, traceService);
 
             var methodCache = Kipon.Xrm.DI.Reflection.PluginMethodCache.ForPlugin(typeof(TestPlugin), 20, "Update", Entities.Account.EntityLogicalName, false);
@@ -29,9 +30,9 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
             var p1 = serviceCache.Resolve(methodCache[0].Parameters[0]);
             Assert.AreEqual(p1, account);
 
-            var p2 = serviceCache.Resolve(methodCache[0].Parameters[1]) as Fake.OrganizationService;
-            Assert.IsInstanceOfType(p2, typeof(Fake.OrganizationService));
-            Assert.AreEqual(Fake.PluginExecutionContext.USERID, p2.UserId.Value);
+            var p2 = serviceCache.Resolve(methodCache[0].Parameters[1]) as OrganizationService;
+            Assert.IsInstanceOfType(p2, typeof(OrganizationService));
+            Assert.AreEqual(PluginExecutionContext.USERID, p2.UserId.Value);
 
             var p3 = serviceCache.Resolve(methodCache[0].Parameters[2]) as Kipon.Solid.Plugin.Entities.AdminCrmUnitOfWork;
             Assert.IsNotNull(p3);

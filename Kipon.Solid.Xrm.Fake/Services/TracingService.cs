@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.UnitTests.Xrm.Fake
+namespace Kipon.Xrm.Fake.Services
 {
     public class TracingService : Microsoft.Xrm.Sdk.ITracingService
     {
