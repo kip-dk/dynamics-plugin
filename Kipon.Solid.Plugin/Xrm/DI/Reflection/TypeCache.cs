@@ -11,47 +11,41 @@
     /// </summary>
     public class TypeCache
     {
-        private static Dictionary<object, TypeCache> resolvedTypes = new Dictionary<object, TypeCache>();
+        private static Dictionary<System.Reflection.ParameterInfo, TypeCache> resolvedTypes = new Dictionary<System.Reflection.ParameterInfo, TypeCache>();
 
         public static TypeCache ForParameter(System.Reflection.ParameterInfo parameter)
         {
             var type = parameter.ParameterType;
 
-            if (resolvedTypes.ContainsKey(type))
+            if (resolvedTypes.ContainsKey(parameter))
             {
-                return resolvedTypes[type];
-            }
-
-            CombinedKey ck = new CombinedKey { Type = type, ParameterInfo = parameter };
-            if (resolvedTypes.ContainsKey(ck))
-            {
-                return resolvedTypes[ck];
+                return resolvedTypes[parameter];
             }
 
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
             {
-                resolvedTypes[type] = new TypeCache { FromType = type, ToType = type };
+                resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
 
-                resolvedTypes[type].RequireAdminService = parameter.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.AdminAttribute), false).Any();
-                return resolvedTypes[type];
+                resolvedTypes[parameter].RequireAdminService = parameter.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.AdminAttribute), false).Any();
+                return resolvedTypes[parameter];
             }
 
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationServiceFactory))
             {
-                resolvedTypes[type] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[type];
+                resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[parameter];
             }
 
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IPluginExecutionContext))
             {
-                resolvedTypes[type] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[type];
+                resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[parameter];
             }
 
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.ITracingService))
             {
-                resolvedTypes[type] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[type];
+                resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[parameter];
             }
 
             #region not an abstract, and not an interface, the type can be used directly, see if the name indicates that it is target, preimage, mergedimage or postimage
@@ -128,10 +122,10 @@
                     if (!isEntity && !isReference)
                     {
                         result.Constructor = GetConstructor(type);
-                        resolvedTypes[type] = result;
+                        resolvedTypes[parameter] = result;
                     } else
                     {
-                        resolvedTypes[ck] = result;
+                        resolvedTypes[parameter] = result;
                     }
                     return result;
                 }
@@ -151,7 +145,7 @@
 
                     if (ReturnIfOk(type, result))
                     {
-                        resolvedTypes[ck] = result;
+                        resolvedTypes[parameter] = result;
                         return result;
                     }
                 }
@@ -165,8 +159,8 @@
                     result.ResolveProperties();
                     if (ReturnIfOk(type, result))
                     {
-                        resolvedTypes[ck] = result;
-                        return resolvedTypes[ck];
+                        resolvedTypes[parameter] = result;
+                        return resolvedTypes[parameter];
                     }
                 }
 
@@ -179,8 +173,8 @@
                     result.ResolveProperties();
                     if (ReturnIfOk(type, result))
                     {
-                        resolvedTypes[ck] = result;
-                        return resolvedTypes[ck];
+                        resolvedTypes[parameter] = result;
+                        return resolvedTypes[parameter];
                     }
                 }
 
@@ -193,7 +187,7 @@
                     result.ResolveProperties();
                     if (ReturnIfOk(type, result))
                     {
-                        resolvedTypes[ck] = result;
+                        resolvedTypes[parameter] = result;
                         return result;
                     }
                 }
@@ -206,7 +200,7 @@
                 var r1 = GetInterfaceImplementation(type);
                 var result = new TypeCache { FromType = type, ToType = r1, Constructor = GetConstructor(r1) };
 
-                resolvedTypes[result.FromType] = result;
+                resolvedTypes[parameter] = result;
                 return result;
 
             }
@@ -461,27 +455,6 @@
             }
 
             return !string.IsNullOrEmpty(attributeName) && parameter.Name.ToLower().Equals(attributeName.ToLower());
-        }
-    }
-
-    internal class CombinedKey
-    {
-        internal Type Type { get; set; }
-        internal System.Reflection.ParameterInfo ParameterInfo { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            var other = obj as CombinedKey;
-            if (other != null)
-            {
-                return this.Type == other.Type && this.ParameterInfo == other.ParameterInfo;
-            }
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Type.GetHashCode() + this.ParameterInfo.GetHashCode();
         }
     }
 }
