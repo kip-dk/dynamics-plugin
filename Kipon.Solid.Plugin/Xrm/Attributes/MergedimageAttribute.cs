@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.Attributes
+﻿namespace Kipon.Xrm.Attributes
 {
+    using System;
     /// <summary>
     /// Use this attribute to state that the parameter should be populated with the MergedImage
     /// </summary>

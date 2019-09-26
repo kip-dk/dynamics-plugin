@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.Attributes
+﻿namespace Kipon.Xrm.Attributes
 {
+    using System;
     /// <summary>
     /// For steps supporting multi entity types, decorate the method with one ore mote logical names to be supported
     /// </summary>

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.Attributes
+﻿namespace Kipon.Xrm.Attributes
 {
+    using System;
     /// <summary>
     /// Use Export attribute as decoration for interfaces with multi implementation to state the one and only to be used.
     /// </summary>

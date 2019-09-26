@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.DI.Reflection
+﻿namespace Kipon.Xrm.DI.Reflection
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Type cache is used to resolved types for each parameter in a context. 
     /// If the parameter is related to images (target, pre, post etc.), the type will be cached on together with the parameter info, so each parameter has its own
@@ -33,6 +31,8 @@ namespace Kipon.Xrm.DI.Reflection
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
             {
                 resolvedTypes[type] = new TypeCache { FromType = type, ToType = type };
+
+                resolvedTypes[type].RequireAdminService = parameter.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.AdminAttribute), false).Any();
                 return resolvedTypes[type];
             }
 
@@ -365,6 +365,16 @@ namespace Kipon.Xrm.DI.Reflection
                     {
                         this._ik = typeof(Kipon.Xrm.IAdminUnitOfWork).FullName;
                         this.RequireAdminService = true;
+                    }
+                    else if (this.FromType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
+                    {
+                        if (this.RequireAdminService)
+                        {
+                            this._ik = this.FromType.FullName + ":admin";
+                        } else
+                        {
+                            this._ik = this.FromType.FullName;
+                        }
                     }
                     else if (this.FromType.Implements(typeof(Kipon.Xrm.IUnitOfWork))) this._ik = typeof(Kipon.Xrm.IUnitOfWork).FullName;
                     else if (this.ToType != null) this._ik = this.ToType.FullName;

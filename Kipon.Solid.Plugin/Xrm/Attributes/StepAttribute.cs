@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.Attributes
+﻿namespace Kipon.Xrm.Attributes
 {
+    using System;
     /// <summary>
     /// Use this method in plugins to state that the method should be called as a step.
     /// The recommended approach is using naming conventions, but if for some reason this cannot be used, add the attribute to the method.

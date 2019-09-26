@@ -292,7 +292,7 @@ namespace Kipon.Solid.Plugin.Entities
 	public partial interface IAccountPreimage : Kipon.Xrm.Preimage<Account>{ }
 	public partial interface IAccountPostimage : Kipon.Xrm.Postimage<Account>{ }
 	public partial interface IAccountMergedimage : Kipon.Xrm.Mergedimage<Account>{ }
-	public partial class Account :
+	public sealed partial class Account :
 		IAccountTarget,
 		IAccountPreimage,
 		IAccountPostimage,
@@ -303,7 +303,7 @@ namespace Kipon.Solid.Plugin.Entities
 	public partial interface IContactPreimage : Kipon.Xrm.Preimage<Contact>{ }
 	public partial interface IContactPostimage : Kipon.Xrm.Postimage<Contact>{ }
 	public partial interface IContactMergedimage : Kipon.Xrm.Mergedimage<Contact>{ }
-	public partial class Contact :
+	public sealed partial class Contact :
 		IContactTarget,
 		IContactPreimage,
 		IContactPostimage,
@@ -314,7 +314,7 @@ namespace Kipon.Solid.Plugin.Entities
 	public partial interface IOpportunityPreimage : Kipon.Xrm.Preimage<Opportunity>{ }
 	public partial interface IOpportunityPostimage : Kipon.Xrm.Postimage<Opportunity>{ }
 	public partial interface IOpportunityMergedimage : Kipon.Xrm.Mergedimage<Opportunity>{ }
-	public partial class Opportunity :
+	public sealed partial class Opportunity :
 		IOpportunityTarget,
 		IOpportunityPreimage,
 		IOpportunityPostimage,
@@ -325,7 +325,7 @@ namespace Kipon.Solid.Plugin.Entities
 	public partial interface ISalesOrderPreimage : Kipon.Xrm.Preimage<SalesOrder>{ }
 	public partial interface ISalesOrderPostimage : Kipon.Xrm.Postimage<SalesOrder>{ }
 	public partial interface ISalesOrderMergedimage : Kipon.Xrm.Mergedimage<SalesOrder>{ }
-	public partial class SalesOrder :
+	public sealed partial class SalesOrder :
 		ISalesOrderTarget,
 		ISalesOrderPreimage,
 		ISalesOrderPostimage,
@@ -336,7 +336,7 @@ namespace Kipon.Solid.Plugin.Entities
 	public partial interface IQuotePreimage : Kipon.Xrm.Preimage<Quote>{ }
 	public partial interface IQuotePostimage : Kipon.Xrm.Postimage<Quote>{ }
 	public partial interface IQuoteMergedimage : Kipon.Xrm.Mergedimage<Quote>{ }
-	public partial class Quote :
+	public sealed partial class Quote :
 		IQuoteTarget,
 		IQuotePreimage,
 		IQuotePostimage,
@@ -347,7 +347,7 @@ namespace Kipon.Solid.Plugin.Entities
 	public partial interface ISystemUserPreimage : Kipon.Xrm.Preimage<SystemUser>{ }
 	public partial interface ISystemUserPostimage : Kipon.Xrm.Postimage<SystemUser>{ }
 	public partial interface ISystemUserMergedimage : Kipon.Xrm.Mergedimage<SystemUser>{ }
-	public partial class SystemUser :
+	public sealed partial class SystemUser :
 		ISystemUserTarget,
 		ISystemUserPreimage,
 		ISystemUserPostimage,

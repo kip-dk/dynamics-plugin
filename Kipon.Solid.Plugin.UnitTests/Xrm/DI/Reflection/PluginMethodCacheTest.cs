@@ -69,6 +69,14 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
             //var methods = Kipon.Xrm.DI.Reflection.PluginMethodCache.ForPlugin(typeof(WrongTargetPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
         }
 
+        [TestMethod]
+        public void OrganizationServiceResolveTest()
+        {
+            var methods = Kipon.Xrm.DI.Reflection.PluginMethodCache.ForPlugin(typeof(BothOrgService), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
+
+            Assert.IsTrue(methods[0].Parameters[1].RequireAdminService);
+            Assert.IsFalse(methods[0].Parameters[2].RequireAdminService);
+        }
 
         public class WrongTargetPlugin
         {
@@ -78,6 +86,16 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
             }
         }
 
+
+        public class BothOrgService
+        {
+            public void OnPreCreate(
+                Entities.IAccountTarget account, 
+                [Kipon.Xrm.Attributes.Admin]Microsoft.Xrm.Sdk.IOrganizationService adminOrgService,
+                Microsoft.Xrm.Sdk.IOrganizationService orgService)
+            {
+            }
+        }
 
         public class FilteredAttributePlugin
         {

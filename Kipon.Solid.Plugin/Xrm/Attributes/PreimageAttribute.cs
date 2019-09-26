@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Kipon.Xrm.Attributes
 {
+    using System;
     /// <summary>
     /// Use the attribute to state the the parameter should be populated with the preimage
     /// </summary>

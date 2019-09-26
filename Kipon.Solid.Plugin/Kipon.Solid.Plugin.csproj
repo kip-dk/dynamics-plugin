@@ -65,6 +65,7 @@
     <Compile Include="Entities\AdminCrmUnitOfWork.cs" />
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
+    <Compile Include="Xrm\Attributes\AdminAttribute.cs" />
     <Compile Include="Xrm\Attributes\ExportAttribute.cs" />
     <Compile Include="Xrm\Attributes\ImportingConstructorAttribute.cs" />
     <Compile Include="Xrm\Attributes\LogicalNameAttribute.cs" />

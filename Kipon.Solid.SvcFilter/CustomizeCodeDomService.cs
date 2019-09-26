@@ -213,7 +213,7 @@ namespace Kipon.Solid.SvcFilter
                     writer.WriteLine($"\tpublic partial interface I{logicalname}Postimage : {xrmNS}.Postimage<{logicalname}>" + "{ }");
                     writer.WriteLine($"\tpublic partial interface I{logicalname}Mergedimage : {xrmNS}.Mergedimage<{logicalname}>" + "{ }");
 
-                    writer.WriteLine($"\tpublic partial class {logicalname} :");
+                    writer.WriteLine($"\tpublic sealed partial class {logicalname} :");
                     writer.WriteLine($"\t\tI{logicalname}Target,");
                     writer.WriteLine($"\t\tI{logicalname}Preimage,");
                     writer.WriteLine($"\t\tI{logicalname}Postimage,");

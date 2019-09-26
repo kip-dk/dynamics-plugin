@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.Attributes
+﻿namespace Kipon.Xrm.Attributes
 {
+    using System;
     /// <summary>
     /// Use the parameter on plugin methods to indicate order of execution for methods triggered by the same event
     /// The lowest value for a plugin will be used as the deployment value as well.
