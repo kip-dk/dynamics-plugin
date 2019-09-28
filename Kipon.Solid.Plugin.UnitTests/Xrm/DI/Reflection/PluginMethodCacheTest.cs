@@ -78,6 +78,44 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
             Assert.IsFalse(methods[0].Parameters[2].RequireAdminService);
         }
 
+        [TestMethod]
+        public void IsTargetRelevantTest()
+        {
+            var methods = Kipon.Xrm.DI.Reflection.PluginMethodCache.ForPlugin(typeof(RelevantAttributePLugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
+
+            var target = new Entities.Account { AccountId = Guid.NewGuid(), CreditLimit = new Microsoft.Xrm.Sdk.Money(10M) };
+
+            Assert.IsFalse(methods[0].IsRelevant(target));
+            Assert.IsTrue(methods[1].IsRelevant(target));
+            Assert.IsTrue(methods[2].IsRelevant(target));
+
+            target = new Entities.Account { AccountId = Guid.NewGuid(), Name = null };
+
+            Assert.IsTrue(methods[0].IsRelevant(target));
+            Assert.IsFalse(methods[1].IsRelevant(target));
+            Assert.IsTrue(methods[2].IsRelevant(target));
+
+        }
+
+
+        public class RelevantAttributePLugin
+        {
+            [Sort(10)]
+            public void OnPreUpdate(Entities.IAccountNameChanged nameChanged)
+            {
+            }
+
+            [Sort(20)]
+            public void OnPreUpdate(Entities.ICreditLimitChanged creditLimitChanged)
+            {
+            }
+
+            [Sort(30)]
+            public void OnPreUpdate(Entities.ICreditLimitChanged cl, Entities.IAccountNameChanged nc)
+            {
+            }
+        }
+
         public class WrongTargetPlugin
         {
             [Sort(10)]
@@ -100,12 +138,12 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
         public class FilteredAttributePlugin
         {
             [Sort(10)]
-            public void OnPreUpdate(Entities.IOpenRevenueChanged ac)
+            public void OnPreUpdate(Entities.ICreditLimitChanged ac)
             {
             }
 
             [Sort(20)]
-            public void OnPreUpdate(Entities.IOpenRevenueChanged ac, Entities.IAccountNameChanged nc)
+            public void OnPreUpdate(Entities.ICreditLimitChanged ac, Entities.IAccountNameChanged nc)
             {
             }
 

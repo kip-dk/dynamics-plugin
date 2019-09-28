@@ -25,7 +25,7 @@ namespace Kipon.Solid.Plugin.Plugins.Account
         }
 
         [Sort(101)]
-        public void OnPreUpdate(Entities.IOpenRevenueChanged target)
+        public void OnPreUpdate(Entities.ICreditLimitChanged target)
         {
             // do something when changes
         }

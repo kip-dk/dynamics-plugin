@@ -7,7 +7,7 @@ using Kipon.Xrm.Attributes;
 
 namespace Kipon.Solid.Plugin.Entities
 {
-    public partial class Account : IOpenRevenueChanged, IAccountNameChanged
+    public partial class Account : ICreditLimitChanged, IAccountNameChanged
     {
         public Microsoft.Xrm.Sdk.Money Saldo { get; set; }
     }
@@ -18,9 +18,9 @@ namespace Kipon.Solid.Plugin.Entities
         string Name { get; set; }
     }
 
-    public interface IOpenRevenueChanged : IAccountTarget
+    public interface ICreditLimitChanged : IAccountTarget
     {
-        Microsoft.Xrm.Sdk.Money OpenRevenue { get; }
+        Microsoft.Xrm.Sdk.Money CreditLimit { get; }
     }
 
     public interface IForgotToImplement : IAccountTarget

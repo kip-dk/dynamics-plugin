@@ -269,6 +269,26 @@ namespace Kipon.Xrm.DI.Reflection
         {
             return this.Parameters != null && this.Parameters.Where(r => r.IsReference).Any();
         }
+
+        public bool IsRelevant(Microsoft.Xrm.Sdk.Entity target)
+        {
+            if (this.FilterAllProperties)
+            {
+                return true;
+            }
+
+            if (this.FilteredProperties != null && this.FilteredProperties.Length > 0)
+            {
+                foreach (var f in this.FilteredProperties)
+                {
+                    if (target.Attributes.Keys.Contains(f.LogicalName))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 
     internal static class PluginMethodCacheLocalExtensions

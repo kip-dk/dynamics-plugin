@@ -35,7 +35,20 @@ namespace Kipon.Xrm
             var stage = context.Stage;
             var isAsync = context.Mode == 1;
 
-            // now reflect over my self, and for each matching method, perform validations, and if ok, execute the methods in correct order, parsing relevant arguments
+            var methods = DI.Reflection.PluginMethodCache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
+            foreach (var method in methods)
+            {
+                #region find out if method is relevant, looking a target fields
+                if (message == Attributes.StepAttribute.MessageEnum.Update.ToString() && !method.FilterAllProperties)
+                {
+                    var target = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
+                    if (!method.IsRelevant(target))
+                    {
+                        continue;
+                    }
+                }
+                #endregion
+            }
         }
         #endregion
     }
