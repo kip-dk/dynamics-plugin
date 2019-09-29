@@ -237,6 +237,19 @@
             }
         }
 
+        private bool? _hasRequredProperties = null;
+        public bool HasRequiredProperties
+        {
+            get
+            {
+                if (this._hasRequredProperties == null)
+                {
+                    this._hasRequredProperties = (from f in this.FilteredProperties where f.Required == true select f).Any();
+                }
+                return this._hasRequredProperties.Value;
+            }
+        }
+
         public bool HasPreimage()
         {
             return this.Parameters != null && (this.Parameters.Where(r => r.IsPreimage || r.IsMergedimage)).Any();

@@ -30,5 +30,14 @@
 
             return TO_ENT_GENS[ent.LogicalName].Invoke(ent, new object[0]) as T;
         }
+
+        public static object GetSafeValue(this Microsoft.Xrm.Sdk.Entity entity, string attribLogicalName)
+        {
+            if (!entity.Attributes.ContainsKey(attribLogicalName))
+            {
+                return null;
+            }
+            return entity[attribLogicalName];
+        }
     }
 }
