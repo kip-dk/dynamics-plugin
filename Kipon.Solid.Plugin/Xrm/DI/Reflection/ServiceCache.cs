@@ -1,13 +1,9 @@
-﻿using Microsoft.Xrm.Sdk;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kipon.Xrm.Extensions.Sdk;
-
-namespace Kipon.Xrm.DI.Reflection
+﻿namespace Kipon.Xrm.DI.Reflection
 {
+    using Microsoft.Xrm.Sdk;
+    using System;
+    using System.Collections.Generic;
+    using Kipon.Xrm.Extensions.Sdk;
     public class ServiceCache
     {
         private readonly Dictionary<string, object> services = new Dictionary<string, object>();

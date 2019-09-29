@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm
+﻿namespace Kipon.Xrm
 {
+    using System;
+    using System.Linq;
+
     /// <summary>
     /// Interface for generic repository implementations.
     /// </summary>

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.Extensions.Strings
+﻿namespace Kipon.Xrm.Extensions.Strings
 {
+    using System.Linq;
     public static class StringMethods
     {
         public static string FirstToUpper(this string value)

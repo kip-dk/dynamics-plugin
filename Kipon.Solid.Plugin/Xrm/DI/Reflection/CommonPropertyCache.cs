@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.DI.Reflection
+﻿namespace Kipon.Xrm.DI.Reflection
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class CommonPropertyCache
     {
         private static readonly Dictionary<Type, CommonPropertyCache[]> cache = new Dictionary<Type, CommonPropertyCache[]>();

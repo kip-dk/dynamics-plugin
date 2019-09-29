@@ -1,18 +1,13 @@
-﻿using Microsoft.Xrm.Sdk;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.DI
+﻿namespace Kipon.Xrm.DI
 {
-    public class ServiceFactory
+    using Microsoft.Xrm.Sdk;
+    using System.Linq;
+    public class PluginRunner
     {
         private Reflection.ServiceCache serviceCache;
         private IPluginExecutionContext pluginExecutionContext;
 
-        public ServiceFactory(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService)
+        public PluginRunner(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService)
         {
             this.pluginExecutionContext = pluginExecutionContext;
             this.serviceCache = new Reflection.ServiceCache(pluginExecutionContext, organizationServiceFactory, traceService);

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm
+﻿namespace Kipon.Xrm
 {
+    using System;
     public abstract class TargetReference<T> where T: Microsoft.Xrm.Sdk.Entity
     {
         private Microsoft.Xrm.Sdk.EntityReference target;

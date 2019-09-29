@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk;
-
-namespace Kipon.Xrm
+﻿namespace Kipon.Xrm
 {
+    using System;
+    using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
         public string UnsecureConfig { get; private set; }
@@ -35,6 +30,8 @@ namespace Kipon.Xrm
             var stage = context.Stage;
             var isAsync = context.Mode == 1;
 
+            var serviceCache = new DI.Reflection.ServiceCache(context, serviceFactory, tracingService);
+
             var methods = DI.Reflection.PluginMethodCache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
             foreach (var method in methods)
             {
@@ -48,7 +45,25 @@ namespace Kipon.Xrm
                     }
                 }
                 #endregion
+
+                #region now resolve all parameters
+                var args = new object[method.Parameters.Length];
+                var ix = 0;
+                foreach (var p in method.Parameters)
+                {
+                    args[ix] = serviceCache.Resolve(p);
+                }
+                #endregion
+
+                #region run the method
+                method.Invoke(this, args);
+                #endregion
+
+                #region prepare for next method
+#warning added some cleanup pattern
+                #endregion
             }
+#warning dispose all service that are disposable
         }
         #endregion
     }

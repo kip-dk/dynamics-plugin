@@ -1,12 +1,7 @@
-﻿using Microsoft.Xrm.Sdk;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm
+﻿namespace Kipon.Xrm
 {
+    using Microsoft.Xrm.Sdk;
+    using System;
     public interface IUnitOfWork
     {
         R ExecuteRequest<R>(OrganizationRequest request) where R : OrganizationResponse;

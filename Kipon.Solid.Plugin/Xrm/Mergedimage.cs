@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm
+﻿namespace Kipon.Xrm
 {
     // Declarative interface to request a merged image
     // A merged image takes the tarkget of a plugin, and combine it with the field available in the target.

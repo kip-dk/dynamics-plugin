@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.DI.Reflection
+﻿namespace Kipon.Xrm.DI.Reflection
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     public class PluginMethodCache
     {
         private static readonly Dictionary<string, PluginMethodCache[]> cache = new Dictionary<string, PluginMethodCache[]>();

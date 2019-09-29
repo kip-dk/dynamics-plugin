@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xrm.Sdk;
-
-
-namespace Kipon.Xrm.Extensions.Sdk
+﻿namespace Kipon.Xrm.Extensions.Sdk
 {
+    using System;
+    using System.Collections.Generic;
     public static partial class KiponSdkGeneratedExtensionMethods
     {
         private static readonly Dictionary<string, Type> entittypes = new Dictionary<string, Type>();

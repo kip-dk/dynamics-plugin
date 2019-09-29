@@ -1,5 +1,4 @@
-﻿
-namespace Kipon.Xrm.Attributes
+﻿namespace Kipon.Xrm.Attributes
 {
     using System;
     /// <summary>
