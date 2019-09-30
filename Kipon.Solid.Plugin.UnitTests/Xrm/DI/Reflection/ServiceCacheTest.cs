@@ -13,7 +13,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
     public class ServiceCacheTest
     {
 
-        private OrganizationServiceFactory organizationServiceFactory = new OrganizationServiceFactory();
+        private OrganizationServiceFactory organizationServiceFactory = new OrganizationServiceFactory(null);
         private TracingService traceService = new TracingService();
 
         [TestMethod]

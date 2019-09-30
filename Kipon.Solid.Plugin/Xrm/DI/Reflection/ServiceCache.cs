@@ -13,6 +13,8 @@
         private IPluginExecutionContext pluginExecutionContext;
         private IOrganizationServiceFactory organizationServiceFactory;
 
+        private string imageSuffix;
+
         public ServiceCache(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService)
         {
             this.pluginExecutionContext = pluginExecutionContext;
@@ -21,6 +23,27 @@
             this.services.Add(typeof(IOrganizationServiceFactory).FullName, organizationServiceFactory);
             this.services.Add(typeof(ITracingService).FullName, traceService);
             this.systemuserid = pluginExecutionContext.UserId;
+
+            switch (pluginExecutionContext.Stage)
+            {
+                case 10:
+                    this.imageSuffix = "Validate";
+                    break;
+                case 20:
+                    this.imageSuffix = "Pre";
+                    break;
+                case 40:
+                    if (pluginExecutionContext.Mode == 1)
+                    {
+                        imageSuffix = "PostAsync";
+                    } else
+                    {
+                        imageSuffix = "Post";
+                    }
+                    break;
+                default: throw new ArgumentException($"Unknown plugin execution stage {pluginExecutionContext.Stage}");
+            }
+
         }
 
         public object Resolve(TypeCache type)
@@ -39,14 +62,14 @@
 
             if (type.IsPreimage)
             {
-                var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages["preimage"];
+                var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[$"preimage{imageSuffix}"];
                 services[type.ObjectInstanceKey] = entity.ToEarlyBoundEntity();
                 return services[type.ObjectInstanceKey];
             }
 
             if (type.IsPostimage)
             {
-                var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PostEntityImages["postimage"];
+                var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PostEntityImages[$"postimage{imageSuffix}"];
                 services[type.ObjectInstanceKey] = entity.ToEarlyBoundEntity();
                 return services[type.ObjectInstanceKey];
             }
@@ -58,7 +81,7 @@
                 merged.Id = target.Id;
                 merged.LogicalName = target.LogicalName;
 
-                var pre = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages["preimage"];
+                var pre = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[$"preimage{imageSuffix}"];
 
                 foreach (var attr in pre.Attributes.Keys)
                 {
