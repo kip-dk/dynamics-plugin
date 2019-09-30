@@ -13,7 +13,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
         [TestMethod]
         public void ForTypeTest()
         {
-            var pCache = Kipon.Xrm.DI.Reflection.CommonPropertyCache.ForType(typeof(Kipon.Solid.Plugin.Entities.IAccountNameChanged), typeof(Kipon.Solid.Plugin.Entities.Account));
+            var pCache = Kipon.Xrm.Reflection.CommonPropertyCache.ForType(typeof(Kipon.Solid.Plugin.Entities.IAccountNameChanged), typeof(Kipon.Solid.Plugin.Entities.Account));
             Assert.AreEqual(1, pCache.Length);
             Assert.AreEqual("name", pCache[0].LogicalName);
             Assert.IsTrue(pCache[0].Required);

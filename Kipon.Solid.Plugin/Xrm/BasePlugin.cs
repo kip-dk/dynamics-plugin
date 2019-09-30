@@ -30,9 +30,9 @@
             var stage = context.Stage;
             var isAsync = context.Mode == 1;
 
-            var serviceCache = new DI.Reflection.ServiceCache(context, serviceFactory, tracingService);
+            var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService);
 
-            var methods = DI.Reflection.PluginMethodCache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
+            var methods = Reflection.PluginMethodCache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
             foreach (var method in methods)
             {
                 #region find out if method is relevant, looking a target fields

@@ -78,10 +78,10 @@
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Xrm\Attributes\StepAttribute.cs" />
     <Compile Include="Xrm\Attributes\TargetAttribute.cs" />
-    <Compile Include="Xrm\DI\Reflection\CommonPropertyCache.cs" />
-    <Compile Include="Xrm\DI\Reflection\ServiceCache.cs" />
-    <Compile Include="Xrm\DI\Reflection\ServiceConstructorCache.cs" />
-    <Compile Include="Xrm\DI\Reflection\PluginMethodCache.cs" />
+    <Compile Include="Xrm\Reflection\CommonPropertyCache.cs" />
+    <Compile Include="Xrm\Reflection\ServiceCache.cs" />
+    <Compile Include="Xrm\Reflection\ServiceConstructorCache.cs" />
+    <Compile Include="Xrm\Reflection\PluginMethodCache.cs" />
     <Compile Include="Xrm\Exceptions\BaseException.cs" />
     <Compile Include="Xrm\Exceptions\CircularDependencyException.cs" />
     <Compile Include="Xrm\Exceptions\InvalidConstructorServiceArgumentException.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="ServiceAPI\IAccountService.cs" />
     <Compile Include="Service\AccountService.cs" />
     <Compile Include="Xrm\BasePlugin.cs" />
-    <Compile Include="Xrm\DI\Reflection\TypeCache.cs" />
+    <Compile Include="Xrm\Reflection\TypeCache.cs" />
     <Compile Include="Xrm\DI\PluginRunner.cs" />
     <Compile Include="Xrm\Exceptions\TypeMismatchException.cs" />
     <Compile Include="Xrm\Exceptions\UnresolvableConstructorException.cs" />

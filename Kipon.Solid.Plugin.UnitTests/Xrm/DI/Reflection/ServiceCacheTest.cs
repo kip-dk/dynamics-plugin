@@ -23,9 +23,9 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
             var account = new Entities.Account { AccountId = Guid.NewGuid() };
 
             var context = PluginExecutionContext.ForMethodWithTarget(method, account);
-            var serviceCache = new Kipon.Xrm.DI.Reflection.ServiceCache(context, organizationServiceFactory, traceService);
+            var serviceCache = new Kipon.Xrm.Reflection.ServiceCache(context, organizationServiceFactory, traceService);
 
-            var methodCache = Kipon.Xrm.DI.Reflection.PluginMethodCache.ForPlugin(typeof(TestPlugin), 20, "Update", Entities.Account.EntityLogicalName, false);
+            var methodCache = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(typeof(TestPlugin), 20, "Update", Entities.Account.EntityLogicalName, false);
 
             var p1 = serviceCache.Resolve(methodCache[0].Parameters[0]);
             Assert.AreEqual(p1, account);

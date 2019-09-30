@@ -17,7 +17,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
 
             // Test target is full entity
             {
-                var t1 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
 
                 // First test basic functionality for entity
                 Assert.AreEqual(true, t1.IsTarget);
@@ -30,13 +30,13 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
                 Assert.IsNull(t1.Constructor);
 
                 // Test that result is cached
-                var t2 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
+                var t2 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
                 Assert.AreEqual(t2, t1);
             }
 
             // Test preimage is interface
             {
-                var t1 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[1]);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[1]);
                 Assert.AreEqual(false, t1.IsTarget);
                 Assert.AreEqual(true, t1.IsPreimage);
                 Assert.AreEqual(false, t1.IsPostimage);
@@ -49,7 +49,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
 
             // Test deep target interface
             {
-                var t1 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[2]);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[2]);
                 Assert.AreEqual(true, t1.IsTarget);
                 Assert.AreEqual(false, t1.IsPreimage);
                 Assert.AreEqual(false, t1.IsPostimage);
@@ -62,20 +62,20 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
 
             // Test if two call to same entity parameters is givin same result
             {
-                var t1 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
-                var t2 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
+                var t2 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
                 Assert.AreEqual(t1, t2);
             }
 
             // Test if each entity parameter is giving different result, even though they represent same type
             {
-                var t1 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
-                var t2 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[3]);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
+                var t2 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[3]);
                 Assert.AreNotEqual(t1, t2);
             }
 
             {
-                var t1 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[4]);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[4]);
                 Assert.AreEqual(typeof(Service.AccountService), t1.ToType);
                 Assert.IsFalse(t1.IsTarget);
                 Assert.IsFalse(t1.IsPreimage);
@@ -86,7 +86,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
             }
 
             {
-                var t1 = Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[5]);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[5]);
                 Assert.AreEqual(typeof(Entities.Account), t1.ToType);
                 Assert.IsFalse(t1.IsTarget);
                 Assert.IsFalse(t1.IsPreimage);
@@ -102,11 +102,11 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
         {
             var method = typeof(PluginTemplate).GetMethod(nameof(PluginTemplate.OnPreCreate2));
 
-            Assert.ThrowsException<Kipon.Xrm.Exceptions.TypeMismatchException>(() => Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[0]));
+            Assert.ThrowsException<Kipon.Xrm.Exceptions.TypeMismatchException>(() => Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0]));
 
-            Assert.ThrowsException<Kipon.Xrm.Exceptions.UnresolvableTypeException>(() => Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[1]));
+            Assert.ThrowsException<Kipon.Xrm.Exceptions.UnresolvableTypeException>(() => Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[1]));
 
-            Assert.ThrowsException<Kipon.Xrm.Exceptions.UnresolvableConstructorException>(() => Kipon.Xrm.DI.Reflection.TypeCache.ForParameter(method.GetParameters()[2]));
+            Assert.ThrowsException<Kipon.Xrm.Exceptions.UnresolvableConstructorException>(() => Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[2]));
         }
 
 

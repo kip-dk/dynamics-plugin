@@ -15,7 +15,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
         {
             var constructor = typeof(MyOkService).GetConstructors()[0];
 
-            var types = Kipon.Xrm.DI.Reflection.ServiceConstructorCache.ForConstructor(constructor);
+            var types = Kipon.Xrm.Reflection.ServiceConstructorCache.ForConstructor(constructor);
             Assert.AreEqual(0, types.Length);
         }
 
@@ -24,7 +24,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
         {
             var constructor = typeof(MyOk2Service).GetConstructors()[0];
 
-            var types = Kipon.Xrm.DI.Reflection.ServiceConstructorCache.ForConstructor(constructor);
+            var types = Kipon.Xrm.Reflection.ServiceConstructorCache.ForConstructor(constructor);
             Assert.AreEqual(1, types.Length);
         }
 
@@ -32,7 +32,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
         public void WrongArgumentTypeTest()
         {
             var constructor = typeof(MyNotOkService).GetConstructors()[0];
-            Assert.ThrowsException<Kipon.Xrm.Exceptions.InvalidConstructorServiceArgumentException>(() => Kipon.Xrm.DI.Reflection.ServiceConstructorCache.ForConstructor(constructor));
+            Assert.ThrowsException<Kipon.Xrm.Exceptions.InvalidConstructorServiceArgumentException>(() => Kipon.Xrm.Reflection.ServiceConstructorCache.ForConstructor(constructor));
         }
 
         public class MyOkService

@@ -1,4 +1,4 @@
-﻿namespace Kipon.Xrm.DI.Reflection
+﻿namespace Kipon.Xrm.Reflection
 {
     using Microsoft.Xrm.Sdk;
     using System;

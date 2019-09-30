@@ -65,6 +65,17 @@ namespace Kipon.Xrm.Fake.Repository
             }
             this.entities.Remove(key);
         }
+
+        void IEntityShadow.Create(Microsoft.Xrm.Sdk.Entity entity)
+        {
+            var key = entity.LogicalName + entity.Id.ToString();
+            if (this.entities.ContainsKey(key))
+            {
+                throw new Exceptions.EntityExistsException(entity);
+            }
+            var et = new Entity(entity);
+            entities.Add(et.Key, et);
+        }
         #endregion
 
 
@@ -109,7 +120,7 @@ namespace Kipon.Xrm.Fake.Repository
                 var pluginExecutionContext = new Services.PluginExecutionContext(20, 1, "Create", target.LogicalName, target.Id, false);
                 var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this);
                 this.plugin.Execute(serviceProvider);
-                this.AddEntity(target);
+                ((Repository.IEntityShadow)this).Create(target);
             }
 
             // post
