@@ -107,6 +107,7 @@
     <Compile Include="Xrm\Mergedimage.cs" />
     <Compile Include="Xrm\Postimage.cs" />
     <Compile Include="Xrm\Preimage.cs" />
+    <Compile Include="Xrm\Reflection\Types.cs" />
     <Compile Include="Xrm\Target.cs" />
     <Compile Include="Xrm\TargetReference.cs" />
     <Compile Include="Xrm\Exceptions\UnresolvableTypeException.cs" />

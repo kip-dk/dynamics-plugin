@@ -59,25 +59,25 @@
                     var isEntity = false;
 
                     #region see if we can resolve parameter to the target as an entity
-                    if (parameter.MatchPattern(typeof(Kipon.Xrm.Attributes.TargetAttribute), "target") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                    if (parameter.MatchPattern(typeof(Type), "target") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
                     {
                         isEntity = true;
                         result.IsTarget = true;
                     }
                     else
-                    if (parameter.MatchPattern(typeof(Kipon.Xrm.Attributes.PreimageAttribute), "preimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                    if (parameter.MatchPattern(Types.PreimageAttribute, "preimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
                     {
                         isEntity = true;
                         result.IsPreimage = true;
                     }
                     else
-                    if (parameter.MatchPattern(typeof(Kipon.Xrm.Attributes.MergedimageAttribute), "mergedimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                    if (parameter.MatchPattern(Types.MergedimageAttribute, "mergedimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
                     {
                         isEntity = true;
                         result.IsMergedimage = true;
                     }
                     else
-                    if (parameter.MatchPattern(typeof(Kipon.Xrm.Attributes.PostimageAttribute), "postimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                    if (parameter.MatchPattern(Types.PostimageAttribute, "postimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
                     {
                         isEntity = true;
                         result.IsPostimage = true;
@@ -108,7 +108,7 @@
 
                     if (!isEntity  && !isReference && type == typeof(Microsoft.Xrm.Sdk.EntityReference))
                     {
-                        if (parameter.MatchPattern(typeof(Kipon.Xrm.Attributes.TargetAttribute), "target"))
+                        if (parameter.MatchPattern(Types.TargetAttribute, "target"))
                         {
                             isReference = true;
                             result.IsTarget = true;
@@ -135,7 +135,7 @@
             #region see if it is target, preimage post image or merged image interface
             if (type.IsInterface)
             {
-                Type toType = type.ImplementsGenericInterface(typeof(Kipon.Xrm.Target<>));
+                Type toType = type.ImplementsGenericInterface(Types.Target);
                 if (toType != null)
                 {
                     var result = new TypeCache { FromType = type, ToType = toType, IsTarget = true };
@@ -150,7 +150,7 @@
                     }
                 }
 
-                toType = type.ImplementsGenericInterface(typeof(Kipon.Xrm.Preimage<>));
+                toType = type.ImplementsGenericInterface(Types.Preimage);
                 if (toType != null)
                 {
                     var result = new TypeCache { FromType = type, ToType = toType, IsPreimage = true };
@@ -164,7 +164,7 @@
                     }
                 }
 
-                toType = type.ImplementsGenericInterface(typeof(Kipon.Xrm.Mergedimage<>));
+                toType = type.ImplementsGenericInterface(Types.Mergedimage);
                 if (toType != null)
                 {
                     var result = new TypeCache { FromType = type, ToType = toType, IsMergedimage = true };
@@ -178,7 +178,7 @@
                     }
                 }
 
-                toType = type.ImplementsGenericInterface(typeof(Kipon.Xrm.Postimage<>));
+                toType = type.ImplementsGenericInterface(Types.Postimage);
                 if (toType != null)
                 {
                     var result = new TypeCache { FromType = type, ToType = toType, IsPostimage = true };
@@ -218,7 +218,7 @@
         #region private static helpers
         private static Type GetInterfaceImplementation(Type type)
         {
-            var allTypes = typeof(TypeCache).Assembly.GetTypes();
+            var allTypes = Types.Assembly.GetTypes();
             var candidates = new List<Type>();
 
             foreach (var t in allTypes)
