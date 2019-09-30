@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Kipon.Xrm.Attributes;
 
-namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
+namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
 {
     [TestClass]
     public class PluginMethodCacheTest

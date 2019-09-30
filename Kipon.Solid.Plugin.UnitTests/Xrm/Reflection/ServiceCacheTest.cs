@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Kipon.Xrm.Fake.Services;
 
-namespace Kipon.Solid.Plugin.UnitTests.Xrm.DI.Reflection
+namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
 {
     [TestClass]
     public class ServiceCacheTest
