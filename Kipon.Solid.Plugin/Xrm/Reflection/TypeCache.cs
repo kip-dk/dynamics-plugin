@@ -6,11 +6,19 @@
 
     /// <summary>
     /// Type cache is used to resolved types for each parameter in a context. 
-    /// If the parameter is related to images (target, pre, post etc.), the type will be cached on together with the parameter info, so each parameter has its own
-    /// while simple interfaces etc. will be cached on the interface type level, because no information from the parameter context is needed.
+    /// If the parameter is related to images (target, pre, post etc.), 
+    /// The type is cached on the pointer to the parameter, so each parameter is only resolved 
+    /// once in the system life-time.
     /// </summary>
     public class TypeCache
     {
+        public static Types Types { get; set; }
+
+        static TypeCache()
+        {
+            TypeCache.Types = new Types();
+        }
+
         private static Dictionary<System.Reflection.ParameterInfo, TypeCache> resolvedTypes = new Dictionary<System.Reflection.ParameterInfo, TypeCache>();
 
         public static TypeCache ForParameter(System.Reflection.ParameterInfo parameter)
