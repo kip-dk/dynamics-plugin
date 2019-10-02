@@ -12,28 +12,55 @@ namespace Kipon.Xrm.Reflection
         private static readonly Type _PreimageAttribute = typeof(Kipon.Xrm.Attributes.PreimageAttribute);
         private static readonly Type _MergedimageAttribute = typeof(Kipon.Xrm.Attributes.MergedimageAttribute);
         private static readonly Type _PostimageAttribute = typeof(Kipon.Xrm.Attributes.MergedimageAttribute);
+        private static readonly Type _AdminAttribute = typeof(Kipon.Xrm.Attributes.AdminAttribute);
+        private static readonly Type _ExportAttribute = typeof(Kipon.Xrm.Attributes.ExportAttribute);
+        private static readonly Type _ImportingConstructorAttribute = typeof(Kipon.Xrm.Attributes.ImportingConstructorAttribute);
+        private static readonly Type _RequiredAttribute = typeof(Kipon.Xrm.Attributes.RequiredAttribute);
 
         private static readonly Type _Target = typeof(Kipon.Xrm.Target<>);
         private static readonly Type _TargetReference = typeof(Kipon.Xrm.TargetReference<>);
         private static readonly Type _Preimage = typeof(Kipon.Xrm.Preimage<>);
         private static readonly Type _Mergedimage = typeof(Kipon.Xrm.Mergedimage<>);
         private static readonly Type _Postimage = typeof(Kipon.Xrm.Postimage<>);
+        private static readonly Type _IUnitOfWork = typeof(Kipon.Xrm.IUnitOfWork);
+        private static readonly Type _IAdminUnitOfWork = typeof(Kipon.Xrm.IAdminUnitOfWork);
 
         private static readonly System.Reflection.Assembly _Assembly = typeof(Types).Assembly;
 
-        public Types()
+        private static readonly Types _instance = null;
+
+        static Types()
+        {
+            _instance = new Types();
+        }
+
+        private Types()
         {
         }
 
+        internal static Types Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+
         public Type TargetAttribute => Types._TargetAttribute;
-        public Type PreimageAttribute => Types._Preimage;
+        public Type PreimageAttribute => Types._PreimageAttribute;
         public Type MergedimageAttribute => Types._MergedimageAttribute;
         public Type PostimageAttribute => Types._PostimageAttribute;
+        public Type AdminAttribute => Types._AdminAttribute;
+        public Type ExportAttribute => Types._ExportAttribute;
+        public Type ImportingConstructorAttribute => Types._ImportingConstructorAttribute;
+        public Type RequiredAttribute => Types._RequiredAttribute;
         public Type Target => Types._Target;
         public Type TargetReference => Types._TargetReference;
         public Type Preimage => Types._Preimage;
         public Type Mergedimage => Types._Mergedimage;
         public Type Postimage => Types._Postimage;
+        public Type IUnitOfWork => Types._IUnitOfWork;
+        public Type IAdminUnitOfWork => Types._IAdminUnitOfWork;
         public System.Reflection.Assembly Assembly => _Assembly;
     }
 

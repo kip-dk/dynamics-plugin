@@ -8,6 +8,13 @@
     {
         private static readonly Dictionary<Type, CommonPropertyCache[]> cache = new Dictionary<Type, CommonPropertyCache[]>();
 
+        private static Types Types;
+
+        static CommonPropertyCache()
+        {
+            CommonPropertyCache.Types = Types.Instance;
+        }
+
         public static CommonPropertyCache[] ForType(Type interfaceType, Type entityType)
         {
             if (cache.ContainsKey(interfaceType))
@@ -29,7 +36,7 @@
                     if (customProp != null)
                     {
                         var attr = new CommonPropertyCache { LogicalName = customProp.LogicalName };
-                        attr.Required = interfaceProp.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.RequiredAttribute), false).Any();
+                        attr.Required = interfaceProp.GetCustomAttributes(Types.RequiredAttribute, false).Any();
 
                         result.Add(attr);
                     }

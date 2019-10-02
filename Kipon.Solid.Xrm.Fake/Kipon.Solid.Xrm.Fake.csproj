@@ -55,6 +55,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\BaseException.cs">
+      <Link>Xrm\Exceptions\BaseException.cs</Link>
+    </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\MultiImplementationOfSameInterfaceException.cs">
+      <Link>Xrm\Exceptions\MultiImplementationOfSameInterfaceException.cs</Link>
+    </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\TypeMismatchException.cs">
+      <Link>Xrm\Exceptions\TypeMismatchException.cs</Link>
+    </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvableConstructorException.cs">
+      <Link>Xrm\Exceptions\UnresolvableConstructorException.cs</Link>
+    </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvableTypeException.cs">
+      <Link>Xrm\Exceptions\UnresolvableTypeException.cs</Link>
+    </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\CommonPropertyCache.cs">
+      <Link>Xrm\Reflection\CommonPropertyCache.cs</Link>
+    </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\TypeCache.cs">
+      <Link>Xrm\Reflection\TypeCache.cs</Link>
+    </Compile>
     <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\EntityExistsException.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
@@ -67,12 +88,11 @@
     <Compile Include="Services\PluginExecutionContext.cs" />
     <Compile Include="Services\ServiceProvider.cs" />
     <Compile Include="Services\TracingService.cs" />
+    <Compile Include="Xrm\Reflection\Types.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Xrm\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

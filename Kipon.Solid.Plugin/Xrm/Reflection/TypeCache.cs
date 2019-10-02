@@ -16,7 +16,7 @@
 
         static TypeCache()
         {
-            TypeCache.Types = new Types();
+            TypeCache.Types = Types.Instance;
         }
 
         private static Dictionary<System.Reflection.ParameterInfo, TypeCache> resolvedTypes = new Dictionary<System.Reflection.ParameterInfo, TypeCache>();
@@ -34,7 +34,7 @@
             {
                 resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
 
-                resolvedTypes[parameter].RequireAdminService = parameter.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.AdminAttribute), false).Any();
+                resolvedTypes[parameter].RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
                 return resolvedTypes[parameter];
             }
 
@@ -67,7 +67,7 @@
                     var isEntity = false;
 
                     #region see if we can resolve parameter to the target as an entity
-                    if (parameter.MatchPattern(typeof(Type), "target") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                    if (parameter.MatchPattern(Types.TargetAttribute, "target") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
                     {
                         isEntity = true;
                         result.IsTarget = true;
@@ -102,7 +102,7 @@
                     var isReference = false;
 
                     #region see if we can resolve parameter to the target as en entity reference
-                    if (!isEntity && type.ExtendsGenericClassOf(typeof(Kipon.Xrm.TargetReference<>)))
+                    if (!isEntity && type.ExtendsGenericClassOf(Types.TargetReference))
                     {
                         isReference = true;
                         result.IsTarget = true;
@@ -255,8 +255,8 @@
             candidates.Clear();
             foreach (var t in all)
             {
-                var exported = (Kipon.Xrm.Attributes.ExportAttribute)t.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.ExportAttribute), false).SingleOrDefault();
-                if (exported != null && exported.Type == type)
+                var exported = t.GetCustomAttributes(Types.ExportAttribute, false).SingleOrDefault();
+                if (exported != null && (Type)exported.GetType().GetProperty("Type").GetValue(exported) == type)
                 {
                     candidates.Add(t);
                 }
@@ -286,7 +286,7 @@
             List<System.Reflection.ConstructorInfo> candidates = new List<System.Reflection.ConstructorInfo>();
             foreach (var c in constructors)
             {
-                var ca = c.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.ImportingConstructorAttribute), false).FirstOrDefault();
+                var ca = c.GetCustomAttributes(Types.ImportingConstructorAttribute, false).FirstOrDefault();
                 if (ca != null)
                 {
                     candidates.Add(c);
@@ -363,9 +363,9 @@
                     else if (this.IsMergedimage) this._ik = "mergedimage:" + this.ToType.FullName;
                     else if (this.IsPostimage) this._ik = "postimage:" + this.ToType.FullName;
                     else if (this.IsReference) this._ik = "ref:" + this.ToType.FullName;
-                    else if (this.FromType.Implements(typeof(Kipon.Xrm.IAdminUnitOfWork)))
+                    else if (this.FromType.Implements(Types.IAdminUnitOfWork))
                     {
-                        this._ik = typeof(Kipon.Xrm.IAdminUnitOfWork).FullName;
+                        this._ik = Types.IAdminUnitOfWork.FullName;
                         this.RequireAdminService = true;
                     }
                     else if (this.FromType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
@@ -378,7 +378,7 @@
                             this._ik = this.FromType.FullName;
                         }
                     }
-                    else if (this.FromType.Implements(typeof(Kipon.Xrm.IUnitOfWork))) this._ik = typeof(Kipon.Xrm.IUnitOfWork).FullName;
+                    else if (this.FromType.Implements(Types.IUnitOfWork)) this._ik = Types.IUnitOfWork.FullName;
                     else if (this.ToType != null) this._ik = this.ToType.FullName;
                     else this._ik = this.FromType.FullName;
                 }

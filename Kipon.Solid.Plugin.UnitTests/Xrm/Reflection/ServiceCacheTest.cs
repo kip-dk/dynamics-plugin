@@ -1,11 +1,12 @@
-﻿using Kipon.Xrm.Attributes;
+﻿extern alias kiponfake;
+using Kipon.Xrm.Attributes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Kipon.Xrm.Fake.Services;
+using kiponfake::Kipon.Xrm.Fake.Services;
 
 namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
 {
