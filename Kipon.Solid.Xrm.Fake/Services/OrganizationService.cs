@@ -10,47 +10,23 @@ namespace Kipon.Xrm.Fake.Services
 {
     public class OrganizationService : Microsoft.Xrm.Sdk.IOrganizationService
     {
-        private Repository.PluginEntityContext context;
+        private Repository.PluginExecutionFakeContext context;
         private Repository.IEntityShadow shadow;
 
         public Guid? UserId { get; private set; }
 
-        public OrganizationService(Repository.PluginEntityContext context, Guid? userid)
+        public OrganizationService(Repository.PluginExecutionFakeContext context, Guid? userid)
         {
             this.UserId = userid;
             this.context = context;
             this.shadow = (Repository.IEntityShadow)context;
         }
 
-        public void Associate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
-        {
-            throw new NotImplementedException();
-        }
-
+        #region CRUD
         public Guid Create(Entity entity)
         {
-            context.AddEntity(entity);
+            shadow.Create(entity);
             return entity.Id;
-        }
-
-        public void Update(Entity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(string entityName, Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Disassociate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public OrganizationResponse Execute(OrganizationRequest request)
-        {
-            throw new NotImplementedException();
         }
 
         public Entity Retrieve(string entityName, Guid id, ColumnSet columnSet)
@@ -69,6 +45,47 @@ namespace Kipon.Xrm.Fake.Services
         }
 
         public EntityCollection RetrieveMultiple(QueryBase query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Entity entity)
+        {
+            shadow.Update(entity);
+        }
+
+        public void Delete(string entityName, Guid id)
+        {
+            shadow.Delete(entityName, id);
+        }
+        #endregion
+
+        #region associate
+        public void Associate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
+        {
+            var dis = new Microsoft.Xrm.Sdk.Messages.AssociateRequest
+            {
+                Relationship = relationship,
+                Target = new EntityReference(entityName, entityId),
+                RelatedEntities = relatedEntities
+            };
+            this.Execute(dis);
+        }
+
+
+        public void Disassociate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
+        {
+            var dis = new Microsoft.Xrm.Sdk.Messages.DisassociateRequest
+            {
+                Relationship = relationship,
+                Target = new EntityReference(entityName, entityId),
+                RelatedEntities = relatedEntities
+            };
+            this.Execute(dis);
+        }
+        #endregion
+
+        public OrganizationResponse Execute(OrganizationRequest request)
         {
             throw new NotImplementedException();
         }

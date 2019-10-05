@@ -61,17 +61,29 @@
     <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\MultiImplementationOfSameInterfaceException.cs">
       <Link>Xrm\Exceptions\MultiImplementationOfSameInterfaceException.cs</Link>
     </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\MultipleLogicalNamesException.cs">
+      <Link>Xrm\Exceptions\MultipleLogicalNamesException.cs</Link>
+    </Compile>
     <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\TypeMismatchException.cs">
       <Link>Xrm\Exceptions\TypeMismatchException.cs</Link>
     </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnavailableImageException.cs">
+      <Link>Xrm\Exceptions\UnavailableImageException.cs</Link>
+    </Compile>
     <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvableConstructorException.cs">
       <Link>Xrm\Exceptions\UnresolvableConstructorException.cs</Link>
+    </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvablePluginMethodException.cs">
+      <Link>Xrm\Exceptions\UnresolvablePluginMethodException.cs</Link>
     </Compile>
     <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvableTypeException.cs">
       <Link>Xrm\Exceptions\UnresolvableTypeException.cs</Link>
     </Compile>
     <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\CommonPropertyCache.cs">
       <Link>Xrm\Reflection\CommonPropertyCache.cs</Link>
+    </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\PluginMethodCache.cs">
+      <Link>Xrm\Reflection\PluginMethodCache.cs</Link>
     </Compile>
     <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\TypeCache.cs">
       <Link>Xrm\Reflection\TypeCache.cs</Link>
@@ -82,7 +94,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Entity.cs" />
     <Compile Include="Repository\IEntityShadow.cs" />
-    <Compile Include="Repository\PluginEntityContext.cs" />
+    <Compile Include="Repository\PluginExecutionFakeContext.cs" />
     <Compile Include="Services\OrganizationService.cs" />
     <Compile Include="Services\OrganizationServiceFactory.cs" />
     <Compile Include="Services\PluginExecutionContext.cs" />

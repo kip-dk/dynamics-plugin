@@ -9,9 +9,9 @@ namespace Kipon.Xrm.Fake.Services
 {
     public class OrganizationServiceFactory : Microsoft.Xrm.Sdk.IOrganizationServiceFactory
     {
-        private Repository.PluginEntityContext context;
+        private Repository.PluginExecutionFakeContext context;
 
-        public OrganizationServiceFactory(Repository.PluginEntityContext context)
+        public OrganizationServiceFactory(Repository.PluginExecutionFakeContext context)
         {
             this.context = context;
         }

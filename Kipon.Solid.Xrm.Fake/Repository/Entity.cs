@@ -21,6 +21,22 @@ namespace Kipon.Xrm.Fake.Repository
             }
         }
 
+        internal Entity(string logicalName, Guid id)
+        {
+            this.LogicalName = logicalName;
+            this.Id = id;
+        }
+
+        internal Entity(Entity cloneFrom)
+        {
+            this.Id = cloneFrom.Id;
+            this.LogicalName = cloneFrom.LogicalName;
+            foreach (var key in cloneFrom.values.Keys)
+            {
+                this[key] = cloneFrom[key];
+            }
+        }
+
         internal Entity(Microsoft.Xrm.Sdk.Entity from)
         {
             this.Id = from.Id;

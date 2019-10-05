@@ -12,7 +12,7 @@ namespace Kipon.Xrm.Fake.Services
         private Microsoft.Xrm.Sdk.IOrganizationServiceFactory orgServiceFactory;
         private Microsoft.Xrm.Sdk.ITracingService traceService;
 
-        public ServiceProvider(Microsoft.Xrm.Sdk.IPluginExecutionContext context, Repository.PluginEntityContext entityContext)
+        public ServiceProvider(Microsoft.Xrm.Sdk.IPluginExecutionContext context, Repository.PluginExecutionFakeContext entityContext)
         {
             this.context = context;
             this.orgServiceFactory = new OrganizationServiceFactory(entityContext);

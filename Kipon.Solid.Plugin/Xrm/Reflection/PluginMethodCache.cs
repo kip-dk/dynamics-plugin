@@ -7,6 +7,14 @@
     {
         private static readonly Dictionary<string, PluginMethodCache[]> cache = new Dictionary<string, PluginMethodCache[]>();
 
+        private static Types Types { get; set; }
+
+        static PluginMethodCache()
+        {
+            PluginMethodCache.Types = Types.Instance;
+        }
+
+
         private PluginMethodCache()
         {
         }
@@ -31,11 +39,18 @@
             foreach (var method in methods)
             {
                 #region explicit step decoration mathing
-                var cas = method.GetCustomAttributes(typeof(Attributes.StepAttribute), false);
+                var cas = method.GetCustomAttributes(Types.StepAttribute, false);
                 var found = false;
-                foreach (Attributes.StepAttribute ca in cas)
+                foreach (var ca in cas)
                 {
-                    if ((int)ca.Stage == stepStage && ca.Message.ToString() == message && ca.PrimaryEntityName == primaryEntityName && ca.IsAsync == isAsync)
+                    var at = ca.GetType();
+                    var _stage = (int)at.GetProperty("Stage").GetValue(ca);
+                    var _message = at.GetProperty("Message").GetValue(ca).ToString();
+                    var _primaryEntityName = (string)at.GetProperty("PrimaryEntityName").GetValue(ca);
+                    var _isAsync = (bool)at.GetProperty("IsAsync").GetValue(ca);
+
+
+                    if (_stage == stepStage && _message == message && _primaryEntityName == primaryEntityName && _isAsync == isAsync)
                     {
                         var next = CreateFrom(method);
                         AddIfConsistent(type, method, results, next, message, stage);
@@ -78,10 +93,11 @@
 
                     if (next.HasTargetPreOrPost() || next.HasTargetReference())
                     {
-                        var logicalNamesAttrs = method.GetCustomAttributes(typeof(Kipon.Xrm.Attributes.LogicalNameAttribute), false).ToArray();
-                        foreach (Kipon.Xrm.Attributes.LogicalNameAttribute attr in logicalNamesAttrs)
+                        var logicalNamesAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
+                        foreach (var attr in logicalNamesAttrs)
                         {
-                            if (attr.Value == primaryEntityName)
+                            var v = (string)attr.GetType().GetProperty("primaryEntityName").GetValue(attr);
+                            if (v == primaryEntityName)
                             {
                                 found = true;
                                 break;
@@ -116,12 +132,12 @@
         private static void AddIfConsistent(Type type, System.Reflection.MethodInfo method, List<PluginMethodCache> results, PluginMethodCache result, string message, int stage)
         {
             #region validate pre and post image consistancy
-            switch ((Kipon.Xrm.Attributes.StepAttribute.StageEnum)stage)
+            switch (stage)
             {
-                case Attributes.StepAttribute.StageEnum.Validate:
-                case Attributes.StepAttribute.StageEnum.Pre:
+                case 10:
+                case 20:
                     /* pre image pre event */
-                    if (result.HasPreimage() && message == Kipon.Xrm.Attributes.StepAttribute.MessageEnum.Create.ToString())
+                    if (result.HasPreimage() && message == "Create")
                     {
                         throw new Exceptions.UnavailableImageException(type, method, "Preimage", stage, message);
                     }
@@ -131,9 +147,9 @@
                         throw new Exceptions.UnavailableImageException(type, method, "Postimage", stage, message);
                     }
                     break;
-                case Attributes.StepAttribute.StageEnum.Post:
-                case Attributes.StepAttribute.StageEnum.PostAsync:
-                    if (result.HasPostimage() && message == Kipon.Xrm.Attributes.StepAttribute.MessageEnum.Delete.ToString())
+                case 40:
+                case 41:
+                    if (result.HasPostimage() && message == "Delete")
                     {
                         throw new Exceptions.UnavailableImageException(type, method, "Postimage", stage, message);
                     }
@@ -142,7 +158,7 @@
             #endregion
 
             #region validate target consistancy
-            if (result.HasTarget() && message == Kipon.Xrm.Attributes.StepAttribute.MessageEnum.Delete.ToString())
+            if (result.HasTarget() && message == "Delete")
             {
                 throw new Exceptions.UnavailableImageException(type, method, "Target", stage, message);
             }
@@ -150,7 +166,7 @@
             if (result.HasTargetReference())
             {
                 var inError = true;
-                if (message == Kipon.Xrm.Attributes.StepAttribute.MessageEnum.Delete.ToString())
+                if (message == "Delete")
                 {
                     inError = false;
                 }
@@ -181,10 +197,10 @@
                 ix++;
             }
 
-            var sortAttr = (Attributes.SortAttribute)method.GetCustomAttributes(typeof(Attributes.SortAttribute), false).SingleOrDefault();
+            var sortAttr = method.GetCustomAttributes(Types.SortAttribute, false).SingleOrDefault();
             if (sortAttr != null)
             {
-                result.Sort = sortAttr.Value;
+                result.Sort = (int)sortAttr.GetType().GetProperty("Value").GetValue(sortAttr);
             } else
             {
                 result.Sort = 1;

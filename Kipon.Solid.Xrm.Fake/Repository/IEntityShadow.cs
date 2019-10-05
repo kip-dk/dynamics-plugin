@@ -12,6 +12,8 @@ namespace Kipon.Xrm.Fake.Repository
         void Update(Microsoft.Xrm.Sdk.Entity entity);
         void Delete(string logicalName, Guid id);
         void Create(Microsoft.Xrm.Sdk.Entity entity);
+        void Rollback();
+        void Commit();
 
     }
 }

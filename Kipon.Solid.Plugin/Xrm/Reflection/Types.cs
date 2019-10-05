@@ -16,6 +16,10 @@ namespace Kipon.Xrm.Reflection
         private static readonly Type _ExportAttribute = typeof(Kipon.Xrm.Attributes.ExportAttribute);
         private static readonly Type _ImportingConstructorAttribute = typeof(Kipon.Xrm.Attributes.ImportingConstructorAttribute);
         private static readonly Type _RequiredAttribute = typeof(Kipon.Xrm.Attributes.RequiredAttribute);
+        private static readonly Type _StepAttribute = typeof(Kipon.Xrm.Attributes.StepAttribute);
+        private static readonly Type _LogicalNameAttribute = typeof(Kipon.Xrm.Attributes.LogicalNameAttribute);
+        private static readonly Type _SortAttribute = typeof(Kipon.Xrm.Attributes.SortAttribute);
+
 
         private static readonly Type _Target = typeof(Kipon.Xrm.Target<>);
         private static readonly Type _TargetReference = typeof(Kipon.Xrm.TargetReference<>);
@@ -54,6 +58,10 @@ namespace Kipon.Xrm.Reflection
         public Type ExportAttribute => Types._ExportAttribute;
         public Type ImportingConstructorAttribute => Types._ImportingConstructorAttribute;
         public Type RequiredAttribute => Types._RequiredAttribute;
+        public Type StepAttribute => Types._StepAttribute;
+        public Type LogicalNameAttribute => Types._LogicalNameAttribute;
+        public Type SortAttribute => Types._SortAttribute;
+
         public Type Target => Types._Target;
         public Type TargetReference => Types._TargetReference;
         public Type Preimage => Types._Preimage;

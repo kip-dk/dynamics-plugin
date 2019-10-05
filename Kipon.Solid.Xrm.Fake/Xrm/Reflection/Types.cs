@@ -20,7 +20,7 @@ namespace Kipon.Xrm.Reflection
         {
         }
 
-        
+
         public static Types Instance
         {
             get
@@ -42,6 +42,9 @@ namespace Kipon.Xrm.Reflection
             this.ExportAttribute = allTypes[$"Kipon.Xrm.Attributes.{nameof(_instance.ExportAttribute)}"];
             this.ImportingConstructorAttribute = allTypes[$"Kipon.Xrm.Attributes.{nameof(_instance.ImportingConstructorAttribute)}"];
             this.RequiredAttribute = allTypes[$"Kipon.Xrm.Attributes.{nameof(_instance.RequiredAttribute)}"];
+            this.StepAttribute = allTypes[$"Kipon.Xrm.Attributes.{nameof(_instance.StepAttribute)}"];
+            this.LogicalNameAttribute = allTypes[$"Kipon.Xrm.Attributes.{nameof(_instance.LogicalNameAttribute)}"];
+            this.SortAttribute = allTypes[$"Kipon.Xrm.Attributes.{nameof(_instance.SortAttribute)}"];
 
             this.Target = allTypes[$"Kipon.Xrm.{nameof(_instance.Target)}`1"];
             this.TargetReference = allTypes[$"Kipon.Xrm.{nameof(_instance.TargetReference)}`1"];
@@ -61,6 +64,10 @@ namespace Kipon.Xrm.Reflection
         public Type ExportAttribute { get; private set; }
         public Type ImportingConstructorAttribute { get; private set; }
         public Type RequiredAttribute { get; private set; }
+        public Type StepAttribute { get; private set; }
+        public Type LogicalNameAttribute{ get; private set; }
+        public Type SortAttribute { get; private set; }
+
         public Type Target { get; private set; }
         public Type TargetReference { get; private set; }
         public Type Preimage { get; private set; }
