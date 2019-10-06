@@ -65,6 +65,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fake\Repository\PluginExecutionFakeContextTest.cs" />
     <Compile Include="Fake\Xrm\Reflection\TypesTest.cs" />
     <Compile Include="Xrm\Reflection\ServiceCacheTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

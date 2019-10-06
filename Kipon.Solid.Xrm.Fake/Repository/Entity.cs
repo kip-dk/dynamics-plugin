@@ -21,6 +21,14 @@ namespace Kipon.Xrm.Fake.Repository
             }
         }
 
+        internal string[] Keys
+        {
+            get
+            {
+                return values.Keys.ToArray();
+            }
+        }
+
         internal Entity(string logicalName, Guid id)
         {
             this.LogicalName = logicalName;
@@ -79,6 +87,15 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 this[key] = entity[key];
             }
+        }
+
+        internal object ValueOf(string attrLogicalName)
+        {
+            if (this.values.ContainsKey(attrLogicalName))
+            {
+                return Entity.ValueCloning(this[attrLogicalName]);
+            }
+            return null;
         }
 
         public override bool Equals(object obj)

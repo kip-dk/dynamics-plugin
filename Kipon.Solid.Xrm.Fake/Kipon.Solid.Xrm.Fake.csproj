@@ -91,6 +91,7 @@
     <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\EntityExistsException.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\UnexpectedEventListenerException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Entity.cs" />
     <Compile Include="Repository\IEntityShadow.cs" />

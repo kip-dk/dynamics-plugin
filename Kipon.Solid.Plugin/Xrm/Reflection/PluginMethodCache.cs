@@ -19,7 +19,27 @@
         {
         }
 
-        public static PluginMethodCache[] ForPlugin(Type type, int stage, string message, string primaryEntityName, bool isAsync)
+        public static string ImageSuffixFor(int pre1post2, int stage, bool async)
+        {
+            var first = "Preimage";
+            if (pre1post2 == 2)
+            {
+                first = "Postimage";
+            }
+            switch (stage)
+            {
+                case 10: return $"{first}Validate";
+                case 20: return "Pre";
+                case 40:
+                    {
+                        if (async) return $"{first}PostAsync";
+                        return $"{first}Post";
+                    }
+            }
+            throw new ArgumentException($"{nameof(stage)} can be 10, 20 or 40");
+        }
+
+        public static PluginMethodCache[] ForPlugin(Type type, int stage, string message, string primaryEntityName, bool isAsync, bool throwIfEmpty = true)
         {
             var key = type.FullName + "|" + stage + "|" + message + "|" + primaryEntityName + "|" + isAsync.ToString();
 
@@ -120,7 +140,7 @@
                 #endregion
             }
 
-            if (results.Count == 0)
+            if (results.Count == 0 && throwIfEmpty)
             {
                 throw new Exceptions.UnresolvablePluginMethodException(type);
             }
@@ -213,6 +233,7 @@
         public int Sort { get; set; }
         public TypeCache[] Parameters { get; private set; }
 
+        #region target filter attributes
         private bool? _filterAllProperties;
         public bool FilterAllProperties
         {
@@ -252,6 +273,119 @@
                 return _filteredProperties;
             }
         }
+        #endregion
+
+        #region preimage attributes
+        private bool? _needPreimage;
+        public bool NeedPreimage
+        {
+            get
+            {
+                if (this._needPreimage == null)
+                {
+                    this._needPreimage = this.Parameters != null && this.Parameters.Where(r => r.IsPreimage || r.IsMergedimage).Any();
+                }
+                return this._needPreimage.Value;
+            }
+        }
+
+        private bool? _allPreimageProperties;
+        public bool AllPreimageProperties
+        {
+            get
+            {
+                if (_allPreimageProperties == null)
+                {
+                    _allPreimageProperties = this.Parameters != null && this.Parameters.Where(r => (r.IsPreimage || r.IsMergedimage) && r.AllProperties).Any();
+                }
+                return _allPreimageProperties.Value;
+            }
+        }
+
+        private CommonPropertyCache[] _preimageProperties;
+        public CommonPropertyCache[] PreimageProperties
+        {
+            get
+            {
+                if (_preimageProperties == null)
+                {
+                    if (this.Parameters != null)
+                    {
+                        var result = new List<CommonPropertyCache>();
+                        foreach (var p in Parameters)
+                        {
+                            if ((p.IsPreimage || p.IsMergedimage) && p.FilteredProperties != null && p.FilteredProperties.Length > 0)
+                            {
+                                result.AddRange(p.FilteredProperties);
+                            }
+                        }
+                        _preimageProperties = result.ToArray();
+                    }
+                    else
+                    {
+                        this._preimageProperties = new CommonPropertyCache[0];
+                    }
+                }
+                return _preimageProperties;
+            }
+        }
+        #endregion
+
+        #region postimage attributes
+        private bool? _needPostimage;
+        public bool NeedPostimage
+        {
+            get
+            {
+                if (this._needPostimage == null)
+                {
+                    this._needPostimage = this.Parameters != null && this.Parameters.Where(r => r.IsPostimage).Any();
+                }
+                return this._needPostimage.Value;
+            }
+        }
+
+        private bool? _allPostimageProperties;
+        public bool AllPostimageProperties
+        {
+            get
+            {
+                if (this._allPostimageProperties == null)
+                {
+                    this._allPostimageProperties = this.Parameters != null && this.Parameters.Where(r => r.AllProperties).Any();
+                }
+                return this._allPostimageProperties.Value;
+            }
+        }
+
+        private CommonPropertyCache[] _postimageProperties;
+        public CommonPropertyCache[] PostimageProperties
+        {
+            get
+            {
+                if (this._postimageProperties == null)
+                {
+                    if (this.Parameters != null)
+                    {
+                        var result = new List<CommonPropertyCache>();
+                        foreach (var p in this.Parameters)
+                        {
+                            if (p.IsPostimage && p.FilteredProperties != null && p.FilteredProperties.Length > 0)
+                            {
+                                result.AddRange(p.FilteredProperties);
+                            }
+                        }
+                        this._postimageProperties = result.ToArray();
+                    }
+                    else
+                    {
+                        this._postimageProperties = new CommonPropertyCache[0];
+                    }
+                }
+                return this._postimageProperties;
+            }
+        }
+        #endregion
 
         private bool? _hasRequredProperties = null;
         public bool HasRequiredProperties

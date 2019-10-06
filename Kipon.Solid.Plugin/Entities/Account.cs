@@ -7,7 +7,11 @@ using Kipon.Xrm.Attributes;
 
 namespace Kipon.Solid.Plugin.Entities
 {
-    public partial class Account : ICreditLimitChanged, IAccountNameChanged
+    public partial class Account : 
+        ICreditLimitChanged, 
+        IAccountNameChanged, 
+        IAccountPreName,
+        IAccountPostAccountNumber
     {
         public Microsoft.Xrm.Sdk.Money Saldo { get; set; }
     }
@@ -25,5 +29,15 @@ namespace Kipon.Solid.Plugin.Entities
 
     public interface IForgotToImplement : IAccountTarget
     {
+    }
+
+    public interface IAccountPreName : IAccountPreimage
+    {
+        string Name { get; }
+    }
+
+    public interface IAccountPostAccountNumber : IAccountPostimage
+    {
+        string AccountNumber { get; }
     }
 }

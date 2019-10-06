@@ -62,12 +62,25 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         }
 
 
+        #region wrong target
         [TestMethod]
         public void WrongTargetTypeTest()
         {
-            // TO DO -- below will throw unavailableimage by design ... test that it works
-            //var methods = Kipon.Xrm.DI.Reflection.PluginMethodCache.ForPlugin(typeof(WrongTargetPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
+            Assert.ThrowsException<Kipon.Xrm.Exceptions.UnavailableImageException>(() =>
+            {
+                var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(typeof(WrongTargetPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
+            });
         }
+
+        public class WrongTargetPlugin
+        {
+            [Sort(10)]
+            public void OnPreCreate(Entities.AccountReference account)
+            {
+            }
+        }
+        #endregion
+
 
         [TestMethod]
         public void OrganizationServiceResolveTest()
@@ -78,6 +91,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
             Assert.IsFalse(methods[0].Parameters[2].RequireAdminService);
         }
 
+        #region target relevant test
         [TestMethod]
         public void IsTargetRelevantTest()
         {
@@ -94,9 +108,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
             Assert.IsTrue(methods[0].IsRelevant(target));
             Assert.IsFalse(methods[1].IsRelevant(target));
             Assert.IsTrue(methods[2].IsRelevant(target));
-
         }
-
 
         public class RelevantAttributePLugin
         {
@@ -115,14 +127,77 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
             {
             }
         }
+        #endregion
 
-        public class WrongTargetPlugin
+
+        #region preimageproperty test
+        [TestMethod]
+        public void PreimagePropertyTest()
         {
-            [Sort(10)]
-            public void OnPreCreate(Entities.AccountReference account)
+            var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(
+                typeof(PreimagePropertyPlugin), 
+                (int)StepAttribute.StageEnum.Pre, 
+                StepAttribute.MessageEnum.Update.ToString(), 
+                Entities.Account.EntityLogicalName, 
+                false);
+
+            Assert.AreEqual(2, methods.Length);
+            Assert.IsFalse(methods[0].AllPreimageProperties);
+            Assert.AreEqual(1, methods[0].PreimageProperties.Length);
+            Assert.AreEqual("name", methods[0].PreimageProperties[0].LogicalName);
+
+            Assert.IsTrue(methods[1].AllPreimageProperties);
+        }
+
+
+        public class PreimagePropertyPlugin
+        {
+            [Sort(1)]
+            public void OnPreUpdate(Entities.IAccountNameChanged nameChanged, Entities.IAccountPreName preName)
+            {
+            }
+
+            [Sort(2)]
+            public void OnPreUpdate(Entities.ICreditLimitChanged clChanged, Entities.Account preimage)
             {
             }
         }
+        #endregion
+
+
+        #region postimageproperty test
+        [TestMethod]
+        public void PostimagePropertyTest()
+        {
+            var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(
+                typeof(PostimagePropertyPlugin),
+                (int)StepAttribute.StageEnum.Post,
+                StepAttribute.MessageEnum.Update.ToString(),
+                Entities.Account.EntityLogicalName,
+                false);
+
+            Assert.AreEqual(2, methods.Length);
+            Assert.IsFalse(methods[0].AllPostimageProperties);
+            Assert.AreEqual(1, methods[0].PostimageProperties.Length);
+            Assert.AreEqual("accountnumber", methods[0].PostimageProperties[0].LogicalName);
+
+            Assert.IsTrue(methods[1].AllPostimageProperties);
+        }
+
+
+        public class PostimagePropertyPlugin
+        {
+            [Sort(1)]
+            public void OnPostUpdate(Entities.IAccountNameChanged nameChanged, Entities.IAccountPostAccountNumber postAccount)
+            {
+            }
+
+            [Sort(2)]
+            public void OnPostUpdate(Entities.ICreditLimitChanged clChanged, Entities.Account postimage)
+            {
+            }
+        }
+        #endregion
 
 
         public class BothOrgService
