@@ -71,6 +71,11 @@ namespace Kipon.Xrm.Fake.Repository
             }
         }
 
+        internal Entity Clone()
+        {
+            return new Entity(this);
+        }
+
         internal Microsoft.Xrm.Sdk.Entity ToEntity()
         {
             var result = new Microsoft.Xrm.Sdk.Entity { Id = this.Id, LogicalName = this.LogicalName };

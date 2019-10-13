@@ -18,11 +18,18 @@ namespace Kipon.Xrm.Fake.Repository
         private List<TransactionElement> transaction = new List<TransactionElement>();
 
         private static Dictionary<string, Microsoft.Xrm.Sdk.IPlugin> plugins = new Dictionary<string, Microsoft.Xrm.Sdk.IPlugin>();
-
         #endregion
 
+        #region static method for creating an instance
+        public static PluginExecutionFakeContext ForType<T>() where T: Microsoft.Xrm.Sdk.IPlugin
+        {
+            return new PluginExecutionFakeContext(typeof(T));
+        }
+        #endregion
+
+
         #region constructors
-        public PluginExecutionFakeContext(Type pluginType)
+        private PluginExecutionFakeContext(Type pluginType)
         {
             this.orgServiceFactory = new Services.OrganizationServiceFactory(this);
             this.traceService = new Services.TracingService();
@@ -147,8 +154,18 @@ namespace Kipon.Xrm.Fake.Repository
         #endregion
 
         #region private helpers
-        private Microsoft.Xrm.Sdk.Entity ResolveImage(string logicalName, Guid id, int pre1post2, Reflection.PluginMethodCache[] methods)
+        private Microsoft.Xrm.Sdk.Entity ResolveImage(string logicalName, Guid id, int pre1post2, Reflection.PluginMethodCache[] methods, Entity pre)
         {
+            if (pre1post2 == 1 && pre ==null)
+            {
+                throw new ArgumentException("For pre you must parse the pre entity state");
+            }
+
+            if (pre1post2 == 2 && pre != null)
+            {
+                throw new ArgumentException("For post you cannot parse the pre entity state");
+            }
+
             var needAll = false;
             string[] neededProperties = null;
 
@@ -210,7 +227,12 @@ namespace Kipon.Xrm.Fake.Repository
                 throw new Exceptions.EntityNotFoundException(logicalName, id);
             }
 
-            var data = entities[key];
+            var data = pre;
+
+            if (pre1post2 == 2)
+            {
+                data = entities[key];
+            }
 
             if (needAll)
             {
@@ -247,11 +269,24 @@ namespace Kipon.Xrm.Fake.Repository
         public Action OnPreCreate;
         public Action OnPostCreate;
         public Action OnPostCreateAsync;
+
+
+        public Action OnValidationUpdate;
+        public Action OnPreUpdate;
+        public Action OnPostUpdate;
+        public Action OnPostUpdateAsync;
+
+        public Action OnValidationDelete;
+        public Action OnPreDelete;
+        public Action OnPostDelete;
+        public Action OnPostDeleteAsync;
+
         #endregion
 
         #region execute the plugin code
         public Guid Create(Microsoft.Xrm.Sdk.Entity target)
         {
+            this.preImage = null;
             try
             {
                 if (target.Id == Guid.Empty)
@@ -265,120 +300,21 @@ namespace Kipon.Xrm.Fake.Repository
                     throw new Exceptions.EntityExistsException(target);
                 }
 
-                // Validate
+                this.ExecuteStep(target, 10, "Create", false, null, this.OnValidationCreate);
+                this.ExecuteStep(target, 20, "Create", false, () =>
                 {
-                    var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(this.plugin.GetType(), 10, "Create", target.LogicalName, false, false);
-                    if (methods.Length > 0)
-                    {
-                        var pluginExecutionContext = new Services.PluginExecutionContext(10, 1, "Create", target.LogicalName, target.Id, false);
-                        pluginExecutionContext.InputParameters.Add("Target", target);
-
-                        var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this);
-                        this.plugin.Execute(serviceProvider);
-
-                        this.OnValidationCreate?.Invoke();
-                    }
-                    else
-                    {
-                        if (this.OnValidationCreate != null)
-                        {
-                            throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), "Create", 10);
-                        }
-                    }
-                }
-                // pre
+                    ((Repository.IEntityShadow)this).Create(target);
+                    ((Repository.IEntityShadow)this).Commit();
+                }, this.OnPreCreate);
+                this.ExecuteStep(target, 40, "Create", false, () =>
                 {
-                    var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(this.plugin.GetType(), 20, "Create", target.LogicalName, false, false);
-                    if (methods.Length > 0)
-                    {
-                        var pluginExecutionContext = new Services.PluginExecutionContext(20, 1, "Create", target.LogicalName, target.Id, false);
-                        pluginExecutionContext.InputParameters.Add("Target", target);
-
-                        var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this);
-                        this.plugin.Execute(serviceProvider);
-                        ((Repository.IEntityShadow)this).Create(target);
-
-                        this.OnPreCreate?.Invoke();
-
-                    } else
-                    {
-                        if (this.OnPreCreate != null)
-                        {
-                            throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), "Create", 20);
-                        }
-                    }
-                }
-
+                    ((Repository.IEntityShadow)this).Commit();
+                }, OnPostCreate);
+                this.ExecuteStep(target, 40, "Create", true, () =>
                 {
-                    // post
-                    var hasPostSync = false;
-                    {
-                        var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(this.plugin.GetType(), 40, "Create", target.LogicalName, false, false);
+                    ((Repository.IEntityShadow)this).Commit();
+                }, OnPostCreate);
 
-                        if (methods.Length > 0) {
-                            var pluginExecutionContext = new Services.PluginExecutionContext(40, 1, "Create", target.LogicalName, target.Id, false);
-
-                            var postTarget = ((IEntityShadow)this).Get(target.LogicalName, target.Id);
-                            pluginExecutionContext.InputParameters.Add("Target", postTarget);
-
-                            var imagePost = this.ResolveImage(target.LogicalName, target.Id, 2, methods);
-                            if (imagePost != null)
-                            {
-                                var imgName = Reflection.PluginMethodCache.ImageSuffixFor(2, 40, false);
-                                pluginExecutionContext.PostEntityImages.Add(imgName, imagePost);
-                            }
-
-                            var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this);
-                            this.plugin.Execute(serviceProvider);
-                            hasPostSync = true;
-                        }
-                    }
-                ((IEntityShadow)this).Commit();
-
-                    if (hasPostSync)
-                    {
-                        this.OnPostCreate?.Invoke();
-                    } else
-                    {
-                        if (this.OnPostCreate != null)
-                        {
-                            throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), "Create", 40);
-                        }
-                    }
-                }
-
-                {
-                    // post async
-                    {
-                        var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(this.plugin.GetType(), 40, "Create", target.LogicalName, false, true);
-
-                        if (methods.Length > 0) {
-                            var pluginExecutionContext = new Services.PluginExecutionContext(40, 1, "Create", target.LogicalName, target.Id, true);
-
-                            var postTarget = ((IEntityShadow)this).Get(target.LogicalName, target.Id);
-                            pluginExecutionContext.InputParameters.Add("Target", postTarget);
-
-                            var imagePost = this.ResolveImage(target.LogicalName, target.Id, 2, methods);
-                            if (imagePost != null)
-                            {
-                                var imgName = Reflection.PluginMethodCache.ImageSuffixFor(2, 40, true);
-                                pluginExecutionContext.PostEntityImages.Add(imgName, imagePost);
-                            }
-
-                            var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this);
-                            this.plugin.Execute(serviceProvider);
-                            ((IEntityShadow)this).Commit();
-
-                            this.OnPostCreateAsync?.Invoke();
-                        } else
-                        {
-                            if (this.OnPostCreateAsync != null)
-                            {
-                                throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), "Create", 40, true);
-                            }
-                        }
-                    }
-                }
                 return target.Id;
             } catch (Exception)
             {
@@ -396,7 +332,23 @@ namespace Kipon.Xrm.Fake.Repository
                 {
                     throw new Exceptions.EntityNotFoundException(target.LogicalName, target.Id);
                 }
-            } catch (Exception)
+
+                this.ExecuteStep(target, 10, "Update", false, null, OnValidationUpdate);
+                this.ExecuteStep(target, 20, "Update", false, () =>
+                {
+                    ((Repository.IEntityShadow)this).Update(target);
+                    ((Repository.IEntityShadow)this).Commit();
+                }, OnPreUpdate);
+                this.ExecuteStep(target, 40, "Update", false, () =>
+                {
+                    ((Repository.IEntityShadow)this).Commit();
+                }, OnPostUpdate);
+                this.ExecuteStep(target, 40, "Update", true, () =>
+                {
+                    ((Repository.IEntityShadow)this).Commit();
+                }, OnPostUpdateAsync);
+            }
+            catch (Exception)
             {
                 ((IEntityShadow)this).Rollback();
                 throw;
@@ -405,7 +357,34 @@ namespace Kipon.Xrm.Fake.Repository
 
         public void Delete(Microsoft.Xrm.Sdk.EntityReference target)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var key = target.LogicalName + target.Id.ToString();
+                if (!entities.ContainsKey(key))
+                {
+                    throw new Exceptions.EntityNotFoundException(target.LogicalName, target.Id);
+                }
+
+                this.ExecuteStep(target, 10, "Delete", false, null, OnValidationDelete);
+                this.ExecuteStep(target, 20, "Delete", false, () =>
+                {
+                    ((Repository.IEntityShadow)this).Delete(target.LogicalName, target.Id);
+                    ((Repository.IEntityShadow)this).Commit();
+                }, OnPreDelete);
+                this.ExecuteStep(target, 40, "Delete", false, () =>
+                {
+                    ((Repository.IEntityShadow)this).Commit();
+                }, OnPostDelete);
+                this.ExecuteStep(target, 40, "Delete", true, () =>
+                {
+                    ((Repository.IEntityShadow)this).Commit();
+                }, OnPostDeleteAsync);
+            }
+            catch (Exception)
+            {
+                ((IEntityShadow)this).Rollback();
+                throw;
+            }
         }
         #endregion
 
@@ -417,6 +396,129 @@ namespace Kipon.Xrm.Fake.Repository
         #endregion;
 
         #region private methods
+        private Entity preImage = null;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="target">The tarket entity</param>
+        /// <param name="stage">10=validate,20=pre,40=post</param>
+        /// <param name="message">Create,Update,Delete,??</param>
+        /// <param name="isAsync">false or true, only apply to stage 40</param>
+        /// <param name="finalize">Will be executed end of step, regardless of any plugin execution</param>
+        /// <param name="onDone">the valide method provided by the test library</param>
+        private void ExecuteStep(Microsoft.Xrm.Sdk.Entity target, int stage, string message, bool isAsync, Action finalize, Action onDone)
+        {
+            if (message != "Create" && stage == 10)
+            {
+                var key = target.LogicalName + target.Id.ToString();
+                this.preImage = this.entities[key].Clone();
+            } 
+
+            var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
+            if (methods.Length > 0)
+            {
+                var pluginExecutionContext = new Services.PluginExecutionContext(stage, 1, message, target.LogicalName, target.Id, isAsync);
+                pluginExecutionContext.InputParameters.Add("Target", target);
+
+                if (message != "Create")
+                {
+                    var imagePre = this.ResolveImage(target.LogicalName, target.Id, 1, methods, preImage);
+                    if (imagePre != null)
+                    {
+                        var imgName = Reflection.PluginMethodCache.ImageSuffixFor(1, stage, isAsync);
+                        pluginExecutionContext.PreEntityImages.Add(imgName, imagePre);
+                    }
+                }
+
+                if (stage == 40 && message != "Delete")
+                {
+                    var imagePost = this.ResolveImage(target.LogicalName, target.Id, 2, methods, null);
+                    if (imagePost != null)
+                    {
+                        var imgName = Reflection.PluginMethodCache.ImageSuffixFor(2, stage, isAsync);
+                        pluginExecutionContext.PostEntityImages.Add(imgName, imagePost);
+                    }
+                }
+
+                var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this);
+                this.plugin.Execute(serviceProvider);
+
+                finalize?.Invoke();
+
+                onDone?.Invoke();
+            }
+            else
+            {
+                if (onDone != null)
+                {
+                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage);
+                } else
+                {
+                    finalize?.Invoke();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="target">The target reference</param>
+        /// <param name="stage">10=validate,20=pre,40=post</param>
+        /// <param name="message">Create,Update,Delete,??</param>
+        /// <param name="isAsync">false or true, only apply to stage 40</param>
+        /// <param name="finalize">Will be executed end of step, regardless of any plugin execution</param>
+        /// <param name="onDone">the valide method provided by the test library</param>
+        private void ExecuteStep(Microsoft.Xrm.Sdk.EntityReference target, int stage, string message, bool isAsync, Action finalize, Action onDone)
+        {
+            if (stage == 10)
+            {
+                var key = target.LogicalName + target.Id.ToString();
+                this.preImage = this.entities[key].Clone();
+            }
+
+            var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
+            if (methods.Length > 0)
+            {
+                var pluginExecutionContext = new Services.PluginExecutionContext(stage, 1, message, target.LogicalName, target.Id, isAsync);
+                pluginExecutionContext.InputParameters.Add("Target", target);
+
+                var imagePre = this.ResolveImage(target.LogicalName, target.Id, 1, methods, preImage);
+                if (imagePre != null)
+                {
+                    var imgName = Reflection.PluginMethodCache.ImageSuffixFor(1, stage, isAsync);
+                    pluginExecutionContext.PreEntityImages.Add(imgName, imagePre);
+                }
+
+                if (stage == 40 && message != "Delete")
+                {
+                    var imagePost = this.ResolveImage(target.LogicalName, target.Id, 2, methods, null);
+                    if (imagePost != null)
+                    {
+                        var imgName = Reflection.PluginMethodCache.ImageSuffixFor(2, stage, isAsync);
+                        pluginExecutionContext.PostEntityImages.Add(imgName, imagePost);
+                    }
+                }
+
+                var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this);
+                this.plugin.Execute(serviceProvider);
+
+                finalize?.Invoke();
+
+                onDone?.Invoke();
+            }
+            else
+            {
+                if (onDone != null)
+                {
+                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage);
+                }
+                else
+                {
+                    finalize?.Invoke();
+                }
+            }
+        }
+
         #endregion
 
         #region internal classes

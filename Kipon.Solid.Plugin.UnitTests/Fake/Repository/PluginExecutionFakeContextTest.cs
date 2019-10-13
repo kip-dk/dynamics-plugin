@@ -17,7 +17,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Fake.Repository
         [TestMethod]
         public void CreateTest()
         {
-            using (var ctx = new PluginExecutionFakeContext(typeof(Kipon.Solid.Plugin.Plugins.Account.AccountCreatePlugin)))
+            using (var ctx = PluginExecutionFakeContext.ForType<Kipon.Solid.Plugin.Plugins.Account.AccountCreatePlugin>())
             {
                 var target = new Entities.Account
                 {
@@ -26,6 +26,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Fake.Repository
 
                 ctx.OnValidationCreate = delegate ()
                 {
+                    Assert.IsNotNull(target.AccountId);
                     Assert.AreEqual(100M, target.CreditLimit.Value);
                     Assert.AreEqual("Jens", target.Name);
                 };
