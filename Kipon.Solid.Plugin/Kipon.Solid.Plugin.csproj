@@ -80,7 +80,7 @@
     <Compile Include="Xrm\Attributes\PreimageAttribute.cs" />
     <Compile Include="Xrm\Attributes\RequiredAttribute.cs" />
     <Compile Include="Xrm\Attributes\SortAttribute.cs" />
-    <Compile Include="Entities\Account.cs" />
+    <Compile Include="Entities\Accounts\Account.cs" />
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Xrm\Attributes\StepAttribute.cs" />
     <Compile Include="Xrm\Attributes\TargetAttribute.cs" />

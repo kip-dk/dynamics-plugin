@@ -52,6 +52,7 @@
                 foreach (var p in method.Parameters)
                 {
                     args[ix] = serviceCache.Resolve(p);
+                    ix++;
                 }
                 #endregion
 

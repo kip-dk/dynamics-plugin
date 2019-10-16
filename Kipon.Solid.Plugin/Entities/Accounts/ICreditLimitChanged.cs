@@ -10,7 +10,7 @@ namespace Kipon.Solid.Plugin.Entities
     {
         public interface ICreditLimitChanged : IAccountTarget
         {
-            Microsoft.Xrm.Sdk.Money CreditLimit { get; }
+            Microsoft.Xrm.Sdk.Money CreditLimit { get; set; }
         }
     }
 }

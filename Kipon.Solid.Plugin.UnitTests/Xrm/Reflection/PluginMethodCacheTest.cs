@@ -110,6 +110,17 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
             Assert.IsTrue(methods[2].IsRelevant(target));
         }
 
+        [TestMethod]
+        public void UpdatePreMixedPropertiesTest()
+        {
+            var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.Account.AccountPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
+            Assert.AreEqual(2, methods.Length);
+            Assert.AreEqual(3, methods[0].Parameters.Length);
+            Assert.AreEqual(typeof(Entities.Account), methods[0].Parameters[0].ToType);
+            Assert.AreEqual(typeof(Entities.Account), methods[0].Parameters[1].ToType);
+            Assert.AreEqual(typeof(Service.AccountService), methods[0].Parameters[2].ToType);
+        }
+
         public class RelevantAttributePLugin
         {
             [Sort(10)]
