@@ -19,7 +19,7 @@ namespace Kipon.Solid.Plugin.Plugins.Account
         }
 
         [Sort(2)]
-        public void OnValidateCreate(Entities.IAccountNameChanged account)
+        public void OnValidateCreate(Entities.Account.IAccountNameChanged account)
         {
             if (account.Name != null && account.Name.StartsWith("kurt"))
             {

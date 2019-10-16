@@ -13,19 +13,19 @@ namespace Kipon.Solid.Plugin.Plugins.Account
         {
         }
 
-        public void OnPreCreate(Entities.IAccountNameChanged target, ServiceAPI.IAccountService accountService)
+        public void OnPreCreate(Entities.Account.IAccountNameChanged target, ServiceAPI.IAccountService accountService)
         {
             accountService.OnNameChanged(target);
         }
 
         [Sort(100)]
-        public void OnPreUpdate(Entities.IAccountNameChanged target, ServiceAPI.IAccountService accountService)
+        public void OnPreUpdate(Entities.Account.IAccountNameChanged target, ServiceAPI.IAccountService accountService)
         {
             accountService.OnNameChanged(target);
         }
 
         [Sort(101)]
-        public void OnPreUpdate(Entities.ICreditLimitChanged target)
+        public void OnPreUpdate(Entities.Account.ICreditLimitChanged target)
         {
             // do something when changes
         }

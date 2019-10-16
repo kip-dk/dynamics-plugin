@@ -8,7 +8,7 @@ namespace Kipon.Solid.Plugin.ServiceAPI
 {
     public interface IAccountService
     {
-        void OnNameChanged(Entities.IAccountNameChanged target);
+        void OnNameChanged(Entities.Account.IAccountNameChanged target);
 
         Microsoft.Xrm.Sdk.IOrganizationService OrgService { get; }
     }

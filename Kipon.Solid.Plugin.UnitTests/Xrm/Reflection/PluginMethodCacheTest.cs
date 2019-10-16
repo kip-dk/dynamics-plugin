@@ -113,17 +113,17 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         public class RelevantAttributePLugin
         {
             [Sort(10)]
-            public void OnPreUpdate(Entities.IAccountNameChanged nameChanged)
+            public void OnPreUpdate(Entities.Account.IAccountNameChanged nameChanged)
             {
             }
 
             [Sort(20)]
-            public void OnPreUpdate(Entities.ICreditLimitChanged creditLimitChanged)
+            public void OnPreUpdate(Entities.Account.ICreditLimitChanged creditLimitChanged)
             {
             }
 
             [Sort(30)]
-            public void OnPreUpdate(Entities.ICreditLimitChanged cl, Entities.IAccountNameChanged nc)
+            public void OnPreUpdate(Entities.Account.ICreditLimitChanged cl, Entities.Account.IAccountNameChanged nc)
             {
             }
         }
@@ -153,12 +153,12 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         public class PreimagePropertyPlugin
         {
             [Sort(1)]
-            public void OnPreUpdate(Entities.IAccountNameChanged nameChanged, Entities.IAccountPreName preName)
+            public void OnPreUpdate(Entities.Account.IAccountNameChanged nameChanged, Entities.Account.IAccountPreName preName)
             {
             }
 
             [Sort(2)]
-            public void OnPreUpdate(Entities.ICreditLimitChanged clChanged, Entities.Account preimage)
+            public void OnPreUpdate(Entities.Account.ICreditLimitChanged clChanged, Entities.Account preimage)
             {
             }
         }
@@ -188,12 +188,12 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         public class PostimagePropertyPlugin
         {
             [Sort(1)]
-            public void OnPostUpdate(Entities.IAccountNameChanged nameChanged, Entities.IAccountPostAccountNumber postAccount)
+            public void OnPostUpdate(Entities.Account.IAccountNameChanged nameChanged, Entities.Account.IAccountPostAccountNumber postAccount)
             {
             }
 
             [Sort(2)]
-            public void OnPostUpdate(Entities.ICreditLimitChanged clChanged, Entities.Account postimage)
+            public void OnPostUpdate(Entities.Account.ICreditLimitChanged clChanged, Entities.Account postimage)
             {
             }
         }
@@ -213,12 +213,12 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         public class FilteredAttributePlugin
         {
             [Sort(10)]
-            public void OnPreUpdate(Entities.ICreditLimitChanged ac)
+            public void OnPreUpdate(Entities.Account.ICreditLimitChanged ac)
             {
             }
 
             [Sort(20)]
-            public void OnPreUpdate(Entities.ICreditLimitChanged ac, Entities.IAccountNameChanged nc)
+            public void OnPreUpdate(Entities.Account.ICreditLimitChanged ac, Entities.Account.IAccountNameChanged nc)
             {
             }
 

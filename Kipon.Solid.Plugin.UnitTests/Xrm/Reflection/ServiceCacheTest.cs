@@ -56,7 +56,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
                 Microsoft.Xrm.Sdk.IOrganizationService orgService, 
                 Kipon.Solid.Plugin.Entities.IAdminUnitOfWork aUow, 
                 Kipon.Solid.Plugin.ServiceAPI.IAccountService accountService,
-                Kipon.Solid.Plugin.Entities.IAccountNameChanged account)
+                Kipon.Solid.Plugin.Entities.Account.IAccountNameChanged account)
             {
             }
         }

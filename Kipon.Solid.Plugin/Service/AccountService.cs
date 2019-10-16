@@ -19,16 +19,13 @@ namespace Kipon.Solid.Plugin.Service
 
         public IOrganizationService OrgService { get; private set; }
 
-        public void OnNameChanged(IAccountNameChanged target)
+        public void OnNameChanged(Account.IAccountNameChanged target)
         {
             if (!string.IsNullOrEmpty(target.Name))
             {
                 var names = target.Name.Split(' ').Select(r => r.FirstToUpper());
                 target.Name = string.Join(" ", names);
             }
-
-
-            var ent = new Microsoft.Xrm.Sdk.Entity(Entities.Account.EntityLogicalName);
         }
     }
 }

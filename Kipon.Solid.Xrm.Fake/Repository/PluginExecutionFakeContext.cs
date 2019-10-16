@@ -25,6 +25,11 @@ namespace Kipon.Xrm.Fake.Repository
         {
             return new PluginExecutionFakeContext(typeof(T));
         }
+
+        public static PluginExecutionFakeContext ForType<T>(string unsecureConfig, string secureConfig) where T : Microsoft.Xrm.Sdk.IPlugin
+        {
+            return new PluginExecutionFakeContext(typeof(T), unsecureConfig, secureConfig);
+        }
         #endregion
 
 
@@ -48,7 +53,7 @@ namespace Kipon.Xrm.Fake.Repository
             }
         }
 
-        public PluginExecutionFakeContext(Type pluginType, string unsecureConfig, string secureConfig): this(pluginType)
+        private PluginExecutionFakeContext(Type pluginType, string unsecureConfig, string secureConfig): this(pluginType)
         {
             this.unsecureConfig = unsecureConfig;
             this.secureConfig = secureConfig;
@@ -261,6 +266,24 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 this.AddEntity(e);
             }
+        }
+        #endregion
+
+        #region public method for access data
+        public T GetEntityById<T>(Guid id) where T : Microsoft.Xrm.Sdk.Entity, new()
+        {
+            var p = new T();
+            var key = p.LogicalName + id.ToString();
+            if (!this.entities.ContainsKey(key))
+            {
+                throw new Exceptions.EntityNotFoundException(p.LogicalName, id);
+            }
+            return this.entities[key].ToEntity().ToEntity<T>();
+        }
+
+        public IQueryable<T> GetQuery<T>()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

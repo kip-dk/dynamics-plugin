@@ -62,6 +62,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Accounts\IAccountNameChanged.cs" />
+    <Compile Include="Entities\Accounts\IAccountPostAccountNumber.cs" />
+    <Compile Include="Entities\Accounts\IAccountPreName.cs" />
+    <Compile Include="Entities\Accounts\ICreditLimitChanged.cs" />
+    <Compile Include="Entities\Accounts\IForgotToImplement.cs" />
     <Compile Include="Entities\AdminCrmUnitOfWork.cs" />
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
     <Compile Include="Plugins\Account\AccountCreatePlugin.cs" />
