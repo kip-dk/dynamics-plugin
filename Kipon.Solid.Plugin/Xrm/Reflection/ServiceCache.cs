@@ -21,7 +21,6 @@
             this.services.Add(typeof(IOrganizationServiceFactory).FullName, organizationServiceFactory);
             this.services.Add(typeof(ITracingService).FullName, traceService);
             this.systemuserid = pluginExecutionContext.UserId;
-
         }
 
         public object Resolve(TypeCache type)
@@ -93,14 +92,50 @@
 
             if (type.FromType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
             {
-                services[type.ObjectInstanceKey] = this.organizationServiceFactory.CreateOrganizationService(this.systemuserid);
-                return services[type.ObjectInstanceKey];
+                return this.GetOrganizationService(type.RequireAdminService);
             }
 
+            if (type.IsQuery)
+            {
+                var uow = this.GetIUnitOfWork(type.RequireAdminService);
+                var queryProperty = type.RepositoryProperty;
+                var repository = queryProperty.GetValue(uow, new object[0]);
+                var queryMethod = type.QueryMethod;
+                return queryMethod.Invoke(repository, new object[0]);
+            }
             return this.CreateServiceInstance(type);
         }
 
         private List<string> resolving = new List<string>();
+
+        private Kipon.Xrm.IUnitOfWork GetIUnitOfWork(bool admin)
+        {
+            TypeCache tc = TypeCache.ForUow(admin);
+            return (Kipon.Xrm.IUnitOfWork)this.CreateServiceInstance(tc);
+        }
+
+        private Microsoft.Xrm.Sdk.IOrganizationService GetOrganizationService(bool admin)
+        {
+            var objectInstanceKey = typeof(Microsoft.Xrm.Sdk.IOrganizationService).FullName;
+            if (admin)
+            {
+                objectInstanceKey += ":admin";
+            }
+            if (services.ContainsKey(objectInstanceKey))
+            {
+                return (Microsoft.Xrm.Sdk.IOrganizationService)services[objectInstanceKey];
+            }
+            if (admin)
+            {
+                services[objectInstanceKey] = this.organizationServiceFactory.CreateOrganizationService(null);
+            }
+            else
+            {
+                services[objectInstanceKey] = this.organizationServiceFactory.CreateOrganizationService(this.systemuserid);
+            }
+
+            return (Microsoft.Xrm.Sdk.IOrganizationService)services[objectInstanceKey];
+        }
 
         private object CreateServiceInstance(TypeCache type)
         {

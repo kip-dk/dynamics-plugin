@@ -14,9 +14,16 @@
     {
         public static Types Types { get; set; }
 
+        private static System.Reflection.ParameterInfo UOW;
+        private static System.Reflection.ParameterInfo UOW_ADMIN;
+
         static TypeCache()
         {
             TypeCache.Types = Types.Instance;
+            var method = typeof(TypeCache).GetMethod(nameof(TypeCache.DummyUOW), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var pms = method.GetParameters();
+            UOW = pms[0];
+            UOW_ADMIN = pms[1];
         }
 
         private static Dictionary<System.Reflection.ParameterInfo, TypeCache> resolvedTypes = new Dictionary<System.Reflection.ParameterInfo, TypeCache>();
@@ -202,6 +209,19 @@
             }
             #endregion
 
+            #region IQueryable
+            if (type.IsInterface)
+            {
+                Type toType = type.ImplementsGenericInterface(typeof(System.Linq.IQueryable<>));
+                if (toType != null)
+                {
+                    var result = new TypeCache { FromType = type, ToType = toType, IsQuery = true };
+                    result.RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
+                    return result;
+                }
+            }
+            #endregion
+
             #region find implementing interface
             if (type.IsInterface)
             {
@@ -221,6 +241,26 @@
             #endregion
 
             throw new Kipon.Xrm.Exceptions.UnresolvableTypeException(type);
+        }
+
+
+        public static TypeCache ForUow(bool admin)
+        {
+            var pi = admin ? UOW_ADMIN : UOW;
+            if (resolvedTypes.ContainsKey(pi))
+            {
+                return resolvedTypes[pi];
+            }
+
+            var fromType = admin ? Types.IAdminUnitOfWork : Types.IUnitOfWork;
+            var r1 = GetInterfaceImplementation(fromType);
+            var result = new TypeCache { FromType = fromType, ToType = r1, Constructor = GetConstructor(r1), RequireAdminService = admin };
+            resolvedTypes[pi] = result;
+            return result;
+        }
+
+        private void DummyUOW(object uow, object adminUOW)
+        {
         }
 
         #region private static helpers
@@ -339,6 +379,8 @@
         public bool IsPostimage { get; private set; }
         public string LogicalName { get; private set; }
 
+        public bool IsQuery { get; private set; }
+
         public bool RequireAdminService { get; private set; }
         public bool AllProperties { get; private set; }
         public CommonPropertyCache[] FilteredProperties { get; private set; }
@@ -348,6 +390,58 @@
             get
             {
                 return IsTarget || IsReference || IsPreimage || IsPostimage || IsMergedimage;
+            }
+        }
+
+        private System.Reflection.PropertyInfo _repositoryProperty;
+        public System.Reflection.PropertyInfo RepositoryProperty
+        {
+            get
+            {
+                if (_repositoryProperty != null)
+                {
+                    return _repositoryProperty;
+                }
+
+                var repositoryType = Types.Instance.IRepository.GetGenericTypeDefinition();
+                var entityType = this.ToType.GetGenericArguments()[0];
+                var queryType = repositoryType.MakeGenericType(entityType);
+
+                var uowTC = TypeCache.ForUow(this.RequireAdminService);
+
+                var properties = uowTC.ToType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+                                        .Where(r => r.PropertyType == queryType).ToArray();
+
+                if (properties.Length == 0)
+                {
+                    throw new Exceptions.UnresolvableTypeException(this.ToType);
+                }
+
+                if (properties.Length > 1)
+                {
+                    throw new Exceptions.MultiImplementationOfSameInterfaceException(this.ToType);
+                }
+
+                this._repositoryProperty = properties[0];
+                return _repositoryProperty;
+            }
+        }
+
+        private System.Reflection.MethodInfo _queryMethod;
+        public System.Reflection.MethodInfo QueryMethod
+        {
+            get
+            {
+                if (this._queryMethod == null)
+                {
+                    var repository = this.RepositoryProperty;
+                    this._queryMethod = repository.PropertyType.GetMethod("GetQuery", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                    if (this.QueryMethod == null)
+                    {
+                        throw new Exceptions.UnresolvableTypeException(this.ToType);
+                    }
+                }
+                return this._queryMethod;
             }
         }
 
@@ -373,11 +467,21 @@
                         if (this.RequireAdminService)
                         {
                             this._ik = this.FromType.FullName + ":admin";
-                        } else
+                        }
+                        else
                         {
                             this._ik = this.FromType.FullName;
                         }
                     }
+                    else if (this.IsQuery)
+                    {
+                        if (this.RequireAdminService)
+                        {
+                            return this.ToType.FullName + ":admin";
+                        }
+                        return this.ToType.FullName;
+                    }
+                    else if (this.FromType.Implements(Types.IAdminUnitOfWork)) this._ik = Types.IAdminUnitOfWork.FullName;
                     else if (this.FromType.Implements(Types.IUnitOfWork)) this._ik = Types.IUnitOfWork.FullName;
                     else if (this.ToType != null) this._ik = this.ToType.FullName;
                     else this._ik = this.FromType.FullName;

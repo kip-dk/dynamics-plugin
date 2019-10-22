@@ -14,6 +14,7 @@ namespace Kipon.Xrm.Fake.Repository
         void Create(Microsoft.Xrm.Sdk.Entity entity);
         void Rollback();
         void Commit();
+        Entity[] AllEntities();
 
     }
 }

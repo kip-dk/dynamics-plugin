@@ -54,6 +54,8 @@ namespace Kipon.Xrm.Reflection
 
             this.IUnitOfWork = allTypes[$"Kipon.Xrm.{nameof(_instance.IUnitOfWork)}"];
             this.IAdminUnitOfWork = allTypes[$"Kipon.Xrm.{nameof(_instance.IAdminUnitOfWork)}"];
+
+            this.IRepository = allTypes[$"Kipon.Xrm.{nameof(_instance.IRepository)}`1"];
         }
 
         public Type TargetAttribute { get; private set; }
@@ -75,6 +77,8 @@ namespace Kipon.Xrm.Reflection
         public Type Postimage { get; private set; }
         public Type IUnitOfWork { get; private set; }
         public Type IAdminUnitOfWork { get; private set; }
+
+        public Type IRepository { get; private set; }
 
         public System.Reflection.Assembly Assembly { get; private set; }
 

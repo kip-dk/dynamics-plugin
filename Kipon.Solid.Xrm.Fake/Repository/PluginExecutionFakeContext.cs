@@ -156,6 +156,11 @@ namespace Kipon.Xrm.Fake.Repository
         {
             this.transaction.Clear();
         }
+
+        Entity[] IEntityShadow.AllEntities()
+        {
+            return this.entities.Values.ToArray();
+        }
         #endregion
 
         #region private helpers

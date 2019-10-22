@@ -28,6 +28,7 @@ namespace Kipon.Xrm.Reflection
         private static readonly Type _Postimage = typeof(Kipon.Xrm.Postimage<>);
         private static readonly Type _IUnitOfWork = typeof(Kipon.Xrm.IUnitOfWork);
         private static readonly Type _IAdminUnitOfWork = typeof(Kipon.Xrm.IAdminUnitOfWork);
+        private static readonly Type __IRepository = typeof(Kipon.Xrm.IRepository<>);
 
         private static readonly System.Reflection.Assembly _Assembly = typeof(Types).Assembly;
 
@@ -69,6 +70,7 @@ namespace Kipon.Xrm.Reflection
         public Type Postimage => Types._Postimage;
         public Type IUnitOfWork => Types._IUnitOfWork;
         public Type IAdminUnitOfWork => Types._IAdminUnitOfWork;
+        public Type IRepository => __IRepository;
         public System.Reflection.Assembly Assembly => _Assembly;
     }
 

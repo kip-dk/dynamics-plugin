@@ -46,7 +46,8 @@ namespace Kipon.Xrm.Fake.Services
 
         public EntityCollection RetrieveMultiple(QueryBase query)
         {
-            throw new NotImplementedException();
+            var qr = new Repository.Query.QueryResolver();
+            return qr.ExecuteQuery(query, this.shadow.AllEntities());
         }
 
         public void Update(Entity entity)
