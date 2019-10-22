@@ -136,7 +136,25 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
             public TooManyConstructors(string x)
             {
             }
-
         }
+
+        #region iqueryable test
+        [TestMethod]
+        public void IQueryableParameterTest()
+        {
+            var method = typeof(QueryableParameterClass).GetMethod(nameof(QueryableParameterClass.OnPreUpdate));
+            var typefor = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0]);
+            Assert.IsTrue(typefor.IsQuery);
+            Assert.AreEqual(typefor.RepositoryProperty.PropertyType, typeof(Kipon.Xrm.IRepository<Entities.Contact>));
+            Assert.AreEqual("GetQuery", typefor.QueryMethod.Name);
+        }
+
+        public class QueryableParameterClass
+        {
+            public void OnPreUpdate(System.Linq.IQueryable<Entities.Contact> contactQuery)
+            {
+            }
+        }
+        #endregion
     }
 }

@@ -210,12 +210,13 @@
             #endregion
 
             #region IQueryable
-            if (type.IsInterface)
+            if (type.IsInterface && type.IsGenericType && type.GenericTypeArguments.Length == 1 && type.GenericTypeArguments[0].BaseType != null && type.GenericTypeArguments[0].BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
             {
-                Type toType = type.ImplementsGenericInterface(typeof(System.Linq.IQueryable<>));
-                if (toType != null)
+                var genericQueryable = typeof(System.Linq.IQueryable<>);
+                var queryType = genericQueryable.MakeGenericType(type.GenericTypeArguments[0]);
+                if (type == queryType)
                 {
-                    var result = new TypeCache { FromType = type, ToType = toType, IsQuery = true };
+                    var result = new TypeCache { FromType = type, ToType = queryType, IsQuery = true };
                     result.RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
                     return result;
                 }
@@ -295,10 +296,13 @@
             candidates.Clear();
             foreach (var t in all)
             {
-                var exported = t.GetCustomAttributes(Types.ExportAttribute, false).SingleOrDefault();
-                if (exported != null && (Type)exported.GetType().GetProperty("Type").GetValue(exported) == type)
+                var exports = t.GetCustomAttributes(Types.ExportAttribute, false).ToArray();
+                foreach (var exported in exports)
                 {
-                    candidates.Add(t);
+                    if (exported != null && (Type)exported.GetType().GetProperty("Type").GetValue(exported) == type)
+                    {
+                        candidates.Add(t);
+                    }
                 }
             }
 
@@ -538,7 +542,6 @@
 
             return null;
         }
-
 
         public static bool ExtendsGenericClassOf(this Type toCheck, Type generic)
         {
