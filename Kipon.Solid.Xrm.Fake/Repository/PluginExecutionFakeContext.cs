@@ -14,27 +14,31 @@ namespace Kipon.Xrm.Fake.Repository
         private string secureConfig = null;
         private Microsoft.Xrm.Sdk.IPlugin plugin;
         private Microsoft.Xrm.Sdk.IOrganizationServiceFactory orgServiceFactory;
+        private Microsoft.Xrm.Sdk.IOrganizationService orgService;
         private Microsoft.Xrm.Sdk.ITracingService traceService;
         private List<TransactionElement> transaction = new List<TransactionElement>();
+        private Guid? userId;
+        private object uow;
+        private Dictionary<Type, object> queryCache = new Dictionary<Type, object>();
 
         private static Dictionary<string, Microsoft.Xrm.Sdk.IPlugin> plugins = new Dictionary<string, Microsoft.Xrm.Sdk.IPlugin>();
         #endregion
 
         #region static method for creating an instance
-        public static PluginExecutionFakeContext ForType<T>() where T: Microsoft.Xrm.Sdk.IPlugin
+        public static PluginExecutionFakeContext ForType<T>(Guid? userId = null) where T: Microsoft.Xrm.Sdk.IPlugin
         {
-            return new PluginExecutionFakeContext(typeof(T));
+            return new PluginExecutionFakeContext(typeof(T), userId);
         }
 
-        public static PluginExecutionFakeContext ForType<T>(string unsecureConfig, string secureConfig) where T : Microsoft.Xrm.Sdk.IPlugin
+        public static PluginExecutionFakeContext ForType<T>(string unsecureConfig, string secureConfig, Guid? userId = null) where T : Microsoft.Xrm.Sdk.IPlugin
         {
-            return new PluginExecutionFakeContext(typeof(T), unsecureConfig, secureConfig);
+            return new PluginExecutionFakeContext(typeof(T), userId, unsecureConfig, secureConfig);
         }
         #endregion
 
 
         #region constructors
-        private PluginExecutionFakeContext(Type pluginType)
+        private PluginExecutionFakeContext(Type pluginType, Guid? userId)
         {
             this.orgServiceFactory = new Services.OrganizationServiceFactory(this);
             this.traceService = new Services.TracingService();
@@ -53,7 +57,7 @@ namespace Kipon.Xrm.Fake.Repository
             }
         }
 
-        private PluginExecutionFakeContext(Type pluginType, string unsecureConfig, string secureConfig): this(pluginType)
+        private PluginExecutionFakeContext(Type pluginType, Guid? userId, string unsecureConfig, string secureConfig): this(pluginType, userId)
         {
             this.unsecureConfig = unsecureConfig;
             this.secureConfig = secureConfig;
@@ -288,7 +292,33 @@ namespace Kipon.Xrm.Fake.Repository
 
         public IQueryable<T> GetQuery<T>()
         {
-            throw new NotImplementedException();
+            var type = typeof(T);
+            if (this.queryCache.ContainsKey(type))
+            {
+                return (IQueryable<T>)this.queryCache[type];
+            }
+
+            if (this.orgService == null)
+            {
+                this.orgService = this.orgServiceFactory.CreateOrganizationService(this.userId);
+            }
+
+            if (this.uow == null)
+            {
+                var uowTypeCache = Kipon.Xrm.Reflection.TypeCache.ForUow(false);
+                var pms = new object[1];
+                pms[0] = this.orgService;
+                this.uow = uowTypeCache.Constructor.Invoke(pms);
+            }
+
+            var queryType = typeof(IQueryable<>).GetGenericTypeDefinition().MakeGenericType(typeof(T));
+            var queryTypeCache = Kipon.Xrm.Reflection.TypeCache.ForQuery(queryType);
+
+            var repo = queryTypeCache.RepositoryProperty.GetValue(this.uow);
+            var method = queryTypeCache.QueryMethod;
+            this.queryCache[type] = method.Invoke(repo, new object[0]);
+
+            return (IQueryable<T>)this.queryCache[type];
         }
         #endregion
 

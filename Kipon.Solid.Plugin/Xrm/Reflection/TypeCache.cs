@@ -212,11 +212,9 @@
             #region IQueryable
             if (type.IsInterface && type.IsGenericType && type.GenericTypeArguments.Length == 1 && type.GenericTypeArguments[0].BaseType != null && type.GenericTypeArguments[0].BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
             {
-                var genericQueryable = typeof(System.Linq.IQueryable<>);
-                var queryType = genericQueryable.MakeGenericType(type.GenericTypeArguments[0]);
-                if (type == queryType)
+                var result = ForQuery(type);
+                if (result != null)
                 {
-                    var result = new TypeCache { FromType = type, ToType = queryType, IsQuery = true };
                     result.RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
                     return result;
                 }
@@ -244,6 +242,17 @@
             throw new Kipon.Xrm.Exceptions.UnresolvableTypeException(type);
         }
 
+        public static TypeCache ForQuery(Type type)
+        {
+            var genericQueryable = typeof(System.Linq.IQueryable<>);
+            var queryType = genericQueryable.MakeGenericType(type.GenericTypeArguments[0]);
+            if (type == queryType)
+            {
+                var result = new TypeCache { FromType = type, ToType = queryType, IsQuery = true };
+                return result;
+            }
+            return null;
+        }
 
         public static TypeCache ForUow(bool admin)
         {

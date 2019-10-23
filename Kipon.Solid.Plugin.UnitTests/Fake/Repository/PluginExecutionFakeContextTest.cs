@@ -67,5 +67,17 @@ namespace Kipon.Solid.Plugin.UnitTests.Fake.Repository
         }
         #endregion
 
+        #region getquery test
+        [TestMethod]
+        public void GetQueryTest()
+        {
+            using (var ctx = PluginExecutionFakeContext.ForType<Kipon.Solid.Plugin.Plugins.Account.AccountPlugin>())
+            {
+                var query = ctx.GetQuery<Entities.Contact>();
+                Assert.IsNotNull(query);
+            }
+        }
+        #endregion
+
     }
 }
