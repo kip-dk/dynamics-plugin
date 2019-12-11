@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kipon.Xrm.Fake.Extensions.Query;
 
 namespace Kipon.Xrm.Fake.Repository
 {
@@ -10,8 +11,8 @@ namespace Kipon.Xrm.Fake.Repository
     {
         private Dictionary<string, object> values = new Dictionary<string, object>();
 
-        public Guid Id { get; private set; }
-        public string LogicalName { get; private set; }
+        internal Guid Id { get; private set; }
+        internal string LogicalName { get; private set; }
 
         internal string Key
         {
@@ -69,6 +70,28 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 values[logicalAttributeName] = Entity.ValueCloning(value);
             }
+        }
+
+        internal bool Match(Microsoft.Xrm.Sdk.Query.ConditionExpression expression)
+        {
+            var value = this[expression.AttributeName];
+
+            switch (expression.Operator)
+            {
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.Above:
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.AboveOrEqual:
+                    throw new Kipon.Xrm.Fake.Exceptions.UnsupportedConditionOperatorException(expression.Operator);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.BeginsWith:
+                    {
+                        return value.BeginsWith(expression.Values);
+                    }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.Between:
+                    {
+                        return value.Between(expression.Values);
+                    }
+            }
+
+            throw new Kipon.Xrm.Fake.Exceptions.UnsupportedConditionOperatorException(expression.Operator);
         }
 
         internal Entity Clone()

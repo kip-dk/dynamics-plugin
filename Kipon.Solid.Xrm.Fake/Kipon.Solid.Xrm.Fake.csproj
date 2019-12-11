@@ -92,14 +92,17 @@
     <Compile Include="Exceptions\EntityExistsException.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\UnexpectedEventListenerException.cs" />
+    <Compile Include="Exceptions\UnsupportedConditionOperatorException.cs" />
     <Compile Include="Exceptions\UnsupportedTypeException.cs" />
     <Compile Include="Extensions\Query\QueryHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Entity.cs" />
     <Compile Include="Repository\IEntityShadow.cs" />
     <Compile Include="Repository\PluginExecutionFakeContext.cs" />
+    <Compile Include="Repository\Query\EntityContainer.cs" />
     <Compile Include="Repository\Query\QueryResolver.cs" />
     <Compile Include="Repository\Query\QueryResult.cs" />
+    <Compile Include="Repository\Query\QueryResultContainer.cs" />
     <Compile Include="Services\OrganizationService.cs" />
     <Compile Include="Services\OrganizationServiceFactory.cs" />
     <Compile Include="Services\PluginExecutionContext.cs" />
