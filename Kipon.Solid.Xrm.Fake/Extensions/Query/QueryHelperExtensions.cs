@@ -50,8 +50,61 @@ namespace Kipon.Xrm.Fake.Extensions.Query
                 throw new ArgumentException("Values must contains exact two values, lower and upper boundary");
             }
 
-#warning TO-DO implement
-            return true;
+            if (value == null)
+            {
+                return false;
+            }
+
+            if (value.GetType() == typeof(System.DateTime) || value.GetType() == typeof(System.DateTime?))
+            {
+                var o = (DateTime)value;
+                var v1 = (DateTime)values.First();
+                var v2 = (DateTime)values.Last();
+                return o >= v1 && o <= v2;
+            }
+
+            if (value.GetType() == typeof(decimal) || value.GetType() == typeof(decimal?))
+            {
+                var o = (decimal)value;
+                var v1 = (decimal)values.First();
+                var v2 = (decimal)values.Last();
+                return o >= v1 && o <= v2;
+           }
+
+            if (value.GetType() == typeof(Microsoft.Xrm.Sdk.Money))
+            {
+                var o = (Microsoft.Xrm.Sdk.Money)value;
+                var v1 = (decimal)values.First();
+                var v2 = (decimal)values.Last();
+                return o.Value >= v1 && o.Value <= v2;
+            }
+
+
+            if (value.GetType() == typeof(double) || value.GetType() == typeof(double?))
+            {
+                var o = (double)value;
+                var v1 = (double)values.First();
+                var v2 = (double)values.Last();
+                return o >= v1 && o <= v2;
+            }
+
+            if (value.GetType() == typeof(float) || value.GetType() == typeof(float?))
+            {
+                var o = (float)value;
+                var v1 = (float)values.First();
+                var v2 = (float)values.Last();
+                return o >= v1 && o <= v2;
+            }
+
+
+            if (value.GetType() == typeof(int) || value.GetType() == typeof(int?))
+            {
+                var o = (int)value;
+                var v1 = (int)values.First();
+                var v2 = (int)values.Last();
+                return o >= v1 && o <= v2;
+            }
+            throw new ArgumentException($"Unexpected type in between clause {value.GetType().FullName}");
         }
 
         private static void ResolveStrings(Microsoft.Xrm.Sdk.Query.ConditionOperator opr, object value, Microsoft.Xrm.Sdk.DataCollection<object> values, out string valueString, out string valuesString)
