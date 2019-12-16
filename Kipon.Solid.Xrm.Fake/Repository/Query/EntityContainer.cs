@@ -3,30 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kipon.Xrm.Fake.Extensions.Query;
 
 namespace Kipon.Xrm.Fake.Repository.Query
 {
     internal class EntityContainer
     {
-        private Dictionary<string, Entity> entities = new Dictionary<string, Entity>();
+        private Dictionary<string, EntityShadow> entities = new Dictionary<string, EntityShadow>();
+        public Guid Id { get; private set; }
+        public string LogicalName { get; private set; }
 
-        internal EntityContainer(Entity entity)
+        internal EntityContainer(EntityShadow entity)
         {
             if (entity == null)
             {
                 throw new ArgumentException("root entity cannot be null.");
             }
             this[string.Empty] = entity;
+            this.Id = entity.Id;
+            this.LogicalName = entity.LogicalName;
         }
 
         #region properties
-        internal Entity this[string alias]
+        internal EntityShadow this[string alias]
         {
             get
             {
-                if (entities.ContainsKey(alias))
+                if (this.entities.ContainsKey(alias))
                 {
-                    return entities[alias];
+                    return this.entities[alias];
                 }
                 return null;
             }
@@ -34,13 +39,13 @@ namespace Kipon.Xrm.Fake.Repository.Query
             {
                 if (value != null)
                 {
-                    this[alias] = value;
+                    this.entities[alias] = value;
                 }
             }
         }
         #endregion
 
-        internal EntityContainer Add(string alias, Entity entity)
+        internal EntityContainer Add(string alias, EntityShadow entity)
         {
             if (string.IsNullOrEmpty(alias))
             {
@@ -103,6 +108,18 @@ namespace Kipon.Xrm.Fake.Repository.Query
             // will keep look for false, and return false if found, if non where false, the final fallback true will win
             foreach (var condition in conditions)
             {
+                var value = this[alias][condition.AttributeName];
+                switch (condition.Operator)
+                {
+                    case Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal:
+                        {
+                            if (!value.Equal(condition.Values))
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                }
             }
 
             return true;
@@ -113,6 +130,18 @@ namespace Kipon.Xrm.Fake.Repository.Query
             // will keep look for a true, and return true if found, if non where true, the final fallback false will win
             foreach (var condition in conditions)
             {
+                var value = this[alias][condition.AttributeName];
+                switch (condition.Operator)
+                {
+                    case Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal:
+                        {
+                            if (value.Equal(condition.Values))
+                            {
+                                return true;
+                            }
+                            break;
+                        }
+                }
             }
 
             return false;

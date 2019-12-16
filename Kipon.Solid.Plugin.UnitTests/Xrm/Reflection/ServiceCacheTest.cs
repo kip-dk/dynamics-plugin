@@ -15,6 +15,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
     {
 
         private OrganizationServiceFactory organizationServiceFactory = new OrganizationServiceFactory(null);
+
         private TracingService traceService = new TracingService();
 
         [TestMethod]

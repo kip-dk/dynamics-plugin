@@ -19,6 +19,8 @@ namespace Kipon.Solid.Plugin.UnitTests.Fake.Repository
         {
             using (var ctx = PluginExecutionFakeContext.ForType<Kipon.Solid.Plugin.Plugins.Account.AccountCreatePlugin>())
             {
+                ctx.AddEntity(new Entities.Account { AccountId = Guid.NewGuid(), Name = "Jens" });
+
                 var target = new Entities.Account
                 {
                     Name = "kurt"

@@ -10,9 +10,9 @@ namespace Kipon.Solid.Plugin.Plugins.Account
     public class AccountCreatePlugin : Kipon.Xrm.BasePlugin
     {
         [Sort(1)]
-        public void OnValidateCreate(Entities.Account target)
+        public void OnValidateCreate(Entities.Account target, Entities.IUnitOfWork uow)
         {
-            if (target.CreditLimit == null)
+            if (target != null && target.CreditLimit == null)
             {
                 target.CreditLimit = new Microsoft.Xrm.Sdk.Money(100M);
             }

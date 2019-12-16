@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Fake\Extensions\Query\QueryHelperExtensionsTest.cs" />
     <Compile Include="Fake\Repository\PluginExecutionFakeContextTest.cs" />
+    <Compile Include="Fake\Repository\Query\QueryResolverTest.cs" />
     <Compile Include="Fake\Xrm\Reflection\TypesTest.cs" />
     <Compile Include="Xrm\Reflection\ServiceCacheTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

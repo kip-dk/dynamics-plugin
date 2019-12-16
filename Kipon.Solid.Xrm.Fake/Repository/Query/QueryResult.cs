@@ -11,19 +11,19 @@ namespace Kipon.Xrm.Fake.Repository.Query
 
         private Dictionary<string, EntityContainer> results = new Dictionary<string, EntityContainer>();
 
-        internal QueryResult(Entity entity, string[] columns)
+        internal QueryResult(EntityShadow entity, string[] columns)
         {
 
             results.Add(entity.LogicalName, new EntityContainer { Entity = entity, Columns = columns });
         }
 
-        internal QueryResult Add(string alias, Entity entity, string[] columns)
+        internal QueryResult Add(string alias, EntityShadow entity, string[] columns)
         {
             results.Add(alias, new EntityContainer { Alias = alias, Entity = entity, Columns = columns });
             return this;
         }
 
-        internal Entity this[string alias]
+        internal EntityShadow this[string alias]
         {
             get
             {
@@ -47,7 +47,7 @@ namespace Kipon.Xrm.Fake.Repository.Query
         internal class EntityContainer
         {
             internal string Alias { get; set; }
-            internal Entity Entity { get; set; }
+            internal EntityShadow Entity { get; set; }
             internal string[] Columns { get; set; }
         }
 

@@ -9,7 +9,7 @@ namespace Kipon.Xrm.Fake.Repository
     public class PluginExecutionFakeContext : System.IDisposable, IEntityShadow
     {
         #region private members
-        private Dictionary<string, Entity> entities = new Dictionary<string, Entity>();
+        private Dictionary<string, EntityShadow> entities = new Dictionary<string, EntityShadow>();
         private string unsecureConfig = null;
         private string secureConfig = null;
         private Microsoft.Xrm.Sdk.IPlugin plugin;
@@ -41,6 +41,13 @@ namespace Kipon.Xrm.Fake.Repository
         private PluginExecutionFakeContext(Type pluginType, Guid? userId)
         {
             this.orgServiceFactory = new Services.OrganizationServiceFactory(this);
+
+            var pt = this.orgServiceFactory as Microsoft.Xrm.Sdk.IProxyTypesAssemblyProvider;
+            if (pt != null)
+            {
+                pt.ProxyTypesAssembly = pluginType.Assembly;
+            }
+
             this.traceService = new Services.TracingService();
 
             var key = $"{pluginType.FullName}:null:null";
@@ -98,7 +105,7 @@ namespace Kipon.Xrm.Fake.Repository
                 throw new Exceptions.EntityNotFoundException(entity.LogicalName, entity.Id);
             }
 
-            var before = new Entity(entities[key]);
+            var before = new EntityShadow(entities[key]);
             transaction.Add(new TransactionElement { Operation = "Update", Entity = before });
             entities[key].UpdateFrom(entity);
         }
@@ -110,7 +117,7 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 throw new Exceptions.EntityNotFoundException(logicalName, id);
             }
-            var before = new Entity(entities[key]);
+            var before = new EntityShadow(entities[key]);
             transaction.Add(new TransactionElement { Operation = "Delete", Entity = before });
             this.entities.Remove(key);
         }
@@ -122,8 +129,8 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 throw new Exceptions.EntityExistsException(entity);
             }
-            transaction.Add(new TransactionElement { Operation = "Create", Entity = new Entity(entity.LogicalName, entity.Id) });
-            var et = new Entity(entity);
+            transaction.Add(new TransactionElement { Operation = "Create", Entity = new EntityShadow(entity.LogicalName, entity.Id) });
+            var et = new EntityShadow(entity);
             entities.Add(et.Key, et);
         }
 
@@ -161,14 +168,14 @@ namespace Kipon.Xrm.Fake.Repository
             this.transaction.Clear();
         }
 
-        Entity[] IEntityShadow.AllEntities()
+        EntityShadow[] IEntityShadow.AllEntities()
         {
             return this.entities.Values.ToArray();
         }
         #endregion
 
         #region private helpers
-        private Microsoft.Xrm.Sdk.Entity ResolveImage(string logicalName, Guid id, int pre1post2, Reflection.PluginMethodCache[] methods, Entity pre)
+        private Microsoft.Xrm.Sdk.Entity ResolveImage(string logicalName, Guid id, int pre1post2, Reflection.PluginMethodCache[] methods, EntityShadow pre)
         {
             if (pre1post2 == 1 && pre ==null)
             {
@@ -265,7 +272,7 @@ namespace Kipon.Xrm.Fake.Repository
         #region public methods for preparation of conext
         public void AddEntity(Microsoft.Xrm.Sdk.Entity crmEntity)
         {
-            var et = new Entity(crmEntity);
+            var et = new EntityShadow(crmEntity);
             entities.Add(et.Key, et);
         }
 
@@ -318,7 +325,9 @@ namespace Kipon.Xrm.Fake.Repository
             var method = queryTypeCache.QueryMethod;
             this.queryCache[type] = method.Invoke(repo, new object[0]);
 
-            return (IQueryable<T>)this.queryCache[type];
+
+            var r = (IQueryable<T>)this.queryCache[type];
+            return r;
         }
         #endregion
 
@@ -374,7 +383,7 @@ namespace Kipon.Xrm.Fake.Repository
                 }, OnPostCreate);
 
                 return target.Id;
-            } catch (Exception)
+            } catch (Exception ex)
             {
                 ((IEntityShadow)this).Rollback();
                 throw;
@@ -454,7 +463,7 @@ namespace Kipon.Xrm.Fake.Repository
         #endregion;
 
         #region private methods
-        private Entity preImage = null;
+        private EntityShadow preImage = null;
         /// <summary>
         /// 
         /// </summary>
@@ -498,7 +507,7 @@ namespace Kipon.Xrm.Fake.Repository
                     }
                 }
 
-                var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this);
+                var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this, this.plugin.GetType().Assembly);
                 this.plugin.Execute(serviceProvider);
 
                 finalize?.Invoke();
@@ -557,7 +566,7 @@ namespace Kipon.Xrm.Fake.Repository
                     }
                 }
 
-                var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this);
+                var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this, this.plugin.GetType().Assembly);
                 this.plugin.Execute(serviceProvider);
 
                 finalize?.Invoke();
@@ -583,7 +592,7 @@ namespace Kipon.Xrm.Fake.Repository
         internal class TransactionElement
         {
             internal string Operation { get; set; }
-            internal Entity Entity { get; set; }
+            internal EntityShadow Entity { get; set; }
         }
         #endregion
     }

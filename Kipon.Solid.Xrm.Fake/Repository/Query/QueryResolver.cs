@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Kipon.Xrm.Fake.Extensions.Query;
 
 namespace Kipon.Xrm.Fake.Repository.Query
 {
     internal class QueryResolver
     {
-        internal Microsoft.Xrm.Sdk.EntityCollection ExecuteQuery(Microsoft.Xrm.Sdk.Query.QueryBase query, Entity[] allEntities)
+        internal Microsoft.Xrm.Sdk.EntityCollection ExecuteQuery(Microsoft.Xrm.Sdk.Query.QueryBase query, EntityShadow[] allEntities)
         {
             var qe = query as Microsoft.Xrm.Sdk.Query.QueryExpression;
             if (qe != null)
@@ -19,22 +18,23 @@ namespace Kipon.Xrm.Fake.Repository.Query
             throw new Exceptions.UnsupportedTypeException($"{typeof(QueryResolver).FullName} does not support ", query.GetType());
         }
 
-        private Microsoft.Xrm.Sdk.EntityCollection Execute(Microsoft.Xrm.Sdk.Query.QueryExpression qe, Entity[] allEntities)
+        private Microsoft.Xrm.Sdk.EntityCollection Execute(Microsoft.Xrm.Sdk.Query.QueryExpression qe, EntityShadow[] allEntities)
         {
-            var baseQuery = (from a in allEntities where a.LogicalName == qe.EntityName select new QueryResult(a, qe.ColumnSet.ToAttributNames()));
+            var baseEntities = (from a in allEntities where a.LogicalName == qe.EntityName select a).ToArray();
 
-            var r = baseQuery.ToArray();
+            var resultContainer = new QueryResultContainer(qe.ColumnSet, baseEntities, qe.EntityName);
 
-            foreach (var l in qe.LinkEntities)
+            if (qe.Criteria != null)
             {
-                var addQuery = from a in allEntities where a.LogicalName == l.LinkToEntityName select a;
-
-                baseQuery = (from b in r
-                             join a in addQuery on b[l.LinkToEntityName, l.LinkFromAttributeName] equals a[l.LinkToAttributeName]
-                             select b.Add(l.EntityAlias, a, l.Columns.ToAttributNames()));
+                resultContainer.ApplyFilter(string.Empty, qe.Criteria);
             }
 
-            return null;
+            if (qe.LinkEntities != null && qe.LinkEntities.Count > 0)
+            {
+                throw new Exception("not supported yet");
+            }
+
+            return resultContainer.ToEntities(qe.Distinct, qe.Orders);
         }
     }
 }

@@ -7,7 +7,7 @@ using Kipon.Xrm.Fake.Extensions.Query;
 
 namespace Kipon.Xrm.Fake.Repository
 {
-    internal class Entity
+    internal class EntityShadow
     {
         private Dictionary<string, object> values = new Dictionary<string, object>();
 
@@ -30,13 +30,13 @@ namespace Kipon.Xrm.Fake.Repository
             }
         }
 
-        internal Entity(string logicalName, Guid id)
+        internal EntityShadow(string logicalName, Guid id)
         {
             this.LogicalName = logicalName;
             this.Id = id;
         }
 
-        internal Entity(Entity cloneFrom)
+        internal EntityShadow(EntityShadow cloneFrom)
         {
             this.Id = cloneFrom.Id;
             this.LogicalName = cloneFrom.LogicalName;
@@ -46,7 +46,7 @@ namespace Kipon.Xrm.Fake.Repository
             }
         }
 
-        internal Entity(Microsoft.Xrm.Sdk.Entity from)
+        internal EntityShadow(Microsoft.Xrm.Sdk.Entity from)
         {
             this.Id = from.Id;
             this.LogicalName = from.LogicalName;
@@ -68,7 +68,7 @@ namespace Kipon.Xrm.Fake.Repository
             }
             set
             {
-                values[logicalAttributeName] = Entity.ValueCloning(value);
+                values[logicalAttributeName] = EntityShadow.ValueCloning(value);
             }
         }
 
@@ -80,6 +80,7 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.Above:
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.AboveOrEqual:
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.ChildOf:
                     throw new Kipon.Xrm.Fake.Exceptions.UnsupportedConditionOperatorException(expression.Operator);
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.BeginsWith:
                     {
@@ -89,14 +90,54 @@ namespace Kipon.Xrm.Fake.Repository
                     {
                         return value.Between(expression.Values);
                     }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.Contains:
+                    {
+                        return value.Contains(expression.Values);
+                    }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.ContainValues:
+                    {
+                        return value.ContainValues(expression.Values);
+                    }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotBeginWith:
+                    {
+                        return !value.BeginsWith(expression.Values);
+                    }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotContain:
+                    {
+                        return !value.Contains(expression.Values);
+                    }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotContainValues:
+                    {
+                        return !value.ContainValues(expression.Values);
+                    }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotEndWith:
+                    {
+                        return !value.EndsWith(expression.Values);
+                    }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.EndsWith:
+                    {
+                        return value.EndsWith(expression.Values);
+                    }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal:
+                    {
+                        return true;
+                    }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.NotNull:
+                    {
+                        return value != null;
+                    }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.Null:
+                    {
+                        return value == null;
+                    }
             }
 
             throw new Kipon.Xrm.Fake.Exceptions.UnsupportedConditionOperatorException(expression.Operator);
         }
 
-        internal Entity Clone()
+        internal EntityShadow Clone()
         {
-            return new Entity(this);
+            return new EntityShadow(this);
         }
 
         internal Microsoft.Xrm.Sdk.Entity ToEntity()
@@ -104,7 +145,7 @@ namespace Kipon.Xrm.Fake.Repository
             var result = new Microsoft.Xrm.Sdk.Entity { Id = this.Id, LogicalName = this.LogicalName };
             foreach (var f in this.values.Keys)
             {
-                result[f] = Entity.ValueCloning(this[f]);
+                result[f] = EntityShadow.ValueCloning(this[f]);
             }
             return result;
         }
@@ -121,14 +162,14 @@ namespace Kipon.Xrm.Fake.Repository
         {
             if (this.values.ContainsKey(attrLogicalName))
             {
-                return Entity.ValueCloning(this[attrLogicalName]);
+                return EntityShadow.ValueCloning(this[attrLogicalName]);
             }
             return null;
         }
 
         public override bool Equals(object obj)
         {
-            var other = obj as Entity;
+            var other = obj as EntityShadow;
             if (other != null)
             {
                 return this.Key == other.Key;
