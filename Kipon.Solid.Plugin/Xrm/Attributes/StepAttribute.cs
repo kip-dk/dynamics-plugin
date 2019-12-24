@@ -45,7 +45,6 @@
             Disassociate,
             RetrieveMultiple,
             Retrieve,
-            Other,
             AddMember,
             AddListMembers,
             RemoveMember,

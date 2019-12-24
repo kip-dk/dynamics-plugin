@@ -1,4 +1,4 @@
-﻿## Kipon.Xrm plugin base library, (c) Kipon ApS 2019
+﻿## Kipon.Xrm plugin base library, (c) Kipon ApS 2019,2020
 
 The Kipon.Xrm folder in this library was created by Kjeld Ingemann Poulsen, Kipon ApS to help
 creating better Dynamics 365 plugins, using SOLID as the based princip of writing plugins.
