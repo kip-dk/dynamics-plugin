@@ -1,0 +1,12 @@
+﻿<filter>
+  <entities>
+    <entity servicename="Solutions">solution</entity>
+    <entity servicename="SolutionComponents">solutioncomponent</entity>
+    <entity servicename="SdkMessages">sdkmessage</entity>
+    <entity servicename="SdkMessageFilters">sdkmessagefilter</entity>
+    <entity servicename="PluginAssemblies">pluginassembly</entity>
+    <entity servicename="PluginTypes">plugintype</entity>
+    <entity servicename="SdkMessageProcessingSteps">sdkmessageprocessingstep</entity>
+    <entity servicename="SdkMessageProcessingStepImages">sdkMessageprocessingstepimage</entity>
+  </entities>
+</filter>

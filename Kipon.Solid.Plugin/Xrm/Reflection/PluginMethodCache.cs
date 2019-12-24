@@ -134,7 +134,7 @@
                     {
 #warning TO-DO
                         // TO-DO: what to do, we have a method match, but no entities. Some methods ex. assosiate does not have target in deployment process.
-                        throw new NotImplementedException("handling method not attached to an logicalname is not supported yet.");
+                        throw new NotImplementedException("handling method not attached to a logicalname is not supported yet.");
                     }
                 }
                 #endregion
