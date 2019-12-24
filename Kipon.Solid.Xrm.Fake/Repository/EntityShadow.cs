@@ -22,6 +22,7 @@ namespace Kipon.Xrm.Fake.Repository
             }
         }
 
+
         internal string[] Keys
         {
             get
@@ -70,6 +71,48 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 values[logicalAttributeName] = EntityShadow.ValueCloning(value);
             }
+        }
+
+        internal string KeyOf(string logicalAttributeName)
+        {
+            var value = this[logicalAttributeName];
+            if (value == null)
+            {
+                return null;
+            }
+
+            #region join on a field that is already an entity reference
+            var already = value as Microsoft.Xrm.Sdk.EntityReference;
+            if (already != null)
+            {
+                return $"{already.Id.ToString()}{already.LogicalName}";
+            }
+            #endregion
+
+            #region join on the primary key on this entity
+            if (logicalAttributeName.ToLower() == $"{this.LogicalName}id".ToLower())
+            {
+                return $"{this.Id.ToString()}{this.LogicalName}";
+            }
+            #endregion
+
+            #region activity types (activity types does not support M:M relations, so we will never have a guid field named activityid)
+            if (logicalAttributeName.ToLower() == "activityid")
+            {
+                return $"{this.Id.ToString()}{this.LogicalName}";
+            }
+            #endregion
+
+            #region m:m fields are represented as guid's, and always named {entitylogicalname}id
+            Guid? g = value as Guid?;
+            if (g != null)
+            {
+                return $"{g.Value.ToString()}{logicalAttributeName.Substring(0, logicalAttributeName.Length  - 2)}";
+            }
+            #endregion
+
+            throw new Exceptions.UnsupportedTypeException($"{this.LogicalName}.{logicalAttributeName} cannot be resolved to a key type.", value.GetType());
+
         }
 
         internal bool Match(Microsoft.Xrm.Sdk.Query.ConditionExpression expression)

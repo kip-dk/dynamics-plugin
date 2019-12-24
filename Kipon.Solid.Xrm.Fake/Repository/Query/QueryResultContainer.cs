@@ -8,13 +8,13 @@ namespace Kipon.Xrm.Fake.Repository.Query
 {
     internal class QueryResultContainer
     {
-        private Dictionary<string, Microsoft.Xrm.Sdk.Query.ColumnSet> columns = new Dictionary<string, Microsoft.Xrm.Sdk.Query.ColumnSet>();
+        private Dictionary<string, AliasContainer> columns = new Dictionary<string, AliasContainer>();
         private EntityContainer[] Entities;
         private string logicalName;
 
         internal QueryResultContainer(Microsoft.Xrm.Sdk.Query.ColumnSet columns, EntityShadow[] initialEntities, string logicalName)
         {
-            this.columns.Add("", columns);
+            this.columns.Add("", new AliasContainer { Alias = string.Empty, LogicalName = logicalName, ColumnSet = columns });
             this.logicalName = logicalName;
             this.Entities = initialEntities.Select(r => new EntityContainer(r)).ToArray();
         }
@@ -23,9 +23,57 @@ namespace Kipon.Xrm.Fake.Repository.Query
         {
             if (criteria != null && criteria.Conditions != null && criteria.Conditions.Count > 0)
             {
+
                 this.Entities = (from e in this.Entities
-                                 where e.Match(alias, criteria.FilterOperator, criteria.Conditions)
+                                 where e.Match(alias, criteria.FilterOperator, criteria.Conditions, criteria.Filters)
                                  select e).ToArray();
+            }
+        }
+
+        internal void LinkEntity(string fromAlias, Microsoft.Xrm.Sdk.Query.LinkEntity link, EntityShadow[] allEntities)
+        {
+            var relevant = (from a in allEntities where a.LogicalName == link.LinkToEntityName && a[link.LinkToAttributeName] != null select a).ToArray();
+
+            columns.Add(link.EntityAlias, new AliasContainer
+            {
+                Alias = link.EntityAlias,
+                LogicalName = link.LinkToEntityName,
+                ColumnSet = link.Columns
+            });
+
+            switch(link.JoinOperator)
+            {
+                case Microsoft.Xrm.Sdk.Query.JoinOperator.Inner:
+                    {
+                        // First remove all thouse in current resultset that does not have the reference field
+                        this.Entities = (from e in this.Entities where e[fromAlias] != null && e[fromAlias][link.LinkFromAttributeName] != null select e).ToArray();
+
+                        this.Entities = (from e in this.Entities
+                                         join r in relevant on e[fromAlias].KeyOf(link.LinkFromAttributeName) equals r.KeyOf(link.LinkToAttributeName)
+                                         select e.Add(link.EntityAlias, r)).ToArray();
+
+                        break;
+                    }
+                default:
+                    throw new NotImplementedException($"Join operation {link.JoinOperator} not implemented");
+            }
+
+            if (link.LinkCriteria != null)
+            {
+                if (link.LinkCriteria.Conditions != null && link.LinkCriteria.Conditions.Count > 0)
+                {
+                    throw new NotImplementedException($"LinkCriteria.Conditions not implemented");
+                }
+
+                if (link.LinkCriteria.Filters != null && link.LinkCriteria.Filters.Count > 0)
+                {
+                    throw new NotImplementedException($"LinkCriteria.Filters not implemented");
+                }
+            }
+
+            if (link.LinkEntities != null && link.LinkEntities.Count > 0)
+            {
+                throw new NotImplementedException("Nested LinkEntities not implemented");
             }
         }
 
@@ -56,7 +104,12 @@ namespace Kipon.Xrm.Fake.Repository.Query
                         var data = ent[cdefkey];
                         if (data != null)
                         {
-                            if (cdef.AllColumns)
+                            if (cdef.ColumnSet == null)
+                            {
+                                continue;
+                            }
+
+                            if (cdef.ColumnSet.AllColumns)
                             {
                                 foreach (var key in data.Keys)
                                 {
@@ -68,9 +121,22 @@ namespace Kipon.Xrm.Fake.Repository.Query
                                     else
                                     {
                                         var fieldname = cdefkey + "." + key;
-                                        // this should be an attribute wrapper
-                                        new Microsoft.Xrm.Sdk.AliasedValue();
+                                        entity[fieldname] = new Microsoft.Xrm.Sdk.AliasedValue(cdef.LogicalName, fieldname, data.ValueOf(key));
+                                    }
+                                }
+                            } else
+                            {
+                                foreach (var key in cdef.ColumnSet.Columns)
+                                {
+                                    if (cdefkey == string.Empty)
+                                    {
+                                        var fieldname = key;
                                         entity[fieldname] = data.ValueOf(key);
+                                    }
+                                    else
+                                    {
+                                        var fieldname = cdefkey + "." + key;
+                                        entity[fieldname] = new Microsoft.Xrm.Sdk.AliasedValue(cdef.LogicalName, fieldname, data.ValueOf(key));
                                     }
                                 }
                             }
@@ -82,6 +148,13 @@ namespace Kipon.Xrm.Fake.Repository.Query
             r.EntityName = this.logicalName;
             r.TotalRecordCount = result.Count;
             return r;
+        }
+
+        internal class AliasContainer
+        {
+            internal string Alias { get; set; }
+            internal string LogicalName { get; set; }
+            internal Microsoft.Xrm.Sdk.Query.ColumnSet ColumnSet { get; set; }
         }
     }
 }

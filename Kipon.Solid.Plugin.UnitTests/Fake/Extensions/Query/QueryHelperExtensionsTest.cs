@@ -17,6 +17,12 @@ namespace Kipon.Solid.Plugin.UnitTests.Fake.Extensions.Query
         public void EqualTest()
         {
             {
+                var ent1 = new Microsoft.Xrm.Sdk.EntityReference(Entities.Account.EntityLogicalName, Guid.NewGuid());
+                var ent2 = new Microsoft.Xrm.Sdk.EntityReference(Entities.Account.EntityLogicalName, ent1.Id);
+
+                Assert.IsTrue(ent1.Equals(ent2));
+            }
+            {
                 object value = "equaltest";
                 var filter = new Microsoft.Xrm.Sdk.Query.ConditionExpression("value", Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal, "equalTEST");
                 Assert.IsTrue(value.Equal(filter.Values));

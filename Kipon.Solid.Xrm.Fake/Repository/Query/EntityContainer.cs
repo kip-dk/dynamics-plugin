@@ -70,9 +70,9 @@ namespace Kipon.Xrm.Fake.Repository.Query
             return result;
         }
 
-        internal bool Match(string alias, Microsoft.Xrm.Sdk.Query.LogicalOperator opr, Microsoft.Xrm.Sdk.DataCollection<Microsoft.Xrm.Sdk.Query.ConditionExpression> conditions)
+        internal bool Match(string alias, Microsoft.Xrm.Sdk.Query.LogicalOperator opr, Microsoft.Xrm.Sdk.DataCollection<Microsoft.Xrm.Sdk.Query.ConditionExpression> conditions, Microsoft.Xrm.Sdk.DataCollection<Microsoft.Xrm.Sdk.Query.FilterExpression> filters)
         {
-            if (conditions == null || conditions.Count == 0)
+            if ((conditions == null || conditions.Count == 0) && (filters == null || filters.Count == 0))
             {
                 return true;
             }
@@ -81,20 +81,20 @@ namespace Kipon.Xrm.Fake.Repository.Query
             {
                 case Microsoft.Xrm.Sdk.Query.LogicalOperator.And:
                     {
-                        return this.MatchAndConditions(alias, conditions);
+                        return this.MatchAndConditions(alias, conditions, filters);
                     }
                 case Microsoft.Xrm.Sdk.Query.LogicalOperator.Or:
                     {
-                        return MatchOrConditions(alias, conditions);
+                        return MatchOrConditions(alias, conditions, filters);
                     }
 
                 default: throw new ArgumentException($"Unknown operation {opr}");
             }
         }
 
-        private bool MatchAndConditions(string alias, Microsoft.Xrm.Sdk.DataCollection<Microsoft.Xrm.Sdk.Query.ConditionExpression> conditions)
+        private bool MatchAndConditions(string alias, Microsoft.Xrm.Sdk.DataCollection<Microsoft.Xrm.Sdk.Query.ConditionExpression> conditions, Microsoft.Xrm.Sdk.DataCollection<Microsoft.Xrm.Sdk.Query.FilterExpression> filters)
         {
-            if (conditions == null || conditions.Count == 0)
+            if ((conditions == null || conditions.Count == 0) && (filters == null || filters.Count == 0))
             {
                 return true;
             }
@@ -106,46 +106,73 @@ namespace Kipon.Xrm.Fake.Repository.Query
             }
 
             // will keep look for false, and return false if found, if non where false, the final fallback true will win
-            foreach (var condition in conditions)
+            if (conditions != null && conditions.Count > 0)
             {
-                var value = this[alias][condition.AttributeName];
-                switch (condition.Operator)
+                foreach (var condition in conditions)
                 {
-                    case Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal:
-                        {
-                            if (!value.Equal(condition.Values))
+                    var value = this[alias][condition.AttributeName];
+                    switch (condition.Operator)
+                    {
+                        case Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal:
                             {
-                                return false;
+                                if (!value.Equal(condition.Values))
+                                {
+                                    return false;
+                                }
+                                break;
                             }
-                            break;
-                        }
+                    }
                 }
             }
 
+            if (filters != null && filters.Count > 0)
+            {
+                foreach (var filter in filters)
+                {
+                    var match = this.Match(alias, filter.FilterOperator, filter.Conditions, filter.Filters);
+                    if (!match)
+                    {
+                        return false;
+                    }
+                }
+            }
             return true;
         }
 
-        private bool MatchOrConditions(string alias, Microsoft.Xrm.Sdk.DataCollection<Microsoft.Xrm.Sdk.Query.ConditionExpression> conditions)
+        private bool MatchOrConditions(string alias, Microsoft.Xrm.Sdk.DataCollection<Microsoft.Xrm.Sdk.Query.ConditionExpression> conditions, Microsoft.Xrm.Sdk.DataCollection<Microsoft.Xrm.Sdk.Query.FilterExpression> filters)
         {
             // will keep look for a true, and return true if found, if non where true, the final fallback false will win
-            foreach (var condition in conditions)
+            if (conditions != null && conditions.Count > 0)
             {
-                var value = this[alias][condition.AttributeName];
-                switch (condition.Operator)
+                foreach (var condition in conditions)
                 {
-                    case Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal:
-                        {
-                            if (value.Equal(condition.Values))
+                    var value = this[alias][condition.AttributeName];
+                    switch (condition.Operator)
+                    {
+                        case Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal:
                             {
-                                return true;
+                                if (value.Equal(condition.Values))
+                                {
+                                    return true;
+                                }
+                                break;
                             }
-                            break;
-                        }
+                    }
                 }
             }
 
+            if (filters != null && filters.Count > 0)
+            {
+                foreach (var filter in filters)
+                {
+                    var match = this.Match(alias, filter.FilterOperator, filter.Conditions, filter.Filters);
+                    if (match)
+                    {
+                        return true;
+                    }
+                }
+            }
             return false;
         }
-
     }
 }

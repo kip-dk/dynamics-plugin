@@ -24,14 +24,17 @@ namespace Kipon.Xrm.Fake.Repository.Query
 
             var resultContainer = new QueryResultContainer(qe.ColumnSet, baseEntities, qe.EntityName);
 
+            if (qe.LinkEntities != null && qe.LinkEntities.Count > 0)
+            {
+                foreach (var le in qe.LinkEntities)
+                {
+                    resultContainer.LinkEntity(string.Empty, le, allEntities);
+                }
+            }
+
             if (qe.Criteria != null)
             {
                 resultContainer.ApplyFilter(string.Empty, qe.Criteria);
-            }
-
-            if (qe.LinkEntities != null && qe.LinkEntities.Count > 0)
-            {
-                throw new Exception("not supported yet");
             }
 
             return resultContainer.ToEntities(qe.Distinct, qe.Orders);
