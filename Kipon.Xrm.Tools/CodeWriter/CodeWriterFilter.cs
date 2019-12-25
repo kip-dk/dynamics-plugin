@@ -98,6 +98,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         ServiceName = uowName.Value,
                         Optionsets = optionsets.ToArray()
                     };
+                    _validEntities.Add(entity.LogicalName, entity);
                 }
             }
             #endregion

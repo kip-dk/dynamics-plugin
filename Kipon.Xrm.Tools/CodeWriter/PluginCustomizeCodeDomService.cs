@@ -241,7 +241,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 foreach (var logicalname in entities.Keys)
                 {
                     var uowname = entities[logicalname];
-                    writer.WriteLine("\t\tKipon.Xrm.IRepository<" + logicalname + "> " + uowname + " { get; }");
+                    writer.WriteLine("\t\tKipon.Xrm.IRepository<" + logicalname + "> " + uowname.ServiceName + " { get; }");
                 }
                 writer.WriteLine("\t\t#endregion");
                 writer.WriteLine("\t}");
