@@ -192,6 +192,14 @@ namespace Kipon.Xrm.Tools.CodeWriter
                               select op).SingleOrDefault();
                     if (me != null)
                     {
+                        if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata)
+                        {
+                            me.Multi = true;
+                        } else
+                        {
+                            me.Multi = false;
+                        }
+
                         ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
                         return false;
                     } else

@@ -465,16 +465,55 @@ namespace Kipon.Solid.Plugin.Entities
 			Mail = 5,
 		}
 		[Microsoft.Xrm.Sdk.AttributeLogicalName("preferredcontactmethodcode")]
-		public PreferredContactMethodCodeEnum[] PreferredContactMethodCode
+		public PreferredContactMethodCodeEnum? PreferredContactMethodCode
 		{
 			get
 			{
-				Microsoft.Xrm.Sdk.OptionSetValueCollection optionSetValues = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValueCollection>("preferredcontactmethodcode");
-				if (optionSetValues != null && optionSetValues.Count > 0)
+				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("preferredcontactmethodcode");
+				if (optionSet != null)
 				{
-					return (from v in optionSetValues select (PreferredContactMethodCodeEnum)v.Value).ToArray();
+					return (PreferredContactMethodCodeEnum)optionSet.Value;
 				}
 				return null;
+			}
+			set
+			{
+				this.OnPropertyChanging("PreferredContactMethodCode");
+				if (value != null)
+				{
+					this.SetAttributeValue("preferredcontactmethodcode", new Microsoft.Xrm.Sdk.OptionSetValue((int)value.Value));
+					this.OnPropertyChanged("PreferredContactMethodCode");
+					return;
+				}
+				this.SetAttributeValue("preferredcontactmethodcode", null);
+				this.OnPropertyChanged("PreferredContactMethodCode");
+			}
+		}
+		[Microsoft.Xrm.Sdk.AttributeLogicalName("new_multiselectbudget")]
+		public BudgetEnum[] MultiSelectBudget
+		{
+			get
+			{
+				Microsoft.Xrm.Sdk.OptionSetValueCollection optionSetValues = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValueCollection>("new_multiselectbudget");
+				if (optionSetValues != null && optionSetValues.Count > 0)
+				{
+					return (from v in optionSetValues select (BudgetEnum)v.Value).ToArray();
+				}
+				return null;
+			}
+			set
+			{
+				this.OnPropertyChanging("new_multiselectbudget");
+				if (value != null && value.Length > 0)
+				{
+					var result = new Microsoft.Xrm.Sdk.OptionSetValueCollection();
+					foreach (var v in value) result.Add(new Microsoft.Xrm.Sdk.OptionSetValue((int)v));
+					this.SetAttributeValue("new_multiselectbudget", result);
+					this.OnPropertyChanged("new_multiselectbudget");
+					return;
+				}
+				this.SetAttributeValue("new_multiselectbudget", null);
+				this.OnPropertyChanged("new_multiselectbudget");
 			}
 		}
 	}

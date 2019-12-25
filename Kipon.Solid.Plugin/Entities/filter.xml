@@ -1,13 +1,14 @@
 ﻿<filter supress-mapped-standard-optionset-properties="true">
   <entities>
     <entity servicename="Accounts" logicalname="account">
-      <optionset logicalname="preferredcontactmethodcode" name="PreferredContactMethodCode" multi="true">
+      <optionset logicalname="preferredcontactmethodcode" name="PreferredContactMethodCode">
         <value name="Any">1</value>
         <value name="Email">2</value>
         <value name="Phone">3</value>
         <value name="Fax">4</value>
         <value name="Mail">5</value>
       </optionset>
+      <optionset id="budget" logicalname="new_multiselectbudget" name="MultiSelectBudget"/>
     </entity>
     <entity servicename="Contacts" logicalname="contact"></entity>
     <entity servicename="Opportunities" logicalname="opportunity">

@@ -68,6 +68,11 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         writer.WriteLine($"\t\t[Microsoft.Xrm.Sdk.AttributeLogicalName(\"{optionset.Logicalname}\")]");
                         var type = optionset.Id == null ? $"{optionset.Name}Enum" : globalOptionSets[optionset.Id].Name;
                         var key = $"{entity.LogicalName}.{optionset.Logicalname}";
+
+                        if (!attrSchemaNameMap.ContainsKey(key))
+                        {
+                            throw new Exception($"No attribute mathing logical name {key} was found. Optionset {optionset.Name} on {entity.LogicalName} has a wrong logicalname.");
+                        }
                         var schemaName = attrSchemaNameMap[key];
 
                         if (schemaName == optionset.Name && !standardSuppressed)
@@ -149,20 +154,19 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                             writer.WriteLine("\t\t\tset");
                             writer.WriteLine("\t\t\t{");
-                            writer.WriteLine("\t\t\t}");
 
                             writer.WriteLine($"\t\t\t\tthis.OnPropertyChanging(\"{schemaName}\");");
-                            writer.WriteLine($"\t\t\t\tif (value != null && value.Count > 0");
+                            writer.WriteLine($"\t\t\t\tif (value != null && value.Length > 0)");
                             writer.WriteLine("\t\t\t\t{");
-                            writer.WriteLine("\t\t\t\t\tvar result = new Microsoft.Xrm.Sdk.OptionSetValueCollection()");
-                            writer.WriteLine($"\t\t\t\tforeach (var v in value) result.Add(new Microsoft.Xrm.Sdk.OptionSetValue(int)value);");
+                            writer.WriteLine("\t\t\t\t\tvar result = new Microsoft.Xrm.Sdk.OptionSetValueCollection();");
+                            writer.WriteLine($"\t\t\t\t\tforeach (var v in value) result.Add(new Microsoft.Xrm.Sdk.OptionSetValue((int)v));");
                             writer.WriteLine($"\t\t\t\t\tthis.SetAttributeValue(\"{optionset.Logicalname}\", result);");
                             writer.WriteLine($"\t\t\t\t\tthis.OnPropertyChanged(\"{schemaName}\");");
                             writer.WriteLine($"\t\t\t\t\treturn;");
                             writer.WriteLine("\t\t\t\t}");
                             writer.WriteLine($"\t\t\t\tthis.SetAttributeValue(\"{optionset.Logicalname}\", null);");
                             writer.WriteLine($"\t\t\t\tthis.OnPropertyChanged(\"{schemaName}\");");
-
+                            writer.WriteLine("\t\t\t}");
 
                             writer.WriteLine("\t\t}");
                         }
