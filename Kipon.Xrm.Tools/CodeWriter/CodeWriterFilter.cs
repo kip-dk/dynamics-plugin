@@ -73,39 +73,43 @@ namespace Kipon.Xrm.Tools.CodeWriter
                     }
 
                     List<Model.OptionSet> optionsets = new List<Model.OptionSet>();
-                    foreach (XElement optionset in entityElement.Elements("optionset"))
+                    if (optionsets != null)
                     {
-                        var optionsetLogicalname = optionset.Attribute("logicalname");
-                        var optionsetName = optionset.Attribute("name");
-                        var optionsetId = optionset.Attribute("id");
-                        var optionsetMulti = optionset.Attribute("multi");
-                        var next = new Model.OptionSet
+                        foreach (XElement optionset in entityElement.Elements("optionset"))
                         {
-                            Id = optionsetId?.Value,
-                            Name = optionsetName.Value,
-                            Logicalname = optionsetLogicalname.Value,
-                            Multi = optionsetMulti != null && optionsetMulti.Value.ToLower() == "true"
-                        };
+                            var optionsetLogicalname = optionset.Attribute("logicalname");
+                            var optionsetName = optionset.Attribute("name");
+                            var optionsetId = optionset.Attribute("id");
+                            var optionsetMulti = optionset.Attribute("multi");
+                            var next = new Model.OptionSet
+                            {
+                                Id = optionsetId?.Value,
+                                Name = optionsetName.Value,
+                                Logicalname = optionsetLogicalname.Value,
+                                Multi = optionsetMulti != null && optionsetMulti.Value.ToLower() == "true"
+                            };
 
-                        if (next.Id == null)
-                        {
-                            var values = new List<Model.OptionSetValue>();
-                            foreach (XElement optionsetValue in optionset.Elements("value"))
+                            if (next.Id == null)
                             {
-                                values.Add(new Model.OptionSetValue
+                                var values = new List<Model.OptionSetValue>();
+                                foreach (XElement optionsetValue in optionset.Elements("value"))
                                 {
-                                    Name = optionsetValue.Attribute("name").Value,
-                                    Value = int.Parse(optionsetValue.Value)
-                                });
+                                    values.Add(new Model.OptionSetValue
+                                    {
+                                        Name = optionsetValue.Attribute("name").Value,
+                                        Value = int.Parse(optionsetValue.Value)
+                                    });
+                                }
+                                next.Values = values.ToArray();
+                                if (next.Values.Length == 0)
+                                {
+                                    throw new Exception($"Local optionset on {logicalname.Value} {next.Name} does not define any values");
+                                }
                             }
-                            next.Values = values.ToArray();
-                            if (next.Values.Length == 0)
-                            {
-                                throw new Exception($"Local optionset on {logicalname.Value} {next.Name} does not define any values");
-                            }
+                            optionsets.Add(next);
                         }
-                        optionsets.Add(next);
                     }
+
                     var entity = new Model.Entity
                     {
                         LogicalName = logicalname.Value,
@@ -121,45 +125,48 @@ namespace Kipon.Xrm.Tools.CodeWriter
             {
                 XElement optionsetsElement = xml.Element("optionsets");
                 var row = 0;
-                foreach (XElement optionset in optionsetsElement.Elements("optionset"))
+                if (optionsetsElement != null)
                 {
-                    var optionsetName = optionset.Attribute("name");
-                    if (optionsetName == null)
+                    foreach (XElement optionset in optionsetsElement.Elements("optionset"))
                     {
-                        throw new Exception($"Global optionset definition {row} does not have a name");
-                    }
-                    var optionsetId = optionset.Attribute("id");
-                    if (optionsetId == null)
-                    {
-                        throw new Exception($"Global optionset definition {row} does not have an id");
-                    }
-
-                    if (GLOBAL_OPTIONSET_INDEX.ContainsKey(optionsetId.Value))
-                    {
-                        throw new Exception($"Global optionset definition {row} id is not unique");
-                    }
-
-                    var next = new Model.OptionSet
-                    {
-                        Id = optionsetId.Value,
-                        Name = optionsetName.Value
-                    };
-
-                    var values = new List<Model.OptionSetValue>();
-                    foreach (XElement optionsetValue in optionset.Elements("value"))
-                    {
-                        values.Add(new Model.OptionSetValue
+                        var optionsetName = optionset.Attribute("name");
+                        if (optionsetName == null)
                         {
-                            Name = optionsetValue.Attribute("name").Value,
-                            Value = int.Parse(optionsetValue.Value)
-                        });
+                            throw new Exception($"Global optionset definition {row} does not have a name");
+                        }
+                        var optionsetId = optionset.Attribute("id");
+                        if (optionsetId == null)
+                        {
+                            throw new Exception($"Global optionset definition {row} does not have an id");
+                        }
+
+                        if (GLOBAL_OPTIONSET_INDEX.ContainsKey(optionsetId.Value))
+                        {
+                            throw new Exception($"Global optionset definition {row} id is not unique");
+                        }
+
+                        var next = new Model.OptionSet
+                        {
+                            Id = optionsetId.Value,
+                            Name = optionsetName.Value
+                        };
+
+                        var values = new List<Model.OptionSetValue>();
+                        foreach (XElement optionsetValue in optionset.Elements("value"))
+                        {
+                            values.Add(new Model.OptionSetValue
+                            {
+                                Name = optionsetValue.Attribute("name").Value,
+                                Value = int.Parse(optionsetValue.Value)
+                            });
+                        }
+                        next.Values = values.ToArray();
+                        if (next.Values.Length == 0)
+                        {
+                            throw new Exception($"Global optionset {row} does not define any values");
+                        }
+                        GLOBAL_OPTIONSET_INDEX.Add(next.Id, next);
                     }
-                    next.Values = values.ToArray();
-                    if (next.Values.Length == 0)
-                    {
-                        throw new Exception($"Global optionset {row} does not define any values");
-                    }
-                    GLOBAL_OPTIONSET_INDEX.Add(next.Id, next);
                 }
             }
             #endregion

@@ -68,7 +68,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 writer.WriteLine("\t\t#region entity repositories");
                 foreach (var logicalname in entities.Keys)
                 {
-                    var uowname = entities[logicalname];
+                    var uowname = entities[logicalname].ServiceName;
                     writer.WriteLine("\t\tIRepository<" + logicalname + "> " + uowname + " { get; }");
                 }
                 writer.WriteLine("\t\t#endregion");

@@ -1,12 +1,12 @@
 ﻿<filter>
   <entities>
-    <entity servicename="Solutions">solution</entity>
-    <entity servicename="SolutionComponents">solutioncomponent</entity>
-    <entity servicename="SdkMessages">sdkmessage</entity>
-    <entity servicename="SdkMessageFilters">sdkmessagefilter</entity>
-    <entity servicename="PluginAssemblies">pluginassembly</entity>
-    <entity servicename="PluginTypes">plugintype</entity>
-    <entity servicename="SdkMessageProcessingSteps">sdkmessageprocessingstep</entity>
-    <entity servicename="SdkMessageProcessingStepImages">sdkMessageprocessingstepimage</entity>
+    <entity servicename="Solutions" logicalname="solution"></entity>
+    <entity servicename="SolutionComponents" logicalname="solutioncomponent"></entity>
+    <entity servicename="SdkMessages" logicalname="sdkmessage"></entity>
+    <entity servicename="SdkMessageFilters" logicalname="sdkmessagefilter"></entity>
+    <entity servicename="PluginAssemblies" logicalname="pluginassembly"></entity>
+    <entity servicename="PluginTypes" logicalname="plugintype"></entity>
+    <entity servicename="SdkMessageProcessingSteps" logicalname="sdkmessageprocessingstep"></entity>
+    <entity servicename="SdkMessageProcessingStepImages" logicalname="sdkMessageprocessingstepimage"></entity>
   </entities>
 </filter>
