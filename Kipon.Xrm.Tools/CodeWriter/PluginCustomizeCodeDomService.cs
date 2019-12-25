@@ -257,7 +257,11 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
 
                 sharedService.GlobalOptionSets(CodeWriterFilter.GLOBAL_OPTIONSET_INDEX.Values);
-                sharedService.EntityOptionsetProperties(CodeWriterFilter.ENTITIES, CodeWriterFilter.GLOBAL_OPTIONSET_INDEX, CodeWriterFilter.ATTRIBUTE_SCHEMANAME_MAP);
+                sharedService.EntityOptionsetProperties(
+                    CodeWriterFilter.ENTITIES, 
+                    CodeWriterFilter.GLOBAL_OPTIONSET_INDEX, 
+                    CodeWriterFilter.ATTRIBUTE_SCHEMANAME_MAP,
+                    CodeWriterFilter.SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES);
                 /* NS */
                 writer.WriteLine("}");
 

@@ -11,6 +11,7 @@ namespace Kipon.Xrm.Tools.CodeWriter.Model
         public string Id { get; set; }
         public string Logicalname { get; set; }
         public string Name { get; set; }
+        public bool Multi { get; set; }
         public OptionSetValue[] Values { get; set; }
     }
 }

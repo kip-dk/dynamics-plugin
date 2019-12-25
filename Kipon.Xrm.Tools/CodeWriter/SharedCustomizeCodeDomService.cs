@@ -36,7 +36,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
             }
         }
 
-        internal void EntityOptionsetProperties(Dictionary<string, Model.Entity> entities, Dictionary<string, Model.OptionSet> globalOptionSets, Dictionary<string,string> attrSchemaNameMap)
+        internal void EntityOptionsetProperties(Dictionary<string, Model.Entity> entities, Dictionary<string, Model.OptionSet> globalOptionSets, Dictionary<string,string> attrSchemaNameMap, bool standardSuppressed)
         {
             foreach (var logicalname in entities.Keys)
             {
@@ -66,23 +66,64 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                         #region generate property
                         writer.WriteLine($"\t\t[Microsoft.Xrm.Sdk.AttributeLogicalName(\"{optionset.Logicalname}\")]");
-                        var type = optionset.Id == null ? $"{entity.LogicalName}.{optionset.Name}Enum" : globalOptionSets[optionset.Id].Name;
+                        var type = optionset.Id == null ? $"{optionset.Name}Enum" : globalOptionSets[optionset.Id].Name;
                         var key = $"{entity.LogicalName}.{optionset.Logicalname}";
                         var schemaName = attrSchemaNameMap[key];
 
-                        if (schemaName == optionset.Name)
+                        if (schemaName == optionset.Name && !standardSuppressed)
                         {
-                            throw new Exception($"Optionset on {logicalname} has defined property {optionset.Logicalname} with same name as the logical name. Tha will generate dublicate properties and is not allowed");
+                            throw new Exception($"Optionset on {logicalname} has defined property {optionset.Logicalname} with same name as the schema name for the property. That will generate dublicate properties and is not allowed. You can supress standard optionset properties by adding the 'supress-mapped-standard-optionset-properties=\"true\" to the root filter element in the configuration file.");
                         }
-
 
                         writer.WriteLine($"\t\tpublic {type}? {optionset.Name}");
                         writer.WriteLine("\t\t{");
+
                         writer.WriteLine("\t\t\tget");
                         writer.WriteLine("\t\t\t{");
-                        writer.WriteLine($"\t\t\t\tif (this.{schemaName} != null)");
-                        writer.WriteLine($"\t\t\t\t\treturn ({type})this.{schemaName}.Value;");
-                        writer.WriteLine($"\t\t\treturn null;");
+
+                        if (!standardSuppressed)
+                        {
+                            writer.WriteLine($"\t\t\t\tif (this.{schemaName} != null)");
+                            writer.WriteLine($"\t\t\t\t\treturn ({type})this.{schemaName}.Value;");
+                        }
+                        else
+                        {
+                            writer.WriteLine($"\t\t\t\tMicrosoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(\"{optionset.Logicalname}\");");
+                            writer.WriteLine($"\t\t\t\tif (optionSet != null)");
+                            writer.WriteLine("\t\t\t\t{");
+                            writer.WriteLine($"\t\t\t\t\treturn ({type})optionSet.Value;");
+                            writer.WriteLine("\t\t\t\t}");
+                        }
+
+                        writer.WriteLine($"\t\t\t\treturn null;");
+                        writer.WriteLine("\t\t\t}");
+
+                        writer.WriteLine("\t\t\tset");
+                        writer.WriteLine("\t\t\t{");
+
+                        if (!standardSuppressed)
+                        {
+                            writer.WriteLine($"\t\t\t\tif (value != null)");
+                            writer.WriteLine("\t\t\t\t{");
+                            writer.WriteLine($"\t\t\t\t\tthis.{schemaName} = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);");
+                            writer.WriteLine($"\t\t\t\t\treturn;");
+                            writer.WriteLine("\t\t\t\t}");
+                            writer.WriteLine($"\t\t\t\tthis.{schemaName} = null;");
+                        }
+                        else
+                        {
+                            writer.WriteLine($"\t\t\t\tthis.OnPropertyChanging(\"{schemaName}\");");
+                            writer.WriteLine($"\t\t\t\tif (value != null)");
+                            writer.WriteLine("\t\t\t\t{");
+                            writer.WriteLine($"\t\t\t\t\tthis.SetAttributeValue(\"{optionset.Logicalname}\", new Microsoft.Xrm.Sdk.OptionSetValue((int)value.Value));");
+                            writer.WriteLine($"\t\t\t\t\tthis.OnPropertyChanged(\"{schemaName}\");");
+                            writer.WriteLine($"\t\t\t\t\treturn;");
+                            writer.WriteLine("\t\t\t\t}");
+                            writer.WriteLine($"\t\t\t\t\tthis.SetAttributeValue(\"{optionset.Logicalname}\", null);");
+                            writer.WriteLine($"\t\t\t\t\tthis.OnPropertyChanged(\"{schemaName}\");");
+                        }
+
+
                         writer.WriteLine("\t\t\t}");
 
                         writer.WriteLine("\t\t}");

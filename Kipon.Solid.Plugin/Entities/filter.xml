@@ -1,4 +1,4 @@
-﻿<filter>
+﻿<filter supress-mapped-standard-optionset-properties="false">
   <entities>
     <entity servicename="Accounts" logicalname="account">
       <optionset logicalname="preferredcontactmethodcode" name="PreferredContactMethod">
@@ -11,7 +11,7 @@
     </entity>
     <entity servicename="Contacts" logicalname="contact"></entity>
     <entity servicename="Opportunities" logicalname="opportunity">
-      <optionset id="budget" logicalname="budgetstatus" name="BudgetStatus" />
+      <optionset id="budget" logicalname="budgetstatus" name="Budgetstatus" />
     </entity>
     <entity servicename="Quotes" logicalname="quote"></entity>
     <entity servicename="Salesorders" logicalname="salesorder"></entity>

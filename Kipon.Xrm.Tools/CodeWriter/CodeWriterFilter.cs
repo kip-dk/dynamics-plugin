@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Crm.Services.Utility;
@@ -19,6 +20,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
         public static readonly Dictionary<string, Model.Entity> ENTITIES = new Dictionary<string, Model.Entity>();
         public static readonly Dictionary<string, Model.OptionSet> GLOBAL_OPTIONSET_INDEX = new Dictionary<string, Model.OptionSet>();
         public static readonly Dictionary<string, string> ATTRIBUTE_SCHEMANAME_MAP = new Dictionary<string, string>();
+
+        public static bool SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES = false;
 
         //list of entity names to generate classes for.
         private Dictionary<string, Model.Entity> _validEntities = new Dictionary<string, Model.Entity>();
@@ -42,6 +45,12 @@ namespace Kipon.Xrm.Tools.CodeWriter
         private void LoadFilterData()
         {
             XElement xml = XElement.Load("filter.xml");
+
+            var supress = xml.Attribute("supress-mapped-standard-optionset-properties");
+            if (supress != null && supress.Value.ToLower() == "true")
+            {
+                SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES = true;
+            }
 
             #region parse entity definitions
             {
@@ -69,12 +78,15 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         var optionsetLogicalname = optionset.Attribute("logicalname");
                         var optionsetName = optionset.Attribute("name");
                         var optionsetId = optionset.Attribute("id");
+                        var optionsetMulti = optionset.Attribute("multi");
                         var next = new Model.OptionSet
                         {
                             Id = optionsetId?.Value,
                             Name = optionsetName.Value,
-                            Logicalname = optionsetLogicalname.Value
+                            Logicalname = optionsetLogicalname.Value,
+                            Multi = optionsetMulti != null && optionsetMulti.Value.ToLower() == "true"
                         };
+
                         if (next.Id == null)
                         {
                             var values = new List<Model.OptionSetValue>();
@@ -170,6 +182,25 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         public bool GenerateAttribute(AttributeMetadata attributeMetadata, IServiceProvider services)
         {
+            if (SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES)
+            {
+                var entity = _validEntities[attributeMetadata.EntityLogicalName.ToLowerInvariant()];
+                if (entity.Optionsets != null && entity.Optionsets.Length > 0)
+                {
+                    var me = (from op in entity.Optionsets
+                              where op.Logicalname == attributeMetadata.LogicalName
+                              select op).SingleOrDefault();
+                    if (me != null)
+                    {
+                        ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                        return false;
+                    } else
+                    {
+                        return true;
+                    }
+                }
+            }
+
             ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
             return _defaultService.GenerateAttribute(attributeMetadata, services);
         }
