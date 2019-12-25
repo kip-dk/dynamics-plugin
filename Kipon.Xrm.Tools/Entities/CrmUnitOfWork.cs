@@ -13,13 +13,14 @@ namespace Kipon.Xrm.Tools.Entities
         #region Members
         protected ContextService context;
         public IOrganizationService Service { get; private set; }
-        private IOrganizationServiceFactory ServiceFactory { get; set; }
         #endregion
 
         #region Constructor
 
         public CrmUnitOfWork()
         {
+            this.Service = new Kipon.Xrm.Tools.XrmOrganization.OrganizationService();
+            this.context = new ContextService(this.Service);
         }
 
         #endregion
@@ -54,12 +55,6 @@ namespace Kipon.Xrm.Tools.Entities
         public OrganizationResponse Execute(Microsoft.Xrm.Sdk.OrganizationRequest request)
         {
             return this.context.Execute(request);
-        }
-
-        public Microsoft.Xrm.Sdk.OrganizationResponse Execute(Microsoft.Xrm.Sdk.OrganizationRequest request, Guid runAsSystemUserID)
-        {
-            var ser = this.ServiceFactory.CreateOrganizationService(runAsSystemUserID);
-            return ser.Execute(request);
         }
 
         public Guid Create(Microsoft.Xrm.Sdk.Entity entity)

@@ -4,7 +4,7 @@ using System.Xml.Linq;
 using Microsoft.Crm.Services.Utility;
 using Microsoft.Xrm.Sdk.Metadata;
 
-// To acknowledge the author, this sources comes from
+// To acknowledge the initial author, this sources comes from
 // http://erikpool.blogspot.nl/2011/03/filtering-generated-entities-with.html
 
 
@@ -16,10 +16,11 @@ namespace Kipon.Xrm.Tools.CodeWriter
     /// </summary>
     public class CodeWriterFilter : ICodeWriterFilterService
     {
-        public static Dictionary<string, string> ENTITIES = new Dictionary<string, string>();
+        public static readonly Dictionary<string, Model.Entity> ENTITIES = new Dictionary<string, Model.Entity>();
+        public static readonly Dictionary<string, Model.OptionSet> GLOBAL_OPTIONSET_INDEX = new Dictionary<string, Model.OptionSet>();
 
         //list of entity names to generate classes for.
-        private Dictionary<string, string> _validEntities = new Dictionary<string, string>();
+        private Dictionary<string, Model.Entity> _validEntities = new Dictionary<string, Model.Entity>();
 
         //reference to the default service.
         private ICodeWriterFilterService _defaultService = null;
@@ -40,19 +41,113 @@ namespace Kipon.Xrm.Tools.CodeWriter
         private void LoadFilterData()
         {
             XElement xml = XElement.Load("filter.xml");
-            XElement entitiesElement = xml.Element("entities");
-            foreach (XElement entityElement in entitiesElement.Elements("entity"))
+
+            #region parse entity definitions
             {
-                var uowName = entityElement.Attribute("servicename");
-                if (uowName == null)
+                XElement entitiesElement = xml.Element("entities");
+
+                var row = 0;
+                foreach (XElement entityElement in entitiesElement.Elements("entity"))
                 {
-                    throw new Exception($"Not servicename set for {entityElement.Value}");
-                }
-                else
-                {
-                    _validEntities.Add(entityElement.Value.ToLowerInvariant(), uowName.Value);
+                    row++;
+                    var uowName = entityElement.Attribute("servicename");
+                    if (uowName == null)
+                    {
+                        throw new Exception($"No servicename on entity number {row}");
+                    }
+
+                    var logicalname = entityElement.Attribute("logicalname");
+                    if (logicalname == null)
+                    {
+                        throw new Exception($"No logical name on entity number {row} : {uowName.Value}");
+                    }
+
+                    List<Model.OptionSet> optionsets = new List<Model.OptionSet>();
+                    foreach (XElement optionset in entityElement.Elements("optionset"))
+                    {
+                        var optionsetLogicalname = optionset.Attribute("logicalname");
+                        var optionsetName = optionset.Attribute("name");
+                        var optionsetId = optionset.Attribute("id");
+                        var next = new Model.OptionSet
+                        {
+                            Id = optionsetId?.Value,
+                            Name = optionsetName.Value
+                        };
+                        if (next.Id == null)
+                        {
+                            var values = new List<Model.OptionSetValue>();
+                            foreach (XElement optionsetValue in optionset.Elements("value"))
+                            {
+                                values.Add(new Model.OptionSetValue
+                                {
+                                    Name = optionsetValue.Attribute("name").Value,
+                                    Value = int.Parse(optionsetValue.Value)
+                                });
+                            }
+                            next.Values = values.ToArray();
+                            if (next.Values.Length == 0)
+                            {
+                                throw new Exception($"Local optionset on {logicalname.Value} {next.Name} does not define any values");
+                            }
+                        }
+                        optionsets.Add(next);
+                    }
+                    var entity = new Model.Entity
+                    {
+                        LogicalName = logicalname.Value,
+                        ServiceName = uowName.Value,
+                        Optionsets = optionsets.ToArray()
+                    };
                 }
             }
+            #endregion
+
+            #region parse global optionsets
+            {
+                XElement optionsetsElement = xml.Element("optionsets");
+                var row = 0;
+                foreach (XElement optionset in optionsetsElement.Elements("optionset"))
+                {
+                    var optionsetName = optionset.Attribute("name");
+                    if (optionsetName == null)
+                    {
+                        throw new Exception($"Global optionset definition {row} does not have a name");
+                    }
+                    var optionsetId = optionset.Attribute("id");
+                    if (optionsetId == null)
+                    {
+                        throw new Exception($"Global optionset definition {row} does not have an id");
+                    }
+
+                    if (GLOBAL_OPTIONSET_INDEX.ContainsKey(optionsetId.Value))
+                    {
+                        throw new Exception($"Global optionset definition {row} id is not unique");
+                    }
+
+                    var next = new Model.OptionSet
+                    {
+                        Id = optionsetId.Value,
+                        Name = optionsetName.Value
+                    };
+
+                    var values = new List<Model.OptionSetValue>();
+                    foreach (XElement optionsetValue in optionset.Elements("value"))
+                    {
+                        values.Add(new Model.OptionSetValue
+                        {
+                            Name = optionsetValue.Attribute("name").Value,
+                            Value = int.Parse(optionsetValue.Value)
+                        });
+                    }
+                    next.Values = values.ToArray();
+                    if (next.Values.Length == 0)
+                    {
+                        throw new Exception($"Global optionset {row} does not define any values");
+                    }
+                    GLOBAL_OPTIONSET_INDEX.Add(next.Id, next);
+                }
+            }
+            #endregion
         }
 
         /// <summary>

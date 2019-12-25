@@ -24,7 +24,6 @@ namespace Kipon.Xrm.Tools.Entities
         R ExecuteRequest<R>(Microsoft.Xrm.Sdk.OrganizationRequest request) where R : Microsoft.Xrm.Sdk.OrganizationResponse;
 
         Microsoft.Xrm.Sdk.OrganizationResponse Execute(Microsoft.Xrm.Sdk.OrganizationRequest request);
-        Microsoft.Xrm.Sdk.OrganizationResponse Execute(Microsoft.Xrm.Sdk.OrganizationRequest request, Guid runAsSystemUserID);
 
         System.Guid Create(Microsoft.Xrm.Sdk.Entity entity);
         void Update(Microsoft.Xrm.Sdk.Entity entity);
