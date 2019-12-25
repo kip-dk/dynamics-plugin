@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeCopy\CopyXrmCode.cs" />
     <Compile Include="CodeWriter\CodeWriterFilter.cs" />
     <Compile Include="CodeWriter\Model\Entity.cs" />
     <Compile Include="CodeWriter\Model\OptionSet.cs" />
@@ -138,7 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />
-    <Folder Include="CodeCopy\" />
+    <Folder Include="Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
