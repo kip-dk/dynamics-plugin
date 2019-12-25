@@ -36,13 +36,14 @@ namespace Kipon.Xrm.Tools.CodeWriter
             }
         }
 
-        internal void EntityOptionsetProperties(Model.Entity[] Entities, Dictionary<string, Model.OptionSet> globalOptionSets)
+        internal void EntityOptionsetProperties(Dictionary<string, Model.Entity> entities, Dictionary<string, Model.OptionSet> globalOptionSets, Dictionary<string,string> attrSchemaNameMap)
         {
-            foreach (var entity in Entities)
+            foreach (var logicalname in entities.Keys)
             {
+                var entity = entities[logicalname];
                 if (entity.Optionsets != null && entity.Optionsets.Length > 0)
                 {
-                    writer.WriteLine($"\tpublic partial class {entity.LogicalName}");
+                    writer.WriteLine($"\tpublic partial class {logicalname}");
                     writer.WriteLine("\t{");
 
                     foreach (var optionset in entity.Optionsets)
@@ -64,19 +65,30 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         #endregion
 
                         #region generate property
-                        writer.WriteLine($"\t[Microsoft.Xrm.Sdk.AttributeLogicalName(\"{optionset.Logicalname}\")]");
+                        writer.WriteLine($"\t\t[Microsoft.Xrm.Sdk.AttributeLogicalName(\"{optionset.Logicalname}\")]");
                         var type = optionset.Id == null ? $"{entity.LogicalName}.{optionset.Name}Enum" : globalOptionSets[optionset.Id].Name;
-                        writer.WriteLine($"\tpublic enum {type}? {optionset.Name}");
-                        writer.WriteLine("\t{");
-                        writer.WriteLine("\t\tget");
+                        var key = $"{entity.LogicalName}.{optionset.Logicalname}";
+                        var schemaName = attrSchemaNameMap[key];
+
+                        if (schemaName == optionset.Name)
+                        {
+                            throw new Exception($"Optionset on {logicalname} has defined property {optionset.Logicalname} with same name as the logical name. Tha will generate dublicate properties and is not allowed");
+                        }
+
+
+                        writer.WriteLine($"\t\tpublic {type}? {optionset.Name}");
                         writer.WriteLine("\t\t{");
-                        writer.WriteLine($"\t\t\tif (this.{optionset.Logicalname} != null)");
-                        writer.WriteLine($"\t\t\t\treturn ({type})this.{optionset.Logicalname}.Value;");
+                        writer.WriteLine("\t\t\tget");
+                        writer.WriteLine("\t\t\t{");
+                        writer.WriteLine($"\t\t\t\tif (this.{schemaName} != null)");
+                        writer.WriteLine($"\t\t\t\t\treturn ({type})this.{schemaName}.Value;");
                         writer.WriteLine($"\t\t\treturn null;");
+                        writer.WriteLine("\t\t\t}");
+
                         writer.WriteLine("\t\t}");
-                        writer.WriteLine("\t}");
                         #endregion
                     }
+
                     writer.WriteLine("\t}");
                 }
             }

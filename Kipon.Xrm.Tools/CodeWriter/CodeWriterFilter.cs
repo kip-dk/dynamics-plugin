@@ -18,6 +18,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
     {
         public static readonly Dictionary<string, Model.Entity> ENTITIES = new Dictionary<string, Model.Entity>();
         public static readonly Dictionary<string, Model.OptionSet> GLOBAL_OPTIONSET_INDEX = new Dictionary<string, Model.OptionSet>();
+        public static readonly Dictionary<string, string> ATTRIBUTE_SCHEMANAME_MAP = new Dictionary<string, string>();
 
         //list of entity names to generate classes for.
         private Dictionary<string, Model.Entity> _validEntities = new Dictionary<string, Model.Entity>();
@@ -169,6 +170,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         public bool GenerateAttribute(AttributeMetadata attributeMetadata, IServiceProvider services)
         {
+            ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
             return _defaultService.GenerateAttribute(attributeMetadata, services);
         }
 

@@ -1,7 +1,7 @@
 ﻿<filter>
   <entities>
     <entity servicename="Accounts" logicalname="account">
-      <optionset logicalname="preferredcontactmethodcode" name="PreferredContactMethodCode">
+      <optionset logicalname="preferredcontactmethodcode" name="PreferredContactMethod">
         <value name="Any">1</value>
         <value name="Email">2</value>
         <value name="Phone">3</value>
