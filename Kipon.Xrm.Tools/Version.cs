@@ -8,6 +8,6 @@ namespace Kipon.Xrm.Tools
 {
     public class Version
     {
-        public const string No = "1.0.0.3";
+        public const string No = "1.0.0.4";
     }
 }

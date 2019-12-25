@@ -71,7 +71,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         var next = new Model.OptionSet
                         {
                             Id = optionsetId?.Value,
-                            Name = optionsetName.Value
+                            Name = optionsetName.Value,
+                            Logicalname = optionsetLogicalname.Value
                         };
                         if (next.Id == null)
                         {
