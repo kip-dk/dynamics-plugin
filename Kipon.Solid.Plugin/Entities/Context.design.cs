@@ -2111,24 +2111,6 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
-		/// Select the preferred method of contact.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredcontactmethodcode")]
-		public Microsoft.Xrm.Sdk.OptionSetValue PreferredContactMethodCode
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("preferredcontactmethodcode");
-			}
-			set
-			{
-				this.OnPropertyChanging("PreferredContactMethodCode");
-				this.SetAttributeValue("preferredcontactmethodcode", value);
-				this.OnPropertyChanged("PreferredContactMethodCode");
-			}
-		}
-		
-		/// <summary>
 		/// equipment_accounts
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("preferredequipmentid")]
@@ -6799,24 +6781,6 @@ namespace Kipon.Solid.Plugin.Entities
 			get
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("budgetamount_base");
-			}
-		}
-		
-		/// <summary>
-		/// Select the likely budget status for the lead's company. This may help determine the lead rating or your sales approach.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("budgetstatus")]
-		public Microsoft.Xrm.Sdk.OptionSetValue BudgetStatus
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("budgetstatus");
-			}
-			set
-			{
-				this.OnPropertyChanging("BudgetStatus");
-				this.SetAttributeValue("budgetstatus", value);
-				this.OnPropertyChanged("BudgetStatus");
 			}
 		}
 		

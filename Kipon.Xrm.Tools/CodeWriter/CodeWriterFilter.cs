@@ -196,7 +196,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         return false;
                     } else
                     {
-                        return true;
+                        return _defaultService.GenerateAttribute(attributeMetadata, services);
                     }
                 }
             }

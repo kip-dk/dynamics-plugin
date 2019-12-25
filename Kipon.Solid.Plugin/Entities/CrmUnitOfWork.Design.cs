@@ -456,7 +456,7 @@ namespace Kipon.Solid.Plugin.Entities
 	}
 	public partial class Account
 	{
-		public enum PreferredContactMethodEnum
+		public enum PreferredContactMethodCodeEnum
 		{
 			Any = 1,
 			Email = 2,
@@ -465,22 +465,28 @@ namespace Kipon.Solid.Plugin.Entities
 			Mail = 5,
 		}
 		[Microsoft.Xrm.Sdk.AttributeLogicalName("preferredcontactmethodcode")]
-		public PreferredContactMethodEnum? PreferredContactMethod
+		public PreferredContactMethodCodeEnum? PreferredContactMethodCode
 		{
 			get
 			{
-				if (this.PreferredContactMethodCode != null)
-					return (PreferredContactMethodEnum)this.PreferredContactMethodCode.Value;
+				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("preferredcontactmethodcode");
+				if (optionSet != null)
+				{
+					return (PreferredContactMethodCodeEnum)optionSet.Value;
+				}
 				return null;
 			}
 			set
 			{
+				this.OnPropertyChanging("PreferredContactMethodCode");
 				if (value != null)
 				{
-					this.PreferredContactMethodCode = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
+					this.SetAttributeValue("preferredcontactmethodcode", new Microsoft.Xrm.Sdk.OptionSetValue((int)value.Value));
+					this.OnPropertyChanged("PreferredContactMethodCode");
 					return;
 				}
-				this.PreferredContactMethodCode = null;
+				this.SetAttributeValue("preferredcontactmethodcode", null);
+				this.OnPropertyChanged("PreferredContactMethodCode");
 			}
 		}
 	}
@@ -491,18 +497,24 @@ namespace Kipon.Solid.Plugin.Entities
 		{
 			get
 			{
-				if (this.BudgetStatus != null)
-					return (BudgetEnum)this.BudgetStatus.Value;
+				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("budgetstatus");
+				if (optionSet != null)
+				{
+					return (BudgetEnum)optionSet.Value;
+				}
 				return null;
 			}
 			set
 			{
+				this.OnPropertyChanging("BudgetStatus");
 				if (value != null)
 				{
-					this.BudgetStatus = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
+					this.SetAttributeValue("budgetstatus", new Microsoft.Xrm.Sdk.OptionSetValue((int)value.Value));
+					this.OnPropertyChanged("BudgetStatus");
 					return;
 				}
-				this.BudgetStatus = null;
+				this.SetAttributeValue("budgetstatus", null);
+				this.OnPropertyChanged("BudgetStatus");
 			}
 		}
 	}

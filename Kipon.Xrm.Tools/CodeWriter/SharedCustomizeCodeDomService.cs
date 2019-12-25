@@ -119,8 +119,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
                             writer.WriteLine($"\t\t\t\t\tthis.OnPropertyChanged(\"{schemaName}\");");
                             writer.WriteLine($"\t\t\t\t\treturn;");
                             writer.WriteLine("\t\t\t\t}");
-                            writer.WriteLine($"\t\t\t\t\tthis.SetAttributeValue(\"{optionset.Logicalname}\", null);");
-                            writer.WriteLine($"\t\t\t\t\tthis.OnPropertyChanged(\"{schemaName}\");");
+                            writer.WriteLine($"\t\t\t\tthis.SetAttributeValue(\"{optionset.Logicalname}\", null);");
+                            writer.WriteLine($"\t\t\t\tthis.OnPropertyChanged(\"{schemaName}\");");
                         }
 
 

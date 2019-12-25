@@ -1,7 +1,7 @@
-﻿<filter supress-mapped-standard-optionset-properties="false">
+﻿<filter supress-mapped-standard-optionset-properties="true">
   <entities>
     <entity servicename="Accounts" logicalname="account">
-      <optionset logicalname="preferredcontactmethodcode" name="PreferredContactMethod">
+      <optionset logicalname="preferredcontactmethodcode" name="PreferredContactMethodCode">
         <value name="Any">1</value>
         <value name="Email">2</value>
         <value name="Phone">3</value>
