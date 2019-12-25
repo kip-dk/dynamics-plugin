@@ -23,13 +23,13 @@ namespace Kipon.Xrm.Tools.CodeWriter
                     writer.WriteLine($"\tpublic enum {optionset.Name}");
                     writer.WriteLine("\t{");
 
-                    var count = optionsets.Count();
+                    var count = optionset.Values.Length;
 
                     var current = 0;
                     foreach (var value in optionset.Values)
                     {
                         current++;
-                        writer.WriteLine($"\t\t{value.Name} = {value.Value} {(current == count ? "" : ",")}");
+                        writer.WriteLine($"\t\t{value.Name} = {value.Value}{(current == count ? "" : ",")}");
                     }
                     writer.WriteLine("\t}");
                 }
