@@ -12,7 +12,7 @@
         {
         }
 
-        public BasePlugin(string unSecure, string secure) : base()
+        public BasePlugin(string unSecure, string secure) : this()
         {
             this.UnsecureConfig = unSecure;
             this.SecureConfig = secure;
