@@ -42,6 +42,7 @@ namespace Kipon.Xrm.Fake.Repository
         #region constructors
         private PluginExecutionFakeContext(Type pluginType, Guid? userId)
         {
+            this.userId = userId;
             this.pluginMethodCache = new Reflection.PluginMethod.Cache(pluginType.Assembly);
 
             this.orgServiceFactory = new Services.OrganizationServiceFactory(this);
