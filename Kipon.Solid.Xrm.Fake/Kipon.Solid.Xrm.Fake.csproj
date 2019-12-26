@@ -79,11 +79,11 @@
     <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvableTypeException.cs">
       <Link>Xrm\Exceptions\UnresolvableTypeException.cs</Link>
     </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\CommonPropertyCache.cs">
-      <Link>Xrm\Reflection\CommonPropertyCache.cs</Link>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\CommonProperty.cs">
+      <Link>Xrm\Reflection\CommonProperty.cs</Link>
     </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\PluginMethodCache.cs">
-      <Link>Xrm\Reflection\PluginMethodCache.cs</Link>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\PluginMethod.cs">
+      <Link>Xrm\Reflection\PluginMethod.cs</Link>
     </Compile>
     <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\TypeCache.cs">
       <Link>Xrm\Reflection\TypeCache.cs</Link>

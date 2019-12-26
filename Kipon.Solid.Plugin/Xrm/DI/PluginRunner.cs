@@ -16,7 +16,7 @@
 
         public void Execute(Microsoft.Xrm.Sdk.IPlugin plugin)
         {
-            var methods = Reflection.PluginMethodCache.ForPlugin(
+            var methods = Reflection.PluginMethod.ForPlugin(
                 plugin.GetType(),
                 this.pluginExecutionContext.Stage,
                 this.pluginExecutionContext.MessageName, 

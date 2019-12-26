@@ -3,19 +3,19 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    public class PluginMethodCache
+    public class PluginMethod
     {
-        private static readonly Dictionary<string, PluginMethodCache[]> cache = new Dictionary<string, PluginMethodCache[]>();
+        private static readonly Dictionary<string, PluginMethod[]> cache = new Dictionary<string, PluginMethod[]>();
 
         private static Types Types { get; set; }
 
-        static PluginMethodCache()
+        static PluginMethod()
         {
-            PluginMethodCache.Types = Types.Instance;
+            PluginMethod.Types = Types.Instance;
         }
 
 
-        private PluginMethodCache()
+        private PluginMethod()
         {
         }
 
@@ -39,7 +39,7 @@
             throw new ArgumentException($"{nameof(stage)} can be 10, 20 or 40");
         }
 
-        public static PluginMethodCache[] ForPlugin(Type type, int stage, string message, string primaryEntityName, bool isAsync, bool throwIfEmpty = true)
+        public static PluginMethod[] ForPlugin(Type type, int stage, string message, string primaryEntityName, bool isAsync, bool throwIfEmpty = true)
         {
             var key = type.FullName + "|" + stage + "|" + message + "|" + primaryEntityName + "|" + isAsync.ToString();
 
@@ -54,7 +54,7 @@
 
             var stepStage = stage == 40 && isAsync ? 41 : stage;
 
-            List<PluginMethodCache> results = new List<PluginMethodCache>();
+            List<PluginMethod> results = new List<PluginMethod>();
 
             foreach (var method in methods)
             {
@@ -149,7 +149,7 @@
             return cache[key];
         }
 
-        private static void AddIfConsistent(Type type, System.Reflection.MethodInfo method, List<PluginMethodCache> results, PluginMethodCache result, string message, int stage)
+        private static void AddIfConsistent(Type type, System.Reflection.MethodInfo method, List<PluginMethod> results, PluginMethod result, string message, int stage)
         {
             #region validate pre and post image consistancy
             switch (stage)
@@ -203,9 +203,9 @@
             results.Add(result);
         }
 
-        private static PluginMethodCache CreateFrom(System.Reflection.MethodInfo method)
+        private static PluginMethod CreateFrom(System.Reflection.MethodInfo method)
         {
-            var result = new PluginMethodCache();
+            var result = new PluginMethod();
             result.method = method;
             var parameters = method.GetParameters().DefaultIfEmpty().ToArray();
 
@@ -247,8 +247,8 @@
             }
         }
 
-        private CommonPropertyCache[] _filteredProperties;
-        public CommonPropertyCache[] FilteredProperties
+        private CommonProperty[] _filteredProperties;
+        public CommonProperty[] FilteredProperties
         {
             get
             {
@@ -256,7 +256,7 @@
                 {
                     if (Parameters != null)
                     {
-                        var result = new List<CommonPropertyCache>();
+                        var result = new List<CommonProperty>();
                         foreach (var p in Parameters)
                         {
                             if (p.IsTarget && p.FilteredProperties != null && p.FilteredProperties.Length > 0)
@@ -267,7 +267,7 @@
                         _filteredProperties = result.ToArray();
                     } else
                     {
-                        _filteredProperties = new CommonPropertyCache[0];
+                        _filteredProperties = new CommonProperty[0];
                     }
                 }
                 return _filteredProperties;
@@ -302,8 +302,8 @@
             }
         }
 
-        private CommonPropertyCache[] _preimageProperties;
-        public CommonPropertyCache[] PreimageProperties
+        private CommonProperty[] _preimageProperties;
+        public CommonProperty[] PreimageProperties
         {
             get
             {
@@ -311,7 +311,7 @@
                 {
                     if (this.Parameters != null)
                     {
-                        var result = new List<CommonPropertyCache>();
+                        var result = new List<CommonProperty>();
                         foreach (var p in Parameters)
                         {
                             if ((p.IsPreimage || p.IsMergedimage) && p.FilteredProperties != null && p.FilteredProperties.Length > 0)
@@ -323,7 +323,7 @@
                     }
                     else
                     {
-                        this._preimageProperties = new CommonPropertyCache[0];
+                        this._preimageProperties = new CommonProperty[0];
                     }
                 }
                 return _preimageProperties;
@@ -358,8 +358,8 @@
             }
         }
 
-        private CommonPropertyCache[] _postimageProperties;
-        public CommonPropertyCache[] PostimageProperties
+        private CommonProperty[] _postimageProperties;
+        public CommonProperty[] PostimageProperties
         {
             get
             {
@@ -367,7 +367,7 @@
                 {
                     if (this.Parameters != null)
                     {
-                        var result = new List<CommonPropertyCache>();
+                        var result = new List<CommonProperty>();
                         foreach (var p in this.Parameters)
                         {
                             if (p.IsPostimage && p.FilteredProperties != null && p.FilteredProperties.Length > 0)
@@ -379,7 +379,7 @@
                     }
                     else
                     {
-                        this._postimageProperties = new CommonPropertyCache[0];
+                        this._postimageProperties = new CommonProperty[0];
                     }
                 }
                 return this._postimageProperties;

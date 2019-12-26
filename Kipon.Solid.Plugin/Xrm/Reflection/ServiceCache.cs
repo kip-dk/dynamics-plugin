@@ -39,7 +39,7 @@
 
             if (type.IsPreimage)
             {
-                var imgName = PluginMethodCache.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
+                var imgName = PluginMethod.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
                 var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[imgName];
                 services[type.ObjectInstanceKey] = entity.ToEarlyBoundEntity();
                 return services[type.ObjectInstanceKey];
@@ -47,7 +47,7 @@
 
             if (type.IsPostimage)
             {
-                var imgName = PluginMethodCache.ImageSuffixFor(2, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
+                var imgName = PluginMethod.ImageSuffixFor(2, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
                 var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PostEntityImages[$"postimage{imgName}"];
                 services[type.ObjectInstanceKey] = entity.ToEarlyBoundEntity();
                 return services[type.ObjectInstanceKey];
@@ -60,7 +60,7 @@
                 merged.Id = target.Id;
                 merged.LogicalName = target.LogicalName;
 
-                var imgName = PluginMethodCache.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
+                var imgName = PluginMethod.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
                 var pre = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[imgName];
 
                 foreach (var attr in pre.Attributes.Keys)

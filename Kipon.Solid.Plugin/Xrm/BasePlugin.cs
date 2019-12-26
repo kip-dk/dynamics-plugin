@@ -32,7 +32,7 @@
 
             var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService);
 
-            var methods = Reflection.PluginMethodCache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
+            var methods = Reflection.PluginMethod.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
             foreach (var method in methods)
             {
                 #region find out if method is relevant, looking a target fields

@@ -4,18 +4,18 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class CommonPropertyCache
+    public class CommonProperty
     {
-        private static readonly Dictionary<Type, CommonPropertyCache[]> cache = new Dictionary<Type, CommonPropertyCache[]>();
+        private static readonly Dictionary<Type, CommonProperty[]> cache = new Dictionary<Type, CommonProperty[]>();
 
         private static Types Types;
 
-        static CommonPropertyCache()
+        static CommonProperty()
         {
-            CommonPropertyCache.Types = Types.Instance;
+            CommonProperty.Types = Types.Instance;
         }
 
-        public static CommonPropertyCache[] ForType(Type interfaceType, Type entityType)
+        public static CommonProperty[] ForType(Type interfaceType, Type entityType)
         {
             if (cache.ContainsKey(interfaceType))
             {
@@ -25,7 +25,7 @@
             var interfaceProperties = interfaceType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
             var instanceProperties = entityType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 
-            var result = new List<CommonPropertyCache>();
+            var result = new List<CommonProperty>();
 
             foreach (var interfaceProp in interfaceProperties)
             {
@@ -35,7 +35,7 @@
                     var customProp = (Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute)instanceProp.GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute), false).FirstOrDefault();
                     if (customProp != null)
                     {
-                        var attr = new CommonPropertyCache { LogicalName = customProp.LogicalName };
+                        var attr = new CommonProperty { LogicalName = customProp.LogicalName };
                         attr.Required = interfaceProp.GetCustomAttributes(Types.RequiredAttribute, false).Any();
 
                         result.Add(attr);

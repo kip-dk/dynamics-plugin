@@ -374,7 +374,7 @@
 
             if (this.ToType.Inheriting(typeof(Microsoft.Xrm.Sdk.Entity)))
             {
-                this.FilteredProperties = CommonPropertyCache.ForType(this.FromType, this.ToType);
+                this.FilteredProperties = CommonProperty.ForType(this.FromType, this.ToType);
             }
         }
         #endregion
@@ -396,7 +396,7 @@
 
         public bool RequireAdminService { get; private set; }
         public bool AllProperties { get; private set; }
-        public CommonPropertyCache[] FilteredProperties { get; private set; }
+        public CommonProperty[] FilteredProperties { get; private set; }
 
         public bool RequirePluginContext
         {

@@ -175,7 +175,7 @@ namespace Kipon.Xrm.Fake.Repository
         #endregion
 
         #region private helpers
-        private Microsoft.Xrm.Sdk.Entity ResolveImage(string logicalName, Guid id, int pre1post2, Reflection.PluginMethodCache[] methods, EntityShadow pre)
+        private Microsoft.Xrm.Sdk.Entity ResolveImage(string logicalName, Guid id, int pre1post2, Reflection.PluginMethod[] methods, EntityShadow pre)
         {
             if (pre1post2 == 1 && pre ==null)
             {
@@ -481,7 +481,7 @@ namespace Kipon.Xrm.Fake.Repository
                 this.preImage = this.entities[key].Clone();
             } 
 
-            var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
+            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
             if (methods.Length > 0)
             {
                 var pluginExecutionContext = new Services.PluginExecutionContext(stage, 1, message, target.LogicalName, target.Id, isAsync);
@@ -492,7 +492,7 @@ namespace Kipon.Xrm.Fake.Repository
                     var imagePre = this.ResolveImage(target.LogicalName, target.Id, 1, methods, preImage);
                     if (imagePre != null)
                     {
-                        var imgName = Reflection.PluginMethodCache.ImageSuffixFor(1, stage, isAsync);
+                        var imgName = Reflection.PluginMethod.ImageSuffixFor(1, stage, isAsync);
                         pluginExecutionContext.PreEntityImages.Add(imgName, imagePre);
                     }
                 }
@@ -502,7 +502,7 @@ namespace Kipon.Xrm.Fake.Repository
                     var imagePost = this.ResolveImage(target.LogicalName, target.Id, 2, methods, null);
                     if (imagePost != null)
                     {
-                        var imgName = Reflection.PluginMethodCache.ImageSuffixFor(2, stage, isAsync);
+                        var imgName = Reflection.PluginMethod.ImageSuffixFor(2, stage, isAsync);
                         pluginExecutionContext.PostEntityImages.Add(imgName, imagePost);
                     }
                 }
@@ -543,7 +543,7 @@ namespace Kipon.Xrm.Fake.Repository
                 this.preImage = this.entities[key].Clone();
             }
 
-            var methods = Kipon.Xrm.Reflection.PluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
+            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
             if (methods.Length > 0)
             {
                 var pluginExecutionContext = new Services.PluginExecutionContext(stage, 1, message, target.LogicalName, target.Id, isAsync);
@@ -552,7 +552,7 @@ namespace Kipon.Xrm.Fake.Repository
                 var imagePre = this.ResolveImage(target.LogicalName, target.Id, 1, methods, preImage);
                 if (imagePre != null)
                 {
-                    var imgName = Reflection.PluginMethodCache.ImageSuffixFor(1, stage, isAsync);
+                    var imgName = Reflection.PluginMethod.ImageSuffixFor(1, stage, isAsync);
                     pluginExecutionContext.PreEntityImages.Add(imgName, imagePre);
                 }
 
@@ -561,7 +561,7 @@ namespace Kipon.Xrm.Fake.Repository
                     var imagePost = this.ResolveImage(target.LogicalName, target.Id, 2, methods, null);
                     if (imagePost != null)
                     {
-                        var imgName = Reflection.PluginMethodCache.ImageSuffixFor(2, stage, isAsync);
+                        var imgName = Reflection.PluginMethod.ImageSuffixFor(2, stage, isAsync);
                         pluginExecutionContext.PostEntityImages.Add(imgName, imagePost);
                     }
                 }
