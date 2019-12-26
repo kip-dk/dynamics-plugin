@@ -20,8 +20,10 @@ namespace Kipon.Xrm.Fake.Repository
         private Guid? userId;
         private object uow;
         private Dictionary<Type, object> queryCache = new Dictionary<Type, object>();
-
         private static Dictionary<string, Microsoft.Xrm.Sdk.IPlugin> plugins = new Dictionary<string, Microsoft.Xrm.Sdk.IPlugin>();
+
+        private Kipon.Xrm.Reflection.PluginMethod.Cache pluginMethodCache;
+
         #endregion
 
         #region static method for creating an instance
@@ -40,6 +42,8 @@ namespace Kipon.Xrm.Fake.Repository
         #region constructors
         private PluginExecutionFakeContext(Type pluginType, Guid? userId)
         {
+            this.pluginMethodCache = new Reflection.PluginMethod.Cache(pluginType.Assembly);
+
             this.orgServiceFactory = new Services.OrganizationServiceFactory(this);
 
             var pt = this.orgServiceFactory as Microsoft.Xrm.Sdk.IProxyTypesAssemblyProvider;
@@ -481,7 +485,7 @@ namespace Kipon.Xrm.Fake.Repository
                 this.preImage = this.entities[key].Clone();
             } 
 
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
+            var methods = this.pluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
             if (methods.Length > 0)
             {
                 var pluginExecutionContext = new Services.PluginExecutionContext(stage, 1, message, target.LogicalName, target.Id, isAsync);
@@ -543,7 +547,7 @@ namespace Kipon.Xrm.Fake.Repository
                 this.preImage = this.entities[key].Clone();
             }
 
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
+            var methods = this.pluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
             if (methods.Length > 0)
             {
                 var pluginExecutionContext = new Services.PluginExecutionContext(stage, 1, message, target.LogicalName, target.Id, isAsync);

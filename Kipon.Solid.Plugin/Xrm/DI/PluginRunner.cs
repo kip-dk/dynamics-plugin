@@ -7,16 +7,18 @@
     {
         private Reflection.ServiceCache serviceCache;
         private IPluginExecutionContext pluginExecutionContext;
+        private Kipon.Xrm.Reflection.PluginMethod.Cache methodCache;
 
-        public PluginRunner(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService)
+        public PluginRunner(Kipon.Xrm.Reflection.PluginMethod.Cache methodCache, IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService)
         {
             this.pluginExecutionContext = pluginExecutionContext;
             this.serviceCache = new Reflection.ServiceCache(pluginExecutionContext, organizationServiceFactory, traceService);
+            this.methodCache = methodCache;
         }
 
         public void Execute(Microsoft.Xrm.Sdk.IPlugin plugin)
         {
-            var methods = Reflection.PluginMethod.ForPlugin(
+            var methods = this.methodCache.ForPlugin(
                 plugin.GetType(),
                 this.pluginExecutionContext.Stage,
                 this.pluginExecutionContext.MessageName, 

@@ -13,10 +13,11 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
     [TestClass]
     public class ServiceCacheTest
     {
-
         private OrganizationServiceFactory organizationServiceFactory = new OrganizationServiceFactory(null);
 
         private TracingService traceService = new TracingService();
+
+        private Kipon.Xrm.Reflection.PluginMethod.Cache pluginMethodcache = new Kipon.Xrm.Reflection.PluginMethod.Cache(typeof(Kipon.Solid.Plugin.Entities.Account).Assembly);
 
         [TestMethod]
         public void ForTypeTest()
@@ -27,7 +28,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
             var context = PluginExecutionContext.ForMethodWithTarget(method, account);
             var serviceCache = new Kipon.Xrm.Reflection.ServiceCache(context, organizationServiceFactory, traceService);
 
-            var methodCache = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(TestPlugin), 20, "Update", Entities.Account.EntityLogicalName, false);
+            var methodCache = pluginMethodcache.ForPlugin(typeof(TestPlugin), 20, "Update", Entities.Account.EntityLogicalName, false);
 
             var p1 = serviceCache.Resolve(methodCache[0].Parameters[0]);
             Assert.AreEqual(p1, account);

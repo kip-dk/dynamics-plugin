@@ -7,9 +7,12 @@
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
+        private Kipon.Xrm.Reflection.PluginMethod.Cache pluginMethodcache;
+
         #region constructors
         public BasePlugin() : base()
         {
+            this.pluginMethodcache = new Reflection.PluginMethod.Cache(typeof(BasePlugin).Assembly);
         }
 
         public BasePlugin(string unSecure, string secure) : this()
@@ -32,7 +35,8 @@
 
             var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService);
 
-            var methods = Reflection.PluginMethod.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
+            var methods = this.pluginMethodcache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
+
             foreach (var method in methods)
             {
                 #region find out if method is relevant, looking a target fields

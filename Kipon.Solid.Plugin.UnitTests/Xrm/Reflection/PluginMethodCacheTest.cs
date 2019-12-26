@@ -7,10 +7,12 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
     [TestClass]
     public class PluginMethodCacheTest
     {
+        private Kipon.Xrm.Reflection.PluginMethod.Cache pluginMethodcache = new Kipon.Xrm.Reflection.PluginMethod.Cache(typeof(Kipon.Solid.Plugin.Entities.Account).Assembly);
+
         [TestMethod]
         public void ForTypePostCreateDuckTypeTest()
         {
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(DuckPluginPostCreate), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
+            var methods = pluginMethodcache.ForPlugin(typeof(DuckPluginPostCreate), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
             Assert.AreEqual(3, methods.Length);
             Assert.AreEqual(1, methods[0].Sort);
             Assert.AreEqual(1, methods[0].Parameters.Length);
@@ -23,7 +25,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         [TestMethod]
         public void ForTypePostCreateDecoratedTypeTest()
         {
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(DecoratedPostCreate), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
+            var methods = pluginMethodcache.ForPlugin(typeof(DecoratedPostCreate), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
             Assert.AreEqual(2, methods.Length);
             Assert.AreEqual(2, methods[0].Parameters.Length);
             Assert.AreEqual(1, methods[1].Parameters.Length);
@@ -32,7 +34,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         [TestMethod]
         public void ForTypePostCreateMixedStyleTypeTest()
         {
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(MixedStylePostCreate), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
+            var methods = pluginMethodcache.ForPlugin(typeof(MixedStylePostCreate), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
             Assert.AreEqual(2, methods.Length);
             Assert.AreEqual(2, methods[0].Parameters.Length);
             Assert.AreEqual(1, methods[1].Parameters.Length);
@@ -41,11 +43,11 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         [TestMethod]
         public void ForTypeMultiPurposePluginTest()
         {
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(MultiPurposePlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
+            var methods = pluginMethodcache.ForPlugin(typeof(MultiPurposePlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
             Assert.AreEqual(1, methods.Length);
             Assert.AreEqual(2, methods[0].Parameters.Length);
 
-            methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(MultiPurposePlugin), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
+            methods = pluginMethodcache.ForPlugin(typeof(MultiPurposePlugin), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
             Assert.AreEqual(1, methods.Length);
             Assert.AreEqual(3, methods[0].Parameters.Length);
 
@@ -54,7 +56,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         [TestMethod]
         public void ForTypeFilteredAttributeTest()
         {
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(FilteredAttributePlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
+            var methods = pluginMethodcache.ForPlugin(typeof(FilteredAttributePlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
             Assert.AreEqual(2, methods.Length);
             Assert.IsFalse(methods[0].FilterAllProperties);
             Assert.AreEqual(1, methods[0].FilteredProperties.Length);
@@ -68,7 +70,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         {
             Assert.ThrowsException<Kipon.Xrm.Exceptions.UnavailableImageException>(() =>
             {
-                var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(WrongTargetPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
+                var methods = pluginMethodcache.ForPlugin(typeof(WrongTargetPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
             });
         }
 
@@ -85,7 +87,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         [TestMethod]
         public void OrganizationServiceResolveTest()
         {
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(BothOrgService), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
+            var methods = pluginMethodcache.ForPlugin(typeof(BothOrgService), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
 
             Assert.IsTrue(methods[0].Parameters[1].RequireAdminService);
             Assert.IsFalse(methods[0].Parameters[2].RequireAdminService);
@@ -95,7 +97,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         [TestMethod]
         public void IsTargetRelevantTest()
         {
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(RelevantAttributePLugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
+            var methods = pluginMethodcache.ForPlugin(typeof(RelevantAttributePLugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
 
             var target = new Entities.Account { AccountId = Guid.NewGuid(), CreditLimit = new Microsoft.Xrm.Sdk.Money(10M) };
 
@@ -113,7 +115,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         [TestMethod]
         public void UpdatePreMixedPropertiesTest()
         {
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.Account.AccountPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
+            var methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.Account.AccountPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
             Assert.AreEqual(2, methods.Length);
             Assert.AreEqual(3, methods[0].Parameters.Length);
             Assert.AreEqual(typeof(Entities.Account), methods[0].Parameters[0].ToType);
@@ -145,7 +147,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         [TestMethod]
         public void PreimagePropertyTest()
         {
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(
+            var methods = pluginMethodcache.ForPlugin(
                 typeof(PreimagePropertyPlugin), 
                 (int)StepAttribute.StageEnum.Pre, 
                 StepAttribute.MessageEnum.Update.ToString(), 
@@ -180,7 +182,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         [TestMethod]
         public void PostimagePropertyTest()
         {
-            var methods = Kipon.Xrm.Reflection.PluginMethod.ForPlugin(
+            var methods = pluginMethodcache.ForPlugin(
                 typeof(PostimagePropertyPlugin),
                 (int)StepAttribute.StageEnum.Post,
                 StepAttribute.MessageEnum.Update.ToString(),
