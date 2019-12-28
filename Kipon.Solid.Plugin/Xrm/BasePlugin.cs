@@ -7,13 +7,13 @@
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
-        private Kipon.Xrm.Reflection.PluginMethod.Cache pluginMethodcache;
+        private Reflection.PluginMethod.Cache pluginMethodcache;
 
         #region constructors
         public BasePlugin() : base()
         {
             this.pluginMethodcache = new Reflection.PluginMethod.Cache(typeof(BasePlugin).Assembly);
-            Kipon.Xrm.Reflection.Types.Instance.SetAssembly(typeof(BasePlugin).Assembly);
+            Reflection.Types.Instance.SetAssembly(typeof(BasePlugin).Assembly);
         }
 
         public BasePlugin(string unSecure, string secure) : this()

@@ -22,7 +22,7 @@
 
             if (!entittypes.ContainsKey(ent.LogicalName))
             {
-                throw new Kipon.Xrm.Exceptions.UnknownEntityTypeException(ent.LogicalName);
+                throw new Exceptions.UnknownEntityTypeException(ent.LogicalName);
             }
 
             var type = entittypes[ent.LogicalName];

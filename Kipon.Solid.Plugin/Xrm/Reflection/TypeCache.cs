@@ -239,7 +239,7 @@
             }
             #endregion
 
-            throw new Kipon.Xrm.Exceptions.UnresolvableTypeException(type);
+            throw new Exceptions.UnresolvableTypeException(type);
         }
 
         public static TypeCache ForQuery(Type type)
@@ -298,7 +298,7 @@
 
             if (candidates.Count == 0)
             {
-                throw new Kipon.Xrm.Exceptions.UnresolvableTypeException(type);
+                throw new Exceptions.UnresolvableTypeException(type);
             }
 
             var all = candidates.ToArray();
@@ -320,7 +320,7 @@
                 return candidates[0];
             }
 
-            throw new Kipon.Xrm.Exceptions.MultiImplementationOfSameInterfaceException(type);
+            throw new Exceptions.MultiImplementationOfSameInterfaceException(type);
         }
 
         private static System.Reflection.ConstructorInfo GetConstructor(Type type)
@@ -350,14 +350,14 @@
                 return candidates[0];
             }
 
-            throw new Kipon.Xrm.Exceptions.UnresolvableConstructorException(type);
+            throw new Exceptions.UnresolvableConstructorException(type);
         }
 
         private static bool ReturnIfOk(Type from, TypeCache result)
         {
             if (from.IsInterface && !from.IsAssignableFrom(result.ToType))
             {
-                throw new Kipon.Xrm.Exceptions.TypeMismatchException(from, result.ToType);
+                throw new Exceptions.TypeMismatchException(from, result.ToType);
             }
             return true;
         }

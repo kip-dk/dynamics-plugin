@@ -3,7 +3,6 @@
     using Microsoft.Xrm.Sdk;
     using System;
     using System.Collections.Generic;
-    using Kipon.Xrm.Extensions.Sdk;
     public class ServiceCache: System.IDisposable
     {
         private readonly Dictionary<string, object> services = new Dictionary<string, object>();
@@ -33,7 +32,7 @@
             if (type.IsTarget)
             {
                 var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.InputParameters["Target"];
-                services[type.ObjectInstanceKey] = entity.ToEarlyBoundEntity();
+                services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);
                 return services[type.ObjectInstanceKey];
             }
 
@@ -41,7 +40,7 @@
             {
                 var imgName = PluginMethod.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
                 var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[imgName];
-                services[type.ObjectInstanceKey] = entity.ToEarlyBoundEntity();
+                services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);
                 return services[type.ObjectInstanceKey];
             }
 
@@ -49,7 +48,7 @@
             {
                 var imgName = PluginMethod.ImageSuffixFor(2, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
                 var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PostEntityImages[$"postimage{imgName}"];
-                services[type.ObjectInstanceKey] = entity.ToEarlyBoundEntity();
+                services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);
                 return services[type.ObjectInstanceKey];
             }
 
@@ -73,7 +72,7 @@
                     merged[attr] = target[attr];
                 }
 
-                services[type.ObjectInstanceKey] = merged.ToEarlyBoundEntity();
+                services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(merged);
                 return services[type.ObjectInstanceKey];
             }
 
@@ -108,10 +107,10 @@
 
         private List<string> resolving = new List<string>();
 
-        private Kipon.Xrm.IUnitOfWork GetIUnitOfWork(bool admin)
+        private IUnitOfWork GetIUnitOfWork(bool admin)
         {
             TypeCache tc = TypeCache.ForUow(admin);
-            return (Kipon.Xrm.IUnitOfWork)this.CreateServiceInstance(tc);
+            return (IUnitOfWork)this.CreateServiceInstance(tc);
         }
 
         private Microsoft.Xrm.Sdk.IOrganizationService GetOrganizationService(bool admin)
@@ -224,7 +223,7 @@
             {
                 foreach (var s in this.services.Values)
                 {
-                    var asdispos = s as Kipon.Xrm.IService;
+                    var asdispos = s as IService;
                     if (asdispos != null)
                     {
                         asdispos.OnStepFinalized();
