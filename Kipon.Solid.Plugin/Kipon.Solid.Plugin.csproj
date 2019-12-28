@@ -104,7 +104,6 @@
     <Compile Include="Service\AccountService.cs" />
     <Compile Include="Xrm\BasePlugin.cs" />
     <Compile Include="Xrm\Reflection\TypeCache.cs" />
-    <Compile Include="Xrm\DI\PluginRunner.cs" />
     <Compile Include="Xrm\Exceptions\TypeMismatchException.cs" />
     <Compile Include="Xrm\Exceptions\UnresolvableConstructorException.cs" />
     <Compile Include="Xrm\IAdminUnitOfWork.cs" />

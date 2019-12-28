@@ -88,6 +88,9 @@
     <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\TypeCache.cs">
       <Link>Xrm\Reflection\TypeCache.cs</Link>
     </Compile>
+    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\Types.cs">
+      <Link>Xrm\Reflection\Types.cs</Link>
+    </Compile>
     <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\EntityExistsException.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
@@ -110,7 +113,6 @@
     <Compile Include="Services\ProxyTypesAssemblyProvider.cs" />
     <Compile Include="Services\ServiceProvider.cs" />
     <Compile Include="Services\TracingService.cs" />
-    <Compile Include="Xrm\Reflection\Types.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -13,6 +13,7 @@
         public BasePlugin() : base()
         {
             this.pluginMethodcache = new Reflection.PluginMethod.Cache(typeof(BasePlugin).Assembly);
+            Kipon.Xrm.Reflection.Types.Instance.SetAssembly(typeof(BasePlugin).Assembly);
         }
 
         public BasePlugin(string unSecure, string secure) : this()
@@ -33,42 +34,42 @@
             var stage = context.Stage;
             var isAsync = context.Mode == 1;
 
-            var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService);
-
-            var methods = this.pluginMethodcache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
-
-            foreach (var method in methods)
+            using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService))
             {
-                #region find out if method is relevant, looking a target fields
-                if (message == Attributes.StepAttribute.MessageEnum.Update.ToString() && !method.FilterAllProperties)
+                var methods = this.pluginMethodcache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
+
+                foreach (var method in methods)
                 {
-                    var target = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
-                    if (!method.IsRelevant(target))
+                    #region find out if method is relevant, looking a target fields
+                    if (message == Attributes.StepAttribute.MessageEnum.Update.ToString() && !method.FilterAllProperties)
                     {
-                        continue;
+                        var target = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
+                        if (!method.IsRelevant(target))
+                        {
+                            continue;
+                        }
                     }
-                }
-                #endregion
+                    #endregion
 
-                #region now resolve all parameters
-                var args = new object[method.Parameters.Length];
-                var ix = 0;
-                foreach (var p in method.Parameters)
-                {
-                    args[ix] = serviceCache.Resolve(p);
-                    ix++;
-                }
-                #endregion
+                    #region now resolve all parameters
+                    var args = new object[method.Parameters.Length];
+                    var ix = 0;
+                    foreach (var p in method.Parameters)
+                    {
+                        args[ix] = serviceCache.Resolve(p);
+                        ix++;
+                    }
+                    #endregion
 
-                #region run the method
-                method.Invoke(this, args);
-                #endregion
+                    #region run the method
+                    method.Invoke(this, args);
+                    #endregion
 
-                #region prepare for next method
+                    #region prepare for next method
 #warning added some cleanup pattern
-                #endregion
+                    #endregion
+                }
             }
-#warning dispose all service that are disposable
         }
         #endregion
     }

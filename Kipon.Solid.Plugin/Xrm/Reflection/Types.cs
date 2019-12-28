@@ -1,38 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kipon.Xrm.Reflection
+﻿namespace Kipon.Xrm.Reflection
 {
-    public class Types
+    using System;
+    using System.Linq;
+
+    public sealed class Types
     {
-        private static readonly Type _TargetAttribute = typeof(Kipon.Xrm.Attributes.TargetAttribute);
-        private static readonly Type _PreimageAttribute = typeof(Kipon.Xrm.Attributes.PreimageAttribute);
-        private static readonly Type _MergedimageAttribute = typeof(Kipon.Xrm.Attributes.MergedimageAttribute);
-        private static readonly Type _PostimageAttribute = typeof(Kipon.Xrm.Attributes.MergedimageAttribute);
-        private static readonly Type _AdminAttribute = typeof(Kipon.Xrm.Attributes.AdminAttribute);
-        private static readonly Type _ExportAttribute = typeof(Kipon.Xrm.Attributes.ExportAttribute);
-        private static readonly Type _ImportingConstructorAttribute = typeof(Kipon.Xrm.Attributes.ImportingConstructorAttribute);
-        private static readonly Type _RequiredAttribute = typeof(Kipon.Xrm.Attributes.RequiredAttribute);
-        private static readonly Type _StepAttribute = typeof(Kipon.Xrm.Attributes.StepAttribute);
-        private static readonly Type _LogicalNameAttribute = typeof(Kipon.Xrm.Attributes.LogicalNameAttribute);
-        private static readonly Type _SortAttribute = typeof(Kipon.Xrm.Attributes.SortAttribute);
+        private const string NAMESPACE = "Kipon" + "." + "Xrm" + ".";
 
-
-        private static readonly Type _Target = typeof(Kipon.Xrm.Target<>);
-        private static readonly Type _TargetReference = typeof(Kipon.Xrm.TargetReference<>);
-        private static readonly Type _Preimage = typeof(Kipon.Xrm.Preimage<>);
-        private static readonly Type _Mergedimage = typeof(Kipon.Xrm.Mergedimage<>);
-        private static readonly Type _Postimage = typeof(Kipon.Xrm.Postimage<>);
-        private static readonly Type _IUnitOfWork = typeof(Kipon.Xrm.IUnitOfWork);
-        private static readonly Type _IAdminUnitOfWork = typeof(Kipon.Xrm.IAdminUnitOfWork);
-        private static readonly Type _IRepository = typeof(Kipon.Xrm.IRepository<>);
-
-        private static readonly System.Reflection.Assembly _Assembly = typeof(Types).Assembly;
-
-        private static readonly Types _instance = null;
+        private static Types _instance;
 
         static Types()
         {
@@ -43,7 +18,8 @@ namespace Kipon.Xrm.Reflection
         {
         }
 
-        internal static Types Instance
+
+        public static Types Instance
         {
             get
             {
@@ -51,28 +27,58 @@ namespace Kipon.Xrm.Reflection
             }
         }
 
-        public Type TargetAttribute => Types._TargetAttribute;
-        public Type PreimageAttribute => Types._PreimageAttribute;
-        public Type MergedimageAttribute => Types._MergedimageAttribute;
-        public Type PostimageAttribute => Types._PostimageAttribute;
-        public Type AdminAttribute => Types._AdminAttribute;
-        public Type ExportAttribute => Types._ExportAttribute;
-        public Type ImportingConstructorAttribute => Types._ImportingConstructorAttribute;
-        public Type RequiredAttribute => Types._RequiredAttribute;
-        public Type StepAttribute => Types._StepAttribute;
-        public Type LogicalNameAttribute => Types._LogicalNameAttribute;
-        public Type SortAttribute => Types._SortAttribute;
+        public void SetAssembly(System.Reflection.Assembly assembly)
+        {
+            this.Assembly = assembly;
+            var allTypes = assembly.GetTypes().ToDictionary(r => r.FullName);
 
-        public Type Target => Types._Target;
-        public Type TargetReference => Types._TargetReference;
-        public Type Preimage => Types._Preimage;
-        public Type Mergedimage => Types._Mergedimage;
-        public Type Postimage => Types._Postimage;
-        public Type IUnitOfWork => Types._IUnitOfWork;
-        public Type IAdminUnitOfWork => Types._IAdminUnitOfWork;
-        public Type IRepository => _IRepository;
-        public System.Reflection.Assembly Assembly => _Assembly;
+            this.TargetAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.TargetAttribute)}"];
+            this.PreimageAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.PreimageAttribute)}"];
+            this.MergedimageAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.MergedimageAttribute)}"];
+            this.PostimageAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.PostimageAttribute)}"];
+            this.AdminAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.AdminAttribute)}"];
+            this.ExportAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.ExportAttribute)}"];
+            this.ImportingConstructorAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.ImportingConstructorAttribute)}"];
+            this.RequiredAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.RequiredAttribute)}"];
+            this.StepAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.StepAttribute)}"];
+            this.LogicalNameAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.LogicalNameAttribute)}"];
+            this.SortAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.SortAttribute)}"];
+
+            this.Target = allTypes[$"{NAMESPACE}{nameof(_instance.Target)}`1"];
+            this.TargetReference = allTypes[$"{NAMESPACE}{nameof(_instance.TargetReference)}`1"];
+            this.Preimage = allTypes[$"{NAMESPACE}{nameof(_instance.Preimage)}`1"];
+            this.Mergedimage = allTypes[$"{NAMESPACE}{nameof(_instance.Mergedimage)}`1"];
+            this.Postimage = allTypes[$"{NAMESPACE}{nameof(_instance.Postimage)}`1"];
+
+            this.IUnitOfWork = allTypes[$"{NAMESPACE}{nameof(_instance.IUnitOfWork)}"];
+            this.IAdminUnitOfWork = allTypes[$"{NAMESPACE}{nameof(_instance.IAdminUnitOfWork)}"];
+
+            this.IRepository = allTypes[$"{NAMESPACE}{nameof(_instance.IRepository)}`1"];
+        }
+
+        public Type TargetAttribute { get; private set; }
+        public Type PreimageAttribute { get; private set; }
+        public Type MergedimageAttribute { get; private set; }
+        public Type PostimageAttribute { get; private set; }
+        public Type AdminAttribute { get; private set; }
+        public Type ExportAttribute { get; private set; }
+        public Type ImportingConstructorAttribute { get; private set; }
+        public Type RequiredAttribute { get; private set; }
+        public Type StepAttribute { get; private set; }
+        public Type LogicalNameAttribute { get; private set; }
+        public Type SortAttribute { get; private set; }
+
+        public Type Target { get; private set; }
+        public Type TargetReference { get; private set; }
+        public Type Preimage { get; private set; }
+        public Type Mergedimage { get; private set; }
+        public Type Postimage { get; private set; }
+        public Type IUnitOfWork { get; private set; }
+        public Type IAdminUnitOfWork { get; private set; }
+
+        public Type IRepository { get; private set; }
+
+        public System.Reflection.Assembly Assembly { get; private set; }
+
     }
-
-
 }

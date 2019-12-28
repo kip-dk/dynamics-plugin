@@ -4,7 +4,7 @@
     using System;
     using System.Collections.Generic;
     using Kipon.Xrm.Extensions.Sdk;
-    public class ServiceCache
+    public class ServiceCache: System.IDisposable
     {
         private readonly Dictionary<string, object> services = new Dictionary<string, object>();
 
@@ -215,6 +215,32 @@
             finally
             {
                 resolving.Remove(type.ObjectInstanceKey);
+            }
+        }
+
+        public void PostStep()
+        {
+        }
+
+        public void Dispose()
+        {
+            if (this.services != null)
+            {
+                foreach (var s in this.services.Values)
+                {
+                    var asdispos = s as System.IDisposable;
+                    if (asdispos != null)
+                    {
+                        try
+                        {
+                            asdispos.Dispose();
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+                }
+                this.services.Clear();
             }
         }
     }
