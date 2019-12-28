@@ -218,8 +218,19 @@
             }
         }
 
-        public void PostStep()
+        public void OnStepFinalize()
         {
+            if (this.services != null)
+            {
+                foreach (var s in this.services.Values)
+                {
+                    var asdispos = s as Kipon.Xrm.IService;
+                    if (asdispos != null)
+                    {
+                        asdispos.OnStepFinalized();
+                    }
+                }
+            }
         }
 
         public void Dispose()
@@ -231,13 +242,7 @@
                     var asdispos = s as System.IDisposable;
                     if (asdispos != null)
                     {
-                        try
-                        {
-                            asdispos.Dispose();
-                        }
-                        catch (Exception)
-                        {
-                        }
+                        asdispos.Dispose();
                     }
                 }
                 this.services.Clear();

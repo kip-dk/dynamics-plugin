@@ -84,6 +84,7 @@
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Xrm\Attributes\StepAttribute.cs" />
     <Compile Include="Xrm\Attributes\TargetAttribute.cs" />
+    <Compile Include="Xrm\IService.cs" />
     <Compile Include="Xrm\Reflection\CommonProperty.cs" />
     <Compile Include="Xrm\Reflection\ServiceCache.cs" />
     <Compile Include="Xrm\Reflection\ServiceConstructorCache.cs" />

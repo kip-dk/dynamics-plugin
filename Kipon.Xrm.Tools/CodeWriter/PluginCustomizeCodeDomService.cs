@@ -164,6 +164,13 @@ namespace Kipon.Xrm.Tools.CodeWriter
                     writer.WriteLine(CRM_UNIT_OF_WORK_GENERIC);
                     writer.WriteLine("");
 
+                    writer.WriteLine("\t\tvoid Kipon.Xrm.IService.OnStepFinalized()");
+                    writer.WriteLine("\t\t{");
+                    writer.WriteLine("\t\t\tthis.context.ClearChanges();");
+                    writer.WriteLine("\t\t\tforeach (var e in this.context.GetAttachedEntities()) this.context.Detach(e);");
+                    writer.WriteLine("\t\t}");
+                    writer.WriteLine("");
+
                     foreach (var logicalname in entities.Keys)
                     {
                         var uowname = entities[logicalname].ServiceName;
@@ -186,7 +193,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 #region generate crmunitofwork
                 writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(IUnitOfWork))]");
                 writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IUnitOfWork))]");
-                writer.WriteLine("\tpublic sealed partial class CrmUnitOfWork: IUnitOfWork, IDisposable");
+                writer.WriteLine("\tpublic sealed partial class CrmUnitOfWork: IUnitOfWork, IDisposable, Kipon.Xrm.IService");
                 /* UOW */ writer.WriteLine("\t{");
                 printConstructor("CrmUnitOfWork");
                 printGenericAndRepositories();
@@ -196,7 +203,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 #region generate admin unit of work
                 writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(IAdminUnitOfWork))]");
                 writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IAdminUnitOfWork))]");
-                writer.WriteLine("\tpublic sealed partial class AdminCrmUnitOfWork : IAdminUnitOfWork, IDisposable");
+                writer.WriteLine("\tpublic sealed partial class AdminCrmUnitOfWork : IAdminUnitOfWork, IDisposable, Kipon.Xrm.IService");
                 /* UOW */ writer.WriteLine("\t{");
                 printConstructor("AdminCrmUnitOfWork");
                 printGenericAndRepositories();

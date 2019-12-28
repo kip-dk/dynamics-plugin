@@ -66,7 +66,7 @@
                     #endregion
 
                     #region prepare for next method
-#warning added some cleanup pattern
+                    serviceCache.OnStepFinalize();
                     #endregion
                 }
             }
