@@ -1,5 +1,4 @@
-﻿extern alias kiponfake;
-using kiponfake::Kipon.Xrm.Fake.Repository;
+﻿using Kipon.Xrm.Fake.Repository;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

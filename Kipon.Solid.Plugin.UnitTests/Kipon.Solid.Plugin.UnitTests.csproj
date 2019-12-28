@@ -88,7 +88,7 @@
     <ProjectReference Include="..\Kipon.Solid.Xrm.Fake\Kipon.Solid.Xrm.Fake.csproj">
       <Project>{b82125a9-765d-48c3-bfdf-590235d390a3}</Project>
       <Name>Kipon.Solid.Xrm.Fake</Name>
-      <Aliases>kiponfake</Aliases>
+      <Aliases>global</Aliases>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

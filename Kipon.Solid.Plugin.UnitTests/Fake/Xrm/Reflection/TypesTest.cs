@@ -1,6 +1,4 @@
-﻿extern alias kiponfake;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +13,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Fake.Xrm.Reflection
         [TestMethod]
         public void SetAssemblyTest()
         {
-            var types = kiponfake::Kipon.Xrm.Reflection.Types.Instance;
+            var types = Kipon.Fake.Xrm.Reflection.Types.Instance;
             types.SetAssembly(typeof(Kipon.Xrm.BasePlugin).Assembly);
 
             Assert.AreEqual(types.AdminAttribute, typeof(Kipon.Xrm.Attributes.AdminAttribute));

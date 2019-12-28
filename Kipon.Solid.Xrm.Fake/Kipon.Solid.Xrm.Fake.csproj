@@ -55,42 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\BaseException.cs">
-      <Link>Xrm\Exceptions\BaseException.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\MultiImplementationOfSameInterfaceException.cs">
-      <Link>Xrm\Exceptions\MultiImplementationOfSameInterfaceException.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\MultipleLogicalNamesException.cs">
-      <Link>Xrm\Exceptions\MultipleLogicalNamesException.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\TypeMismatchException.cs">
-      <Link>Xrm\Exceptions\TypeMismatchException.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnavailableImageException.cs">
-      <Link>Xrm\Exceptions\UnavailableImageException.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvableConstructorException.cs">
-      <Link>Xrm\Exceptions\UnresolvableConstructorException.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvablePluginMethodException.cs">
-      <Link>Xrm\Exceptions\UnresolvablePluginMethodException.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvableTypeException.cs">
-      <Link>Xrm\Exceptions\UnresolvableTypeException.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\CommonProperty.cs">
-      <Link>Xrm\Reflection\CommonProperty.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\PluginMethod.cs">
-      <Link>Xrm\Reflection\PluginMethod.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\TypeCache.cs">
-      <Link>Xrm\Reflection\TypeCache.cs</Link>
-    </Compile>
-    <Compile Include="..\Kipon.Solid.Plugin\Xrm\Reflection\Types.cs">
-      <Link>Xrm\Reflection\Types.cs</Link>
-    </Compile>
     <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\EntityExistsException.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
@@ -113,6 +77,7 @@
     <Compile Include="Services\ProxyTypesAssemblyProvider.cs" />
     <Compile Include="Services\ServiceProvider.cs" />
     <Compile Include="Services\TracingService.cs" />
+    <Compile Include="Xrm\Kipon.Xrm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
