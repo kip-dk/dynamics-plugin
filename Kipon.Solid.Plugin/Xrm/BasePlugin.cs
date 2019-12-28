@@ -7,13 +7,17 @@
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
-        private Reflection.PluginMethod.Cache pluginMethodcache;
+        internal static Reflection.PluginMethod.Cache PluginMethodCache;
+
+        static BasePlugin()
+        {
+            PluginMethodCache = new Reflection.PluginMethod.Cache(typeof(BasePlugin).Assembly);
+            Reflection.Types.Instance.SetAssembly(typeof(BasePlugin).Assembly);
+        }
 
         #region constructors
         public BasePlugin() : base()
         {
-            this.pluginMethodcache = new Reflection.PluginMethod.Cache(typeof(BasePlugin).Assembly);
-            Reflection.Types.Instance.SetAssembly(typeof(BasePlugin).Assembly);
         }
 
         public BasePlugin(string unSecure, string secure) : this()
@@ -36,7 +40,7 @@
 
             using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService))
             {
-                var methods = this.pluginMethodcache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
+                var methods = PluginMethodCache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
 
                 foreach (var method in methods)
                 {
