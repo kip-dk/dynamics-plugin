@@ -17,22 +17,18 @@ namespace Kipon.Xrm.Tools.CodeCopy
             foreach (var fil in files)
             {
                 var txt = System.IO.File.ReadAllText(fil);
-                sb.AppendLine($"/* START: {fil} */");
+                sb.AppendLine($"#region source: {fil}");
                 sb.AppendLine(txt);
-                sb.AppendLine($"/* END  : {fil} */");
+                sb.AppendLine($"#endregion");
             }
 
             var result = sb.ToString();
             if (!string.IsNullOrEmpty(newNamespace))
             {
-                if (!newNamespace.EndsWith("."))
-                {
-                    newNamespace += ".";
-                }
-                result = result.Replace("Kipon.Xrm.", newNamespace);
+                result = result.Replace("namespace Kipon.Xrm", "namespace " + newNamespace);
 
-                System.IO.File.WriteAllText($@"{destinationPath}\Kipon.Xrm.cs", result);
             }
+            System.IO.File.WriteAllText($@"{destinationPath}\Kipon.Xrm.cs", result);
         }
     }
 }

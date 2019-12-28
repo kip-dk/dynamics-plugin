@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Solid.Xrm.Fake", "Kip
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Tools", "Kipon.Xrm.Tools\Kipon.Xrm.Tools.csproj", "{FF06F849-850F-41BC-AA62-E1673C368217}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Cmd", "Kipon.Xrm.Cmd\Kipon.Xrm.Cmd.csproj", "{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{FF06F849-850F-41BC-AA62-E1673C368217}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF06F849-850F-41BC-AA62-E1673C368217}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF06F849-850F-41BC-AA62-E1673C368217}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
