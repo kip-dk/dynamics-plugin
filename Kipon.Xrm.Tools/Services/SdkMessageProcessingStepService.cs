@@ -195,19 +195,15 @@ namespace Kipon.Xrm.Tools.Services
 
                 if (existingImage.Attributes1 != null && filterAttr == null)
                 {
-                    var clean = new Entities.SdkMessageProcessingStepImage { SdkMessageProcessingStepImageId = existingImage.SdkMessageProcessingStepImageId };
-                    clean.Attributes1 = null;
-                    uow.Update(clean);
-                    this.messageService.Inform($"Removed filtering on images {name} from {crmStep.Name}");
+                    uow.Delete(existingImage);
+                    this.CreateImage(crmStep, pre1post2, stage, async, message, imgDef);
                     return;
                 }
 
                 if (existingImage.Attributes1 != filterAttr)
                 {
-                    var clean = new Entities.SdkMessageProcessingStepImage { SdkMessageProcessingStepImageId = existingImage.SdkMessageProcessingStepImageId };
-                    clean.Attributes1 = filterAttr;
-                    uow.Update(clean);
-                    this.messageService.Inform($"Updated filtering on images {name} from {crmStep.Name}, {filterAttr}");
+                    uow.Delete(existingImage);
+                    this.CreateImage(crmStep, pre1post2, stage, async, message, imgDef);
                     return;
                 }
             }

@@ -68,8 +68,10 @@
     <Compile Include="Entities\Accounts\ICreditLimitChanged.cs" />
     <Compile Include="Entities\Accounts\IForgotToImplement.cs" />
     <Compile Include="Entities\AdminCrmUnitOfWork.cs" />
+    <Compile Include="Entities\Contacts\Contact.cs" />
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
     <Compile Include="Plugins\Account\AccountCreatePlugin.cs" />
+    <Compile Include="Plugins\Contact\ContactPlugin.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="Xrm\Attributes\AdminAttribute.cs" />
     <Compile Include="Xrm\Attributes\ExportAttribute.cs" />
