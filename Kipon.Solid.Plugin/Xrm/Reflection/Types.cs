@@ -54,6 +54,8 @@
             this.IAdminUnitOfWork = allTypes[$"{NAMESPACE}{nameof(_instance.IAdminUnitOfWork)}"];
 
             this.IRepository = allTypes[$"{NAMESPACE}{nameof(_instance.IRepository)}`1"];
+
+            this.BasePlugin = allTypes[$"{NAMESPACE}{nameof(_instance.BasePlugin)}"];
         }
 
         public Type TargetAttribute { get; private set; }
@@ -79,6 +81,8 @@
         public Type IRepository { get; private set; }
 
         public System.Reflection.Assembly Assembly { get; private set; }
+
+        public Type BasePlugin { get; private set; }
 
     }
 }

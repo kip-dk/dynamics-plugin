@@ -30,7 +30,7 @@ namespace Kipon.Xrm.Tools.XrmOrganization
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            var connectionString = ConfigurationManager.ConnectionStrings["CRM"].ConnectionString;
+            var connectionString = ConnectionString.Value;
 
             if (connectionString.Contains("ClientSecret"))
             {

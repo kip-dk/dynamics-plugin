@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Tools", "Kipon.Xr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Cmd", "Kipon.Xrm.Cmd\Kipon.Xrm.Cmd.csproj", "{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.PluginRegistration", "Kipon.PluginRegistration\Kipon.PluginRegistration.csproj", "{84520293-D8B2-42C8-8A06-DA473A310ED0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84520293-D8B2-42C8-8A06-DA473A310ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84520293-D8B2-42C8-8A06-DA473A310ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84520293-D8B2-42C8-8A06-DA473A310ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84520293-D8B2-42C8-8A06-DA473A310ED0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

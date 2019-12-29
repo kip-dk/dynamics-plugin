@@ -96,6 +96,7 @@
     <Compile Include="CodeWriter\SharedCustomizeCodeDomService.cs" />
     <Compile Include="CodeWriter\ToolsCustomizeCodeDomService.cs" />
     <Compile Include="CodeWriter\PluginCustomizeCodeDomService.cs" />
+    <Compile Include="Deploy\Plugins.cs" />
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Entities\CrmRepository.cs" />
     <Compile Include="Entities\CrmUnitOfWork.cs" />
@@ -103,12 +104,23 @@
     <Compile Include="Entities\IRepository.cs" />
     <Compile Include="Entities\IUnitOfWork.cs" />
     <Compile Include="Entities\IUnitOfWork.Design.cs" />
+    <Compile Include="Exceptions\BaseException.cs" />
+    <Compile Include="Exceptions\ConfigurationException.cs" />
     <Compile Include="Extensions\Strings\StringsExtensions.cs" />
+    <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\Plugin.cs" />
+    <Compile Include="Models\Step.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceAPI\IMessageService.cs" />
+    <Compile Include="ServiceAPI\IPluginDeploymentService.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\PluginDeploymentService.cs" />
     <Compile Include="Version.cs" />
+    <Compile Include="XrmOrganization\ConnectionString.cs" />
     <Compile Include="XrmOrganization\OAuthOrganizationService.cs" />
     <Compile Include="XrmOrganization\OrganizationService.cs" />
     <Compile Include="XrmOrganization\TokenHelper.cs" />
+    <Compile Include="Xrm\Kipon.Xrm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\coretools\CrmSvcUtil.exe" />
@@ -136,6 +148,7 @@
     <None Include="bin\coretools\LicenseTerms.docx" />
     <None Include="Entities\generate.cmd" />
     <None Include="packages.config" />
+    <None Include="Xrm\generate.cmd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />

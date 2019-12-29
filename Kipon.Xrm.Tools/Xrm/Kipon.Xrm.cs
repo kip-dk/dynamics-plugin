@@ -9,7 +9,7 @@
  * Any use of this code is on you own risk. Kipon ApS does not take any responsibility on issues caused or related to the use of this code.
  */
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\BasePlugin.cs
-namespace Kipon.Fake.Xrm
+namespace Kipon.Tools.Xrm
 {
     using System;
     using Microsoft.Xrm.Sdk;
@@ -92,7 +92,7 @@ namespace Kipon.Fake.Xrm
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\IAdminUnitOfWork.cs
-namespace Kipon.Fake.Xrm
+namespace Kipon.Tools.Xrm
 {
     public interface IAdminUnitOfWork : IUnitOfWork
     {
@@ -101,7 +101,7 @@ namespace Kipon.Fake.Xrm
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\IRepository.cs
-namespace Kipon.Fake.Xrm
+namespace Kipon.Tools.Xrm
 {
     using System;
     using System.Linq;
@@ -155,7 +155,7 @@ namespace Kipon.Fake.Xrm
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\IService.cs
-namespace Kipon.Fake.Xrm
+namespace Kipon.Tools.Xrm
 {
     public interface IService
     {
@@ -165,7 +165,7 @@ namespace Kipon.Fake.Xrm
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\IUnitOfWork.cs
-namespace Kipon.Fake.Xrm
+namespace Kipon.Tools.Xrm
 {
     using Microsoft.Xrm.Sdk;
     using System;
@@ -184,7 +184,7 @@ namespace Kipon.Fake.Xrm
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Mergedimage.cs
-namespace Kipon.Fake.Xrm
+namespace Kipon.Tools.Xrm
 {
     // Declarative interface to request a merged image
     // A merged image takes the tarkget of a plugin, and combine it with the field available in the target.
@@ -197,7 +197,7 @@ namespace Kipon.Fake.Xrm
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Postimage.cs
-namespace Kipon.Fake.Xrm
+namespace Kipon.Tools.Xrm
 {
     // Represent a post image
     // an extension should only expose getters, because any change will not be send back to crm
@@ -208,7 +208,7 @@ namespace Kipon.Fake.Xrm
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Preimage.cs
-namespace Kipon.Fake.Xrm
+namespace Kipon.Tools.Xrm
 {
     // Declarativ interface to represent a pre image.
     // any extension should only have get properties, because any change will not be pushed back to the server
@@ -219,7 +219,7 @@ namespace Kipon.Fake.Xrm
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Target.cs
-namespace Kipon.Fake.Xrm
+namespace Kipon.Tools.Xrm
 {
 
     /// <summary>
@@ -235,7 +235,7 @@ namespace Kipon.Fake.Xrm
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\TargetReference.cs
-namespace Kipon.Fake.Xrm
+namespace Kipon.Tools.Xrm
 {
     using System;
     public abstract class TargetReference<T> where T: Microsoft.Xrm.Sdk.Entity
@@ -265,7 +265,7 @@ namespace Kipon.Fake.Xrm
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\AdminAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
 
@@ -280,7 +280,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\ExportAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
     /// <summary>
@@ -307,7 +307,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\ImportingConstructorAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
     /// <summary>
@@ -321,7 +321,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\LogicalNameAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
     /// <summary>
@@ -344,7 +344,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\MergedimageAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
     /// <summary>
@@ -358,7 +358,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\PostimageAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
     /// <summary>
@@ -372,7 +372,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\PreimageAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
     /// <summary>
@@ -386,7 +386,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\RequiredAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
 
@@ -402,7 +402,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\SortAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
     /// <summary>
@@ -424,7 +424,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\StepAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
     /// <summary>
@@ -481,7 +481,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Attributes\TargetAttribute.cs
-namespace Kipon.Fake.Xrm.Attributes
+namespace Kipon.Tools.Xrm.Attributes
 {
     using System;
     /// <summary>
@@ -495,7 +495,7 @@ namespace Kipon.Fake.Xrm.Attributes
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\BaseException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     using System;
     public class BaseException : Exception
@@ -506,7 +506,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\CircularDependencyException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     public class CircularDependencyException : BaseException
     {
@@ -518,7 +518,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\InvalidConstructorServiceArgumentException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     public class InvalidConstructorServiceArgumentException : BaseException
     {
@@ -530,7 +530,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\MultiImplementationOfSameInterfaceException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     using System;
     public class MultiImplementationOfSameInterfaceException : BaseException
@@ -543,7 +543,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\MultipleLogicalNamesException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     using System;
     public class MultipleLogicalNamesException : BaseException
@@ -556,7 +556,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\TypeMismatchException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     using System;
     public class TypeMismatchException : BaseException
@@ -569,7 +569,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\UnavailableImageException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     using System;
     public class UnavailableImageException : BaseException
@@ -582,7 +582,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\UnknownEntityTypeException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     public class UnknownEntityTypeException : BaseException
     {
@@ -594,7 +594,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvableConstructorException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     using System;
     public class UnresolvableConstructorException : BaseException
@@ -608,7 +608,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvablePluginMethodException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     using System;
     public class UnresolvablePluginMethodException : BaseException
@@ -622,7 +622,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Exceptions\UnresolvableTypeException.cs
-namespace Kipon.Fake.Xrm.Exceptions
+namespace Kipon.Tools.Xrm.Exceptions
 {
     using System;
     public class UnresolvableTypeException : BaseException
@@ -635,7 +635,7 @@ namespace Kipon.Fake.Xrm.Exceptions
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Extensions\Sdk\KiponSdkGeneratedExtensionMethods.cs
-namespace Kipon.Fake.Xrm.Extensions.Sdk
+namespace Kipon.Tools.Xrm.Extensions.Sdk
 {
     using System;
     using System.Collections.Generic;
@@ -681,7 +681,7 @@ namespace Kipon.Fake.Xrm.Extensions.Sdk
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Extensions\Strings\StringMethods.cs
-namespace Kipon.Fake.Xrm.Extensions.Strings
+namespace Kipon.Tools.Xrm.Extensions.Strings
 {
     using System.Linq;
     public static class StringMethods
@@ -700,7 +700,7 @@ namespace Kipon.Fake.Xrm.Extensions.Strings
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Reflection\CommonProperty.cs
-namespace Kipon.Fake.Xrm.Reflection
+namespace Kipon.Tools.Xrm.Reflection
 {
     using System;
     using System.Collections.Generic;
@@ -799,7 +799,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Reflection\PluginMethod.cs
-namespace Kipon.Fake.Xrm.Reflection
+namespace Kipon.Tools.Xrm.Reflection
 {
     using System;
     using System.Collections.Generic;
@@ -1271,7 +1271,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Reflection\ServiceCache.cs
-namespace Kipon.Fake.Xrm.Reflection
+namespace Kipon.Tools.Xrm.Reflection
 {
     using Microsoft.Xrm.Sdk;
     using System;
@@ -1525,7 +1525,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Reflection\ServiceConstructorCache.cs
-namespace Kipon.Fake.Xrm.Reflection
+namespace Kipon.Tools.Xrm.Reflection
 {
     using System.Collections.Generic;
     public class ServiceConstructorCache
@@ -1566,7 +1566,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Reflection\TypeCache.cs
-namespace Kipon.Fake.Xrm.Reflection
+namespace Kipon.Tools.Xrm.Reflection
 {
     using System;
     using System.Collections.Generic;
@@ -2153,7 +2153,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
 #endregion
 #region source: ..\..\Kipon.Solid.Plugin\Xrm\Reflection\Types.cs
-namespace Kipon.Fake.Xrm.Reflection
+namespace Kipon.Tools.Xrm.Reflection
 {
     using System;
     using System.Linq;
@@ -2209,6 +2209,8 @@ namespace Kipon.Fake.Xrm.Reflection
             this.IAdminUnitOfWork = allTypes[$"{NAMESPACE}{nameof(_instance.IAdminUnitOfWork)}"];
 
             this.IRepository = allTypes[$"{NAMESPACE}{nameof(_instance.IRepository)}`1"];
+
+            this.BasePlugin = allTypes[$"{NAMESPACE}{nameof(_instance.BasePlugin)}"];
         }
 
         public Type TargetAttribute { get; private set; }
@@ -2234,6 +2236,8 @@ namespace Kipon.Fake.Xrm.Reflection
         public Type IRepository { get; private set; }
 
         public System.Reflection.Assembly Assembly { get; private set; }
+
+        public Type BasePlugin { get; private set; }
 
     }
 }

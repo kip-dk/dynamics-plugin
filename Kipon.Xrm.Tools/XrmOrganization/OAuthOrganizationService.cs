@@ -19,7 +19,7 @@ namespace Kipon.Xrm.Tools.XrmOrganization
 
         internal OAuthOrganizationService()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["CRM"].ConnectionString;
+            var connectionString = ConnectionString.Value;
 
             var conn = new Connection(connectionString);
             this.organizationUrl = conn.organizationUrl;
