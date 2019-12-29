@@ -154,7 +154,7 @@
                 #endregion
 
                 #region validate target consistancy
-                if (result.HasTarget() && message == "Delete")
+                if (result.HasTargetBesideReference() && message == "Delete")
                 {
                     throw new Exceptions.UnavailableImageException(type, method, "Target", stage, message);
                 }
@@ -416,6 +416,12 @@
         {
             return this.Parameters != null && (this.Parameters.Where(r => r.IsPostimage)).Any();
         }
+
+        public bool HasTargetBesideReference()
+        {
+            return this.Parameters != null && (this.Parameters.Where(r => r.IsTarget && r.IsReference == false)).Any();
+        }
+
 
         public bool HasTarget()
         {

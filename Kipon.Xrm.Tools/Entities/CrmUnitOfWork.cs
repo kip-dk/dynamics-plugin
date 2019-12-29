@@ -2,12 +2,14 @@
 using Microsoft.Xrm.Sdk.Client;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Kipon.Xrm.Tools.Entities
 {
+    [Export(typeof(IUnitOfWork))]
     public partial class CrmUnitOfWork : IUnitOfWork, IDisposable
     {
         #region Members
@@ -76,6 +78,14 @@ namespace Kipon.Xrm.Tools.Entities
         public void ClearChanges()
         {
             this.context.ClearChanges();
+        }
+
+        public void ClearContext()
+        {
+            foreach (var ent in this.context.GetAttachedEntities().ToArray())
+            {
+                this.context.Detach(ent);
+            }
         }
         #endregion
     }

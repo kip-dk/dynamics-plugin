@@ -16,5 +16,17 @@ namespace Kipon.Xrm.Tools.Models
         public bool IsAsync { get; set; }
         public Image PreImage { get; set; }
         public Image PostImage { get; set; }
+
+        public string FilteringAttributesString
+        {
+            get
+            {
+                if (this.FilteringAttributes == null || this.FilteringAttributes.Length == 0)
+                {
+                    return null;
+                }
+                return string.Join(",", this.FilteringAttributes);
+            }
+        }
     }
 }

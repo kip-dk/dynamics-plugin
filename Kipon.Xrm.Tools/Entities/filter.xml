@@ -7,6 +7,6 @@
     <entity servicename="PluginAssemblies" logicalname="pluginassembly"></entity>
     <entity servicename="PluginTypes" logicalname="plugintype"></entity>
     <entity servicename="SdkMessageProcessingSteps" logicalname="sdkmessageprocessingstep"></entity>
-    <entity servicename="SdkMessageProcessingStepImages" logicalname="sdkMessageprocessingstepimage"></entity>
+    <entity servicename="SdkMessageProcessingStepImages" logicalname="sdkmessageprocessingstepimage"></entity>
   </entities>
 </filter>

@@ -18,6 +18,8 @@ namespace Kipon.Xrm.Tools.Models
         public Type Type { get; private set; }
         public Step[] Steps => this.steps.ToArray();
 
+        public Entities.PluginType CurrentCrmInstance { get; set; }
+
         internal void AddStep(int stage, string message, string logicalname, bool isAsync, Kipon.Tools.Xrm.Reflection.PluginMethod[] methods)
         {
             if (methods == null || methods.Length == 0)
@@ -49,6 +51,22 @@ namespace Kipon.Xrm.Tools.Models
             }
 
             steps.Add(next);
+        }
+
+        public string NameOf(int stage, string message, bool async, string logicalname)
+        {
+            return $"{this.Type.FullName} {StageName(stage, async)} {message} of {logicalname}";
+        }
+
+        private string StageName(int stage, bool async)
+        {
+            switch (stage)
+            {
+                case 10: return "validate";
+                case 20: return "pre";
+                case 40: return async ? "post async" : "post";
+            }
+            throw new NotImplementedException($"Stage  {stage} is not implemented");
         }
     }
 

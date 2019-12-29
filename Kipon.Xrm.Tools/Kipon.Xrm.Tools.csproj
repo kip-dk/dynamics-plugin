@@ -112,9 +112,17 @@
     <Compile Include="Models\Step.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceAPI\IMessageService.cs" />
+    <Compile Include="ServiceAPI\IPluginAssemblyService.cs" />
     <Compile Include="ServiceAPI\IPluginDeploymentService.cs" />
+    <Compile Include="ServiceAPI\IPluginTypeService.cs" />
+    <Compile Include="ServiceAPI\ISdkMessageProcessingStepService.cs" />
+    <Compile Include="ServiceAPI\ISolutionService.cs" />
     <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\PluginAssemblyService.cs" />
     <Compile Include="Services\PluginDeploymentService.cs" />
+    <Compile Include="Services\PluginTypeService.cs" />
+    <Compile Include="Services\SdkMessageProcessingStepService.cs" />
+    <Compile Include="Services\SolutionService.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="XrmOrganization\ConnectionString.cs" />
     <Compile Include="XrmOrganization\OAuthOrganizationService.cs" />
@@ -152,7 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />
-    <Folder Include="Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

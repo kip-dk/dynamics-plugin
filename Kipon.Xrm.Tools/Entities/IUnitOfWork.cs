@@ -30,6 +30,7 @@ namespace Kipon.Xrm.Tools.Entities
         void Delete(Microsoft.Xrm.Sdk.Entity entity);
 
         void ClearChanges();
+        void ClearContext();
 
     }
 }

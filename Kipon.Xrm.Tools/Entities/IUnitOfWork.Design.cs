@@ -11,6 +11,7 @@ namespace Kipon.Xrm.Tools.Entities
 		IRepository<SdkMessageProcessingStep> SdkMessageProcessingSteps { get; }
 		IRepository<SdkMessage> SdkMessages { get; }
 		IRepository<SdkMessageFilter> SdkMessageFilters { get; }
+		IRepository<SdkMessageProcessingStepImage> SdkMessageProcessingStepImages { get; }
 		IRepository<Solution> Solutions { get; }
 		IRepository<SolutionComponent> SolutionComponents { get; }
 		#endregion

@@ -71,14 +71,14 @@ namespace Kipon.Xrm.Tools.Services
                     {
                         foreach (var logicalname in this.entityLogicalNames)
                         {
-                            var methods = this.pluginMethodCache.ForPlugin(pluginType, stage, message, logicalname, false);
+                            var methods = this.pluginMethodCache.ForPlugin(pluginType, stage, message, logicalname, false, false);
                             if (methods != null && methods.Length > 0)
                             {
                                 next.AddStep(stage, message, logicalname, false, methods);
                             }
                             if (stage == 40)
                             {
-                                methods = this.pluginMethodCache.ForPlugin(pluginType, stage, message, logicalname, true);
+                                methods = this.pluginMethodCache.ForPlugin(pluginType, stage, message, logicalname, true, false);
                                 if (methods != null)
                                 {
                                     next.AddStep(stage, message, logicalname, true, methods);
