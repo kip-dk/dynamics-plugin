@@ -273,7 +273,6 @@ namespace Kipon.Xrm.Tools.Services
             filters[key] = (from f in uow.SdkMessageFilters.GetQuery()
                             where f.SdkMessageId.Id == sdkMessage.SdkMessageId
                                && f.PrimaryObjectTypeCode == logicalname
-                               && f.SecondaryObjectTypeCode == null
                             select f).SingleOrDefault();
 
             return GetFilterFor(sdkMessage, logicalname);

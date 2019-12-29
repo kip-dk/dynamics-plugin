@@ -123,6 +123,14 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
             Assert.AreEqual(typeof(Service.AccountService), methods[0].Parameters[2].ToType);
         }
 
+
+        [TestMethod]
+        public void DeleteAccountRefTest()
+        {
+            var methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.Account.AccountPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Delete.ToString(), Entities.Account.EntityLogicalName, false);
+            Assert.AreEqual(1, methods.Length);
+        }
+
         public class RelevantAttributePLugin
         {
             [Sort(10)]

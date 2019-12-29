@@ -13,6 +13,7 @@
             public Cache(System.Reflection.Assembly assm)
             {
                 this.Types = Types.Instance;
+                this.Types.SetAssembly(assm);
             }
 
             public PluginMethod[] ForPlugin(Type type, int stage, string message, string primaryEntityName, bool isAsync, bool throwIfEmpty = true)
