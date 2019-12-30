@@ -39,12 +39,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Tools", "Kipon.Xr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Cmd", "Kipon.Xrm.Cmd\Kipon.Xrm.Cmd.csproj", "{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.PluginRegistration", "Kipon.PluginRegistration\Kipon.PluginRegistration.csproj", "{84520293-D8B2-42C8-8A06-DA473A310ED0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Package", "Package", "{38544696-D4F5-44AE-9C12-A24960238F97}"
 	ProjectSection(SolutionItems) = preProject
 		Package\Kipon.Solid.Plugin.nuspec = Package\Kipon.Solid.Plugin.nuspec
 		Package\readme.txt = Package\readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{96A8281F-FD9B-4E40-A4C8-194437E4223F}"
+	ProjectSection(SolutionItems) = preProject
+		Package\content\deploy.cmd.template = Package\content\deploy.cmd.template
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{316C8C8D-9E87-43B5-93A5-854CE2A48A57}"
+	ProjectSection(SolutionItems) = preProject
+		Package\content\Entities\filter.xml.template = Package\content\Entities\filter.xml.template
+		Package\content\Entities\generate.cmd.template = Package\content\Entities\generate.cmd.template
 	EndProjectSection
 EndProject
 Global
@@ -73,10 +82,6 @@ Global
 		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84520293-D8B2-42C8-8A06-DA473A310ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84520293-D8B2-42C8-8A06-DA473A310ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84520293-D8B2-42C8-8A06-DA473A310ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84520293-D8B2-42C8-8A06-DA473A310ED0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +89,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A590DDDB-7B0D-4158-B0EC-F6AB9A7C3B95} = {ACEBBA29-7891-46F0-8D1C-992A728C7AAB}
 		{38544696-D4F5-44AE-9C12-A24960238F97} = {ACEBBA29-7891-46F0-8D1C-992A728C7AAB}
+		{96A8281F-FD9B-4E40-A4C8-194437E4223F} = {38544696-D4F5-44AE-9C12-A24960238F97}
+		{316C8C8D-9E87-43B5-93A5-854CE2A48A57} = {96A8281F-FD9B-4E40-A4C8-194437E4223F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C512F021-FD52-4DEA-8137-EA27986B2E7D}
