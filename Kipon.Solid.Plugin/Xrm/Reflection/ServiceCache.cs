@@ -12,13 +12,23 @@
         private IPluginExecutionContext pluginExecutionContext;
         private IOrganizationServiceFactory organizationServiceFactory;
 
-        public ServiceCache(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService)
+        public ServiceCache(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService, IPluginContext pluginContext)
         {
             this.pluginExecutionContext = pluginExecutionContext;
             this.organizationServiceFactory = organizationServiceFactory;
             this.services.Add(typeof(IPluginExecutionContext).FullName, pluginExecutionContext);
             this.services.Add(typeof(IOrganizationServiceFactory).FullName, organizationServiceFactory);
             this.services.Add(typeof(ITracingService).FullName, traceService);
+
+            if (pluginContext != null)
+            {
+                this.services.Add(typeof(IPluginContext).FullName, pluginContext);
+            } else
+            {
+                var type = (CrmEventType)Enum.Parse(typeof(CrmEventType), pluginExecutionContext.MessageName);
+                var pContext = new Services.PluginContext(null, null, pluginExecutionContext, type, pluginExecutionContext.UserId);
+                this.services.Add(typeof(IPluginContext).FullName, pContext);
+            }
             this.systemuserid = pluginExecutionContext.UserId;
         }
 

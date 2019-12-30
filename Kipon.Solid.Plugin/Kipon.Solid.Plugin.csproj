@@ -86,6 +86,8 @@
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Xrm\Attributes\StepAttribute.cs" />
     <Compile Include="Xrm\Attributes\TargetAttribute.cs" />
+    <Compile Include="Xrm\CrmEventType.cs" />
+    <Compile Include="Xrm\IPluginContext.cs" />
     <Compile Include="Xrm\IService.cs" />
     <Compile Include="Xrm\Reflection\CommonProperty.cs" />
     <Compile Include="Xrm\Reflection\ServiceCache.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="Xrm\Postimage.cs" />
     <Compile Include="Xrm\Preimage.cs" />
     <Compile Include="Xrm\Reflection\Types.cs" />
+    <Compile Include="Xrm\Services\PluginContext.cs" />
     <Compile Include="Xrm\Target.cs" />
     <Compile Include="Xrm\TargetReference.cs" />
     <Compile Include="Xrm\Exceptions\UnresolvableTypeException.cs" />

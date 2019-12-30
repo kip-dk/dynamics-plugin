@@ -38,7 +38,11 @@
             var stage = context.Stage;
             var isAsync = context.Mode == 1;
 
-            using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService))
+            var type = (CrmEventType)Enum.Parse(typeof(CrmEventType), context.MessageName);
+
+            IPluginContext pluginContext = new Services.PluginContext(this.UnsecureConfig, this.SecureConfig, context, type, userId);
+
+            using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext))
             {
                 var methods = PluginMethodCache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
 
