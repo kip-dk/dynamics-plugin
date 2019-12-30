@@ -355,7 +355,7 @@
             {
                 if (this._allPostimageProperties == null)
                 {
-                    this._allPostimageProperties = this.Parameters != null && this.Parameters.Where(r => r.AllProperties).Any();
+                    this._allPostimageProperties = this.Parameters != null && this.Parameters.Where(r => r.IsPostimage && r.AllProperties).Any();
                 }
                 return this._allPostimageProperties.Value;
             }

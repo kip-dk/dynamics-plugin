@@ -84,6 +84,16 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         #endregion
 
 
+        #region no postimage test
+        [TestMethod]
+        public void NoPostImageTest()
+        {
+            var methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.Account.AccountPostCreate), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.Create.ToString(), Entities.Account.EntityLogicalName, false);
+            Assert.AreEqual(1, methods.Length);
+            Assert.IsFalse(methods[0].HasPostimage());
+        }
+        #endregion
+
         [TestMethod]
         public void OrganizationServiceResolveTest()
         {
