@@ -8,7 +8,7 @@ namespace Kipon.Solid.Plugin.Plugins.Contact
 {
     public class ContactPlugin : Kipon.Xrm.BasePlugin
     {
-        public void OnPreUpdate(Entities.Contact.INameChanged contact, Entities.Contact.IPreName prename)
+        public void OnPreUpdate(Entities.Contact.INameChanged contact, Entities.Contact.IPreName prename, Kipon.Xrm.IPluginContext ctx)
         {
         }
     }

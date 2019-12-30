@@ -124,6 +124,7 @@
     <Compile Include="Xrm\Exceptions\UnresolvableTypeException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="deploy.cmd" />
     <None Include="kipon.snk" />
     <None Include="packages.config" />
     <None Include="Entities\generate.cmd" />

@@ -63,6 +63,12 @@
                 return resolvedTypes[parameter];
             }
 
+            if (parameter.ParameterType == Types.IPluginContext)
+            {
+                resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[parameter];
+            }
+
             #region not an abstract, and not an interface, the type can be used directly, see if the name indicates that it is target, preimage, mergedimage or postimage
             if (!type.IsInterface && !type.IsAbstract)
             {

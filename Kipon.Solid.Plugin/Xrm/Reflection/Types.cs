@@ -56,6 +56,8 @@
             this.IRepository = allTypes[$"{NAMESPACE}{nameof(_instance.IRepository)}`1"];
 
             this.BasePlugin = allTypes[$"{NAMESPACE}{nameof(_instance.BasePlugin)}"];
+
+            this.IPluginContext = allTypes[$"{NAMESPACE}{nameof(_instance.IPluginContext)}"];
         }
 
         public Type TargetAttribute { get; private set; }
@@ -83,6 +85,8 @@
         public System.Reflection.Assembly Assembly { get; private set; }
 
         public Type BasePlugin { get; private set; }
+
+        public Type IPluginContext { get; private set; }
 
     }
 }
