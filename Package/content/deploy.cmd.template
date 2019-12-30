@@ -1,0 +1,2 @@
+@echo off
+call bin\coretools\kipon.xrm.cmd "deploy" "bin\release\[pluginname].dll" "/connectionstring:[crmconnectionstring]"

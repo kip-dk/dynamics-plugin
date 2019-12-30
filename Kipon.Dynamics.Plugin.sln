@@ -41,6 +41,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Cmd", "Kipon.Xrm.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.PluginRegistration", "Kipon.PluginRegistration\Kipon.PluginRegistration.csproj", "{84520293-D8B2-42C8-8A06-DA473A310ED0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Package", "Package", "{38544696-D4F5-44AE-9C12-A24960238F97}"
+	ProjectSection(SolutionItems) = preProject
+		Package\Kipon.Solid.Plugin.nuspec = Package\Kipon.Solid.Plugin.nuspec
+		Package\readme.txt = Package\readme.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +83,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A590DDDB-7B0D-4158-B0EC-F6AB9A7C3B95} = {ACEBBA29-7891-46F0-8D1C-992A728C7AAB}
+		{38544696-D4F5-44AE-9C12-A24960238F97} = {ACEBBA29-7891-46F0-8D1C-992A728C7AAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C512F021-FD52-4DEA-8137-EA27986B2E7D}

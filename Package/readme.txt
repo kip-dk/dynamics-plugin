@@ -1,0 +1,36 @@
+Kipon.Solid.Plugin: Copyright Kipon ApS 2019, 2020.
+
+DISCLAIMER
+----------
+This software is provided as-is, and is used on your own risk. Kipon ApS does not take any responsibility of damages directly or indirectly caused by the
+use of this software.
+
+LICENSE
+-------
+The software is licensed under MIT, and can be used and distributed for free. It is prohibited to sell the software under any circumstances. The namespace
+Kipon.Xrm must be retained in any solution using this software, and the README.MD file installed in the Kipon folder must be keept and no changes can be made to 
+this file.
+
+USAGE
+-----
+It is recommended not to make any changes to the Kipon.Xrm.cs. Instead post and issue on the GIT project.
+
+https://github.com/kip-dk/dynamics-plugin
+
+
+INSTALLATION
+------------
+The software is installed using nuget installation process.
+
+After installation you need to setup your local environment. This is done by renaming template files (simply remove the .template from the filename) and then
+adjust the content of the file to your need.
+
+The following template files need to be adjusted:
+
+deploy.cmd.template  (a command line tool that can deploy your plugin assembly to Dynamics 365)
+Entities/filter.xml.template (an xml file describing the entities you need to work with in your plugin)
+Entities/generate.cmd.template (a command line tool that can generate early bound entities according to filter.xml spec)
+bin/coretools/Kipon.Xrm.Cmd.exe.config.template (configuration file for the Kipon.Xrm.Cmd.exe tool, you must added you CRM connection string here)
+
+Finally you must include the Kipon/Kipon.Xrm.cs source in you C# dynamics-plugin-assembly-library project. This file is an accumulated single source version of all the coded needed to build
+plugins, extending from the Kipon.Xrm.BasePlugin.

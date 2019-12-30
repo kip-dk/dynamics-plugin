@@ -11,6 +11,9 @@
         void Delete(Entity entity);
         void SaveChanges();
         void ClearChanges();
-        void Detach(string logicalname, Guid? id);
+        void ClearContext();
+        void Detach(string logicalname, params Guid[] ids);
+        void Detach(Microsoft.Xrm.Sdk.EntityReference reference);
+        void Detach(Microsoft.Xrm.Sdk.Entity entity);
     }
 }

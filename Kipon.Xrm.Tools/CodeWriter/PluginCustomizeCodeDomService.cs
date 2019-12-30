@@ -43,25 +43,45 @@ namespace Kipon.Xrm.Tools.CodeWriter
         {
             this._service.Delete(entity.LogicalName, entity.Id);
         }
+
         public void ClearChanges()
         {
             this.context.ClearChanges();
         }
 
-        public void Detach(string logicalName, Guid? id)
+        public void ClearContext()
+        {
+            var candidates = this.context.GetAttachedEntities().ToArray();
+            foreach (var can in candidates) 
+            {
+                context.Detach(can);
+            }
+        }
+
+        public void Detach(string logicalName, params Guid[] ids)
         {
             if (this.context != null)
             {
                 var candidates = (from c in this.context.GetAttachedEntities() where c.LogicalName == logicalName select c);
-                if (id != null)
+                if (ids != null && ids.Length > 0)
                 {
-                    candidates = (from c in candidates where c.Id == id.Value select c);
+                    candidates = (from c in candidates where ids.Contains(c.Id) select c);
                 }
                 foreach (var r in candidates.ToArray())
                 {
                     context.Detach(r);
                 }
             }
+        }
+
+        public void Detach(Microsoft.Xrm.Sdk.EntityReference eref)
+        {
+            this.Detach(eref.LogicalName, eref.Id);
+        }
+
+        public void Detach(Microsoft.Xrm.Sdk.Entity ent)
+        {
+            this.Detach(ent.LogicalName, ent.Id);
         }
 
         public void SaveChanges() 
