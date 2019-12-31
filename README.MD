@@ -57,19 +57,19 @@ public void On[Stage][Message][Async](parameters)
 * Post
 
 #### Message can be
-* Create,
-* Update,
-* Delete,
-* RetrieveMultiple,
+* Create
+* Update
+* Delete
+* RetrieveMultiple
 
 ##### Below here work in progress messages - might or might not work:
-* Associate,
-* Disassociate,
-* SetState,
-* SetStateDynamicEntity,
-* Retrieve,
-* AddMember,
-* AddListMembers,
+* Associate
+* Disassociate
+* SetState
+* SetStateDynamicEntity
+* Retrieve
+* AddMember
+* AddListMembers
 * RemoveMember
 
 #### Async
