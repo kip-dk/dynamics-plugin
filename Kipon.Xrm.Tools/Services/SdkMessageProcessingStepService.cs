@@ -112,6 +112,7 @@ namespace Kipon.Xrm.Tools.Services
             if (updated)
             {
                 uow.Update(clean);
+                this.messageService.Inform($"Updated sted {crmStep.Name} on {crmStep.LogicalName}.");
             }
 
             this.UpdateImage(crmStep, 1, step.Stage, step.IsAsync, step.Message, step.PreImage);
