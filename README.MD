@@ -139,9 +139,9 @@ namespace MySolid.ServiceAPI
 ```csharp
 namespace MySolid.Services
 {
-	public class AccountService : ServiceAPI,IAccountService
+	public class AccountService : ServiceAPI.IAccountService
 	{
-		void DoSomething(Entities.Account account)
+		public void DoSomething(Entities.Account account)
 		{
 			// actual impl.
 		}
