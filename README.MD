@@ -165,6 +165,27 @@ namespace MySolid.Plugins
 }
 ```
 
+
+### Deploy your code to Dynamics 365 instance
+The Kipon.Solid.Plugin nuget package has placed a deploy.cmd.template file in the root of your project. Rename this file to deploy.cmd and  change the content to match your need
+(connectionstring and target solution).
+
+After that, simply open a command line tool, navigate to the root folder of you project and call the command
+
+```shell
+C> deploy.cmd
+```
+
+This process will create/update the assembly in your solution, remove any plugin, step or image no longer needed according to your code and add plugin, steps and images
+needed according to the new version of the code. The tool will ofcause only target plugins related to this assembly.
+
+It is recommended that you always deploy "release" version code to your Dynamics 365 instance and remember to update the AssemblyVersion in the Properties.AssemblyInfo file before
+building, so each deployment of the assembly is giving a higher version than the former.
+
+Also remember to sign your library with a strong name key before deployment. Deployment is always created as SANDBOX, allowing you to deploy to any Dynamics 365 instance
+including online instances.
+
+
 ## Disclamer
 This code, project and documentation is provided as-is. Any use of the project, documentation or code is on your own risk. Kipon ApS does
 not take any responsibility in damages cause by the use of this concept.
