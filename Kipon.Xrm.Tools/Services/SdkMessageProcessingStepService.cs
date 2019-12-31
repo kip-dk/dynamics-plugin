@@ -58,6 +58,7 @@ namespace Kipon.Xrm.Tools.Services
             foreach (var remove in removes)
             {
                 uow.Delete(remove);
+                this.messageService.Inform($"Removed step {remove.Name} on {remove.LogicalName}.");
             }
 
             return remains.ToArray();

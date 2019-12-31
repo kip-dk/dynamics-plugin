@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Accounts\IAccountNameAndSettersOnly.cs" />
     <Compile Include="Entities\Accounts\IAccountNameChanged.cs" />
     <Compile Include="Entities\Accounts\IAccountPostAccountNumber.cs" />
     <Compile Include="Entities\Accounts\IAccountPreName.cs" />

@@ -33,5 +33,10 @@ namespace Kipon.Solid.Plugin.Plugins.Account
                 target.CreditLimit = new Microsoft.Xrm.Sdk.Money(100M);
             }
         }
+
+        [Sort(102)]
+        public void OnPreUpdate(Entities.Account.IAccountNameAndSettersOnly target)
+        {
+        }
     }
 }

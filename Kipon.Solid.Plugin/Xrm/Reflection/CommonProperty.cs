@@ -73,6 +73,11 @@
 
             foreach (var interfaceProp in interfaceProperties)
             {
+                if (interfaceProp.GetGetMethod() == null)
+                {
+                    continue;
+                }
+
                 var instanceProp = (from i in instanceProperties where i.Name == interfaceProp.Name select i).SingleOrDefault();
                 if (instanceProp != null)
                 {
