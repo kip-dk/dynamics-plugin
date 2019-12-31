@@ -94,6 +94,15 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         }
         #endregion
 
+        #region for RetreiveMultiPostAsync
+        [TestMethod]
+        public void RetreiveMultiPostAsyncTest()
+        {
+            var methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.Account.AccountRetrieveMultiplePostAsync), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.RetrieveMultiple.ToString(), Entities.Account.EntityLogicalName, true);
+            Assert.AreEqual(1, methods.Length);
+        }
+        #endregion
+
         [TestMethod]
         public void OrganizationServiceResolveTest()
         {

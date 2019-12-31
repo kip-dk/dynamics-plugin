@@ -9,5 +9,7 @@
     /// <typeparam name="T"></typeparam>
     public interface Target<T> where T: Microsoft.Xrm.Sdk.Entity
     {
+        System.Guid Id { get; }
+        string LogicalName { get; }
     }
 }

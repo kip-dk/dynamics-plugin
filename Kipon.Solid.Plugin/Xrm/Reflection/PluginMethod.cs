@@ -88,6 +88,25 @@
                             throw new Exceptions.MultipleLogicalNamesException(type, method);
                         }
 
+                        {
+                            var logicalNameAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
+                            foreach (var attr in logicalNameAttrs)
+                            {
+                                var name = (string)attr.GetType().GetProperty("Value").GetValue(attr);
+                                if (name == primaryEntityName)
+                                {
+                                    AddIfConsistent(type, method, results, next, message, stage);
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            if (logicalNameAttrs.Length > 0)
+                            {
+                                continue;
+                            }
+                        }
+
                         if (next.HasTargetPreOrPost() || next.HasTargetReference())
                         {
                             var logicalNamesAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
@@ -184,7 +203,7 @@
             {
                 var result = new PluginMethod();
                 result.method = method;
-                var parameters = method.GetParameters().DefaultIfEmpty().ToArray();
+                var parameters = method.GetParameters().ToArray();
 
                 result.Parameters = new TypeCache[parameters.Length];
                 var ix = 0;
