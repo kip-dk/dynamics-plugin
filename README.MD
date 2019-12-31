@@ -51,18 +51,18 @@ public void On[Stage][Message][Async](parameters)
 ```
 
 
-####where Stage can be
+#### where Stage can be
 Validate
 Pre
 Post
 
-####Message can be
+#### Message can be
 Create,
 Update,
 Delete,
 RetrieveMultiple,
 
-#####Below here work in progress messages - might or might not work:
+##### Below here work in progress messages - might or might not work:
 Associate,
 Disassociate,
 SetState,
@@ -72,7 +72,7 @@ AddMember,
 AddListMembers,
 RemoveMember
 
-####Async
+#### Async
 Only apply to stage Post, and should simply state Async if Async otherwise blank
 
 
