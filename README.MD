@@ -26,7 +26,7 @@ Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.0.16
 * Entities\filter.xml.template: - remove ".template", and adjust the list of entities and option set values according to your need
 * Entities\generate.cmd.template: - remove ".template", and adjust the [placeholders] in the file according to your need.
 
-4) Now you can use Entities/generate.cmd to generate early bound entities.
+4) Now you can use Entities\generate.cmd to generate early bound entities.
 
 Remeber to include the following files to you project after first time early bound entity generated:
 
@@ -52,28 +52,28 @@ public void On[Stage][Message][Async](parameters)
 
 
 #### where Stage can be
-Validate
-Pre
-Post
+* Validate
+* Pre
+* Post
 
 #### Message can be
-Create,
-Update,
-Delete,
-RetrieveMultiple,
+* Create,
+* Update,
+* Delete,
+* RetrieveMultiple,
 
 ##### Below here work in progress messages - might or might not work:
-Associate,
-Disassociate,
-SetState,
-SetStateDynamicEntity,
-Retrieve,
-AddMember,
-AddListMembers,
-RemoveMember
+* Associate,
+* Disassociate,
+* SetState,
+* SetStateDynamicEntity,
+* Retrieve,
+* AddMember,
+* AddListMembers,
+* RemoveMember
 
 #### Async
-Only apply to stage Post, and should simply state Async if Async otherwise blank
+Only apply to stage Post, and should simply state Async if the plugin should run Async otherwise blank
 
 
 #### Resolve entity to listen for
