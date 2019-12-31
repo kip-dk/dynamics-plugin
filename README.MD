@@ -22,16 +22,16 @@ Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.0.16
 
 3) Rename the following files included in your project, and adjust according to your need
 
-deploy.cmd.template: - remove ".template" from name, and add your solution name and your Dynamics 365 connectionstring
-Entities\filter.xml.template: - remove ".template", and adjust the list of entities and option set values according to your need
-Entities\generate.cmd.template: - remove ".template", and adjust the [placeholders] in the file according to your need.
+* deploy.cmd.template: - remove ".template" from name, and add your solution name and your Dynamics 365 connectionstring
+* Entities\filter.xml.template: - remove ".template", and adjust the list of entities and option set values according to your need
+* Entities\generate.cmd.template: - remove ".template", and adjust the [placeholders] in the file according to your need.
 
 4) Now you can use Entities/generate.cmd to generate early bound entities.
 
 Remeber to include the following files to you project after first time early bound entity generated:
 
-Entities\Context.design.cs
-Entities\CrmUnitOfWork.Design.cs
+* Entities\Context.design.cs
+* Entities\CrmUnitOfWork.Design.cs
 
 ### Creating a plugin
 We are working on a creating a rich documentation side with examples and recommendations as the concept mature. That part is still work in process, so for now
