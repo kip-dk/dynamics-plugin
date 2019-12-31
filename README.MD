@@ -86,7 +86,7 @@ You must add at least one parameter that maps to a specific entity, and the name
 * postimage (only applices to post stages and is giving the entity as is looks after this operation)
 * mergedimage (is really the preimage, but target is merged into this instance so you can see how the entity looks, including any changes made in this process, even before it hits the database)
 
-Target and images can ONLY be injected into plugin methods. When needed in a service, and these ad parameters in your service method, and parse them from the plugin method to your service.
+Target and images can ONLY be injected into plugin methods. When needed in a service, add these as parameters in your service method, and parse them from the plugin method to your service method.
 
 #### Plugins\AccountPlugin example
 ```csharp
