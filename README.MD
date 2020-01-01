@@ -124,7 +124,7 @@ namespace MySolid.Entities
 
 namespace MySolid.Plugins
 {
-	public class AccountPlugin : BasePlugin
+	public class MySharedPlugin : BasePlugin
 	{
 		[LogicalName(Entities.Email.EntityLogicalName)]
 		[LogicalName(Entities.Task.EntityLogicalName)]
