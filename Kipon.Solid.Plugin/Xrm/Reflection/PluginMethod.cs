@@ -10,6 +10,19 @@
             private Types Types;
             private readonly Dictionary<string, PluginMethod[]> cache = new Dictionary<string, PluginMethod[]>();
 
+            private static readonly string[] IGNORE_METHODS = new string[]
+            {
+                nameof(BasePlugin.Equals),
+                nameof(BasePlugin.Execute),
+                nameof(BasePlugin.GetHashCode),
+                nameof(BasePlugin.GetType),
+                nameof(BasePlugin.PluginMethodCache),
+                nameof(BasePlugin.ReferenceEquals),
+                nameof(BasePlugin.SecureConfig),
+                nameof(BasePlugin.ToString),
+                nameof(BasePlugin.UnsecureConfig)
+            };
+
             public Cache(System.Reflection.Assembly assm)
             {
                 this.Types = Types.Instance;
@@ -29,12 +42,36 @@
 
                 var methods = type.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 
+                methods = (from m in methods where !m.Name.StartsWith("get_") && !IGNORE_METHODS.Contains(m.Name) select m).ToArray();
+
                 var stepStage = stage == 40 && isAsync ? 41 : stage;
 
                 List<PluginMethod> results = new List<PluginMethod>();
 
                 foreach (var method in methods)
                 {
+                    #region filter on logicalname attribute on method
+                    var logAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
+                    if (logAttrs != null && logAttrs.Length > 0)
+                    {
+                        var foundLogicalName = false;
+                        foreach (var logAttr in logAttrs)
+                        {
+                            var name = (string)logAttr.GetType().GetProperty("Value").GetGetMethod().Invoke(logAttr, null);
+                            if (name == primaryEntityName)
+                            {
+                                foundLogicalName = true;
+                                break;
+                            }
+                        }
+
+                        if (!foundLogicalName)
+                        {
+                            continue;
+                        }
+                    }
+                    #endregion
+
                     #region explicit step decoration mathing
                     var cas = method.GetCustomAttributes(Types.StepAttribute, false);
                     var found = false;

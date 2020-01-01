@@ -17,7 +17,7 @@ developing plugin for Dynamics 365 Customer Engagement platform.
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.0.17
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.0.25
 ```
 
 3) Rename the following files included in your project, and adjust according to your need
@@ -102,6 +102,43 @@ namespace MySolid.Plugins
 	}
 }
 ```
+
+#### Same step for multi entities
+If you need to run the exact same code for multi entities, that is perfectly possible. Define a shared interface and ensure each entity supported is implementing this interface.
+Then inject the interface to your plugin as target, preimage, mergedimage or postimage, and finally decorate the plugin method with LogicalName attributes:
+
+```csharp
+using Kipon.Xrm;
+using Kipon.Xrm.Attributes;
+namespace MySolid.Entities 
+{
+	public interface IShared
+	{
+		string Subject { get; }
+	}
+
+	// Both Email and Task already have a property Subject, so no futher impl. is needed.
+	public partial class Email : IShared { }
+	public partial class Task : IShared { }
+}
+
+namespace MySolid.Plugins
+{
+	public class AccountPlugin : BasePlugin
+	{
+		[LogicalName(Entities.Email.EntityLogicalName)]
+		[LogicalName(Entities.Task.EntityLogicalName)]
+		public void OnPreCreate(Entities.IShared target)
+		{
+			// Do whatever you need to do on the task or email pre create
+			// you can even typecast the entity to appropriate, because what you get IS the strong type entity.
+		}
+	}
+}
+```
+
+
+
 
 #### Adding services
 Standard services like:

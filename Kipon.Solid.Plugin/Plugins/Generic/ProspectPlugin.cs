@@ -24,7 +24,7 @@ namespace Kipon.Solid.Plugin.Plugins.Generic
                 case Entities.Contact.EntityLogicalName:
                     {
                         var contact = (Entities.Contact)target;
-                        contact.CreditLimit = new Microsoft.Xrm.Sdk.Money(-99M);
+                        contact.CreditLimit = new Microsoft.Xrm.Sdk.Money(-97M);
                         break;
                     }
             }

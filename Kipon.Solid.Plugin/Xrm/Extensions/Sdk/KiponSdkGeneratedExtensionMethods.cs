@@ -22,6 +22,12 @@
 
             if (!entittypes.ContainsKey(ent.LogicalName))
             {
+                var enttype = Reflection.Types.Instance.EntityTypeFor(ent.LogicalName);
+                if (enttype != null)
+                {
+                    entittypes[ent.LogicalName] = enttype;
+                    return ToEarlyBoundEntity(ent);
+                }
                 throw new Exceptions.UnknownEntityTypeException(ent.LogicalName);
             }
 

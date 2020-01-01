@@ -2,10 +2,12 @@
 {
     using System;
     using System.Linq;
+    using System.Collections.Generic;
 
     public sealed class Types
     {
         private const string NAMESPACE = "Kipon" + "." + "Xrm" + ".";
+        private Dictionary<string, Type> entityTypes = new Dictionary<string, Type>();
 
         private static Types _instance;
 
@@ -87,6 +89,34 @@
         public Type BasePlugin { get; private set; }
 
         public Type IPluginContext { get; private set; }
+
+        public Type EntityTypeFor(string logicalname)
+        {
+            if (entityTypes.ContainsKey(logicalname))
+            {
+                return entityTypes[logicalname];
+            }
+
+            if (this.Assembly != null)
+            {
+
+                var allTypes = this.Assembly.GetTypes().Where(r => r.BaseType == typeof(Microsoft.Xrm.Sdk.Entity));
+                foreach (var type in allTypes)
+                {
+                    var name = (Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute)type.GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute), false).SingleOrDefault();
+                    if (name != null)
+                    {
+                        entityTypes[name.LogicalName] = type;
+                    }
+                }
+
+                if (entityTypes.ContainsKey(logicalname))
+                {
+                    return entityTypes[logicalname];
+                }
+            }
+            throw new Exceptions.UnknownEntityTypeException(logicalname);
+        }
 
     }
 }

@@ -50,7 +50,7 @@
 
         }
 
-        private static readonly Dictionary<Type, CommonProperty[]> cache = new Dictionary<Type, CommonProperty[]>();
+        private static readonly Dictionary<CommonProperty.Key, CommonProperty[]> cache = new Dictionary<CommonProperty.Key, CommonProperty[]>();
 
         private static Types Types;
 
@@ -61,9 +61,10 @@
 
         public static CommonProperty[] ForType(Type interfaceType, Type entityType)
         {
-            if (cache.ContainsKey(interfaceType))
+            var key = new CommonProperty.Key() { FromType = interfaceType, ToType = entityType };
+            if (cache.ContainsKey(key))
             {
-                return cache[interfaceType];
+                return cache[key];
             }
 
             var interfaceProperties = interfaceType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
@@ -74,6 +75,16 @@
             foreach (var interfaceProp in interfaceProperties)
             {
                 if (interfaceProp.GetGetMethod() == null)
+                {
+                    continue;
+                }
+
+                if (interfaceProp.Name == nameof(Microsoft.Xrm.Sdk.Entity.Id))
+                {
+                    continue;
+                }
+
+                if (interfaceProp.Name == nameof(Microsoft.Xrm.Sdk.Entity.LogicalName))
                 {
                     continue;
                 }
@@ -91,11 +102,40 @@
                     }
                 }
             }
-            cache[interfaceType] = result.ToArray();
-            return cache[interfaceType];
+            cache[key] = result.ToArray();
+            return cache[key];
         }
 
         public string LogicalName { get; private set; }
         public bool Required { get; private set; }
+
+        private class Key
+        {
+            internal Type FromType { get; set; }
+            internal Type ToType { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                var other = obj as Key;
+
+                if (other != null)
+                {
+                    return this.FromType == other.FromType && this.ToType == other.ToType;
+                }
+                return false;
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked // Overflow is fine, just wrap
+                {
+                    int hash = 17;
+                    // Suitable nullity checks etc, of course :)
+                    hash = hash * 23 + FromType.GetHashCode();
+                    hash = hash * 23 + ToType.GetHashCode();
+                    return hash;
+                }
+            }
+        }
     }
 }
