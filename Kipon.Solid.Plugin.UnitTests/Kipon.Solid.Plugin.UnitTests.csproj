@@ -69,6 +69,7 @@
     <Compile Include="Fake\Repository\PluginExecutionFakeContextTest.cs" />
     <Compile Include="Fake\Repository\Query\QueryResolverTest.cs" />
     <Compile Include="Fake\Xrm\Reflection\TypesTest.cs" />
+    <Compile Include="General\GeneralTests.cs" />
     <Compile Include="Xrm\Reflection\ServiceCacheTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xrm\Reflection\CommonPropertyCacheTest.cs" />

@@ -9,6 +9,22 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
     {
         private Kipon.Xrm.Reflection.PluginMethod.Cache pluginMethodcache = new Kipon.Xrm.Reflection.PluginMethod.Cache(typeof(Kipon.Solid.Plugin.Entities.Account).Assembly);
 
+        #region shared entity interface target injection
+        [TestMethod]
+        public void SharedEntityTargetInterfaceTest()
+        {
+            var methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.Generic.ProspectPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
+            Assert.AreEqual(1, methods.Length);
+            Assert.AreEqual(1, methods[0].Parameters.Length);
+            Assert.AreEqual(typeof(Entities.Account), methods[0].Parameters[0].ToType);
+
+            methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.Generic.ProspectPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Contact.EntityLogicalName, false);
+            Assert.AreEqual(1, methods.Length);
+            Assert.AreEqual(1, methods[0].Parameters.Length);
+            Assert.AreEqual(typeof(Entities.Contact), methods[0].Parameters[0].ToType);
+        }
+        #endregion
+
         [TestMethod]
         public void ForTypePostCreateDuckTypeTest()
         {

@@ -26,47 +26,49 @@
             UOW_ADMIN = pms[1];
         }
 
-        private static Dictionary<System.Reflection.ParameterInfo, TypeCache> resolvedTypes = new Dictionary<System.Reflection.ParameterInfo, TypeCache>();
+        private static Dictionary<Key, TypeCache> resolvedTypes = new Dictionary<Key, TypeCache>();
 
-        public static TypeCache ForParameter(System.Reflection.ParameterInfo parameter)
+        public static TypeCache ForParameter(System.Reflection.ParameterInfo parameter, string logicalname)
         {
+            var key = new Key() { Parameter = parameter, LogicalName = logicalname };
+
             var type = parameter.ParameterType;
 
-            if (resolvedTypes.ContainsKey(parameter))
+            if (resolvedTypes.ContainsKey(key))
             {
-                return resolvedTypes[parameter];
+                return resolvedTypes[key];
             }
 
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
             {
-                resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
+                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
 
-                resolvedTypes[parameter].RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
-                return resolvedTypes[parameter];
+                resolvedTypes[key].RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
+                return resolvedTypes[key];
             }
 
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationServiceFactory))
             {
-                resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[parameter];
+                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[key];
             }
 
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IPluginExecutionContext))
             {
-                resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[parameter];
+                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[key];
             }
 
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.ITracingService))
             {
-                resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[parameter];
+                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[key];
             }
 
             if (parameter.ParameterType == Types.IPluginContext)
             {
-                resolvedTypes[parameter] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[parameter];
+                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                return resolvedTypes[key];
             }
 
             #region not an abstract, and not an interface, the type can be used directly, see if the name indicates that it is target, preimage, mergedimage or postimage
@@ -143,10 +145,10 @@
                     if (!isEntity && !isReference)
                     {
                         result.Constructor = GetConstructor(type);
-                        resolvedTypes[parameter] = result;
+                        resolvedTypes[key] = result;
                     } else
                     {
-                        resolvedTypes[parameter] = result;
+                        resolvedTypes[key] = result;
                     }
                     return result;
                 }
@@ -166,7 +168,7 @@
 
                     if (ReturnIfOk(type, result))
                     {
-                        resolvedTypes[parameter] = result;
+                        resolvedTypes[key] = result;
                         return result;
                     }
                 }
@@ -180,8 +182,8 @@
                     result.ResolveProperties();
                     if (ReturnIfOk(type, result))
                     {
-                        resolvedTypes[parameter] = result;
-                        return resolvedTypes[parameter];
+                        resolvedTypes[key] = result;
+                        return resolvedTypes[key];
                     }
                 }
 
@@ -194,8 +196,8 @@
                     result.ResolveProperties();
                     if (ReturnIfOk(type, result))
                     {
-                        resolvedTypes[parameter] = result;
-                        return resolvedTypes[parameter];
+                        resolvedTypes[key] = result;
+                        return resolvedTypes[key];
                     }
                 }
 
@@ -208,7 +210,109 @@
                     result.ResolveProperties();
                     if (ReturnIfOk(type, result))
                     {
-                        resolvedTypes[parameter] = result;
+                        resolvedTypes[key] = result;
+                        return result;
+                    }
+                }
+            }
+            #endregion
+
+            #region handle shared interface by naming convention or attribute decoration
+            if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
+            {
+                var isTarget = parameter.Name == "target";
+
+                if (!isTarget)
+                {
+                    isTarget = parameter.GetCustomAttributes(Types.TargetAttribute, false).Any();
+                }
+
+                if (isTarget)
+                {
+                    var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+
+                    var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsTarget = true };
+                    result.LogicalName = key.LogicalName;
+                    result.ResolveProperties();
+
+                    if (ReturnIfOk(type, result))
+                    {
+                        resolvedTypes[key] = result;
+                        return result;
+                    }
+                }
+            }
+
+            if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
+            {
+                var isPreimage = parameter.Name == "preimage";
+
+                if (!isPreimage)
+                {
+                    isPreimage = parameter.GetCustomAttributes(Types.PreimageAttribute, false).Any();
+                }
+
+                if (isPreimage)
+                {
+                    var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+
+                    var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsPreimage = true };
+                    result.LogicalName = key.LogicalName;
+                    result.ResolveProperties();
+
+                    if (ReturnIfOk(type, result))
+                    {
+                        resolvedTypes[key] = result;
+                        return result;
+                    }
+                }
+            }
+
+            if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
+            {
+                var isMergedimage = parameter.Name == "mergedimage";
+
+                if (!isMergedimage)
+                {
+                    isMergedimage = parameter.GetCustomAttributes(Types.MergedimageAttribute, false).Any();
+                }
+
+                if (isMergedimage)
+                {
+                    var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+
+                    var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsMergedimage = true };
+                    result.LogicalName = key.LogicalName;
+                    result.ResolveProperties();
+
+                    if (ReturnIfOk(type, result))
+                    {
+                        resolvedTypes[key] = result;
+                        return result;
+                    }
+                }
+            }
+
+            if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
+            {
+                var isPostimage = parameter.Name == "postimage";
+
+                if (!isPostimage)
+                {
+                    isPostimage = parameter.GetCustomAttributes(Types.PostimageAttribute, false).Any();
+                }
+
+                if (isPostimage)
+                {
+                    var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+
+                    var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsPostimage = true };
+                    result.LogicalName = key.LogicalName;
+                    result.ResolveProperties();
+
+                    if (ReturnIfOk(type, result))
+                    {
+                        resolvedTypes[key] = result;
                         return result;
                     }
                 }
@@ -233,7 +337,7 @@
                 var r1 = GetInterfaceImplementation(type);
                 var result = new TypeCache { FromType = type, ToType = r1, Constructor = GetConstructor(r1) };
 
-                resolvedTypes[parameter] = result;
+                resolvedTypes[key] = result;
                 return result;
 
             }
@@ -263,15 +367,17 @@
         public static TypeCache ForUow(bool admin)
         {
             var pi = admin ? UOW_ADMIN : UOW;
-            if (resolvedTypes.ContainsKey(pi))
+
+            var key = new Key { Parameter = pi };
+            if (resolvedTypes.ContainsKey(key))
             {
-                return resolvedTypes[pi];
+                return resolvedTypes[key];
             }
 
             var fromType = admin ? Types.IAdminUnitOfWork : Types.IUnitOfWork;
             var r1 = GetInterfaceImplementation(fromType);
             var result = new TypeCache { FromType = fromType, ToType = r1, Constructor = GetConstructor(r1), RequireAdminService = admin };
-            resolvedTypes[pi] = result;
+            resolvedTypes[key] = result;
             return result;
         }
 
@@ -397,9 +503,7 @@
         public bool IsMergedimage { get; private set; }
         public bool IsPostimage { get; private set; }
         public string LogicalName { get; private set; }
-
         public bool IsQuery { get; private set; }
-
         public bool RequireAdminService { get; private set; }
         public bool AllProperties { get; private set; }
         public CommonProperty[] FilteredProperties { get; private set; }
@@ -506,6 +610,39 @@
                     else this._ik = this.FromType.FullName;
                 }
                 return _ik;
+            }
+        }
+        #endregion
+
+        #region cache key
+        private class Key
+        {
+            internal System.Reflection.ParameterInfo Parameter { get; set; }
+            internal string LogicalName { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                var other = obj as Key;
+                if (other != null)
+                {
+                    return other.LogicalName == this.LogicalName && other.Parameter == this.Parameter;
+                }
+                return false;
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    int hash = 17;
+                    // Suitable nullity checks etc, of course :)
+                    hash = hash * 23 + Parameter.GetHashCode();
+                    if (LogicalName != null)
+                    {
+                        hash = hash * 23 + this.LogicalName.GetHashCode();
+                    }
+                    return hash;
+                }
             }
         }
         #endregion

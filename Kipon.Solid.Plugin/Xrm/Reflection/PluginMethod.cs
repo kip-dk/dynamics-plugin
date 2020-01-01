@@ -49,7 +49,7 @@
 
                         if (_stage == stepStage && _message == message && _primaryEntityName == primaryEntityName && _isAsync == isAsync)
                         {
-                            var next = CreateFrom(method);
+                            var next = CreateFrom(method, primaryEntityName);
                             AddIfConsistent(type, method, results, next, message, stage);
                             found = true;
                             break;
@@ -70,7 +70,7 @@
                     #region find by naming convention
                     if (method.Name == lookFor)
                     {
-                        var next = CreateFrom(method);
+                        var next = CreateFrom(method, primaryEntityName);
                         var logicalNames = (from n in next.Parameters where n.LogicalName != null select n.LogicalName).Distinct().ToArray();
 
                         if (logicalNames.Length == 1)
@@ -199,7 +199,7 @@
                 results.Add(result);
             }
 
-            private PluginMethod CreateFrom(System.Reflection.MethodInfo method)
+            private PluginMethod CreateFrom(System.Reflection.MethodInfo method, string logicalname)
             {
                 var result = new PluginMethod();
                 result.method = method;
@@ -209,7 +209,7 @@
                 var ix = 0;
                 foreach (var parameter in parameters)
                 {
-                    result.Parameters[ix] = TypeCache.ForParameter(parameter);
+                    result.Parameters[ix] = TypeCache.ForParameter(parameter, logicalname);
                     ix++;
                 }
 

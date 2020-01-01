@@ -24,7 +24,7 @@
             var ix = 0;
             foreach (var par in parameters)
             {
-                result[ix] = TypeCache.ForParameter(par);
+                result[ix] = TypeCache.ForParameter(par, null);
                 if (result[ix].RequirePluginContext)
                 {
                     throw new Exceptions.InvalidConstructorServiceArgumentException(constructor, par);
