@@ -24,7 +24,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Fake.Repository
                     Name = "kurt"
                 };
 
-                ctx.OnValidationCreate = delegate ()
+                ctx.OnValidation = delegate ()
                 {
                     Assert.IsNotNull(target.AccountId);
                     Assert.AreEqual(100M, target.CreditLimit.Value);
@@ -55,7 +55,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Fake.Repository
                     Name = "the next name"
                 };
 
-                ctx.OnPreUpdate = delegate ()
+                ctx.OnPre = delegate ()
                 {
                     var result = ctx.GetEntityById<Entities.Account>(pre.AccountId.Value);
                     Assert.AreEqual("The Next Name", result.Name);

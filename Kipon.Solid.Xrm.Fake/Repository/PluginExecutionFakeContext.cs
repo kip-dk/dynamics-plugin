@@ -337,25 +337,13 @@ namespace Kipon.Xrm.Fake.Repository
         #endregion
 
         #region delegates for unit tests
-        public Action OnValidationCreate;
-        public Action OnPreCreate;
-        public Action OnPostCreate;
-        public Action OnPostCreateAsync;
-
-
-        public Action OnValidationUpdate;
-        public Action OnPreUpdate;
-        public Action OnPostUpdate;
-        public Action OnPostUpdateAsync;
-
-        public Action OnValidationDelete;
-        public Action OnPreDelete;
-        public Action OnPostDelete;
-        public Action OnPostDeleteAsync;
-
+        public Action OnValidation;
+        public Action OnPre;
+        public Action OnPost;
+        public Action OnPostAsync;
         #endregion
 
-        #region execute the plugin code
+        #region execute the plugin code CRETE/UPDATE/DELETE
         public Guid Create(Microsoft.Xrm.Sdk.Entity target)
         {
             this.preImage = null;
@@ -372,23 +360,23 @@ namespace Kipon.Xrm.Fake.Repository
                     throw new Exceptions.EntityExistsException(target);
                 }
 
-                this.ExecuteStep(target, 10, "Create", false, null, this.OnValidationCreate);
+                this.ExecuteStep(target, 10, "Create", false, null, this.OnValidation);
                 this.ExecuteStep(target, 20, "Create", false, () =>
                 {
                     ((Repository.IEntityShadow)this).Create(target);
                     ((Repository.IEntityShadow)this).Commit();
-                }, this.OnPreCreate);
+                }, this.OnPre);
                 this.ExecuteStep(target, 40, "Create", false, () =>
                 {
                     ((Repository.IEntityShadow)this).Commit();
-                }, OnPostCreate);
+                }, OnPost);
                 this.ExecuteStep(target, 40, "Create", true, () =>
                 {
                     ((Repository.IEntityShadow)this).Commit();
-                }, OnPostCreate);
+                }, OnPost);
 
                 return target.Id;
-            } catch (Exception ex)
+            } catch (Exception)
             {
                 ((IEntityShadow)this).Rollback();
                 throw;
@@ -405,20 +393,20 @@ namespace Kipon.Xrm.Fake.Repository
                     throw new Exceptions.EntityNotFoundException(target.LogicalName, target.Id);
                 }
 
-                this.ExecuteStep(target, 10, "Update", false, null, OnValidationUpdate);
+                this.ExecuteStep(target, 10, "Update", false, null, OnValidation);
                 this.ExecuteStep(target, 20, "Update", false, () =>
                 {
                     ((Repository.IEntityShadow)this).Update(target);
                     ((Repository.IEntityShadow)this).Commit();
-                }, OnPreUpdate);
+                }, OnPre);
                 this.ExecuteStep(target, 40, "Update", false, () =>
                 {
                     ((Repository.IEntityShadow)this).Commit();
-                }, OnPostUpdate);
+                }, OnPost);
                 this.ExecuteStep(target, 40, "Update", true, () =>
                 {
                     ((Repository.IEntityShadow)this).Commit();
-                }, OnPostUpdateAsync);
+                }, OnPostAsync);
             }
             catch (Exception)
             {
@@ -437,26 +425,39 @@ namespace Kipon.Xrm.Fake.Repository
                     throw new Exceptions.EntityNotFoundException(target.LogicalName, target.Id);
                 }
 
-                this.ExecuteStep(target, 10, "Delete", false, null, OnValidationDelete);
+                this.ExecuteStep(target, 10, "Delete", false, null, OnValidation);
                 this.ExecuteStep(target, 20, "Delete", false, () =>
                 {
                     ((Repository.IEntityShadow)this).Delete(target.LogicalName, target.Id);
                     ((Repository.IEntityShadow)this).Commit();
-                }, OnPreDelete);
+                }, OnPre);
                 this.ExecuteStep(target, 40, "Delete", false, () =>
                 {
                     ((Repository.IEntityShadow)this).Commit();
-                }, OnPostDelete);
+                }, OnPost);
                 this.ExecuteStep(target, 40, "Delete", true, () =>
                 {
                     ((Repository.IEntityShadow)this).Commit();
-                }, OnPostDeleteAsync);
+                }, OnPostAsync);
             }
             catch (Exception)
             {
                 ((IEntityShadow)this).Rollback();
                 throw;
             }
+        }
+        #endregion
+
+        #region special events
+        public void RemoveMember(Guid listId, Guid entityId)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.Add("ListId", listId);
+            parameters.Add("EntityId", entityId);
+
+            this.ExecuteStep(parameters, 20, "RemoveMember", "list", null, Guid.Empty, false, null, OnPre);
+            this.ExecuteStep(parameters, 40, "RemoveMember", "list", null, Guid.Empty, false, null, OnPost);
+            this.ExecuteStep(parameters, 40, "RemoveMember", "list", null, Guid.Empty, true, null, OnPost);
         }
         #endregion
 
@@ -577,6 +578,38 @@ namespace Kipon.Xrm.Fake.Repository
                 finalize?.Invoke();
 
                 onDone?.Invoke();
+            }
+            else
+            {
+                if (onDone != null)
+                {
+                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage);
+                }
+                else
+                {
+                    finalize?.Invoke();
+                }
+            }
+        }
+
+        private void ExecuteStep(Dictionary<string, object> inputParameters, int stage, string message, string primaryentityname, string logicalName, Guid id, bool isAsync, Action finalize, Action onDone)
+        {
+            var methods = this.pluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, logicalName, isAsync, false);
+            if (methods.Length > 0)
+            {
+                if (inputParameters != null && inputParameters.Count > 0)
+                {
+                    var pluginExecutionContext = new Services.PluginExecutionContext(stage, 1, message, primaryentityname, id, isAsync);
+                    foreach (var key in inputParameters.Keys)
+                    {
+                        pluginExecutionContext.InputParameters.Add(key, inputParameters[key]);
+                    }
+
+                    var serviceProvider = new Services.ServiceProvider(pluginExecutionContext, this, this.plugin.GetType().Assembly);
+                    this.plugin.Execute(serviceProvider);
+                    finalize?.Invoke();
+                    onDone?.Invoke();
+                }
             }
             else
             {

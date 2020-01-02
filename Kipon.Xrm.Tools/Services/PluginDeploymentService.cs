@@ -63,13 +63,21 @@ namespace Kipon.Xrm.Tools.Services
 
             foreach (var pluginType in plugins)
             {
+                var typeName = pluginType.FullName;
                 var next = new Models.Plugin(pluginType);
                 result.Add(next);
                 foreach (var stage in this.stages)
                 {
                     foreach (var message in this.messages)
                     {
-                        foreach (var logicalname in this.entityLogicalNames)
+                        string[] handleEntities = this.entityLogicalNames;
+
+                        if (Kipon.Tools.Xrm.Reflection.Types.MESSAGE_WITHOUT_PRIMARY_ENTITY.Contains(message))
+                        {
+                            handleEntities = new string[] { null };
+                        }
+
+                        foreach (var logicalname in handleEntities)
                         {
                             var methods = this.pluginMethodCache.ForPlugin(pluginType, stage, message, logicalname, false, false);
                             if (methods != null && methods.Length > 0)

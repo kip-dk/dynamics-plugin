@@ -55,7 +55,8 @@ namespace Kipon.Xrm.Tools.Models
 
         public string NameOf(int stage, string message, bool async, string logicalname)
         {
-            return $"{this.Type.FullName} {StageName(stage, async)} {message} of {logicalname}";
+            var of = logicalname != null ? $" of {logicalname}" : "";
+            return $"{this.Type.FullName} {StageName(stage, async)} {message}{of}";
         }
 
         private string StageName(int stage, bool async)

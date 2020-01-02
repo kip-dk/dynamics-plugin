@@ -1,6 +1,7 @@
 ﻿namespace Kipon.Xrm
 {
     using System;
+    using System.Linq;
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
@@ -44,7 +45,14 @@
 
             using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext))
             {
-                var methods = PluginMethodCache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
+                var entityName = context.PrimaryEntityName;
+
+                if (Reflection.Types.MESSAGE_WITHOUT_PRIMARY_ENTITY.Contains(message))
+                {
+                    entityName = null;
+                }
+
+                var methods = PluginMethodCache.ForPlugin(this.GetType(), stage, message, entityName, context.Mode == 1);
 
                 foreach (var method in methods)
                 {

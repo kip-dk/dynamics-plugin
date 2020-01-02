@@ -77,6 +77,7 @@
     <Compile Include="Plugins\Account\AccountRetrieveMultiplePostAsync.cs" />
     <Compile Include="Plugins\Contact\ContactPlugin.cs" />
     <Compile Include="Plugins\Generic\ProspectPlugin.cs" />
+    <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="Xrm\Attributes\AdminAttribute.cs" />
     <Compile Include="Xrm\Attributes\ExportAttribute.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Xrm\Attributes\StepAttribute.cs" />
     <Compile Include="Xrm\Attributes\TargetAttribute.cs" />
     <Compile Include="Xrm\CrmEventType.cs" />
+    <Compile Include="Xrm\Exceptions\UnresolveableParameterException.cs" />
     <Compile Include="Xrm\IPluginContext.cs" />
     <Compile Include="Xrm\IService.cs" />
     <Compile Include="Xrm\Reflection\CommonProperty.cs" />

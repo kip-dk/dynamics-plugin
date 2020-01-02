@@ -112,6 +112,27 @@
                 var queryMethod = type.QueryMethod;
                 return queryMethod.Invoke(repository, new object[0]);
             }
+
+            if (type.FromType == typeof(Guid))
+            {
+                if (type.Name.ToLower() == "id")
+                {
+                    return pluginExecutionContext.PrimaryEntityId;
+                }
+
+                if (type.Name.ToLower() == "listid")
+                {
+                    return pluginExecutionContext.InputParameters["ListId"];
+                }
+
+                if (type.Name.ToLower() == "entityid")
+                {
+                    return pluginExecutionContext.InputParameters["EntityId"];
+                }
+
+                throw new Exceptions.UnresolveableParameterException(type.FromType, type.Name);
+            }
+
             return this.CreateServiceInstance(type);
         }
 

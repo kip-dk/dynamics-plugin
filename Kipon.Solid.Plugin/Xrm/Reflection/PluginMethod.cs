@@ -51,23 +51,26 @@
                 foreach (var method in methods)
                 {
                     #region filter on logicalname attribute on method
-                    var logAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
-                    if (logAttrs != null && logAttrs.Length > 0)
+                    if (primaryEntityName != null)
                     {
-                        var foundLogicalName = false;
-                        foreach (var logAttr in logAttrs)
+                        var logAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
+                        if (logAttrs != null && logAttrs.Length > 0)
                         {
-                            var name = (string)logAttr.GetType().GetProperty("Value").GetGetMethod().Invoke(logAttr, null);
-                            if (name == primaryEntityName)
+                            var foundLogicalName = false;
+                            foreach (var logAttr in logAttrs)
                             {
-                                foundLogicalName = true;
-                                break;
+                                var name = (string)logAttr.GetType().GetProperty("Value").GetGetMethod().Invoke(logAttr, null);
+                                if (name == primaryEntityName)
+                                {
+                                    foundLogicalName = true;
+                                    break;
+                                }
                             }
-                        }
 
-                        if (!foundLogicalName)
-                        {
-                            continue;
+                            if (!foundLogicalName)
+                            {
+                                continue;
+                            }
                         }
                     }
                     #endregion
@@ -108,6 +111,14 @@
                     if (method.Name == lookFor)
                     {
                         var next = CreateFrom(method, primaryEntityName);
+
+                        if (primaryEntityName == null)
+                        {
+                            AddIfConsistent(type, method, results, next, message, stage);
+                            found = true;
+                            continue;
+                        }
+
                         var logicalNames = (from n in next.Parameters where n.LogicalName != null select n.LogicalName).Distinct().ToArray();
 
                         if (logicalNames.Length == 1)
@@ -165,9 +176,11 @@
                         }
                         else
                         {
-#warning TO-DO
-                            // TO-DO: what to do, we have a method match, but no entities. Some methods ex. assosiate does not have target in deployment process.
-                            throw new NotImplementedException("handling method not attached to a logicalname is not supported yet.");
+                            // TO-DO: complete the list of messages not related to a specific entity.
+                            if (message != "RemoveMember")
+                            {
+                                throw new NotImplementedException("handling method not attached to a logicalname is not supported yet.");
+                            }
                         }
                     }
                     #endregion

@@ -39,6 +39,12 @@
                 return resolvedTypes[key];
             }
 
+            if (parameter.ParameterType == typeof(Guid))
+            {
+                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name };
+                return resolvedTypes[key];
+            }
+
             if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
             {
                 resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
@@ -494,6 +500,7 @@
         #region properties
         public Type FromType { get; private set; }
         public Type ToType { get; private set; }
+        public string Name { get; private set; }
 
         public System.Reflection.ConstructorInfo Constructor { get; private set; }
 
@@ -606,6 +613,7 @@
                     }
                     else if (this.FromType.Implements(Types.IAdminUnitOfWork)) this._ik = Types.IAdminUnitOfWork.FullName;
                     else if (this.FromType.Implements(Types.IUnitOfWork)) this._ik = Types.IUnitOfWork.FullName;
+                    else if (this.FromType == typeof(Guid)) return $"GUID:{this.Name}";
                     else if (this.ToType != null) this._ik = this.ToType.FullName;
                     else this._ik = this.FromType.FullName;
                 }

@@ -6,6 +6,13 @@
 
     public sealed class Types
     {
+        public static readonly string[] MESSAGE_WITHOUT_PRIMARY_ENTITY = new string[]
+        {
+            "AddMember",
+            "RemoveMember"
+        };
+
+
         private const string NAMESPACE = "Kipon" + "." + "Xrm" + ".";
         private Dictionary<string, Type> entityTypes = new Dictionary<string, Type>();
 

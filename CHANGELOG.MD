@@ -2,6 +2,9 @@
 
 The SOLID version of this concept has been put on top of the list, and reference to old version has been hidden.
 
+### 1.0.0.26
+Added and tested support for RemoveMember  (event to listen on single member being removed from marketing list)
+
 ### 1.0.0.25
 Added support for multi entities implementing same interface, and allow registre the relevant entities using the [LogicalName(name)] attribute on the
 plugin method to identify relevant entities.

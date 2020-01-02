@@ -18,7 +18,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Plugins.Generic
                 var accountid = Guid.NewGuid();
                 ctx.AddEntity(new Entities.Account { AccountId = accountid, Name = "Kipon ApS" });
 
-                ctx.OnPreUpdate += delegate ()
+                ctx.OnPre += delegate ()
                 {
                     var acc = ctx.GetEntityById<Entities.Account>(accountid);
                     Assert.IsTrue(acc.CreditLimit.Value == -99M);
@@ -37,7 +37,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Plugins.Generic
                 var contactid = Guid.NewGuid();
                 ctx.AddEntity(new Entities.Contact { ContactId = contactid, FirstName = "Kjeld", LastName = "Poulsen" });
 
-                ctx.OnPreUpdate += delegate ()
+                ctx.OnPre += delegate ()
                 {
                     var con = ctx.GetEntityById<Entities.Contact>(contactid);
                     Assert.IsTrue(con.CreditLimit.Value == -97M);

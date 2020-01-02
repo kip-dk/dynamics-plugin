@@ -99,6 +99,18 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         }
         #endregion
 
+        #region guid parameter type test
+        [TestMethod]
+        public void GuidParameterTypeTest()
+        {
+            var methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.ListMember.ListMemberPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.RemoveMember.ToString(), null, false);
+            Assert.AreEqual(1, methods.Length);
+            Assert.IsTrue(typeof(Guid) == methods[0].Parameters[0].FromType);
+            Assert.IsTrue(typeof(Guid) == methods[0].Parameters[1].FromType);
+
+        }
+        #endregion
+
 
         #region no postimage test
         [TestMethod]

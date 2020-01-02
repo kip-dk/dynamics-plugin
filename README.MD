@@ -61,8 +61,9 @@ public void On[Stage][Message][Async](parameters)
 * Update
 * Delete
 * RetrieveMultiple
+* RemoveMember
 
-##### Below here work in progress messages - might or might not work:
+##### Below here work in progress messages - might or might not work (most likely they do NOT work yet):
 * Associate
 * Disassociate
 * SetState
@@ -70,7 +71,6 @@ public void On[Stage][Message][Async](parameters)
 * Retrieve
 * AddMember
 * AddListMembers
-* RemoveMember
 
 #### Async
 Only apply to stage Post, and should simply state Async if the plugin should run Async otherwise blank
