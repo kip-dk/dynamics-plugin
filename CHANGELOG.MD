@@ -1,6 +1,4 @@
-### 2019-12-31
-
-The SOLID version of this concept has been put on top of the list, and reference to old version has been hidden.
+## Last updated: 2020-01-02 11:30
 
 ### 1.0.0.26
 Added and tested support for RemoveMember  (event to listen on single member being removed from marketing list)
@@ -15,3 +13,6 @@ Inform on update of step.
 Deployment tools is outputting when a step is deleted.
 
 interface properties without a getter is no longer added to filteredattriutes for update event listener
+
+### 2019-12-31
+The SOLID version of this concept has been put on top of the list, and reference to old version has been hidden.
