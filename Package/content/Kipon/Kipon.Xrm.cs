@@ -12,6 +12,7 @@
 namespace Kipon.Xrm
 {
     using System;
+    using System.Linq;
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
@@ -55,7 +56,14 @@ namespace Kipon.Xrm
 
             using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext))
             {
-                var methods = PluginMethodCache.ForPlugin(this.GetType(), stage, message, context.PrimaryEntityName, context.Mode == 1);
+                var entityName = context.PrimaryEntityName;
+
+                if (Reflection.Types.MESSAGE_WITHOUT_PRIMARY_ENTITY.Contains(message))
+                {
+                    entityName = null;
+                }
+
+                var methods = PluginMethodCache.ForPlugin(this.GetType(), stage, message, entityName, context.Mode == 1);
 
                 foreach (var method in methods)
                 {
@@ -686,6 +694,20 @@ namespace Kipon.Xrm.Exceptions
 }
 
 #endregion
+#region source: Kipon.Solid.Plugin\Xrm\Exceptions\UnresolveableParameterException.cs
+namespace Kipon.Xrm.Exceptions
+{
+    using System;
+
+    public class UnresolveableParameterException : BaseException
+    {
+        public UnresolveableParameterException(Type type, string name) : base($"Parameter of type {type.FullName} name {name} could not be resolved to a value.")
+        {
+        }
+    }
+}
+
+#endregion
 #region source: Kipon.Solid.Plugin\Xrm\Extensions\Sdk\KiponSdkGeneratedExtensionMethods.cs
 namespace Kipon.Xrm.Extensions.Sdk
 {
@@ -955,23 +977,26 @@ namespace Kipon.Xrm.Reflection
                 foreach (var method in methods)
                 {
                     #region filter on logicalname attribute on method
-                    var logAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
-                    if (logAttrs != null && logAttrs.Length > 0)
+                    if (primaryEntityName != null)
                     {
-                        var foundLogicalName = false;
-                        foreach (var logAttr in logAttrs)
+                        var logAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
+                        if (logAttrs != null && logAttrs.Length > 0)
                         {
-                            var name = (string)logAttr.GetType().GetProperty("Value").GetGetMethod().Invoke(logAttr, null);
-                            if (name == primaryEntityName)
+                            var foundLogicalName = false;
+                            foreach (var logAttr in logAttrs)
                             {
-                                foundLogicalName = true;
-                                break;
+                                var name = (string)logAttr.GetType().GetProperty("Value").GetGetMethod().Invoke(logAttr, null);
+                                if (name == primaryEntityName)
+                                {
+                                    foundLogicalName = true;
+                                    break;
+                                }
                             }
-                        }
 
-                        if (!foundLogicalName)
-                        {
-                            continue;
+                            if (!foundLogicalName)
+                            {
+                                continue;
+                            }
                         }
                     }
                     #endregion
@@ -1012,6 +1037,14 @@ namespace Kipon.Xrm.Reflection
                     if (method.Name == lookFor)
                     {
                         var next = CreateFrom(method, primaryEntityName);
+
+                        if (primaryEntityName == null)
+                        {
+                            AddIfConsistent(type, method, results, next, message, stage);
+                            found = true;
+                            continue;
+                        }
+
                         var logicalNames = (from n in next.Parameters where n.LogicalName != null select n.LogicalName).Distinct().ToArray();
 
                         if (logicalNames.Length == 1)
@@ -1069,9 +1102,11 @@ namespace Kipon.Xrm.Reflection
                         }
                         else
                         {
-#warning TO-DO
-                            // TO-DO: what to do, we have a method match, but no entities. Some methods ex. assosiate does not have target in deployment process.
-                            throw new NotImplementedException("handling method not attached to a logicalname is not supported yet.");
+                            // TO-DO: complete the list of messages not related to a specific entity.
+                            if (message != "RemoveMember")
+                            {
+                                throw new NotImplementedException("handling method not attached to a logicalname is not supported yet.");
+                            }
                         }
                     }
                     #endregion
@@ -1551,6 +1586,27 @@ namespace Kipon.Xrm.Reflection
                 var queryMethod = type.QueryMethod;
                 return queryMethod.Invoke(repository, new object[0]);
             }
+
+            if (type.FromType == typeof(Guid))
+            {
+                if (type.Name.ToLower() == "id")
+                {
+                    return pluginExecutionContext.PrimaryEntityId;
+                }
+
+                if (type.Name.ToLower() == "listid")
+                {
+                    return pluginExecutionContext.InputParameters["ListId"];
+                }
+
+                if (type.Name.ToLower() == "entityid")
+                {
+                    return pluginExecutionContext.InputParameters["EntityId"];
+                }
+
+                throw new Exceptions.UnresolveableParameterException(type.FromType, type.Name);
+            }
+
             return this.CreateServiceInstance(type);
         }
 
@@ -1780,6 +1836,12 @@ namespace Kipon.Xrm.Reflection
 
             if (resolvedTypes.ContainsKey(key))
             {
+                return resolvedTypes[key];
+            }
+
+            if (parameter.ParameterType == typeof(Guid))
+            {
+                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name };
                 return resolvedTypes[key];
             }
 
@@ -2238,6 +2300,7 @@ namespace Kipon.Xrm.Reflection
         #region properties
         public Type FromType { get; private set; }
         public Type ToType { get; private set; }
+        public string Name { get; private set; }
 
         public System.Reflection.ConstructorInfo Constructor { get; private set; }
 
@@ -2350,6 +2413,7 @@ namespace Kipon.Xrm.Reflection
                     }
                     else if (this.FromType.Implements(Types.IAdminUnitOfWork)) this._ik = Types.IAdminUnitOfWork.FullName;
                     else if (this.FromType.Implements(Types.IUnitOfWork)) this._ik = Types.IUnitOfWork.FullName;
+                    else if (this.FromType == typeof(Guid)) return $"GUID:{this.Name}";
                     else if (this.ToType != null) this._ik = this.ToType.FullName;
                     else this._ik = this.FromType.FullName;
                 }
@@ -2480,6 +2544,13 @@ namespace Kipon.Xrm.Reflection
 
     public sealed class Types
     {
+        public static readonly string[] MESSAGE_WITHOUT_PRIMARY_ENTITY = new string[]
+        {
+            "AddMember",
+            "RemoveMember"
+        };
+
+
         private const string NAMESPACE = "Kipon" + "." + "Xrm" + ".";
         private Dictionary<string, Type> entityTypes = new Dictionary<string, Type>();
 

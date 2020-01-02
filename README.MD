@@ -137,7 +137,14 @@ namespace MySolid.Plugins
 }
 ```
 
+#### Special plugin method parameters, related to specific messages (types and names, names is NOT case sensetive):
 
+##### Any message having a target entity
+System.Guid id - the id of the primary entity.
+
+##### RemoveMember
+System.Guid listId - this list an entity is being removed from
+System.Guid entityId - the entityId of the entity (account, contact, lead) that is being removed from the list
 
 
 #### Adding services
@@ -154,8 +161,8 @@ You can create you own services and inject these as well. I recommend that you c
 service implementations. You should only inject ServiceAPI into your plugins, never actual implementations.
 
 Each service defined can have one and only one implementation within the plugin library. Service implementations is found with reflection, and the concept
-is looking for the "one-and-only" impelmentation for each service. Service implementations can depend on other services. Services are injected into each other
-by constructor injection. Only constructor injection is supported for services, so be carefull on circular references. They are not allowed. As with plugins,
+is looking for the "one-and-only" implementation for each service. Service implementations can depend on other services. Services are injected into each other
+by constructor injection. Only constructor injection is supported for services, so be carefull on circular references. They are not allowed. As with plugin event methods,
 you should only inject interfaces into you services.
 
 You cannot inject target, preimage, postimage or mergedimage directly into your services. Add these as parameters in your interface and let the plugin parse
@@ -186,7 +193,7 @@ namespace MySolid.Services
 }
 ```
 
-#### Plugins\AccountPlugin now with service injectsions
+#### Plugins\AccountPlugin now with service injection
 ```csharp
 using Kipon.Xrm;
 using MySolid.ServiceAPI

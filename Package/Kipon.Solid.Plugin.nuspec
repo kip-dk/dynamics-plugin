@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Solid.Plugin</id>
-    <version>1.0.0.25</version>
+    <version>1.0.0.26</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
