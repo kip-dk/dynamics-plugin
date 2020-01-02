@@ -1,5 +1,8 @@
 ## Last updated: 2020-01-02 11:30
 
+### 1.0.0.27
+Release build of tools added, 1.0.0.26 was unable to deploy new step.
+
 ### 1.0.0.26
 Added and tested support for RemoveMember  (event to listen on single member being removed from marketing list)
 
