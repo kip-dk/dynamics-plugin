@@ -140,14 +140,14 @@ namespace MySolid.Plugins
 #### Special plugin method parameters, related to specific messages (types and names, names is NOT case sensetive):
 
 ##### Any message having a target entity
-System.Guid id - the id of the primary entity.
+* System.Guid id - the id of the primary entity.
 
 ##### RemoveMember
-System.Guid listId - this list an entity is being removed from
-System.Guid entityId - the entityId of the entity (account, contact, lead) that is being removed from the list
+* System.Guid listId - this list an entity instance is being removed from
+* System.Guid entityId - the entityId of the entity (account, contact, lead) that is being removed from the list
 
 
-#### Adding services
+### Adding services
 Standard services like:
 
 * Microsoft.Xrm.Sdk.IPluginExecutionContext
