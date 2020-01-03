@@ -43,6 +43,17 @@ namespace Kipon.Xrm.Fake.Extensions.Query
 
             var valueType = value.GetType();
 
+            if (valueType == typeof(Guid) || valueType == typeof(Guid?))
+            {
+                var r = (Guid)value;
+                var o = values.Single();
+                if (o.GetType() == typeof(Guid))
+                {
+                    var g = (Guid)o;
+                    return r == g;
+                }
+            }
+
             if (valueType == typeof(Microsoft.Xrm.Sdk.EntityReference))
             {
                 var r = (Microsoft.Xrm.Sdk.EntityReference)value;
@@ -52,6 +63,7 @@ namespace Kipon.Xrm.Fake.Extensions.Query
                     var g = (Guid)o;
                     return r.Id == g;
                 }
+
                 if (o.GetType() == typeof(Microsoft.Xrm.Sdk.EntityReference))
                 {
                     var g = (Microsoft.Xrm.Sdk.EntityReference)o;

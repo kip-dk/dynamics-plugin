@@ -13,6 +13,22 @@ namespace Kipon.Solid.Plugin.UnitTests.Fake.Repository.Query
     public class QueryResolverTest
     {
         [TestMethod]
+        public void UniqueKeyQueryTest()
+        {
+            using (var ctx = PluginExecutionFakeContext.ForType<Kipon.Solid.Plugin.Plugins.Account.AccountCreatePlugin>())
+            {
+                var id = Guid.NewGuid();
+                ctx.AddEntity(new Entities.Account { AccountId = id, Name = "Kurt" });
+
+                var accountQuery = ctx.GetQuery<Entities.Account>();
+                var kurt = (from a in accountQuery where a.AccountId == id select a).Single();
+
+                Assert.AreEqual("Kurt", kurt.Name);
+            }
+        }
+
+
+        [TestMethod]
         public void SingleEntityQueryTest()
         {
             using (var ctx = PluginExecutionFakeContext.ForType<Kipon.Solid.Plugin.Plugins.Account.AccountCreatePlugin>())
