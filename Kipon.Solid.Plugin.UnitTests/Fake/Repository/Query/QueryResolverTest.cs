@@ -27,6 +27,27 @@ namespace Kipon.Solid.Plugin.UnitTests.Fake.Repository.Query
             }
         }
 
+        [TestMethod]
+        public void TestForeignKeyQueryTest()
+        {
+            using (var ctx = PluginExecutionFakeContext.ForType<Kipon.Solid.Plugin.Plugins.Account.AccountCreatePlugin>())
+            {
+                var id = Guid.NewGuid();
+                var primaryContactId = new Microsoft.Xrm.Sdk.EntityReference { LogicalName = Entities.Contact.EntityLogicalName, Id = Guid.NewGuid() };
+                ctx.AddEntity(new Entities.Account { AccountId = id, Name = "Kurt", PrimaryContactId = primaryContactId });
+
+                var accountQuery = ctx.GetQuery<Entities.Account>();
+                var kurt = (from a in accountQuery where a.PrimaryContactId.Id == primaryContactId.Id select a).Single();
+
+                Assert.AreEqual("Kurt", kurt.Name);
+
+                kurt = (from a in accountQuery where a.PrimaryContactId == primaryContactId select a).Single();
+
+                Assert.AreEqual("Kurt", kurt.Name);
+
+            }
+        }
+
 
         [TestMethod]
         public void SingleEntityQueryTest()
