@@ -9,8 +9,6 @@
         System.Guid Create(Entity entity);
         void Update(Entity entity);
         void Delete(Entity entity);
-        void SaveChanges();
-        void ClearChanges();
         void ClearContext();
         void Detach(string logicalname, params Guid[] ids);
         void Detach(Microsoft.Xrm.Sdk.EntityReference reference);

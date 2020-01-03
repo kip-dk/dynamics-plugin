@@ -10,5 +10,11 @@ namespace Kipon.Solid.Plugin.Entities
     public partial class Account : Model.IProspect
     {
         public Microsoft.Xrm.Sdk.Money Saldo { get; set; }
+
+        void x()
+        {
+            this.Attributes.Remove("");
+
+        }
     }
 }

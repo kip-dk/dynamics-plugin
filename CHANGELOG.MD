@@ -1,5 +1,16 @@
 ## Last updated: 2020-01-02 11:30
 
+### NEXT
+
+IMPORTANT: You must regenerate your entities after installatin this package. Changes has been made to the code generator.
+
+IUnitFoWork.ClearChanges() and SaveChanges() has been removed. These methods belongs into a context that is not transactional by default
+(IUnitOfWork in a plugin is just participating in the current IOrganizationService transaction, so we are already in a transaction) so the methods did not make sense.
+
+The generated CrmRepository implementation has been updated accordingly, so Add, Update, Delete is operating directly on the IOrganizationService, but the underlying
+CrmContext is still keept in sync. Add will add the object to the context after create, Delete will remove the object from the context, and Update will add or update
+the object in the CrmContext according to the updates, after the operation has been executed on the organization service.
+
 ### 1.0.0.27
 Release build of tools added, 1.0.0.26 was unable to deploy new step.
 

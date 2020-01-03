@@ -44,11 +44,6 @@ namespace Kipon.Xrm.Tools.CodeWriter
             this._service.Delete(entity.LogicalName, entity.Id);
         }
 
-        public void ClearChanges()
-        {
-            this.context.ClearChanges();
-        }
-
         public void ClearContext()
         {
             var candidates = this.context.GetAttachedEntities().ToArray();
@@ -82,21 +77,18 @@ namespace Kipon.Xrm.Tools.CodeWriter
         public void Detach(Microsoft.Xrm.Sdk.Entity ent)
         {
             this.Detach(ent.LogicalName, ent.Id);
-        }
-
-        public void SaveChanges() 
-        {
-            this.context.SaveChanges();
         }";
 
         // 0 = namespace, 1 = ctxName
         private const string CRM_REPOSITORY_IMPL = @"   public class CrmRepository<T> : Kipon.Xrm.IRepository<T> where T: Microsoft.Xrm.Sdk.Entity, new() 
     {{
         private {1} context;
+        private Microsoft.Xrm.Sdk.IOrganizationService _service;
 
-        public CrmRepository({1} context)
+        public CrmRepository({1} context, Microsoft.Xrm.Sdk.IOrganizationService service)
         {{
             this.context = context;
+            this._service = service;
         }}
 
         public IQueryable<T> GetQuery()
@@ -106,12 +98,14 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         public void Delete(T entity)
         {{
-            this.context.DeleteObject(entity);
+            this._service.Delete(entity.LogicalName, entity.Id);
+            this.context.Detach(entity);
         }}
 
         public void Add(T entity)
         {{
-            this.context.AddObject(entity);
+            this._service.Create(entity);
+            this.context.Attach(entity);
         }}
 
         public void Attach(T entity)
@@ -126,12 +120,24 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         public void Update(T entity)
         {{
+            this._service.Update(entity);
             if (!this.context.IsAttached(entity))
             {{
                 this.context.Attach(entity);
-            }}
+            }} else 
+            {{
+                var ch = (from c in this.context.GetAttachedEntities() 
+                          where c.LogicalName == entity.LogicalName && 
+                                c.Id == entity.Id 
+                          select c).Single();
 
-            this.context.UpdateObject(entity);
+                foreach (var key in entity.Attributes.Keys)
+                {{
+                    // update the cache silent
+                    ch.Attributes.Remove(key);
+                    ch.Attributes.Add(key, entity[key]);
+                }}
+            }}
         }}
 
         public T GetById(Guid id)
@@ -186,7 +192,6 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                     writer.WriteLine("\t\tvoid Kipon.Xrm.IService.OnStepFinalized()");
                     writer.WriteLine("\t\t{");
-                    writer.WriteLine("\t\t\tthis.context.ClearChanges();");
                     writer.WriteLine("\t\t\tforeach (var e in this.context.GetAttachedEntities()) this.context.Detach(e);");
                     writer.WriteLine("\t\t}");
                     writer.WriteLine("");
@@ -201,7 +206,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         /* R2 */ writer.WriteLine("\t\t\t{");
                         /*    */ writer.WriteLine("\t\t\t\tif (_" + uowname.ToLower() + " == null)");
                         /* R3 */ writer.WriteLine("\t\t\t\t\t{");
-                        /*    */ writer.WriteLine("\t\t\t\t\t\t_" + uowname.ToLower() + " = new CrmRepository<" + logicalname + ">(this.context);");
+                        /*    */ writer.WriteLine("\t\t\t\t\t\t_" + uowname.ToLower() + " = new CrmRepository<" + logicalname + ">(this.context, this._service);");
                         /* R3 */ writer.WriteLine("\t\t\t\t\t}");
                         /*    */ writer.WriteLine("\t\t\t\treturn _" + uowname.ToLower() + ";");
                         /* R2 */ writer.WriteLine("\t\t\t}");
