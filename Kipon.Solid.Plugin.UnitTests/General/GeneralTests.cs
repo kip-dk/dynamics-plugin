@@ -17,7 +17,16 @@ namespace Kipon.Solid.Plugin.UnitTests.General
             string y = null;
 
             Assert.IsTrue(x == y);
+        }
 
+        [TestMethod]
+        public void DecimalNullableCastTest()
+        {
+            object x = null;
+            x = 123M;
+
+            var asNullableDecimal = x as decimal?;
+            Assert.AreEqual(123M, asNullableDecimal.Value);
         }
     }
 }
