@@ -28,5 +28,19 @@ namespace Kipon.Solid.Plugin.UnitTests.General
             var asNullableDecimal = x as decimal?;
             Assert.AreEqual(123M, asNullableDecimal.Value);
         }
+
+        [TestMethod]
+        public void DateCompareTest()
+        {
+            var first = System.DateTime.Today;
+            var second = System.DateTime.Today.AddMonths(1);
+            var result = Math.Round(((decimal)second.Subtract(first).Days) / (365.25M / 12M), 0);
+
+            Assert.AreEqual(1M, result);
+
+            int v1 = -2;
+            var v2 = v1 + 1;
+            Assert.AreEqual(-1, v2);
+        }
     }
 }
