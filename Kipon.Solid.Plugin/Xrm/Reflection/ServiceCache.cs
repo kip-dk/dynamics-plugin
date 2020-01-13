@@ -39,7 +39,7 @@
                 return services[type.ObjectInstanceKey];
             }
 
-            if (type.IsTarget)
+            if (type.IsTarget && !type.IsReference)
             {
                 var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.InputParameters["Target"];
                 services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);

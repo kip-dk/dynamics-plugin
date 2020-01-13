@@ -226,8 +226,6 @@ namespace Kipon.Fake.Xrm
         System.Guid Create(Entity entity);
         void Update(Entity entity);
         void Delete(Entity entity);
-        void SaveChanges();
-        void ClearChanges();
         void ClearContext();
         void Detach(string logicalname, params Guid[] ids);
         void Detach(Microsoft.Xrm.Sdk.EntityReference reference);
@@ -608,7 +606,7 @@ namespace Kipon.Fake.Xrm.Exceptions
     using System;
     public class MultipleLogicalNamesException : BaseException
     {
-        public MultipleLogicalNamesException(Type type, System.Reflection.MethodInfo method) : base($"{ type.FullName }, method { method.Name } is requesting entities of different types. That is not allowed.")
+        public MultipleLogicalNamesException(Type type, System.Reflection.MethodInfo method, string[] names) : base($"{ type.FullName }, method { method.Name } is requesting entities of different types. That is not allowed. {string.Join(",", names)}")
         {
         }
     }
@@ -1045,6 +1043,29 @@ namespace Kipon.Fake.Xrm.Reflection
                             continue;
                         }
 
+                        var notrelevant = (from n in next.Parameters
+                                           where n.LogicalName != null
+                                             && n.LogicalName != primaryEntityName
+                                             && n.IsGenericEntityInterface == false
+                                           select n).Any();
+
+                        if (notrelevant)
+                        {
+                            // at least on parameter is explicity something else than the current logical name
+                            // so it is not relevant.
+                            continue;
+                        }
+
+                        var logicalnames = (from l in next.Parameters
+                                            where l.LogicalName != null
+                                              && l.IsGenericEntityInterface == false
+                                            select l.LogicalName).Distinct().ToArray();
+
+                        if (logicalnames.Length > 1)
+                        {
+                            throw new Exceptions.MultipleLogicalNamesException(type, method, logicalnames);
+                        }
+
                         var logicalNames = (from n in next.Parameters where n.LogicalName != null select n.LogicalName).Distinct().ToArray();
 
                         if (logicalNames.Length == 1)
@@ -1055,11 +1076,6 @@ namespace Kipon.Fake.Xrm.Reflection
                                 found = true;
                             }
                             continue;
-                        }
-
-                        if (logicalNames.Length > 1)
-                        {
-                            throw new Exceptions.MultipleLogicalNamesException(type, method);
                         }
 
                         {
@@ -1513,7 +1529,7 @@ namespace Kipon.Fake.Xrm.Reflection
                 return services[type.ObjectInstanceKey];
             }
 
-            if (type.IsTarget)
+            if (type.IsTarget && !type.IsReference)
             {
                 var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.InputParameters["Target"];
                 services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);
@@ -2039,6 +2055,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
                     var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsTarget = true };
                     result.LogicalName = key.LogicalName;
+                    result.IsGenericEntityInterface = true;
                     result.ResolveProperties();
 
                     if (ReturnIfOk(type, result))
@@ -2064,6 +2081,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
                     var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsPreimage = true };
                     result.LogicalName = key.LogicalName;
+                    result.IsGenericEntityInterface = true;
                     result.ResolveProperties();
 
                     if (ReturnIfOk(type, result))
@@ -2089,6 +2107,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
                     var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsMergedimage = true };
                     result.LogicalName = key.LogicalName;
+                    result.IsGenericEntityInterface = true;
                     result.ResolveProperties();
 
                     if (ReturnIfOk(type, result))
@@ -2114,6 +2133,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
                     var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsPostimage = true };
                     result.LogicalName = key.LogicalName;
+                    result.IsGenericEntityInterface = true;
                     result.ResolveProperties();
 
                     if (ReturnIfOk(type, result))
@@ -2301,9 +2321,8 @@ namespace Kipon.Fake.Xrm.Reflection
         public Type FromType { get; private set; }
         public Type ToType { get; private set; }
         public string Name { get; private set; }
-
         public System.Reflection.ConstructorInfo Constructor { get; private set; }
-
+        public bool IsGenericEntityInterface { get; private set; }
         public bool IsTarget { get; private set; }
         public bool IsReference { get; private set; }
         public bool IsPreimage { get; private set; }

@@ -71,10 +71,12 @@
     <Compile Include="Entities\AdminCrmUnitOfWork.cs" />
     <Compile Include="Entities\Contacts\Contact.cs" />
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
+    <Compile Include="Model\INamed.cs" />
     <Compile Include="Model\IProspect.cs" />
     <Compile Include="Plugins\Account\AccountCreatePlugin.cs" />
     <Compile Include="Plugins\Account\AccountPostCreate.cs" />
     <Compile Include="Plugins\Account\AccountRetrieveMultiplePostAsync.cs" />
+    <Compile Include="Plugins\Contact\ContactDeletePlugin.cs" />
     <Compile Include="Plugins\Contact\ContactPlugin.cs" />
     <Compile Include="Plugins\Generic\ProspectPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />

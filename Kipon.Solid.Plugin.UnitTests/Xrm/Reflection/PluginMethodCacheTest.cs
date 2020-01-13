@@ -199,6 +199,15 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         }
         #endregion
 
+        #region preimage by interface on delete test
+        [TestMethod]
+        public void DeleteContactWithPreimageAsInterfaceTest()
+        {
+            var methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.Contact.ContactDeletePlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Delete.ToString(), Entities.Contact.EntityLogicalName, false);
+            Assert.AreEqual(1, methods.Length);
+        }
+        #endregion
+
 
         #region preimageproperty test
         [TestMethod]

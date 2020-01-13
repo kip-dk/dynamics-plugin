@@ -239,13 +239,11 @@
 
                     var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsTarget = true };
                     result.LogicalName = key.LogicalName;
+                    result.IsGenericEntityInterface = true;
                     result.ResolveProperties();
-
-                    if (ReturnIfOk(type, result))
-                    {
-                        resolvedTypes[key] = result;
-                        return result;
-                    }
+                    result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
+                    resolvedTypes[key] = result;
+                    return result;
                 }
             }
 
@@ -264,13 +262,11 @@
 
                     var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsPreimage = true };
                     result.LogicalName = key.LogicalName;
+                    result.IsGenericEntityInterface = true;
                     result.ResolveProperties();
-
-                    if (ReturnIfOk(type, result))
-                    {
-                        resolvedTypes[key] = result;
-                        return result;
-                    }
+                    result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
+                    resolvedTypes[key] = result;
+                    return result;
                 }
             }
 
@@ -289,13 +285,11 @@
 
                     var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsMergedimage = true };
                     result.LogicalName = key.LogicalName;
+                    result.IsGenericEntityInterface = true;
                     result.ResolveProperties();
-
-                    if (ReturnIfOk(type, result))
-                    {
-                        resolvedTypes[key] = result;
-                        return result;
-                    }
+                    result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
+                    resolvedTypes[key] = result;
+                    return result;
                 }
             }
 
@@ -314,13 +308,9 @@
 
                     var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsPostimage = true };
                     result.LogicalName = key.LogicalName;
+                    result.IsGenericEntityInterface = true;
                     result.ResolveProperties();
-
-                    if (ReturnIfOk(type, result))
-                    {
-                        resolvedTypes[key] = result;
-                        return result;
-                    }
+                    result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
                 }
             }
             #endregion
@@ -479,6 +469,17 @@
             }
             return true;
         }
+
+
+        private static bool ReturnIfImplemented(Type from, TypeCache result)
+        {
+            if (from.IsInterface && !from.IsAssignableFrom(result.ToType))
+            {
+                return false;
+            }
+            return true;
+        }
+
         #endregion
 
         #region private helpers
@@ -501,9 +502,9 @@
         public Type FromType { get; private set; }
         public Type ToType { get; private set; }
         public string Name { get; private set; }
-
         public System.Reflection.ConstructorInfo Constructor { get; private set; }
-
+        public bool IsGenericEntityInterface { get; private set; }
+        public bool IsImplemenedByEntity { get; private set; }
         public bool IsTarget { get; private set; }
         public bool IsReference { get; private set; }
         public bool IsPreimage { get; private set; }

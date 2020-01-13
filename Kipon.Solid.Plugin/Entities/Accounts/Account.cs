@@ -7,7 +7,7 @@ using Kipon.Xrm.Attributes;
 
 namespace Kipon.Solid.Plugin.Entities
 {
-    public partial class Account : Model.IProspect
+    public partial class Account : Model.IProspect, Model.INamed
     {
         public Microsoft.Xrm.Sdk.Money Saldo { get; set; }
 

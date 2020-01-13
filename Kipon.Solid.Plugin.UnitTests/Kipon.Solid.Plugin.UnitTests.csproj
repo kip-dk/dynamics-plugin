@@ -70,6 +70,7 @@
     <Compile Include="Fake\Repository\Query\QueryResolverTest.cs" />
     <Compile Include="Fake\Xrm\Reflection\TypesTest.cs" />
     <Compile Include="General\GeneralTests.cs" />
+    <Compile Include="Plugins\Contact\ContactDeletePluginTest.cs" />
     <Compile Include="Plugins\Generic\ProspectPluginTest.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPluginTest.cs" />
     <Compile Include="Xrm\Reflection\ServiceCacheTest.cs" />

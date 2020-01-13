@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kipon.Solid.Plugin.Entities
 {
-    public partial class Contact : Contact.INameChanged, Contact.IPreName, Model.IProspect
+    public partial class Contact : Contact.INameChanged, Contact.IPreName, Model.IProspect, Model.INamed
     {
 
         [Microsoft.Xrm.Sdk.AttributeLogicalName("fullname")]

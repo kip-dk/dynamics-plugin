@@ -119,6 +119,29 @@
                             continue;
                         }
 
+                        var notrelevant = (from n in next.Parameters
+                                           where n.LogicalName != null
+                                             && n.LogicalName != primaryEntityName
+                                             && n.IsGenericEntityInterface == false
+                                           select n).Any();
+
+                        if (notrelevant)
+                        {
+                            // at least on parameter is explicity something else than the current logical name
+                            // so it is not relevant.
+                            continue;
+                        }
+
+                        var logicalnames = (from l in next.Parameters
+                                            where l.LogicalName != null
+                                              && l.IsGenericEntityInterface == false
+                                            select l.LogicalName).Distinct().ToArray();
+
+                        if (logicalnames.Length > 1)
+                        {
+                            throw new Exceptions.MultipleLogicalNamesException(type, method, logicalnames);
+                        }
+
                         var logicalNames = (from n in next.Parameters where n.LogicalName != null select n.LogicalName).Distinct().ToArray();
 
                         if (logicalNames.Length == 1)
@@ -129,11 +152,6 @@
                                 found = true;
                             }
                             continue;
-                        }
-
-                        if (logicalNames.Length > 1)
-                        {
-                            throw new Exceptions.MultipleLogicalNamesException(type, method);
                         }
 
                         {

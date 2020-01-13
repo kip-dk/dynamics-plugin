@@ -11,6 +11,11 @@ The generated CrmRepository implementation has been updated accordingly, so Add,
 CrmContext is still keept in sync. Add will add the object to the context after create, Delete will remove the object from the context, and Update will add or update
 the object in the CrmContext according to the updates, after the operation has been executed on the organization service.
 
+Delete references was not resolved correctly when listening to delete events.
+
+Generic shared interfaces for preimage, mergedimage and postimage did not work as expected. Now these images can be based on as shared interfaces that is impl. by the entity.
+At least one parameter must target a specific entity ether by reference or implementation, or the method must be decorated with logicalname attribute to identify what to listen for.
+
 ### 1.0.0.27
 Release build of tools added, 1.0.0.26 was unable to deploy new step.
 
