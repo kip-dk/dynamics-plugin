@@ -1,6 +1,6 @@
 ## Last updated: 2020-01-02 11:30
 
-### NEXT
+### 1.0.0.28
 
 IMPORTANT: You must regenerate your entities after installatin this package. Changes has been made to the code generator.
 
@@ -13,7 +13,7 @@ the object in the CrmContext according to the updates, after the operation has b
 
 Delete references was not resolved correctly when listening to delete events.
 
-Generic shared interfaces for preimage, mergedimage and postimage did not work as expected. Now these images can be based on as shared interfaces that is impl. by the entity.
+Generic shared interfaces for preimage, mergedimage and postimage did not work as expected. Now these images can be based on a shared interfaces that is impl. by the entity.
 At least one parameter must target a specific entity ether by reference or implementation, or the method must be decorated with logicalname attribute to identify what to listen for.
 
 ### 1.0.0.27
