@@ -1,8 +1,8 @@
 ## Last updated: 2020-01-02 11:30
 
-### NEXT
+### 1.0.0.29
 
-Kipon.Xrm.IService.OnStepFinalized() impl in unitofwork  generated error while cleaning the context if any items was in it.
+Kipon.Xrm.IService.OnStepFinalized() impl in crmunitofwork  generated error while cleaning the context if any items was in it.
 
 ### 1.0.0.28
 
