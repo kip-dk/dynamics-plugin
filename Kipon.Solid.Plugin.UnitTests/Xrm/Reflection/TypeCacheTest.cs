@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
 {
     [TestClass]
-    public class TypeCacheTest
+    public class TypeCacheTest : BaseTest
     {
         [TestMethod]
         public void ForTypeTest()

@@ -192,7 +192,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                     writer.WriteLine("\t\tvoid Kipon.Xrm.IService.OnStepFinalized()");
                     writer.WriteLine("\t\t{");
-                    writer.WriteLine("\t\t\tforeach (var e in this.context.GetAttachedEntities()) this.context.Detach(e);");
+                    writer.WriteLine("\t\t\tforeach (var e in this.context.GetAttachedEntities().ToArray()) this.context.Detach(e);");
                     writer.WriteLine("\t\t}");
                     writer.WriteLine("");
 

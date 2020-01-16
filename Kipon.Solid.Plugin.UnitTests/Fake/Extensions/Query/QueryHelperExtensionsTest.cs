@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Kipon.Solid.Plugin.UnitTests.Fake.Extensions.Query
 {
     [TestClass]
-    public class QueryHelperExtensionsTest
+    public class QueryHelperExtensionsTest : BaseTest
     {
         [TestMethod]
         public void EqualTest()

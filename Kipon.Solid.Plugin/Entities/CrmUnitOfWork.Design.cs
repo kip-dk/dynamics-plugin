@@ -86,7 +86,7 @@ namespace Kipon.Solid.Plugin.Entities
 
 		void Kipon.Xrm.IService.OnStepFinalized()
 		{
-			foreach (var e in this.context.GetAttachedEntities()) this.context.Detach(e);
+			foreach (var e in this.context.GetAttachedEntities().ToArray()) this.context.Detach(e);
 		}
 
 		private Kipon.Xrm.IRepository<Account> _accounts; 
@@ -242,7 +242,7 @@ namespace Kipon.Solid.Plugin.Entities
 
 		void Kipon.Xrm.IService.OnStepFinalized()
 		{
-			foreach (var e in this.context.GetAttachedEntities()) this.context.Detach(e);
+			foreach (var e in this.context.GetAttachedEntities().ToArray()) this.context.Detach(e);
 		}
 
 		private Kipon.Xrm.IRepository<Account> _accounts; 

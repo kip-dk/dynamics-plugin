@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Kipon.Solid.Plugin.UnitTests.General
 {
     [TestClass]
-    public class GeneralTests
+    public class GeneralTests : BaseTest
     {
         [TestMethod]
         public void NullStringEqualNullString()

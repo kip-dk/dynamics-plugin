@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Kipon.Solid.Plugin.UnitTests.Fake.Xrm.Reflection
 {
     [TestClass]
-    public class TypesTest
+    public class TypesTest : BaseTest
     {
         [TestMethod]
         public void SetAssemblyTest()

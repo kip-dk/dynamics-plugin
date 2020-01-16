@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Kipon.Solid.Plugin.UnitTests.Plugins.Generic
 {
     [TestClass]
-    public class ProspectPluginTest
+    public class ProspectPluginTest : BaseTest
     {
         [TestMethod]
         public void OnPreUpdateAccountTest()

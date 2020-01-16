@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Kipon.Solid.Plugin.UnitTests.Fake.Repository.Query
 {
     [TestClass]
-    public class QueryResolverTest
+    public class QueryResolverTest : BaseTest
     {
         [TestMethod]
         public void UniqueKeyQueryTest()

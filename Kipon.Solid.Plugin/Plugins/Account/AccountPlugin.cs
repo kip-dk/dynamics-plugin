@@ -28,9 +28,12 @@ namespace Kipon.Solid.Plugin.Plugins.Account
         [Sort(101)]
         public void OnPreUpdate(Entities.Account.ICreditLimitChanged target)
         {
-            if (target.CreditLimit == null)
+            if (Setting.IsUnitTest)
             {
-                target.CreditLimit = new Microsoft.Xrm.Sdk.Money(100M);
+                if (target.CreditLimit == null)
+                {
+                    target.CreditLimit = new Microsoft.Xrm.Sdk.Money(100M);
+                }
             }
         }
 

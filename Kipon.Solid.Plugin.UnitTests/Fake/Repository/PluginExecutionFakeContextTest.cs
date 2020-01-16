@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Kipon.Solid.Plugin.UnitTests.Fake.Repository
 {
     [TestClass]
-    public class PluginExecutionFakeContextTest
+    public class PluginExecutionFakeContextTest : BaseTest
     {
         #region create test
         [TestMethod]

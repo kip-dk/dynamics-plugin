@@ -10,7 +10,7 @@ using Kipon.Xrm.Fake.Services;
 namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
 {
     [TestClass]
-    public class ServiceCacheTest
+    public class ServiceCacheTest : BaseTest
     {
         private OrganizationServiceFactory organizationServiceFactory = new OrganizationServiceFactory(null);
 

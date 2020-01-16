@@ -12,19 +12,25 @@ namespace Kipon.Solid.Plugin.Plugins.Account
         [Sort(1)]
         public void OnValidateCreate(Entities.Account target, Entities.IUnitOfWork uow)
         {
-            if (target != null && target.CreditLimit == null)
+            if (Setting.IsUnitTest)
             {
-                target.CreditLimit = new Microsoft.Xrm.Sdk.Money(100M);
+                if (target != null && target.CreditLimit == null)
+                {
+                    target.CreditLimit = new Microsoft.Xrm.Sdk.Money(100M);
+                }
             }
         }
 
         [Sort(2)]
         public void OnValidateCreate(Entities.Account.IAccountNameChanged account)
         {
-            if (account.Name != null && account.Name.StartsWith("kurt"))
+            if (Setting.IsUnitTest)
             {
-                account.Name = "Jens";
-            } 
+                if (account.Name != null && account.Name.StartsWith("kurt"))
+                {
+                    account.Name = "Jens";
+                }
+            }
         }
     }
 }

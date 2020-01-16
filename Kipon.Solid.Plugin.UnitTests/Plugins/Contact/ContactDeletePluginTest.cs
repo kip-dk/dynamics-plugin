@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Kipon.Solid.Plugin.UnitTests.Plugins.Contact
 {
     [TestClass]
-    public class ContactDeletePluginTest
+    public class ContactDeletePluginTest : BaseTest
     {
         [TestMethod]
         public void ExecuteTest()

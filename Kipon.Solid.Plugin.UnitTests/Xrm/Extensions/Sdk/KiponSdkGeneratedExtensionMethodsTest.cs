@@ -9,7 +9,7 @@ using Kipon.Xrm.Extensions.Sdk;
 namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.Sdk
 {
     [TestClass]
-    public class KiponSdkGeneratedExtensionMethodsTest
+    public class KiponSdkGeneratedExtensionMethodsTest : BaseTest
     {
         [TestMethod]
         public void ToEarlyBoundEntityTest()

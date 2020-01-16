@@ -9,7 +9,7 @@ using Kipon.Solid.Plugin.Plugins.ListMember;
 namespace Kipon.Solid.Plugin.UnitTests.Plugins.ListMember
 {
     [TestClass]
-    public class ListMemberPluginTest
+    public class ListMemberPluginTest : BaseTest
     {
         [TestMethod]
         public void OnPreRemoveMemberTest()

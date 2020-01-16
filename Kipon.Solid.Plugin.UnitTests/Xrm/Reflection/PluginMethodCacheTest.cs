@@ -5,7 +5,7 @@ using Kipon.Xrm.Attributes;
 namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
 {
     [TestClass]
-    public class PluginMethodCacheTest
+    public class PluginMethodCacheTest : BaseTest
     {
         private Kipon.Xrm.Reflection.PluginMethod.Cache pluginMethodcache = new Kipon.Xrm.Reflection.PluginMethod.Cache(typeof(Kipon.Solid.Plugin.Entities.Account).Assembly);
 

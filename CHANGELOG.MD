@@ -1,5 +1,9 @@
 ## Last updated: 2020-01-02 11:30
 
+### NEXT
+
+Kipon.Xrm.IService.OnStepFinalized() impl in unitofwork  generated error while cleaning the context if any items was in it.
+
 ### 1.0.0.28
 
 IMPORTANT: You must regenerate your entities after installatin this package. Changes has been made to the code generator.

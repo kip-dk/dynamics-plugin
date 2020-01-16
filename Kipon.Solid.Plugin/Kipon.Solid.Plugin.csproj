@@ -81,6 +81,7 @@
     <Compile Include="Plugins\Generic\ProspectPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
+    <Compile Include="Setting.cs" />
     <Compile Include="Xrm\Attributes\AdminAttribute.cs" />
     <Compile Include="Xrm\Attributes\ExportAttribute.cs" />
     <Compile Include="Xrm\Attributes\ImportingConstructorAttribute.cs" />
