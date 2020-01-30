@@ -59,8 +59,8 @@
                     #region find out if method is relevant, looking a target fields
                     if (message == Attributes.StepAttribute.MessageEnum.Update.ToString() && !method.FilterAllProperties)
                     {
-                        var target = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
-                        if (!method.IsRelevant(target))
+                        var targetEntity = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
+                        if (!method.IsRelevant(targetEntity))
                         {
                             continue;
                         }
@@ -70,10 +70,40 @@
                     #region now resolve all parameters
                     var args = new object[method.Parameters.Length];
                     var ix = 0;
+                    System.ComponentModel.INotifyPropertyChanged mergedimage = null;
+                    System.ComponentModel.INotifyPropertyChanged target = null;
                     foreach (var p in method.Parameters)
                     {
                         args[ix] = serviceCache.Resolve(p);
+
+                        if (p.IsMergedimage)
+                        {
+                            mergedimage = (System.ComponentModel.INotifyPropertyChanged)args[ix];
+                        }
+
+                        if (p.IsTarget)
+                        {
+                            target = args[ix] as System.ComponentModel.INotifyPropertyChanged;
+                        }
                         ix++;
+                    }
+                    #endregion
+
+                    #region add mergedimage eventlistener if applicable
+                    PropertyMirror mergedimageMirror = null;
+                    PropertyMirror targetMirror = null;
+
+                    if (mergedimage != null)
+                    {
+                        var tg = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
+                        mergedimageMirror = new PropertyMirror(tg);
+                        mergedimage.PropertyChanged += mergedimageMirror.MirrorpropertyChanged;
+                    }
+
+                    if (mergedimage != null && target != null)
+                    {
+                        targetMirror = new PropertyMirror((Microsoft.Xrm.Sdk.Entity)mergedimage);
+                        target.PropertyChanged += targetMirror.MirrorpropertyChanged;
                     }
                     #endregion
 
@@ -81,11 +111,50 @@
                     method.Invoke(this, args);
                     #endregion
 
+                    #region cleanup mirror
+                    if (mergedimageMirror != null)
+                    {
+                        mergedimage.PropertyChanged -= mergedimageMirror.MirrorpropertyChanged;
+                        mergedimageMirror = null;
+                    }
+
+                    if (targetMirror != null)
+                    {
+                        target.PropertyChanged -= targetMirror.MirrorpropertyChanged;
+                        targetMirror = null;
+                    }
+                    #endregion
+
                     #region prepare for next method
                     serviceCache.OnStepFinalize();
                     #endregion
                 }
             }
+        }
+        #endregion
+
+        #region image helper classes
+        private class PropertyMirror
+        {
+            private Microsoft.Xrm.Sdk.Entity mirrorTo;
+
+            internal PropertyMirror(Microsoft.Xrm.Sdk.Entity mirrorTo)
+            {
+                this.mirrorTo = mirrorTo; 
+            }
+
+            internal void MirrorpropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+            {
+                var attr = (Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute)sender.GetType().GetProperty(e.PropertyName).GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute), false).FirstOrDefault();
+                if (attr != null)
+                {
+                    var source = sender as Microsoft.Xrm.Sdk.Entity;
+                    if (source != null)
+                    {
+                        mirrorTo[attr.LogicalName] = source[attr.LogicalName];
+                    }
+                }
+            } 
         }
         #endregion
     }
