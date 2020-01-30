@@ -1,5 +1,10 @@
 ## Last updated: 2020-01-02 11:30
 
+### NEXT
+mergedimage is keept in sync with target in stage 20 or less. this means that any property set
+on target will reflect into mergedimage, and and change in mergedimage will replect into target
+and as a conseuence the later will cause update of the field in CRM.
+
 ### 1.0.0.29
 
 Kipon.Xrm.IService.OnStepFinalized() impl in crmunitofwork  generated error while cleaning the context if any items was in it.

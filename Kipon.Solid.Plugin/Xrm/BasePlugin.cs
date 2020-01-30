@@ -76,14 +76,17 @@
                     {
                         args[ix] = serviceCache.Resolve(p);
 
-                        if (p.IsMergedimage)
+                        if (stage <= 20)
                         {
-                            mergedimage = (System.ComponentModel.INotifyPropertyChanged)args[ix];
-                        }
+                            if (p.IsMergedimage)
+                            {
+                                mergedimage = (System.ComponentModel.INotifyPropertyChanged)args[ix];
+                            }
 
-                        if (p.IsTarget)
-                        {
-                            target = args[ix] as System.ComponentModel.INotifyPropertyChanged;
+                            if (p.IsTarget)
+                            {
+                                target = args[ix] as System.ComponentModel.INotifyPropertyChanged;
+                            }
                         }
                         ix++;
                     }
@@ -93,17 +96,20 @@
                     PropertyMirror mergedimageMirror = null;
                     PropertyMirror targetMirror = null;
 
-                    if (mergedimage != null)
+                    if (stage <= 20)
                     {
-                        var tg = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
-                        mergedimageMirror = new PropertyMirror(tg);
-                        mergedimage.PropertyChanged += mergedimageMirror.MirrorpropertyChanged;
-                    }
+                        if (mergedimage != null)
+                        {
+                            var tg = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
+                            mergedimageMirror = new PropertyMirror(tg);
+                            mergedimage.PropertyChanged += mergedimageMirror.MirrorpropertyChanged;
+                        }
 
-                    if (mergedimage != null && target != null)
-                    {
-                        targetMirror = new PropertyMirror((Microsoft.Xrm.Sdk.Entity)mergedimage);
-                        target.PropertyChanged += targetMirror.MirrorpropertyChanged;
+                        if (mergedimage != null && target != null)
+                        {
+                            targetMirror = new PropertyMirror((Microsoft.Xrm.Sdk.Entity)mergedimage);
+                            target.PropertyChanged += targetMirror.MirrorpropertyChanged;
+                        }
                     }
                     #endregion
 
@@ -112,16 +118,19 @@
                     #endregion
 
                     #region cleanup mirror
-                    if (mergedimageMirror != null)
+                    if (stage <= 20)
                     {
-                        mergedimage.PropertyChanged -= mergedimageMirror.MirrorpropertyChanged;
-                        mergedimageMirror = null;
-                    }
+                        if (mergedimageMirror != null)
+                        {
+                            mergedimage.PropertyChanged -= mergedimageMirror.MirrorpropertyChanged;
+                            mergedimageMirror = null;
+                        }
 
-                    if (targetMirror != null)
-                    {
-                        target.PropertyChanged -= targetMirror.MirrorpropertyChanged;
-                        targetMirror = null;
+                        if (targetMirror != null)
+                        {
+                            target.PropertyChanged -= targetMirror.MirrorpropertyChanged;
+                            targetMirror = null;
+                        }
                     }
                     #endregion
 
