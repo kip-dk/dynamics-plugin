@@ -516,6 +516,26 @@
         public bool AllProperties { get; private set; }
         public CommonProperty[] FilteredProperties { get; private set; }
 
+        private CommonProperty[] _targetFilterProperties;
+        public CommonProperty[] TargetFilterProperties
+        {
+            get
+            {
+                if (_targetFilterProperties == null)
+                {
+                    if (FilteredProperties == null)
+                    {
+                        _targetFilterProperties = new CommonProperty[0];
+                        return _targetFilterProperties;
+                    }
+                    _targetFilterProperties = (from f in this.FilteredProperties
+                                               where f.TargetFilter
+                                               select f).ToArray();
+                }
+                return _targetFilterProperties;
+            }
+        }
+
         public bool RequirePluginContext
         {
             get

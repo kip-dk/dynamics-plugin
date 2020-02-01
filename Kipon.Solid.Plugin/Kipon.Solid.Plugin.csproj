@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Accounts\IAccountMergedImageWithTargetAttributes.cs" />
     <Compile Include="Entities\Accounts\IAccountNameAndSettersOnly.cs" />
     <Compile Include="Entities\Accounts\IAccountNameChanged.cs" />
     <Compile Include="Entities\Accounts\IAccountPostAccountNumber.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Model\INamed.cs" />
     <Compile Include="Model\IProspect.cs" />
     <Compile Include="Plugins\Account\AccountCreatePlugin.cs" />
+    <Compile Include="Plugins\Account\AccountMergedImageInterfaceWithTargetAttr.cs" />
     <Compile Include="Plugins\Account\AccountMergeImageUpdate.cs" />
     <Compile Include="Plugins\Account\AccountPostCreate.cs" />
     <Compile Include="Plugins\Account\AccountRetrieveMultiplePostAsync.cs" />

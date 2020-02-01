@@ -353,6 +353,22 @@
                             {
                                 result.AddRange(p.FilteredProperties);
                             }
+
+                            if (p.IsPreimage && p.TargetFilterProperties.Length > 0)
+                            {
+                                result.AddRange(p.TargetFilterProperties);
+                            }
+
+                            if (p.IsPostimage && p.TargetFilterProperties.Length > 0)
+                            {
+                                result.AddRange(p.TargetFilterProperties);
+                            }
+
+                            if (p.IsMergedimage && p.TargetFilterProperties.Length > 0)
+                            {
+                                result.AddRange(p.TargetFilterProperties);
+                            }
+
                         }
                         _filteredProperties = result.ToArray();
                     } else

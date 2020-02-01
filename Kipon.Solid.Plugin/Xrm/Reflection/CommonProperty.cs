@@ -97,6 +97,7 @@
                     {
                         var attr = new CommonProperty { LogicalName = customProp.LogicalName };
                         attr.Required = interfaceProp.GetCustomAttributes(Types.RequiredAttribute, false).Any();
+                        attr.TargetFilter = interfaceProp.GetCustomAttributes(Types.TargetFilterAttribute, false).Any();
 
                         result.Add(attr);
                     }
@@ -108,6 +109,7 @@
 
         public string LogicalName { get; private set; }
         public bool Required { get; private set; }
+        public bool TargetFilter { get; private set; }
 
         private class Key
         {

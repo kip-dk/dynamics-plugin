@@ -9,6 +9,18 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
     {
         private Kipon.Xrm.Reflection.PluginMethod.Cache pluginMethodcache = new Kipon.Xrm.Reflection.PluginMethod.Cache(typeof(Kipon.Solid.Plugin.Entities.Account).Assembly);
 
+        #region mergedimage with targetattrib
+        [TestMethod]
+        public void MergedImageWithTargetAttributeTest()
+        {
+            var methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.Account.AccountMergedImageInterfaceWithTargetAttr), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.Update.ToString(), Entities.Account.EntityLogicalName, false);
+            Assert.AreEqual(1, methods.Length);
+            Assert.IsFalse(methods[0].FilterAllProperties);
+            Assert.AreEqual(1, methods[0].FilteredProperties.Length);
+            Assert.AreEqual("name", methods[0].FilteredProperties[0].LogicalName);
+        }
+        #endregion
+
         #region shared entity interface target injection
         [TestMethod]
         public void SharedEntityTargetInterfaceTest()

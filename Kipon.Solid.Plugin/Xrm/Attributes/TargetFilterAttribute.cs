@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Xrm.Attributes
+namespace Kipon.Xrm.Attributes
 {
     /// <summary>
     /// Use this attribute to decorate pre, post and merged image interface Properties to
