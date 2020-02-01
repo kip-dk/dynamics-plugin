@@ -1,9 +1,19 @@
 ## Last updated: 2020-01-02 11:30
 
-### NEXT
-mergedimage is keept in sync with target in stage 20 or less. this means that any property set
+### 1.0.0.30
+mergedimage is keept in sync with target in stage 20 or less (it does not make
+sense to make any changes to a target in stage above 20, because the changes will not make
+it into the CRM datastore anyway). This means that any property set
 on target will reflect into mergedimage, and and change in mergedimage will replect into target
-and as a conseuence the later will cause update of the field in CRM.
+and as a consequence the later will cause update of the field in CRM. Be aware that the propertychanged
+event will only trigger on the instance that trigger the changes, the counter party will be updated silent.
+
+To simplify the needed interfaces you need to handle on update, and additional decoration attribute [TargetFilter]
+has been added. This attributes should be used to decorate properties on pre-, merged- and postimages to tell that 
+even though the image is not a target images the property should still be listed in the filtered properties on the
+update operation. Together with the two way mergedimage impl. mentioned above, this means that you often only have
+to ask for a mergedimage in your plugin method, becuase it can basically represent the target and the merged image 
+at same time.
 
 ### 1.0.0.29
 
