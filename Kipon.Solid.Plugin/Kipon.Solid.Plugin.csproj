@@ -96,6 +96,7 @@
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Xrm\Attributes\StepAttribute.cs" />
     <Compile Include="Xrm\Attributes\TargetAttribute.cs" />
+    <Compile Include="Xrm\Attributes\TargetFilterAttribute.cs" />
     <Compile Include="Xrm\CrmEventType.cs" />
     <Compile Include="Xrm\Exceptions\UnresolveableParameterException.cs" />
     <Compile Include="Xrm\IPluginContext.cs" />

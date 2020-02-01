@@ -42,6 +42,7 @@
             var allTypes = assembly.GetTypes().ToDictionary(r => r.FullName);
 
             this.TargetAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.TargetAttribute)}"];
+            this.TargetFilterAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.TargetFilterAttribute)}"];
             this.PreimageAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.PreimageAttribute)}"];
             this.MergedimageAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.MergedimageAttribute)}"];
             this.PostimageAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.PostimageAttribute)}"];
@@ -83,6 +84,7 @@
 
         public Type Target { get; private set; }
         public Type TargetReference { get; private set; }
+        public Type TargetFilterAttribute { get; private set; }
         public Type Preimage { get; private set; }
         public Type Mergedimage { get; private set; }
         public Type Postimage { get; private set; }
