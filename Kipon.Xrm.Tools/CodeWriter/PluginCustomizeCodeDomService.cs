@@ -168,6 +168,18 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 writer.WriteLine("using System;");
                 writer.WriteLine("using System.Linq;");
                 writer.WriteLine("using Microsoft.Xrm.Sdk;");
+
+                #region version
+                writer.WriteLine($"namespace {xrmNS}");
+                writer.WriteLine("{");
+                writer.WriteLine("\tpublic sealed class Version");
+                writer.WriteLine("\t{");
+                writer.WriteLine($"\t\tpublic const string No = \"{ Kipon.Xrm.Tools.Version.No }\";");
+                writer.WriteLine("\t}");
+                writer.WriteLine("}");
+                #endregion
+
+
                 writer.WriteLine("namespace " + ns);
                 /* NS */ writer.WriteLine("{");
 
@@ -220,6 +232,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 writer.WriteLine("\t[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IUnitOfWork))]");
                 writer.WriteLine("\tpublic sealed partial class CrmUnitOfWork: IUnitOfWork, IDisposable, Kipon.Xrm.IService");
                 /* UOW */ writer.WriteLine("\t{");
+
                 printConstructor("CrmUnitOfWork");
                 printGenericAndRepositories();
                 /* UOW */ writer.WriteLine("\t}");

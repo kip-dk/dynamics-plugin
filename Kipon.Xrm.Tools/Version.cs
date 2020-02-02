@@ -8,6 +8,6 @@ namespace Kipon.Xrm.Tools
 {
     public class Version
     {
-        public const string No = "1.0.0.30";
+        public const string No = Kipon.Tools.Xrm.BasePlugin.Version;
     }
 }

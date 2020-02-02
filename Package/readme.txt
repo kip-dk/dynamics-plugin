@@ -34,3 +34,8 @@ bin/coretools/Kipon.Xrm.Cmd.exe.config.template (configuration file for the Kipo
 
 Finally you must include the Kipon/Kipon.Xrm.cs source in you C# dynamics-plugin-assembly-library project. This file is an accumulated single source version of all the coded needed to build
 plugins, extending from the Kipon.Xrm.BasePlugin.
+
+
+UPGRADE
+-------
+After upgrade, remember to regenerate entities, using the generate.cmd tool in the Entities folder. This will ensure that your entity model is consistant with the expectations of the Kipon.Xrm.BasePlugin.

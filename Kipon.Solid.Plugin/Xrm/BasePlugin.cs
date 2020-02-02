@@ -5,6 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
+        public const string Version = "1.0.0.31";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -114,28 +115,32 @@
                     #endregion
 
                     #region run the method
-                    method.Invoke(this, args);
-                    #endregion
-
-                    #region cleanup mirror
-                    if (stage <= 20)
+                    try
                     {
-                        if (mergedimageMirror != null)
+                        method.Invoke(this, args);
+                    } finally
+                    {
+                        #region cleanup mirror
+                        if (stage <= 20)
                         {
-                            mergedimage.PropertyChanged -= mergedimageMirror.MirrorpropertyChanged;
-                            mergedimageMirror = null;
-                        }
+                            if (mergedimageMirror != null)
+                            {
+                                mergedimage.PropertyChanged -= mergedimageMirror.MirrorpropertyChanged;
+                                mergedimageMirror = null;
+                            }
 
-                        if (targetMirror != null)
-                        {
-                            target.PropertyChanged -= targetMirror.MirrorpropertyChanged;
-                            targetMirror = null;
+                            if (targetMirror != null)
+                            {
+                                target.PropertyChanged -= targetMirror.MirrorpropertyChanged;
+                                targetMirror = null;
+                            }
                         }
+                        #endregion
+
+                        #region prepare for next method
+                        serviceCache.OnStepFinalize();
+                        #endregion
                     }
-                    #endregion
-
-                    #region prepare for next method
-                    serviceCache.OnStepFinalize();
                     #endregion
                 }
             }
