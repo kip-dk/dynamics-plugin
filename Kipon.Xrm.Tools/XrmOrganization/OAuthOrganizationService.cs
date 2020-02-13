@@ -19,12 +19,19 @@ namespace Kipon.Xrm.Tools.XrmOrganization
 
         internal OAuthOrganizationService()
         {
-            var connectionString = ConnectionString.Value;
+            try
+            {
+                var connectionString = ConnectionString.Value;
 
-            var conn = new Connection(connectionString);
-            this.organizationUrl = conn.organizationUrl;
-            this.tenentid = conn.tenentid;
-            this.Initialze(conn.clientId, conn.secret);
+                var conn = new Connection(connectionString);
+                this.organizationUrl = conn.organizationUrl;
+                this.tenentid = conn.tenentid;
+                this.Initialze(conn.clientId, conn.secret);
+            } catch (Exception ex)
+            {
+                Console.WriteLine("Error on creating organization service: " + ex.Message);
+                throw;
+            }
         }
 
         private bool Initialze(Guid clientId, string secret)

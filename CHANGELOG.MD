@@ -1,5 +1,8 @@
 ## Last updated: 2020-02-01 12:45
 
+### 1.0.0.33
+This is a tools version only. Still trying to get better messages on error.
+
 ### 1.0.0.32
 This is a tools version only. Tools are now giving better indication of errors based on exceptions.
 

@@ -11,6 +11,8 @@ namespace Kipon.Xrm.Cmd
     {
         static async Task Main(string[] args)
         {
+            Console.WriteLine($"Kipon.Xrm.Cmd {Kipon.Xrm.Tools.Version.No}");
+
             if (args == null || args.Length == 0)
             {
                 Console.WriteLine("You must specify task name.");
@@ -24,7 +26,27 @@ namespace Kipon.Xrm.Cmd
 
             using (var container = new CompositionContainer(aggregateCatalog))
             {
-                var cmd = container.GetExportedValue<ICmd>(args[0]);
+                ICmd cmd = null;
+                try
+                {
+                    cmd = container.GetExportedValue<ICmd>(args[0]);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    Console.WriteLine(ex.StackTrace);
+                    var inner = ex.InnerException;
+
+                    while (inner != null)
+                    {
+                        Console.WriteLine($"  Inner: {inner.Message}");
+                        inner = inner.InnerException;
+                    }
+                    Console.Write("Pres [Enter] to continue.");
+                    Console.ReadLine();
+                    return;
+                }
+
                 await cmd.ExecuteAsync(args.Skip(1).ToArray());
             }
         }

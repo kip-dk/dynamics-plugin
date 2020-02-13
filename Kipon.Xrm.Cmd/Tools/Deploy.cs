@@ -27,23 +27,9 @@ namespace Kipon.Xrm.Cmd.Tools
                 return Task.CompletedTask;
             }
 
-            Console.WriteLine("Calling deploy on Kipon.Xrm.Cmd" );
+            Console.WriteLine("Starting deployment tool..." );
 
-            try
-            {
-                this.pluginDeployer.Run(args[0]);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error type {ex.GetType().FullName}: {ex.Message}");
-                Console.WriteLine(ex.StackTrace);
-                var inner = ex.InnerException;
-                while (inner != null)
-                {
-                    Console.WriteLine($"INNER: {ex.GetType().FullName}");
-                    inner = inner.InnerException;
-                }
-            }
+            this.pluginDeployer.Run(args[0]);
             return Task.CompletedTask;
         }
     }

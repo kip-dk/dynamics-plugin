@@ -44,17 +44,29 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                     client.OrganizationServiceProxy.EnableProxyTypes(typeof(OrganizationService).Assembly);
                     this.instance = client;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    ClientCredentials clientCredentials = new ClientCredentials();
-                    clientCredentials.UserName.UserName = connectionString.GetParameter("Username");
-                    clientCredentials.UserName.Password = connectionString.GetParameter("Password");
+                    Console.WriteLine($"Error creating organization service: {ex.Message}");
+                    Console.Write("Retrying with user/pwd approach...");
+                    try
+                    {
+                        ClientCredentials clientCredentials = new ClientCredentials();
+                        clientCredentials.UserName.UserName = connectionString.GetParameter("Username");
+                        clientCredentials.UserName.Password = connectionString.GetParameter("Password");
 
-                    var uri = new Uri($"{connectionString.GetParameter("Url")}/XRMServices/2011/Organization.svc");
+                        var uri = new Uri($"{connectionString.GetParameter("Url")}/XRMServices/2011/Organization.svc");
 
-                    var proxy = new OrganizationServiceProxy(uri, null, clientCredentials, null);
-                    proxy.EnableProxyTypes(typeof(OrganizationService).Assembly);
-                    this.instance = proxy;
+                        var proxy = new OrganizationServiceProxy(uri, null, clientCredentials, null);
+                        proxy.EnableProxyTypes(typeof(OrganizationService).Assembly);
+                        this.instance = proxy;
+                        Console.WriteLine("Success.");
+                    }
+                    catch (Exception ex2)
+                    {
+                        Console.WriteLine("Error again!");
+                        Console.WriteLine(ex.Message);
+                        throw ex2;
+                    }
                 }
             }
         }
