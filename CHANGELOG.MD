@@ -1,5 +1,8 @@
 ## Last updated: 2020-02-01 12:45
 
+### 1.0.0.32
+This is a tools version only. Tools are now giving better indication of errors based on exceptions.
+
 ### 1.0.0.31
 Version of generated entities will now be compared with the tools version used to deploy, to avoid deploying code to CRM
 where the entities has been generated with a tool version lower than the used BasePlugin. This is to ensure consistant behavior
