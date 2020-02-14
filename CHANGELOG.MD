@@ -1,5 +1,8 @@
 ## Last updated: 2020-02-01 12:45
 
+### 1.0.1.0
+The project has been upgraded to .NET 4.6.2, and references to newest SDK packages. (this might impact onpremise installations)
+
 ### 1.0.0.33
 This is a tools version only. Still trying to get better messages on error.
 
