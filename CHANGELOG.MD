@@ -1,4 +1,7 @@
-## Last updated: 2020-02-01 12:45
+## Last updated: 2020-03-27 10:18
+
+### 1.0.1.1
+Better message on unable to resolve type exception from service type cache
 
 ### 1.0.1.0
 The project has been upgraded to .NET 4.6.2, and references to newest SDK packages. (this might impact onpremise installations)
