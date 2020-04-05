@@ -11,5 +11,7 @@ namespace Kipon.Solid.Plugin.ServiceAPI
         void OnNameChanged(Entities.Account.IAccountNameChanged target);
 
         Microsoft.Xrm.Sdk.IOrganizationService OrgService { get; }
+
+        void OnPostMerged(Entities.Account.IAccountPostMergedImage mergedimage);
     }
 }

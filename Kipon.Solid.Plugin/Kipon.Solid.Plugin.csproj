@@ -66,6 +66,7 @@
     <Compile Include="Entities\Accounts\IAccountNameAndSettersOnly.cs" />
     <Compile Include="Entities\Accounts\IAccountNameChanged.cs" />
     <Compile Include="Entities\Accounts\IAccountPostAccountNumber.cs" />
+    <Compile Include="Entities\Accounts\IAccountPostMergedImage.cs" />
     <Compile Include="Entities\Accounts\IAccountPreName.cs" />
     <Compile Include="Entities\Accounts\ICreditLimitChanged.cs" />
     <Compile Include="Entities\Accounts\IForgotToImplement.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Plugins\Account\AccountMergeImageUpdate.cs" />
     <Compile Include="Plugins\Account\AccountPostCreate.cs" />
     <Compile Include="Plugins\Account\AccountRetrieveMultiplePostAsync.cs" />
+    <Compile Include="Plugins\Account\AccoutPostUpdate.cs" />
     <Compile Include="Plugins\Contact\ContactDeletePlugin.cs" />
     <Compile Include="Plugins\Contact\ContactPlugin.cs" />
     <Compile Include="Plugins\Generic\ProspectPlugin.cs" />
