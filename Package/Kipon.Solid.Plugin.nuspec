@@ -10,7 +10,7 @@
     <iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Create Dynamics 365 plugins according to SOLID software princips. This package provide the basic infrastructur for building plugins with services and inject these into the Dynamics 365 plugin pipeline.</description>
-    <releaseNotes>Upgraded to .NET 4.6.2 and newest Microsoft Dynamics 365 SDK</releaseNotes>
+    <releaseNotes>Fix null pointer exception in Dictionary.Insert due to multi plugins registre types at same time</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020</copyright>
     <tags>Dynamics 365 plugin C# SOLID</tags>
     <dependencies>
