@@ -6,6 +6,7 @@
     public class ServiceCache: System.IDisposable
     {
         private readonly Dictionary<string, object> services = new Dictionary<string, object>();
+        private readonly object locks = new object();
 
         private Guid systemuserid;
 
@@ -41,102 +42,110 @@
                     return services[type.ObjectInstanceKey];
                 }
 
-                if (type.IsTarget && !type.IsReference)
+                lock (locks)
                 {
-                    var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.InputParameters["Target"];
-                    services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);
-                    return services[type.ObjectInstanceKey];
-                }
-
-                if (type.IsPreimage)
-                {
-                    var imgName = PluginMethod.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
-                    var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[imgName];
-                    services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);
-                    return services[type.ObjectInstanceKey];
-                }
-
-                if (type.IsPostimage)
-                {
-                    var imgName = PluginMethod.ImageSuffixFor(2, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
-                    var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PostEntityImages[$"postimage{imgName}"];
-                    services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);
-                    return services[type.ObjectInstanceKey];
-                }
-
-                if (type.IsMergedimage)
-                {
-                    var target = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.InputParameters["Target"];
-                    var merged = new Microsoft.Xrm.Sdk.Entity();
-                    merged.Id = target.Id;
-                    merged.LogicalName = target.LogicalName;
-
-                    var imgName = PluginMethod.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
-                    var pre = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[imgName];
-
-                    foreach (var attr in pre.Attributes.Keys)
+                    if (services.ContainsKey(type.ObjectInstanceKey))
                     {
-                        merged[attr] = pre[attr];
+                        return services[type.ObjectInstanceKey];
                     }
 
-                    foreach (var attr in target.Attributes.Keys)
+                    if (type.IsTarget && !type.IsReference)
                     {
-                        merged[attr] = target[attr];
+                        var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.InputParameters["Target"];
+                        services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);
+                        return services[type.ObjectInstanceKey];
                     }
 
-                    services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(merged);
-                    return services[type.ObjectInstanceKey];
+                    if (type.IsPreimage)
+                    {
+                        var imgName = PluginMethod.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
+                        var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[imgName];
+                        services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);
+                        return services[type.ObjectInstanceKey];
+                    }
+
+                    if (type.IsPostimage)
+                    {
+                        var imgName = PluginMethod.ImageSuffixFor(2, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
+                        var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PostEntityImages[$"postimage{imgName}"];
+                        services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(entity);
+                        return services[type.ObjectInstanceKey];
+                    }
+
+                    if (type.IsMergedimage)
+                    {
+                        var target = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.InputParameters["Target"];
+                        var merged = new Microsoft.Xrm.Sdk.Entity();
+                        merged.Id = target.Id;
+                        merged.LogicalName = target.LogicalName;
+
+                        var imgName = PluginMethod.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
+                        var pre = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[imgName];
+
+                        foreach (var attr in pre.Attributes.Keys)
+                        {
+                            merged[attr] = pre[attr];
+                        }
+
+                        foreach (var attr in target.Attributes.Keys)
+                        {
+                            merged[attr] = target[attr];
+                        }
+
+                        services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(merged);
+                        return services[type.ObjectInstanceKey];
+                    }
+
+                    if (type.IsReference)
+                    {
+                        var target = (Microsoft.Xrm.Sdk.EntityReference)pluginExecutionContext.InputParameters["Target"];
+                        if (type.Constructor != null)
+                        {
+                            services[type.ObjectInstanceKey] = type.Constructor.Invoke(new object[] { target });
+                        }
+                        else
+                        {
+                            services[type.ObjectInstanceKey] = target;
+                        }
+                        return services[type.ObjectInstanceKey];
+                    }
+
+                    if (type.FromType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
+                    {
+                        return this.GetOrganizationService(type.RequireAdminService);
+                    }
+
+                    if (type.IsQuery)
+                    {
+                        var uow = this.GetIUnitOfWork(type.RequireAdminService);
+                        var queryProperty = type.RepositoryProperty;
+                        var repository = queryProperty.GetValue(uow, new object[0]);
+                        var queryMethod = type.QueryMethod;
+                        return queryMethod.Invoke(repository, new object[0]);
+                    }
+
+                    if (type.FromType == typeof(Guid))
+                    {
+                        if (type.Name.ToLower() == "id")
+                        {
+                            return pluginExecutionContext.PrimaryEntityId;
+                        }
+
+                        if (type.Name.ToLower() == "listid")
+                        {
+                            return pluginExecutionContext.InputParameters["ListId"];
+                        }
+
+                        if (type.Name.ToLower() == "entityid")
+                        {
+                            return pluginExecutionContext.InputParameters["EntityId"];
+                        }
+
+                        throw new Exceptions.UnresolveableParameterException(type.FromType, type.Name);
+                    }
+
+                    return this.CreateServiceInstance(type);
                 }
-
-                if (type.IsReference)
-                {
-                    var target = (Microsoft.Xrm.Sdk.EntityReference)pluginExecutionContext.InputParameters["Target"];
-                    if (type.Constructor != null)
-                    {
-                        services[type.ObjectInstanceKey] = type.Constructor.Invoke(new object[] { target });
-                    }
-                    else
-                    {
-                        services[type.ObjectInstanceKey] = target;
-                    }
-                    return services[type.ObjectInstanceKey];
-                }
-
-                if (type.FromType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
-                {
-                    return this.GetOrganizationService(type.RequireAdminService);
-                }
-
-                if (type.IsQuery)
-                {
-                    var uow = this.GetIUnitOfWork(type.RequireAdminService);
-                    var queryProperty = type.RepositoryProperty;
-                    var repository = queryProperty.GetValue(uow, new object[0]);
-                    var queryMethod = type.QueryMethod;
-                    return queryMethod.Invoke(repository, new object[0]);
-                }
-
-                if (type.FromType == typeof(Guid))
-                {
-                    if (type.Name.ToLower() == "id")
-                    {
-                        return pluginExecutionContext.PrimaryEntityId;
-                    }
-
-                    if (type.Name.ToLower() == "listid")
-                    {
-                        return pluginExecutionContext.InputParameters["ListId"];
-                    }
-
-                    if (type.Name.ToLower() == "entityid")
-                    {
-                        return pluginExecutionContext.InputParameters["EntityId"];
-                    }
-
-                    throw new Exceptions.UnresolveableParameterException(type.FromType, type.Name);
-                }
-
-                return this.CreateServiceInstance(type);
             }
             catch (System.Collections.Generic.KeyNotFoundException)
             {

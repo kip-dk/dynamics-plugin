@@ -1,4 +1,8 @@
-## Last updated: 2020-03-27 10:18
+## Last updated: 2020-07-07 10:18
+
+### 1.0.1.2
+All metadata cache is now build with lock when generating relevant cached metadata to avoid Dictionary.Insert nullpointer exception, cause by multi plugins trying to cache metadata
+at same time.
 
 ### 1.0.1.1
 Better message on unable to resolve type exception from service type cache

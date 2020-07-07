@@ -10,6 +10,8 @@
             private Types Types;
             private readonly Dictionary<string, PluginMethod[]> cache = new Dictionary<string, PluginMethod[]>();
 
+            private static readonly object locks = new object();
+
             private static readonly string[] IGNORE_METHODS = new string[]
             {
                 nameof(BasePlugin.Equals),
@@ -38,179 +40,186 @@
                     return cache[key];
                 }
 
-                var lookFor = $"On{stage.ToStage()}{message}{(isAsync ? "Async" : "")}";
-
-                var methods = type.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-
-                methods = (from m in methods where !m.Name.StartsWith("get_") && !IGNORE_METHODS.Contains(m.Name) select m).ToArray();
-
-                var stepStage = stage == 40 && isAsync ? 41 : stage;
-
-                List<PluginMethod> results = new List<PluginMethod>();
-
-                foreach (var method in methods)
+                lock (locks)
                 {
-                    #region filter on logicalname attribute on method
-                    if (primaryEntityName != null)
+                    if (cache.ContainsKey(key))
                     {
-                        var logAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
-                        if (logAttrs != null && logAttrs.Length > 0)
+                        return cache[key];
+                    }
+
+                    var lookFor = $"On{stage.ToStage()}{message}{(isAsync ? "Async" : "")}";
+                    var methods = type.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+
+                    methods = (from m in methods where !m.Name.StartsWith("get_") && !IGNORE_METHODS.Contains(m.Name) select m).ToArray();
+
+                    var stepStage = stage == 40 && isAsync ? 41 : stage;
+
+                    List<PluginMethod> results = new List<PluginMethod>();
+
+                    foreach (var method in methods)
+                    {
+                        #region filter on logicalname attribute on method
+                        if (primaryEntityName != null)
                         {
-                            var foundLogicalName = false;
-                            foreach (var logAttr in logAttrs)
+                            var logAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
+                            if (logAttrs != null && logAttrs.Length > 0)
                             {
-                                var name = (string)logAttr.GetType().GetProperty("Value").GetGetMethod().Invoke(logAttr, null);
-                                if (name == primaryEntityName)
+                                var foundLogicalName = false;
+                                foreach (var logAttr in logAttrs)
                                 {
-                                    foundLogicalName = true;
-                                    break;
+                                    var name = (string)logAttr.GetType().GetProperty("Value").GetGetMethod().Invoke(logAttr, null);
+                                    if (name == primaryEntityName)
+                                    {
+                                        foundLogicalName = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!foundLogicalName)
+                                {
+                                    continue;
                                 }
                             }
+                        }
+                        #endregion
 
-                            if (!foundLogicalName)
+                        #region explicit step decoration mathing
+                        var cas = method.GetCustomAttributes(Types.StepAttribute, false);
+                        var found = false;
+                        foreach (var ca in cas)
+                        {
+                            var at = ca.GetType();
+                            var _stage = (int)at.GetProperty("Stage").GetValue(ca);
+                            var _message = at.GetProperty("Message").GetValue(ca).ToString();
+                            var _primaryEntityName = (string)at.GetProperty("PrimaryEntityName").GetValue(ca);
+                            var _isAsync = (bool)at.GetProperty("IsAsync").GetValue(ca);
+
+
+                            if (_stage == stepStage && _message == message && _primaryEntityName == primaryEntityName && _isAsync == isAsync)
                             {
-                                continue;
+                                var next = CreateFrom(method, primaryEntityName);
+                                AddIfConsistent(type, method, results, next, message, stage);
+                                found = true;
+                                break;
                             }
                         }
-                    }
-                    #endregion
 
-                    #region explicit step decoration mathing
-                    var cas = method.GetCustomAttributes(Types.StepAttribute, false);
-                    var found = false;
-                    foreach (var ca in cas)
-                    {
-                        var at = ca.GetType();
-                        var _stage = (int)at.GetProperty("Stage").GetValue(ca);
-                        var _message = at.GetProperty("Message").GetValue(ca).ToString();
-                        var _primaryEntityName = (string)at.GetProperty("PrimaryEntityName").GetValue(ca);
-                        var _isAsync = (bool)at.GetProperty("IsAsync").GetValue(ca);
+                        if (found)
+                        {
+                            continue;
+                        }
 
+                        if (cas.Length > 0)
+                        {
+                            continue;
+                        }
+                        #endregion
 
-                        if (_stage == stepStage && _message == message && _primaryEntityName == primaryEntityName && _isAsync == isAsync)
+                        #region find by naming convention
+                        if (method.Name == lookFor)
                         {
                             var next = CreateFrom(method, primaryEntityName);
-                            AddIfConsistent(type, method, results, next, message, stage);
-                            found = true;
-                            break;
-                        }
-                    }
 
-                    if (found)
-                    {
-                        continue;
-                    }
-
-                    if (cas.Length > 0)
-                    {
-                        continue;
-                    }
-                    #endregion
-
-                    #region find by naming convention
-                    if (method.Name == lookFor)
-                    {
-                        var next = CreateFrom(method, primaryEntityName);
-
-                        if (primaryEntityName == null)
-                        {
-                            AddIfConsistent(type, method, results, next, message, stage);
-                            found = true;
-                            continue;
-                        }
-
-                        var notrelevant = (from n in next.Parameters
-                                           where n.LogicalName != null
-                                             && n.LogicalName != primaryEntityName
-                                             && n.IsGenericEntityInterface == false
-                                           select n).Any();
-
-                        if (notrelevant)
-                        {
-                            // at least on parameter is explicity something else than the current logical name
-                            // so it is not relevant.
-                            continue;
-                        }
-
-                        var logicalnames = (from l in next.Parameters
-                                            where l.LogicalName != null
-                                              && l.IsGenericEntityInterface == false
-                                            select l.LogicalName).Distinct().ToArray();
-
-                        if (logicalnames.Length > 1)
-                        {
-                            throw new Exceptions.MultipleLogicalNamesException(type, method, logicalnames);
-                        }
-
-                        var logicalNames = (from n in next.Parameters where n.LogicalName != null select n.LogicalName).Distinct().ToArray();
-
-                        if (logicalNames.Length == 1)
-                        {
-                            if (logicalNames[0] == primaryEntityName)
+                            if (primaryEntityName == null)
                             {
                                 AddIfConsistent(type, method, results, next, message, stage);
                                 found = true;
+                                continue;
                             }
-                            continue;
-                        }
 
-                        {
-                            var logicalNameAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
-                            foreach (var attr in logicalNameAttrs)
+                            var notrelevant = (from n in next.Parameters
+                                               where n.LogicalName != null
+                                                 && n.LogicalName != primaryEntityName
+                                                 && n.IsGenericEntityInterface == false
+                                               select n).Any();
+
+                            if (notrelevant)
                             {
-                                var name = (string)attr.GetType().GetProperty("Value").GetValue(attr);
-                                if (name == primaryEntityName)
+                                // at least on parameter is explicity something else than the current logical name
+                                // so it is not relevant.
+                                continue;
+                            }
+
+                            var logicalnames = (from l in next.Parameters
+                                                where l.LogicalName != null
+                                                  && l.IsGenericEntityInterface == false
+                                                select l.LogicalName).Distinct().ToArray();
+
+                            if (logicalnames.Length > 1)
+                            {
+                                throw new Exceptions.MultipleLogicalNamesException(type, method, logicalnames);
+                            }
+
+                            var logicalNames = (from n in next.Parameters where n.LogicalName != null select n.LogicalName).Distinct().ToArray();
+
+                            if (logicalNames.Length == 1)
+                            {
+                                if (logicalNames[0] == primaryEntityName)
                                 {
                                     AddIfConsistent(type, method, results, next, message, stage);
                                     found = true;
-                                    break;
                                 }
-                            }
-
-                            if (logicalNameAttrs.Length > 0)
-                            {
                                 continue;
                             }
-                        }
 
-                        if (next.HasTargetPreOrPost() || next.HasTargetReference())
-                        {
-                            var logicalNamesAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
-                            foreach (var attr in logicalNamesAttrs)
                             {
-                                var v = (string)attr.GetType().GetProperty("primaryEntityName").GetValue(attr);
-                                if (v == primaryEntityName)
+                                var logicalNameAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
+                                foreach (var attr in logicalNameAttrs)
                                 {
-                                    found = true;
-                                    break;
+                                    var name = (string)attr.GetType().GetProperty("Value").GetValue(attr);
+                                    if (name == primaryEntityName)
+                                    {
+                                        AddIfConsistent(type, method, results, next, message, stage);
+                                        found = true;
+                                        break;
+                                    }
+                                }
+
+                                if (logicalNameAttrs.Length > 0)
+                                {
+                                    continue;
                                 }
                             }
 
-                            if (found)
+                            if (next.HasTargetPreOrPost() || next.HasTargetReference())
                             {
-                                AddIfConsistent(type, method, results, next, message, stage);
-                                continue;
+                                var logicalNamesAttrs = method.GetCustomAttributes(Types.LogicalNameAttribute, false).ToArray();
+                                foreach (var attr in logicalNamesAttrs)
+                                {
+                                    var v = (string)attr.GetType().GetProperty("primaryEntityName").GetValue(attr);
+                                    if (v == primaryEntityName)
+                                    {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+
+                                if (found)
+                                {
+                                    AddIfConsistent(type, method, results, next, message, stage);
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                // TO-DO: complete the list of messages not related to a specific entity.
+                                if (message != "RemoveMember")
+                                {
+                                    throw new NotImplementedException("handling method not attached to a logicalname is not supported yet.");
+                                }
                             }
                         }
-                        else
-                        {
-                            // TO-DO: complete the list of messages not related to a specific entity.
-                            if (message != "RemoveMember")
-                            {
-                                throw new NotImplementedException("handling method not attached to a logicalname is not supported yet.");
-                            }
-                        }
+                        #endregion
                     }
-                    #endregion
-                }
 
-                if (results.Count == 0 && throwIfEmpty)
-                {
-                    throw new Exceptions.UnresolvablePluginMethodException(type);
-                }
+                    if (results.Count == 0 && throwIfEmpty)
+                    {
+                        throw new Exceptions.UnresolvablePluginMethodException(type);
+                    }
 
-                cache[key] = results.OrderBy(r => r.Sort).ToArray();
-                return cache[key];
+                    cache[key] = results.OrderBy(r => r.Sort).ToArray();
+                    return cache[key];
+                }
             }
 
             private void AddIfConsistent(Type type, System.Reflection.MethodInfo method, List<PluginMethod> results, PluginMethod result, string message, int stage)

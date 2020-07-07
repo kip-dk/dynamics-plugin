@@ -10,6 +10,7 @@
         public class Cache
         {
             private readonly Dictionary<Type, CommonProperty[]> cache = new Dictionary<Type, CommonProperty[]>();
+            private readonly object locks = new object();
             private readonly Types Types;
 
             public Cache(System.Reflection.Assembly assm)
@@ -24,28 +25,36 @@
                     return cache[interfaceType];
                 }
 
-                var interfaceProperties = interfaceType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-                var instanceProperties = entityType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-
-                var result = new List<CommonProperty>();
-
-                foreach (var interfaceProp in interfaceProperties)
+                lock (locks)
                 {
-                    var instanceProp = (from i in instanceProperties where i.Name == interfaceProp.Name select i).SingleOrDefault();
-                    if (instanceProp != null)
+                    if (cache.ContainsKey(interfaceType))
                     {
-                        var customProp = (Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute)instanceProp.GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute), false).FirstOrDefault();
-                        if (customProp != null)
-                        {
-                            var attr = new CommonProperty { LogicalName = customProp.LogicalName };
-                            attr.Required = interfaceProp.GetCustomAttributes(Types.RequiredAttribute, false).Any();
+                        return cache[interfaceType];
+                    }
 
-                            result.Add(attr);
+                    var interfaceProperties = interfaceType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                    var instanceProperties = entityType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+
+                    var result = new List<CommonProperty>();
+
+                    foreach (var interfaceProp in interfaceProperties)
+                    {
+                        var instanceProp = (from i in instanceProperties where i.Name == interfaceProp.Name select i).SingleOrDefault();
+                        if (instanceProp != null)
+                        {
+                            var customProp = (Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute)instanceProp.GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute), false).FirstOrDefault();
+                            if (customProp != null)
+                            {
+                                var attr = new CommonProperty { LogicalName = customProp.LogicalName };
+                                attr.Required = interfaceProp.GetCustomAttributes(Types.RequiredAttribute, false).Any();
+
+                                result.Add(attr);
+                            }
                         }
                     }
+                    cache[interfaceType] = result.ToArray();
+                    return cache[interfaceType];
                 }
-                cache[interfaceType] = result.ToArray();
-                return cache[interfaceType];
             }
 
         }

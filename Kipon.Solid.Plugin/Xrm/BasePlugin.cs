@@ -5,11 +5,11 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.1.1";
+        public const string Version = "1.0.1.2";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
-        internal static Reflection.PluginMethod.Cache PluginMethodCache;
+        internal static readonly Reflection.PluginMethod.Cache PluginMethodCache;
 
         static BasePlugin()
         {

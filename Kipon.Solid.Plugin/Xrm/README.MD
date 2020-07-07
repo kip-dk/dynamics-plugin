@@ -15,7 +15,7 @@ and additional tools is available (Kipon.Xrm.Tools).
 This tool provide functionality:
 
    1) For building early-bound-entities and more 
-   2) for automate deployment to into your CRM development instance 
+   2) for automate deployment into your CRM development instance 
 
 These tools are assuming the use of the Kipon.Xrm namespace.  Any renaming or removal of elements in the Kipon.Xrm folder will cause these tools to 
 fail and thereby reduce the value of using the Kipon.Xrm aseembly plugin framework significantly.

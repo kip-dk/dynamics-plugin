@@ -17,6 +17,8 @@
         private static System.Reflection.ParameterInfo UOW;
         private static System.Reflection.ParameterInfo UOW_ADMIN;
 
+        private static readonly object locks = new object();
+
         static TypeCache()
         {
             TypeCache.Types = Types.Instance;
@@ -39,313 +41,322 @@
                 return resolvedTypes[key];
             }
 
-            if (parameter.ParameterType == typeof(Guid))
+            lock (locks)
             {
-                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name };
-                return resolvedTypes[key];
-            }
-
-            if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
-            {
-                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
-
-                resolvedTypes[key].RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
-                return resolvedTypes[key];
-            }
-
-            if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationServiceFactory))
-            {
-                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[key];
-            }
-
-            if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IPluginExecutionContext))
-            {
-                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[key];
-            }
-
-            if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.ITracingService))
-            {
-                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[key];
-            }
-
-            if (parameter.ParameterType == Types.IPluginContext)
-            {
-                resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
-                return resolvedTypes[key];
-            }
-
-            #region not an abstract, and not an interface, the type can be used directly, see if the name indicates that it is target, preimage, mergedimage or postimage
-            if (!type.IsInterface && !type.IsAbstract)
-            {
-                var constructors = type.GetConstructors(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance );
-
-                if (constructors != null && constructors.Length > 0)
+                if (resolvedTypes.ContainsKey(key))
                 {
-                    var result = new TypeCache { FromType = type, ToType = type };
-                    var isEntity = false;
+                    return resolvedTypes[key];
+                }
 
-                    #region see if we can resolve parameter to the target as an entity
-                    if (parameter.MatchPattern(Types.TargetAttribute, "target") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
-                    {
-                        isEntity = true;
-                        result.IsTarget = true;
-                    }
-                    else
-                    if (parameter.MatchPattern(Types.PreimageAttribute, "preimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
-                    {
-                        isEntity = true;
-                        result.IsPreimage = true;
-                    }
-                    else
-                    if (parameter.MatchPattern(Types.MergedimageAttribute, "mergedimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
-                    {
-                        isEntity = true;
-                        result.IsMergedimage = true;
-                    }
-                    else
-                    if (parameter.MatchPattern(Types.PostimageAttribute, "postimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
-                    {
-                        isEntity = true;
-                        result.IsPostimage = true;
-                    }
+                if (parameter.ParameterType == typeof(Guid))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name };
+                    return resolvedTypes[key];
+                }
 
-                    if (isEntity)
+                if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+
+                    resolvedTypes[key].RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationServiceFactory))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IPluginExecutionContext))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.ITracingService))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == Types.IPluginContext)
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                    return resolvedTypes[key];
+                }
+
+                #region not an abstract, and not an interface, the type can be used directly, see if the name indicates that it is target, preimage, mergedimage or postimage
+                if (!type.IsInterface && !type.IsAbstract)
+                {
+                    var constructors = type.GetConstructors(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+
+                    if (constructors != null && constructors.Length > 0)
                     {
-                        var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(type);
-                        result.LogicalName = entity.LogicalName;
-                        result.ResolveProperties();
-                    }
-                    #endregion
+                        var result = new TypeCache { FromType = type, ToType = type };
+                        var isEntity = false;
 
-                    var isReference = false;
+                        #region see if we can resolve parameter to the target as an entity
+                        if (parameter.MatchPattern(Types.TargetAttribute, "target") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                        {
+                            isEntity = true;
+                            result.IsTarget = true;
+                        }
+                        else
+                        if (parameter.MatchPattern(Types.PreimageAttribute, "preimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                        {
+                            isEntity = true;
+                            result.IsPreimage = true;
+                        }
+                        else
+                        if (parameter.MatchPattern(Types.MergedimageAttribute, "mergedimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                        {
+                            isEntity = true;
+                            result.IsMergedimage = true;
+                        }
+                        else
+                        if (parameter.MatchPattern(Types.PostimageAttribute, "postimage") && type.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                        {
+                            isEntity = true;
+                            result.IsPostimage = true;
+                        }
 
-                    #region see if we can resolve parameter to the target as en entity reference
-                    if (!isEntity && type.ExtendsGenericClassOf(Types.TargetReference))
-                    {
-                        isReference = true;
-                        result.IsTarget = true;
-                        result.IsReference = true;
-                        result.ToType = type.BaseType.GetGenericArguments()[0];
+                        if (isEntity)
+                        {
+                            var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(type);
+                            result.LogicalName = entity.LogicalName;
+                            result.ResolveProperties();
+                        }
+                        #endregion
 
-                        var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
-                        result.LogicalName = entity.LogicalName;
-                        result.Constructor = type.GetConstructor(new Type[] { typeof(Microsoft.Xrm.Sdk.EntityReference) });
-                    }
+                        var isReference = false;
 
-                    if (!isEntity  && !isReference && type == typeof(Microsoft.Xrm.Sdk.EntityReference))
-                    {
-                        if (parameter.MatchPattern(Types.TargetAttribute, "target"))
+                        #region see if we can resolve parameter to the target as en entity reference
+                        if (!isEntity && type.ExtendsGenericClassOf(Types.TargetReference))
                         {
                             isReference = true;
                             result.IsTarget = true;
                             result.IsReference = true;
-                            result.ToType = type;
-                            result.Constructor = null;
+                            result.ToType = type.BaseType.GetGenericArguments()[0];
+
+                            var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
+                            result.LogicalName = entity.LogicalName;
+                            result.Constructor = type.GetConstructor(new Type[] { typeof(Microsoft.Xrm.Sdk.EntityReference) });
+                        }
+
+                        if (!isEntity && !isReference && type == typeof(Microsoft.Xrm.Sdk.EntityReference))
+                        {
+                            if (parameter.MatchPattern(Types.TargetAttribute, "target"))
+                            {
+                                isReference = true;
+                                result.IsTarget = true;
+                                result.IsReference = true;
+                                result.ToType = type;
+                                result.Constructor = null;
+                            }
+                        }
+                        #endregion
+
+                        if (!isEntity && !isReference)
+                        {
+                            result.Constructor = GetConstructor(type);
+                            resolvedTypes[key] = result;
+                        }
+                        else
+                        {
+                            resolvedTypes[key] = result;
+                        }
+                        return result;
+                    }
+                }
+                #endregion
+
+                #region see if it is target, preimage post image or merged image interface
+                if (type.IsInterface)
+                {
+                    Type toType = type.ImplementsGenericInterface(Types.Target);
+                    if (toType != null)
+                    {
+                        var result = new TypeCache { FromType = type, ToType = toType, IsTarget = true };
+                        var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
+                        result.LogicalName = entity.LogicalName;
+                        result.ResolveProperties();
+
+                        if (ReturnIfOk(type, result))
+                        {
+                            resolvedTypes[key] = result;
+                            return result;
                         }
                     }
-                    #endregion
 
-                    if (!isEntity && !isReference)
+                    toType = type.ImplementsGenericInterface(Types.Preimage);
+                    if (toType != null)
                     {
-                        result.Constructor = GetConstructor(type);
-                        resolvedTypes[key] = result;
-                    } else
-                    {
-                        resolvedTypes[key] = result;
+                        var result = new TypeCache { FromType = type, ToType = toType, IsPreimage = true };
+                        var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
+                        result.LogicalName = entity.LogicalName;
+                        result.ResolveProperties();
+                        if (ReturnIfOk(type, result))
+                        {
+                            resolvedTypes[key] = result;
+                            return resolvedTypes[key];
+                        }
                     }
-                    return result;
-                }
-            }
-            #endregion
 
-            #region see if it is target, preimage post image or merged image interface
-            if (type.IsInterface)
-            {
-                Type toType = type.ImplementsGenericInterface(Types.Target);
-                if (toType != null)
-                {
-                    var result = new TypeCache { FromType = type, ToType = toType, IsTarget = true };
-                    var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
-                    result.LogicalName = entity.LogicalName;
-                    result.ResolveProperties();
-
-                    if (ReturnIfOk(type, result))
+                    toType = type.ImplementsGenericInterface(Types.Mergedimage);
+                    if (toType != null)
                     {
+                        var result = new TypeCache { FromType = type, ToType = toType, IsMergedimage = true };
+                        var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
+                        result.LogicalName = entity.LogicalName;
+                        result.ResolveProperties();
+                        if (ReturnIfOk(type, result))
+                        {
+                            resolvedTypes[key] = result;
+                            return resolvedTypes[key];
+                        }
+                    }
+
+                    toType = type.ImplementsGenericInterface(Types.Postimage);
+                    if (toType != null)
+                    {
+                        var result = new TypeCache { FromType = type, ToType = toType, IsPostimage = true };
+                        var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
+                        result.LogicalName = entity.LogicalName;
+                        result.ResolveProperties();
+                        if (ReturnIfOk(type, result))
+                        {
+                            resolvedTypes[key] = result;
+                            return result;
+                        }
+                    }
+                }
+                #endregion
+
+                #region handle shared interface by naming convention or attribute decoration
+                if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
+                {
+                    var isTarget = parameter.Name == "target";
+
+                    if (!isTarget)
+                    {
+                        isTarget = parameter.GetCustomAttributes(Types.TargetAttribute, false).Any();
+                    }
+
+                    if (isTarget)
+                    {
+                        var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+
+                        var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsTarget = true };
+                        result.LogicalName = key.LogicalName;
+                        result.IsGenericEntityInterface = true;
+                        result.ResolveProperties();
+                        result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
                         resolvedTypes[key] = result;
                         return result;
                     }
                 }
 
-                toType = type.ImplementsGenericInterface(Types.Preimage);
-                if (toType != null)
+                if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
                 {
-                    var result = new TypeCache { FromType = type, ToType = toType, IsPreimage = true };
-                    var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
-                    result.LogicalName = entity.LogicalName;
-                    result.ResolveProperties();
-                    if (ReturnIfOk(type, result))
-                    {
-                        resolvedTypes[key] = result;
-                        return resolvedTypes[key];
-                    }
-                }
+                    var isPreimage = parameter.Name == "preimage";
 
-                toType = type.ImplementsGenericInterface(Types.Mergedimage);
-                if (toType != null)
-                {
-                    var result = new TypeCache { FromType = type, ToType = toType, IsMergedimage = true };
-                    var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
-                    result.LogicalName = entity.LogicalName;
-                    result.ResolveProperties();
-                    if (ReturnIfOk(type, result))
+                    if (!isPreimage)
                     {
-                        resolvedTypes[key] = result;
-                        return resolvedTypes[key];
+                        isPreimage = parameter.GetCustomAttributes(Types.PreimageAttribute, false).Any();
                     }
-                }
 
-                toType = type.ImplementsGenericInterface(Types.Postimage);
-                if (toType != null)
-                {
-                    var result = new TypeCache { FromType = type, ToType = toType, IsPostimage = true };
-                    var entity = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(result.ToType);
-                    result.LogicalName = entity.LogicalName;
-                    result.ResolveProperties();
-                    if (ReturnIfOk(type, result))
+                    if (isPreimage)
                     {
+                        var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+
+                        var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsPreimage = true };
+                        result.LogicalName = key.LogicalName;
+                        result.IsGenericEntityInterface = true;
+                        result.ResolveProperties();
+                        result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
                         resolvedTypes[key] = result;
                         return result;
                     }
                 }
-            }
-            #endregion
 
-            #region handle shared interface by naming convention or attribute decoration
-            if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
-            {
-                var isTarget = parameter.Name == "target";
-
-                if (!isTarget)
+                if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
                 {
-                    isTarget = parameter.GetCustomAttributes(Types.TargetAttribute, false).Any();
+                    var isMergedimage = parameter.Name == "mergedimage";
+
+                    if (!isMergedimage)
+                    {
+                        isMergedimage = parameter.GetCustomAttributes(Types.MergedimageAttribute, false).Any();
+                    }
+
+                    if (isMergedimage)
+                    {
+                        var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+
+                        var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsMergedimage = true };
+                        result.LogicalName = key.LogicalName;
+                        result.IsGenericEntityInterface = true;
+                        result.ResolveProperties();
+                        result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
+                        resolvedTypes[key] = result;
+                        return result;
+                    }
                 }
 
-                if (isTarget)
+                if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
                 {
-                    var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+                    var isPostimage = parameter.Name == "postimage";
 
-                    var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsTarget = true };
-                    result.LogicalName = key.LogicalName;
-                    result.IsGenericEntityInterface = true;
-                    result.ResolveProperties();
-                    result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
+                    if (!isPostimage)
+                    {
+                        isPostimage = parameter.GetCustomAttributes(Types.PostimageAttribute, false).Any();
+                    }
+
+                    if (isPostimage)
+                    {
+                        var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+
+                        var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsPostimage = true };
+                        result.LogicalName = key.LogicalName;
+                        result.IsGenericEntityInterface = true;
+                        result.ResolveProperties();
+                        result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
+                    }
+                }
+                #endregion
+
+                #region IQueryable
+                if (type.IsInterface && type.IsGenericType && type.GenericTypeArguments.Length == 1 && type.GenericTypeArguments[0].BaseType != null && type.GenericTypeArguments[0].BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                {
+                    var result = ForQuery(type);
+                    if (result != null)
+                    {
+                        result.RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
+                        return result;
+                    }
+                }
+                #endregion
+
+                #region find implementing interface
+                if (type.IsInterface)
+                {
+                    var r1 = GetInterfaceImplementation(type);
+                    var result = new TypeCache { FromType = type, ToType = r1, Constructor = GetConstructor(r1) };
+
                     resolvedTypes[key] = result;
                     return result;
+
                 }
-            }
+                #endregion
 
-            if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
-            {
-                var isPreimage = parameter.Name == "preimage";
-
-                if (!isPreimage)
+                #region find relevant abstract extension
+                if (type.IsAbstract)
                 {
-                    isPreimage = parameter.GetCustomAttributes(Types.PreimageAttribute, false).Any();
                 }
+                #endregion
 
-                if (isPreimage)
-                {
-                    var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
-
-                    var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsPreimage = true };
-                    result.LogicalName = key.LogicalName;
-                    result.IsGenericEntityInterface = true;
-                    result.ResolveProperties();
-                    result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
-                    resolvedTypes[key] = result;
-                    return result;
-                }
+                throw new Exceptions.UnresolvableTypeException(type);
             }
-
-            if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
-            {
-                var isMergedimage = parameter.Name == "mergedimage";
-
-                if (!isMergedimage)
-                {
-                    isMergedimage = parameter.GetCustomAttributes(Types.MergedimageAttribute, false).Any();
-                }
-
-                if (isMergedimage)
-                {
-                    var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
-
-                    var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsMergedimage = true };
-                    result.LogicalName = key.LogicalName;
-                    result.IsGenericEntityInterface = true;
-                    result.ResolveProperties();
-                    result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
-                    resolvedTypes[key] = result;
-                    return result;
-                }
-            }
-
-            if (type.IsInterface && !string.IsNullOrEmpty(key.LogicalName))
-            {
-                var isPostimage = parameter.Name == "postimage";
-
-                if (!isPostimage)
-                {
-                    isPostimage = parameter.GetCustomAttributes(Types.PostimageAttribute, false).Any();
-                }
-
-                if (isPostimage)
-                {
-                    var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
-
-                    var result = new TypeCache { FromType = type, ToType = entity.GetType(), IsPostimage = true };
-                    result.LogicalName = key.LogicalName;
-                    result.IsGenericEntityInterface = true;
-                    result.ResolveProperties();
-                    result.IsImplemenedByEntity = ReturnIfImplemented(type, result);
-                }
-            }
-            #endregion
-
-            #region IQueryable
-            if (type.IsInterface && type.IsGenericType && type.GenericTypeArguments.Length == 1 && type.GenericTypeArguments[0].BaseType != null && type.GenericTypeArguments[0].BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
-            {
-                var result = ForQuery(type);
-                if (result != null)
-                {
-                    result.RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
-                    return result;
-                }
-            }
-            #endregion
-
-            #region find implementing interface
-            if (type.IsInterface)
-            {
-                var r1 = GetInterfaceImplementation(type);
-                var result = new TypeCache { FromType = type, ToType = r1, Constructor = GetConstructor(r1) };
-
-                resolvedTypes[key] = result;
-                return result;
-
-            }
-            #endregion
-
-            #region find relevant abstract extension
-            if (type.IsAbstract)
-            {
-            }
-            #endregion
-
-            throw new Exceptions.UnresolvableTypeException(type);
         }
 
         public static TypeCache ForQuery(Type type)
@@ -707,6 +718,11 @@
 
         public static Type ImplementsGenericInterface(this Type value, Type other)
         {
+            if (other == null)
+            {
+                return null;
+            }
+
             if (!other.IsGenericType)
             {
                 return null;
