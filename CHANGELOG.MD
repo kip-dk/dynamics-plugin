@@ -4,7 +4,7 @@
 Added support for bounded custom actions (did not test unbounded - so for now, not supported). A custom action is defined in the solution Process as an action, and bound to an entity.
 You can on top of that, define input and output parameters. As all plugin, it must inherit from Kipon.Xrm.BasePlugin, and you must add event methods on the form
 
-On[stage][ProcessLoginalName],  ex. OnPostkipon_AccountCountContacts, remember to prefix with  you solution prefix as demonstrated here.
+On[stage][ProcessLogicalName],  ex. OnPostkipon_AccountCountContacts, remember to prefix with  you solution prefix as demonstrated here.
 
 where stage can be
 
