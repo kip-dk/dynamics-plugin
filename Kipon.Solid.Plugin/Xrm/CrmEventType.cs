@@ -14,6 +14,8 @@
         Other,
         AddMember,
         AddListMembers,
-        RemoveMember
+        RemoveMember,
+
+        CustomPlugin
     }
 }

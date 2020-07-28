@@ -54,6 +54,66 @@
                     return resolvedTypes[key];
                 }
 
+                if (parameter.ParameterType == typeof(string))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(int))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(int?))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(decimal))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(decimal?))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(bool))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(bool?))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.EntityReference))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.OptionSetValue))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.Money))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
                 if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
                 {
                     resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
@@ -554,6 +614,8 @@
                 return IsTarget || IsReference || IsPreimage || IsPostimage || IsMergedimage;
             }
         }
+
+        public bool IsInputParameter { get; set; }
 
         private System.Reflection.PropertyInfo _repositoryProperty;
         public System.Reflection.PropertyInfo RepositoryProperty

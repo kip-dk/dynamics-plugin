@@ -261,6 +261,14 @@
                     var inError = true;
                     if (message == "Delete")
                     {
+                        // delete always provides an entity reference as target, everything is good
+                        inError = false;
+                    }
+
+                    var mess = message.Split('_');
+                    if (mess.Length >= 2)
+                    {
+                        // this looks a lot like a custom action, it has the pattern prefix_name, bounded actions will also provide an entity reference, so we are good
                         inError = false;
                     }
 

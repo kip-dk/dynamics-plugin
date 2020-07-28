@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.1.2";
+        public const string Version = "1.0.1.3";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -40,7 +40,7 @@
             var stage = context.Stage;
             var isAsync = context.Mode == 1;
 
-            var type = (CrmEventType)Enum.Parse(typeof(CrmEventType), context.MessageName);
+            var type = message.Contains("_") ? CrmEventType.CustomPlugin : (CrmEventType)Enum.Parse(typeof(CrmEventType), context.MessageName);
 
             IPluginContext pluginContext = new Services.PluginContext(this.UnsecureConfig, this.SecureConfig, context, type, userId);
 
@@ -75,7 +75,20 @@
                     System.ComponentModel.INotifyPropertyChanged target = null;
                     foreach (var p in method.Parameters)
                     {
-                        args[ix] = serviceCache.Resolve(p);
+                        if (p.IsInputParameter)
+                        {
+                            if (context.InputParameters.ContainsKey(p.Name))
+                            {
+                                args[ix] = context.InputParameters[p.Name];
+                            } else
+                            {
+                                args[ix] = null;
+                            }
+                        }
+                        else
+                        {
+                            args[ix] = serviceCache.Resolve(p);
+                        }
 
                         if (stage <= 20)
                         {

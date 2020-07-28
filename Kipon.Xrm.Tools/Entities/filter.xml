@@ -1,5 +1,6 @@
 ﻿<filter>
   <entities>
+    <entity servicename="Workflows" logicalname="workflow"></entity>
     <entity servicename="Solutions" logicalname="solution"></entity>
     <entity servicename="SolutionComponents" logicalname="solutioncomponent"></entity>
     <entity servicename="SdkMessages" logicalname="sdkmessage"></entity>

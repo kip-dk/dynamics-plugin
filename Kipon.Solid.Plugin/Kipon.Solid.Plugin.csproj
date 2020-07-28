@@ -44,7 +44,10 @@
     <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.26\lib\net462\Microsoft.Xrm.Sdk.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
@@ -54,6 +57,9 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Workflow.Runtime" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,6 +81,7 @@
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
     <Compile Include="Model\INamed.cs" />
     <Compile Include="Model\IProspect.cs" />
+    <Compile Include="Plugins\Account\AccountAction.cs" />
     <Compile Include="Plugins\Account\AccountCreatePlugin.cs" />
     <Compile Include="Plugins\Account\AccountMergedImageInterfaceWithTargetAttr.cs" />
     <Compile Include="Plugins\Account\AccountMergeImageUpdate.cs" />

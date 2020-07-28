@@ -1,4 +1,23 @@
-## Last updated: 2020-07-07 10:18
+## Last updated: 2020-07-28 10:15
+
+### 1.0.1.3
+Added support for bounded custom actions (did not test unbounded - so for now, not supported). A custom action is defined in the solution Process as an action, and bound to an entity.
+You can on top of that, define input and output parameters. As all plugin, it must inherit from Kipon.Xrm.BasePlugin, and you must add event methods on the form
+
+On[stage][ProcessLoginalName],  ex. OnPostkipon_AccountCountContacts, remember to prefix with  you solution prefix as demonstrated here.
+
+where stage can be
+
+Validate
+Pre
+Post
+
+Async has NOT been tested.
+
+Parameters are injected by naming convention, so if you have an input parameter of type string, and you named it Name,  you can add a parameter to your On.. method On....(.., string Name). 
+Alternativly you can also inject the Microsoft.Xrm.Sdk.IPluginExecutionContext and extract them from there.
+
+The references to the bounded entity is injected as a TargetReferences, same pattern as for Delete message, ex On....(Entities.AccountReference target).
 
 ### 1.0.1.2
 All metadata cache is now build with lock when generating relevant cached metadata to avoid Dictionary.Insert nullpointer exception, cause by multi plugins trying to cache metadata

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Kipon.Xrm.Tools.Entities;
 using Kipon.Xrm.Tools.Models;
 
 namespace Kipon.Xrm.Tools.Services
@@ -12,7 +14,8 @@ namespace Kipon.Xrm.Tools.Services
     [Export(typeof(ServiceAPI.IPluginDeploymentService))]
     public class PluginDeploymentService : ServiceAPI.IPluginDeploymentService
     {
-        private ServiceAPI.IMessageService messageService;
+        private readonly ServiceAPI.IMessageService messageService;
+        private readonly Entities.IUnitOfWork uow;
         private Kipon.Tools.Xrm.Reflection.Types types;
         private Kipon.Tools.Xrm.Reflection.PluginMethod.Cache pluginMethodCache;
         private int[] stages = new int[] { 10, 20, 40 };
@@ -36,13 +39,21 @@ namespace Kipon.Xrm.Tools.Services
         private string[] entityLogicalNames;
 
         [ImportingConstructor]
-        public PluginDeploymentService(ServiceAPI.IMessageService messageService)
+        public PluginDeploymentService(ServiceAPI.IMessageService messageService, Entities.IUnitOfWork uow)
         {
             this.messageService = messageService;
+            this.uow = uow;
         }
 
         public Plugin[] ForAssembly(Assembly assembly)
         {
+            var customActions = (from sm in uow.SdkMessages.GetQuery()
+                                 join wf in uow.Workflows.GetQuery() on sm.SdkMessageId equals wf.SdkMessageId.Id
+                                 select sm.Name).Distinct().ToArray();
+            var allActions = new List<string>(messages);
+            allActions.AddRange(customActions);
+            messages = allActions.ToArray();
+
             this.types = Kipon.Tools.Xrm.Reflection.Types.Instance;
             types.SetAssembly(assembly);
             this.pluginMethodCache = new Kipon.Tools.Xrm.Reflection.PluginMethod.Cache(assembly);
