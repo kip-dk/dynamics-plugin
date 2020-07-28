@@ -63,7 +63,11 @@ public void On[Stage][Message][Async](parameters)
 * RetrieveMultiple
 * RemoveMember
 
-##### Below here work in progress messages - might or might not work (most likely they do NOT work yet):
+#### Custom actions - messagename
+You can create custom actions in CRM, and bind them to plugins. For now we have only tested bounded custom actions. Message will be the process logicalname [prefix]_[processuniquename],
+ex.  kipon_AccountCountContacts
+
+##### Below here work in progress on std action messages - might or might not work (most likely they do NOT work yet):
 * Associate
 * Disassociate
 * SetState
@@ -209,6 +213,12 @@ namespace MySolid.Plugins
 }
 ```
 
+#### Inject custom actions parameters
+Custom action input parameters are injected by naming convention, so if you added a string input parameter to you action, name Title,  it will look like this in your On.. method
+
+```csharp
+public void OnPost...(Entities.AccountReference target, string Title) { do something }
+```
 
 ### Deploy your code to Dynamics 365 instance
 The Kipon.Solid.Plugin nuget package has placed a deploy.cmd.template file in the root of your project. Rename this file to deploy.cmd and  change the content to match your need
