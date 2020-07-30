@@ -1,8 +1,12 @@
 ## Last updated: 2020-07-30 10:15
 
 ### 1.0.1.4
-The Kipon.Xrm.Tools crmsvcutil extension now generate request interface, request impl. and response impl. for actions. Please review the documentation for details on the topic.
+The Kipon.Xrm.Tools crmsvcutil extension now generate request interface, request impl. and response impl. for actions. Please review the documentation on the readme page for details on the topic.
 
+REMARK: Mergedimage<T> now defined Guid Id { get;} and LogicalName { get; } as assumed properties same way as Target, Preimage and Postimage. The workaround so
+far has been to add them to each interface inheriting from the Mergedimage interface. If you did so, you MUST remove these specific implementation after next
+entity code generation. You will get warning in Visual Studio, so just fix these by removing the declarations from your interfaces.
+(sorry that the version did not increase to 1.1.0.0 as breaking changes should, but we only found out after publish.)
 
 ### 1.0.1.3
 Added support for bounded custom actions (did not test unbounded - so for now, not supported). A custom action is defined in the solution Process as an action, and bound to an entity.
