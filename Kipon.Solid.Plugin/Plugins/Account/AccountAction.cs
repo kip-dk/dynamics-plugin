@@ -9,14 +9,14 @@ namespace Kipon.Solid.Plugin.Plugins.Account
 {
     public class AccountAction : Kipon.Xrm.BasePlugin
     {
-        public void OnPostkipon_AccountCountContacts(Entities.AccountReference target, ServiceAPI.IAccountService accountService, string Name, Microsoft.Xrm.Sdk.IPluginExecutionContext ctx)
+        public Actions.AccountCountContactsResponse OnPostkipon_AccountCountContacts(Actions.IAccountCountContactsRequest request, ServiceAPI.IAccountService accountService, string Name, Microsoft.Xrm.Sdk.IPluginExecutionContext ctx)
         {
             if (string.IsNullOrEmpty(Name))
             {
-                ctx.OutputParameters["Count"] = 0;
+                return new Actions.AccountCountContactsResponse { AMoney = new Money(0M), Count = 0 };
             } else
             {
-                ctx.OutputParameters["Count"] = Name.Length;
+                return new Actions.AccountCountContactsResponse { AMoney = new Money(10M), Count = Name.Length };
             }
         }
     }

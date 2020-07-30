@@ -53,12 +53,14 @@
             this.StepAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.StepAttribute)}"];
             this.LogicalNameAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.LogicalNameAttribute)}"];
             this.SortAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.SortAttribute)}"];
+            this.OutputAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.OutputAttribute)}"];
 
             this.Target = allTypes[$"{NAMESPACE}{nameof(_instance.Target)}`1"];
             this.TargetReference = allTypes[$"{NAMESPACE}{nameof(_instance.TargetReference)}`1"];
             this.Preimage = allTypes[$"{NAMESPACE}{nameof(_instance.Preimage)}`1"];
             this.Mergedimage = allTypes[$"{NAMESPACE}{nameof(_instance.Mergedimage)}`1"];
             this.Postimage = allTypes[$"{NAMESPACE}{nameof(_instance.Postimage)}`1"];
+            this.ActionTarget = allTypes[$"{NAMESPACE}{nameof(_instance.ActionTarget)}`1"];
 
             this.IUnitOfWork = allTypes[$"{NAMESPACE}{nameof(_instance.IUnitOfWork)}"];
             this.IAdminUnitOfWork = allTypes[$"{NAMESPACE}{nameof(_instance.IAdminUnitOfWork)}"];
@@ -81,6 +83,7 @@
         public Type StepAttribute { get; private set; }
         public Type LogicalNameAttribute { get; private set; }
         public Type SortAttribute { get; private set; }
+        public Type OutputAttribute { get; private set; }
 
         public Type Target { get; private set; }
         public Type TargetReference { get; private set; }
@@ -88,9 +91,9 @@
         public Type Preimage { get; private set; }
         public Type Mergedimage { get; private set; }
         public Type Postimage { get; private set; }
+        public Type ActionTarget { get; private set; }
         public Type IUnitOfWork { get; private set; }
         public Type IAdminUnitOfWork { get; private set; }
-
         public Type IRepository { get; private set; }
 
         public System.Reflection.Assembly Assembly { get; private set; }

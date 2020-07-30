@@ -1,5 +1,4 @@
-﻿/*
-using Microsoft.Xrm.Sdk;
+﻿using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -40,4 +39,3 @@ namespace Kipon.Xrm.Cmd.Tests
         }
     }
 }
-*/

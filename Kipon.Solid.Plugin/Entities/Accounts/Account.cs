@@ -9,6 +9,7 @@ namespace Kipon.Solid.Plugin.Entities
 {
     public partial class Account : Model.IProspect, Model.INamed
     {
+        [Microsoft.Xrm.Sdk.AttributeLogicalName("")]
         public Microsoft.Xrm.Sdk.Money Saldo { get; set; }
 
         void x()

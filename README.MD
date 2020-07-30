@@ -17,7 +17,7 @@ developing plugin for Dynamics 365 Customer Engagement platform.
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.1.3
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.1.4
 ```
 
 3) Rename the following files included in your project, and adjust according to your need
@@ -218,6 +218,34 @@ Custom action input parameters are injected by naming convention, so if you adde
 
 ```csharp
 public void OnPost...(Entities.AccountReference target, string Title) { do something }
+```
+
+Alternatively you can define witch actions to use in the filter.xml file on the form
+
+```xml
+<filter>
+   .... 
+  <actions>
+    <action name="AccountCountContacts">kipon_AccountCountContacts</action>
+  </actions>
+</filter>
+```
+
+Above declaration will declare an interface and an implementation for the kipon_AccountCountContacts  input parameters, and an implementation for the kipon_AccountCountContacts output parameters.
+
+The interface will be named [you namespace, '.Entities removed if it has such'].Actions.IAccountCountContactsRequest and can be injected into your action based plugin as a normal service. 
+No naming contrains on this one. You do not need
+to care about the implementation. It is there and it is partial, so you can extend it, but in most cases you will only see the interface. As for the output there is only an implementation, because you are
+suppose to return an instance of that, so the framework can add the result to the pipeline output parameters.
+
+Your plugin will extend Kipon.Xrm.BasePlugin and the execute method would something like this
+
+```csharp
+public Kipon.Solid.Actions.kipon_AccountCountContactsResponse OnPostkipon_AccountCountContacts(Kipon.Solid.Actions.IAccountCountContactsRequest request, ... additional services needed) 
+{
+    ...do what you have to do
+	return new Kipon.Solid.Actions.kipon_AccountCountContactsResponse { .. here you have properties for each output field }
+}
 ```
 
 ### Deploy your code to Dynamics 365 instance

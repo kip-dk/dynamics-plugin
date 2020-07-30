@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.1.3";
+        public const string Version = "1.0.1.4";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -130,7 +130,21 @@
                     #region run the method
                     try
                     {
-                        method.Invoke(this, args);
+                        var result = method.Invoke(this, args);
+
+                        if (result != null && method.OutputProperties != null && method.OutputProperties.Count > 0)
+                        {
+                            foreach (var key in method.OutputProperties.Keys)
+                            {
+                                var output = method.OutputProperties[key];
+                                var value = key.GetValue(result);
+                                if (value != null)
+                                {
+                                    context.OutputParameters[output.LogicalName] = value;
+                                }
+                            }
+                        }
+
                     } finally
                     {
                         #region cleanup mirror

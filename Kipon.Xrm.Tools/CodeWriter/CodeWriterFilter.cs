@@ -20,6 +20,10 @@ namespace Kipon.Xrm.Tools.CodeWriter
         public static readonly Dictionary<string, Model.Entity> ENTITIES = new Dictionary<string, Model.Entity>();
         public static readonly Dictionary<string, Model.OptionSet> GLOBAL_OPTIONSET_INDEX = new Dictionary<string, Model.OptionSet>();
         public static readonly Dictionary<string, string> ATTRIBUTE_SCHEMANAME_MAP = new Dictionary<string, string>();
+        public static readonly List<Model.Action> ACTIONS = new List<Model.Action>();
+        public static readonly Dictionary<string, Kipon.Xrm.Tools.Models.Activity> ACTIVITIES = new Dictionary<string, Models.Activity>();
+
+        public static Dictionary<string, string> LOGICALNAME2SCHEMANAME = new Dictionary<string, string>();
 
         public static bool SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES = false;
 
@@ -170,6 +174,59 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 }
             }
             #endregion
+
+            #region parse actions
+            {
+                XElement actionElements = xml.Element("actions");
+                if (actionElements != null)
+                {
+                    foreach (XElement action in actionElements.Elements("action"))
+                    {
+                        var name = action.Attribute("name");
+                        if (name == null || string.IsNullOrEmpty(name.Value))
+                        {
+                            throw new Exception("actions must have a name attribute");
+                        }
+                        var logicalName = action.Value;
+                        if (string.IsNullOrEmpty(logicalName))
+                        {
+                            throw new Exception("action logical name must be set inside the action tag");
+                        }
+                        var nextaction = new Model.Action { Name = name.Value, LogicalName = logicalName };
+                        ACTIONS.Add(nextaction);
+                    }
+                }
+
+                if (ACTIONS.Count > 0)
+                {
+                    using (var uow = new Entities.CrmUnitOfWork())
+                    {
+                        foreach (var action in ACTIONS)
+                        {
+                            var wf = (from w in uow.Workflows.GetQuery()
+                                      join s in uow.SdkMessages.GetQuery() on w.SdkMessageId.Id equals s.SdkMessageId
+                                      where w.Type.Value == 2
+                                        && s.Name == action.LogicalName
+                                        && w.StateCode == Entities.WorkflowState.Activated
+                                      select new
+                                      {
+                                          Xaml = w.Xaml
+                                      }).SingleOrDefault();
+                            if (wf == null)
+                            {
+                                Console.WriteLine($"Error: Could not find action message for { action.Name }. It is ignored.");
+                            }
+                            else
+                            {
+                                var activity = new Kipon.Xrm.Tools.Models.Activity(wf.Xaml);
+                                ACTIVITIES.Add(action.LogicalName, activity);
+                            }
+                        }
+                    }
+
+                }
+            }
+            #endregion
         }
 
         /// <summary>
@@ -178,17 +235,32 @@ namespace Kipon.Xrm.Tools.CodeWriter
         public bool GenerateEntity(EntityMetadata entityMetadata, IServiceProvider services)
         {
             var generate = _validEntities.ContainsKey(entityMetadata.LogicalName.ToLowerInvariant());
+
             if (generate)
             {
                 ENTITIES[entityMetadata.SchemaName] = _validEntities[entityMetadata.LogicalName.ToLowerInvariant()];
+                LOGICALNAME2SCHEMANAME[entityMetadata.LogicalName.ToLowerInvariant()] = entityMetadata.SchemaName;
+                return true;
             }
-            return generate;
+
+            var result =  ACTIVITIES.Values.Where(r => r.RequireEntity(entityMetadata.LogicalName.ToLowerInvariant())).Any();
+
+            if (result)
+            {
+                LOGICALNAME2SCHEMANAME[entityMetadata.LogicalName.ToLowerInvariant()] = entityMetadata.SchemaName;
+            }
+            return result;
         }
 
         //All other methods just use default implementation:
 
         public bool GenerateAttribute(AttributeMetadata attributeMetadata, IServiceProvider services)
         {
+            if (!_validEntities.ContainsKey(attributeMetadata.EntityLogicalName.ToLowerInvariant()))
+            {
+                return _defaultService.GenerateAttribute(attributeMetadata, services);
+            }
+
             if (SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES)
             {
                 var entity = _validEntities[attributeMetadata.EntityLogicalName.ToLowerInvariant()];

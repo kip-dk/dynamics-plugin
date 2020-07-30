@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Crm.Services.Utility;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Extensions;
 using Microsoft.Xrm.Sdk.Metadata;
 
 
@@ -152,12 +154,24 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         void ICustomizeCodeDomService.CustomizeCodeDom(CodeCompileUnit codeUnit, IServiceProvider services)
         {
+            Console.WriteLine("c 2020 Kipon ApS, " + this.GetType().FullName + ", Version: " + Kipon.Xrm.Tools.Version.No + ". All rights reserved");
             var ns = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/namespace:") select c.Split(':')[1]).Single();
             var xrmNS = "Kipon.Xrm";
+
+            var nsa = ns.Replace("Entities", "Actions");
+            {
+                var ap = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/action-namespace:") select c).FirstOrDefault();
+                if (!string.IsNullOrEmpty(ap))
+                {
+                    nsa = ap.Split(':')[1];
+                }
+            }
 
             var ctxName = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/ServiceContextName") select c.Split(':')[1]).Single();
 
             var entities = CodeWriterFilter.ENTITIES;
+            var actions = CodeWriterFilter.ACTIONS;
+
             using (var writer = new System.IO.StreamWriter("CrmUnitOfWork.Design.cs", false))
             {
                 var sharedService = new SharedCustomizeCodeDomService(writer);
@@ -325,6 +339,93 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 /* CL */ writer.WriteLine("\t}");
                 /* NS */ writer.WriteLine("}");
                 #endregion
+
+                #region write actions request interface/response class
+                if (actions != null && actions.Count > 0)
+                {
+                    #region generate action request interface and action response implementations
+                    writer.WriteLine("namespace " + nsa);
+                    writer.WriteLine("{");
+                    foreach (var action in actions)
+                    {
+                        var activity = CodeWriterFilter.ACTIVITIES[action.LogicalName];
+                        #region write request interface
+                        if (activity.InputMembers != null && activity.InputMembers.Length > 0)
+                        {
+                            var targetInterface = string.Empty;
+
+                            if (!string.IsNullOrEmpty(activity.LogicalName))
+                            {
+                                targetInterface = $": Kipon.Xrm.ActionTarget<{ns}.{CodeWriterFilter.LOGICALNAME2SCHEMANAME[activity.LogicalName]}>";
+                            }
+
+                            writer.WriteLine($"\tpublic interface I{action.Name}Request{targetInterface}");
+                            writer.WriteLine("\t{");
+
+                            foreach (var inp in activity.InputMembers)
+                            {
+                                writer.WriteLine($"\t\t{inp.Typename} {inp.Name} " + "{ get; }");
+                            }
+                            writer.WriteLine("\t}");
+                        }
+                        #endregion
+
+                        #region write response interface
+                        if (activity.OutputMembers != null && activity.OutputMembers.Length > 0)
+                        {
+                            writer.WriteLine($"\tpublic partial class {action.Name}Response");
+                            writer.WriteLine("\t{");
+                            foreach (var inp in activity.OutputMembers)
+                            {
+                                writer.WriteLine($"\t\t[Kipon.Xrm.Attributes.Output(\"{inp.Name}\", {(inp.Required? "true":"false")})]");
+                                writer.WriteLine($"\t\t public {inp.Typename} {inp.Name} " + "{ get; set; }");
+                            }
+                            writer.WriteLine("\t}");
+                        }
+                        #endregion
+                    }
+                    writer.WriteLine("}");
+                    #endregion
+
+                    #region generate action request implementations
+                    var hasInput = CodeWriterFilter.ACTIVITIES.Values.Where(r => r.InputMembers != null && r.InputMembers.Length > 0).Any();
+                    if (hasInput)
+                    {
+                        writer.WriteLine($"namespace {nsa}.Implement");
+                        writer.WriteLine("{");
+                        writer.WriteLine($"\tusing {nsa};");
+                        writer.WriteLine($"\tusing Kipon.Xrm.Actions;");
+
+                        foreach (var action in actions)
+                        {
+                            var activity = CodeWriterFilter.ACTIVITIES[action.LogicalName];
+                            if (activity.InputMembers != null && activity.InputMembers.Length > 0)
+                            {
+                                writer.WriteLine($"\tpublic partial class {action.Name}Request : AbstractActionRequest, I{action.Name}Request");
+                                writer.WriteLine("\t{");
+                                writer.WriteLine($"\t\tpublic {action.Name}Request(Microsoft.Xrm.Sdk.IPluginExecutionContext ctx): base(ctx)" + "{ }");
+
+                                if (activity.LogicalName != null)
+                                {
+                                    writer.WriteLine($"\t\tpublic Microsoft.Xrm.Sdk.EntityReference Target " + "{ get => this.ValueOf<Microsoft.Xrm.Sdk.EntityReference>(\"Target\"); }");
+                                }
+
+                                foreach (var inp in activity.InputMembers)
+                                {
+                                    writer.WriteLine($"\t\tpublic {inp.Typename} {inp.Name} " + "{" + $"get => this.ValueOf<{inp.Typename}>(\"{inp.Name}\")"  +  ";}");
+                                }
+
+                                writer.WriteLine("\t}");
+                            }
+                        }
+
+                        writer.WriteLine("}");
+                    }
+                    #endregion
+
+
+                }
+                #endregion
             }
         }
     }
@@ -337,7 +438,6 @@ namespace Kipon.Xrm.Tools.CodeWriter
             values = values.Take(values.Count - 1).ToList();
             values.Add(replaceWith);
             return string.Join(delimiter.ToString(), values);
-
         }
     }
 }

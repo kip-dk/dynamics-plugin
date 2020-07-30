@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Crm.Services.Utility;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 
 
@@ -15,8 +16,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
         void ICustomizeCodeDomService.CustomizeCodeDom(CodeCompileUnit codeUnit, IServiceProvider services)
         {
             var ns = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/namespace:") select c.Split(':')[1]).Single();
-
-            var entities = CodeWriterFilter.ENTITIES;
+                        var entities = CodeWriterFilter.ENTITIES;
             using (var writer = new System.IO.StreamWriter("CrmUnitOfWork.Design.cs", false))
             {
                 var sharedService = new SharedCustomizeCodeDomService(writer);

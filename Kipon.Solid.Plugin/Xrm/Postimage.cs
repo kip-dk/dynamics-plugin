@@ -6,6 +6,5 @@
     {
         System.Guid Id { get; }
         string LogicalName { get; }
-
     }
 }

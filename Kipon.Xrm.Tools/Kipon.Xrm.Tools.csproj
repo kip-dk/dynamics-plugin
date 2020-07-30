@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="CodeCopy\CopyXrmCode.cs" />
     <Compile Include="CodeWriter\CodeWriterFilter.cs" />
+    <Compile Include="CodeWriter\Model\Action.cs" />
     <Compile Include="CodeWriter\Model\Entity.cs" />
     <Compile Include="CodeWriter\Model\OptionSet.cs" />
     <Compile Include="CodeWriter\Model\OptionSetValue.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\ConfigurationException.cs" />
     <Compile Include="Extensions\Strings\StringsExtensions.cs" />
+    <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Plugin.cs" />
     <Compile Include="Models\Step.cs" />

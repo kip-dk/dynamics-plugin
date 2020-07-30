@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
+
     public class PluginMethod
     {
         public class Cache
@@ -282,6 +284,29 @@
                 #endregion
 
                 results.Add(result);
+
+                if (result.method.ReturnType != null)
+                {
+                    var outputProperties = result.method.ReturnType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                    if (outputProperties != null && outputProperties.Length > 0)
+                    {
+                        var output = new Dictionary<System.Reflection.PropertyInfo, Output>();
+                        foreach (var p in outputProperties)
+                        {
+                            var outputAttr = p.GetCustomAttribute(Types.OutputAttribute);
+                            if (outputAttr != null)
+                            {
+                                var name = (string)outputAttr.GetType().GetProperty("LogicalName").GetValue(outputAttr);
+                                var req = (bool)outputAttr.GetType().GetProperty("Required").GetValue(outputAttr);
+                                output.Add(p, new Output { LogicalName = name, Requred = req });
+                            }
+                        }
+                        if (output.Count > 0)
+                        {
+                            result.OutputProperties = output;
+                        }
+                    }
+                }
             }
 
             private PluginMethod CreateFrom(System.Reflection.MethodInfo method, string logicalname)
@@ -339,6 +364,8 @@
         private System.Reflection.MethodInfo method;
         public int Sort { get; set; }
         public TypeCache[] Parameters { get; private set; }
+
+        public Dictionary<System.Reflection.PropertyInfo, Output> OutputProperties;
 
         #region target filter attributes
         private bool? _filterAllProperties;
@@ -528,9 +555,9 @@
             return this.Parameters != null && (this.Parameters.Where(r => r.IsPreimage || r.IsMergedimage)).Any();
         }
 
-        public void Invoke(object instance, object[] args)
+        public object Invoke(object instance, object[] args)
         {
-            this.method.Invoke(instance, args);
+            return this.method.Invoke(instance, args);
         }
 
         public bool HasPostimage()

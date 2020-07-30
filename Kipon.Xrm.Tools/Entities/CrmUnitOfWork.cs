@@ -19,12 +19,12 @@ namespace Kipon.Xrm.Tools.Entities
 
         #region Constructor
 
+        [ImportingConstructor]
         public CrmUnitOfWork()
         {
             this.Service = new Kipon.Xrm.Tools.XrmOrganization.OrganizationService();
             this.context = new ContextService(this.Service);
         }
-
         #endregion
 
         #region IDisposable

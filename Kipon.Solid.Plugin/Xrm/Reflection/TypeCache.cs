@@ -401,11 +401,21 @@
                 if (type.IsInterface)
                 {
                     var r1 = GetInterfaceImplementation(type);
-                    var result = new TypeCache { FromType = type, ToType = r1, Constructor = GetConstructor(r1) };
+
+                    var entityType = type.ImplementsGenericInterface(Types.ActionTarget);
+                    string logialName = null;
+                    bool isActionReference = false;
+
+                    if (entityType != null)
+                    {
+                        logialName = ((Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(entityType)).LogicalName;
+                        isActionReference = true;
+                    }
+
+                    var result = new TypeCache { FromType = type, ToType = r1, Constructor = GetConstructor(r1), LogicalName = logialName, IsActionReference = isActionReference };
 
                     resolvedTypes[key] = result;
                     return result;
-
                 }
                 #endregion
 
@@ -578,6 +588,7 @@
         public bool IsImplemenedByEntity { get; private set; }
         public bool IsTarget { get; private set; }
         public bool IsReference { get; private set; }
+        public bool IsActionReference { get; private set; }
         public bool IsPreimage { get; private set; }
         public bool IsMergedimage { get; private set; }
         public bool IsPostimage { get; private set; }

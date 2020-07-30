@@ -1,4 +1,8 @@
-## Last updated: 2020-07-28 10:15
+## Last updated: 2020-07-30 10:15
+
+### 1.0.1.4
+The Kipon.Xrm.Tools crmsvcutil extension now generate request interface, request impl. and response impl. for actions. Please review the documentation for details on the topic.
+
 
 ### 1.0.1.3
 Added support for bounded custom actions (did not test unbounded - so for now, not supported). A custom action is defined in the solution Process as an action, and bound to an entity.
