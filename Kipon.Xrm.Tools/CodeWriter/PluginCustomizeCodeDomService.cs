@@ -359,7 +359,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                                 targetInterface = $": Kipon.Xrm.ActionTarget<{ns}.{CodeWriterFilter.LOGICALNAME2SCHEMANAME[activity.LogicalName]}>";
                             }
 
-                            writer.WriteLine($"\tpublic interface I{action.Name}Request{targetInterface}");
+                            writer.WriteLine($"\tpublic partial interface I{action.Name}Request{targetInterface}");
                             writer.WriteLine("\t{");
 
                             foreach (var inp in activity.InputMembers)
