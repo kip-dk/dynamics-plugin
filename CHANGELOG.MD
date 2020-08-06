@@ -1,4 +1,7 @@
-## Last updated: 2020-07-30 17:50
+## Last updated: 2020-08-06 08:50
+
+### 1.0.1.6
+Exceptions thrown by the framework has been marked serializable
 
 ### 1.0.1.5
 The actions request server interface is not generated partially.
