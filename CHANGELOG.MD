@@ -1,5 +1,8 @@
 ## Last updated: 2020-08-06 08:50
 
+### 1.0.1.7
+Map framework exceptions to invaludpluginexecutionexception to allow serialization of message to the client. 
+
 ### 1.0.1.6
 Exceptions thrown by the framework has been marked serializable
 

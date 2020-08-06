@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.1.6";
+        public const string Version = "1.0.1.7";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -144,7 +144,13 @@
                                 }
                             }
                         }
-
+                    } catch (Exception be) {
+                        if (be.GetType().FullName == "Kipon.Xrm.Exceptions.BaseException") 
+                        {
+                            // it is not a unit test, its the real thing, so we map the exception to a supported exception to allow message to parse alle the way to the client
+                            throw new InvalidPluginExecutionException($"{be.GetType().FullName}: {be.Message}", be);
+                        }
+                        throw;
                     } finally
                     {
                         #region cleanup mirror
