@@ -136,6 +136,7 @@ namespace MySolid.Plugins
 		{
 			// Do whatever you need to do on the task or email pre create
 			// you can even typecast the entity to appropriate, because what you get IS the strong type entity.
+			// .. be aware that a typecase of target to the real entity would be a violation of basic SOLID princips - so even though it is possible, it is not the best idear ever. 
 		}
 	}
 }
