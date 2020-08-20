@@ -1,5 +1,8 @@
 ## Last updated: 2020-08-06 08:50
 
+### 1.0.1.8
+Better message when plugin is unable to resolve a plugin parameter
+
 ### 1.0.1.7
 Map framework exceptions to invaludpluginexecutionexception to allow serialization of message to the client. 
 
