@@ -79,12 +79,15 @@
                         merged.Id = target.Id;
                         merged.LogicalName = target.LogicalName;
 
-                        var imgName = PluginMethod.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
-                        var pre = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[imgName];
-
-                        foreach (var attr in pre.Attributes.Keys)
+                        if (pluginExecutionContext.MessageName != "Create")
                         {
-                            merged[attr] = pre[attr];
+                            var imgName = PluginMethod.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
+                            var pre = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[imgName];
+
+                            foreach (var attr in pre.Attributes.Keys)
+                            {
+                                merged[attr] = pre[attr];
+                            }
                         }
 
                         foreach (var attr in target.Attributes.Keys)
