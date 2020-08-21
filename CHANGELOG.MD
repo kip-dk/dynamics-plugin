@@ -1,5 +1,8 @@
 ## Last updated: 2020-08-06 08:50
 
+### 1.0.2.0
+Support for unbounded custom actions.
+
 ### 1.0.1.9 
 Allow use of Mergedimage interfaces in plugin method for message Create. I nthis case, the mergedimage will just be a copy of the target. Two way sync in pre-stage in pre stage is also supported on pre-create
 

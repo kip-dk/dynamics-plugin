@@ -15345,6 +15345,84 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 	}
 	
+	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/kipon/")]
+	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("kipon_Anunboundedaction")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	public partial class kipon_AnunboundedactionRequest : Microsoft.Xrm.Sdk.OrganizationRequest
+	{
+		
+		public string Name
+		{
+			get
+			{
+				if (this.Parameters.Contains("Name"))
+				{
+					return ((string)(this.Parameters["Name"]));
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+			set
+			{
+				this.Parameters["Name"] = value;
+			}
+		}
+		
+		public string Document
+		{
+			get
+			{
+				if (this.Parameters.Contains("Document"))
+				{
+					return ((string)(this.Parameters["Document"]));
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+			set
+			{
+				this.Parameters["Document"] = value;
+			}
+		}
+		
+		public kipon_AnunboundedactionRequest()
+		{
+			this.RequestName = "kipon_Anunboundedaction";
+			this.Name = default(string);
+			this.Document = default(string);
+		}
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/kipon/")]
+	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("kipon_Anunboundedaction")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	public partial class kipon_AnunboundedactionResponse : Microsoft.Xrm.Sdk.OrganizationResponse
+	{
+		
+		public kipon_AnunboundedactionResponse()
+		{
+		}
+		
+		public string Id
+		{
+			get
+			{
+				if (this.Results.Contains("Id"))
+				{
+					return ((string)(this.Results["Id"]));
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+	}
+	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_GDPROptoutContact")]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]

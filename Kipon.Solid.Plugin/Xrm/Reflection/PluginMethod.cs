@@ -205,7 +205,7 @@
                             else
                             {
                                 // TO-DO: complete the list of messages not related to a specific entity.
-                                if (message != "RemoveMember")
+                                if (!IsKnownMessage(message))
                                 {
                                     throw new NotImplementedException("handling method not attached to a logicalname is not supported yet.");
                                 }
@@ -222,6 +222,19 @@
                     cache[key] = results.OrderBy(r => r.Sort).ToArray();
                     return cache[key];
                 }
+            }
+
+            private bool IsKnownMessage(string message)
+            {
+                switch (message)
+                {
+                    case "RemoveMember": return true;
+                }
+
+                if (!message.StartsWith("_") && message.Contains("_")) return true;
+
+
+                return false;
             }
 
             private void AddIfConsistent(Type type, System.Reflection.MethodInfo method, List<PluginMethod> results, PluginMethod result, string message, int stage)

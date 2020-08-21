@@ -88,6 +88,7 @@
     <Compile Include="Plugins\Account\AccountPostCreate.cs" />
     <Compile Include="Plugins\Account\AccountRetrieveMultiplePostAsync.cs" />
     <Compile Include="Plugins\Account\AccoutPostUpdate.cs" />
+    <Compile Include="Plugins\AnunboundedactionPlugin.cs" />
     <Compile Include="Plugins\Contact\ContactDeletePlugin.cs" />
     <Compile Include="Plugins\Contact\ContactPlugin.cs" />
     <Compile Include="Plugins\Generic\ProspectPlugin.cs" />

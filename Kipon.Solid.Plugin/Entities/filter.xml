@@ -28,5 +28,6 @@
   </optionsets>
   <actions>
     <action name="AccountCountContacts">kipon_AccountCountContacts</action>
+    <action name="Anunboundedaction">kipon_Anunboundedaction</action>
   </actions>
 </filter>

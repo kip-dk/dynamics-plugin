@@ -13,6 +13,12 @@ namespace Kipon.Xrm.Cmd
         {
             Console.WriteLine($"Kipon.Xrm.Cmd {Kipon.Xrm.Tools.Version.No}");
 
+            if (args != null && args.Where(r => r == "debug").Any())
+            {
+                Console.WriteLine("Attach debugger to cmd.exe now, and press enter");
+                Console.ReadLine();
+            }
+
             if (args == null || args.Length == 0)
             {
                 Console.WriteLine("You must specify task name.");
