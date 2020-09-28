@@ -64,6 +64,34 @@
                         return this.pluginExecutionContext.PrimaryEntityName;
                     }
 
+                    if (type.FromType == typeof(Microsoft.Xrm.Sdk.Query.QueryExpression))
+                    {
+                        if (pluginExecutionContext.InputParameters.Contains("Query"))
+                        {
+                            var query = pluginExecutionContext.InputParameters["Query"];
+                            if (query is Microsoft.Xrm.Sdk.Query.QueryExpression qe)
+                            {
+                                // no cache by design - need to be resolved on all request.
+                                return qe;
+                            }
+
+                            if (query is Microsoft.Xrm.Sdk.Query.FetchExpression fe)
+                            {
+                                var resp = (Microsoft.Crm.Sdk.Messages.FetchXmlToQueryExpressionResponse)orgService.Execute(new Microsoft.Crm.Sdk.Messages.FetchXmlToQueryExpressionRequest
+                                {
+                                    FetchXml = fe.Query
+                                });
+                                return resp.Query;
+                            }
+
+                            throw new Exceptions.UnresolvedQueryParameter(type.Name);
+                        }
+                        else
+                        {
+                            throw new InvalidPluginExecutionException("QueryExpression can only be requested form Retrieve and RetrieveMultiple requests");
+                        }
+                    }
+
                     if (type.IsTarget && !type.IsReference)
                     {
                         var entity = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.InputParameters["Target"];
@@ -160,32 +188,6 @@
                         }
 
                         throw new Exceptions.UnresolveableParameterException(type.FromType, type.Name);
-                    }
-
-                    if (type.FromType == typeof(Microsoft.Xrm.Sdk.Query.QueryExpression))
-                    {
-                        if (pluginExecutionContext.InputParameters.Contains("Query"))
-                        {
-                            var query = pluginExecutionContext.InputParameters["Query"];
-                            if (query is Microsoft.Xrm.Sdk.Query.QueryExpression)
-                            {
-                                // no cache by design - need to be resolved on all request.
-                                return query;
-                            }
-
-                            if (query is Microsoft.Xrm.Sdk.Query.FetchExpression fe)
-                            {
-                                var resp = (Microsoft.Crm.Sdk.Messages.FetchXmlToQueryExpressionResponse)orgService.Execute(new Microsoft.Crm.Sdk.Messages.FetchXmlToQueryExpressionRequest
-                                {
-                                    FetchXml = fe.Query
-                                });
-
-                                return resp.Query;
-                            }
-                        } else
-                        {
-                            throw new InvalidPluginExecutionException("QueryExpression can only be requested form Retrieve and RetrieveMultiple requests");
-                        }
                     }
 
                     return this.CreateServiceInstance(type);

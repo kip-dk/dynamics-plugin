@@ -54,7 +54,7 @@ namespace Kipon.Xrm.Tools.Services
                 }
             }
 
-            var removes = (from s in steps where !remains.Contains(s) select s).ToArray();
+            var removes = (from s in steps where !remains.Contains(s) && s.Stage.Value != 30 select s).ToArray();
             foreach (var remove in removes)
             {
                 uow.Delete(remove);

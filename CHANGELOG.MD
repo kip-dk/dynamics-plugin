@@ -1,5 +1,9 @@
 ## Last updated: 2020-09-28 09:20
 
+### 
+1.0.2.2
+Fix for virtuel entity support.
+
 ### 1.0.2.1
 Experimental support for virtual entity plugin. A new base plugin type "Kipon.Xrm.VirtualEntityPlugin" has been put in place to support development of virtual entity data providers with this framework.
 
