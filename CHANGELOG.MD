@@ -1,5 +1,8 @@
 ## Last updated: 2020-09-28 09:20
 
+### 1.0.2.4
+Support for virtual entity plugin.
+
 ### 1.0.2.3
 Fix for virtuel entity support
 

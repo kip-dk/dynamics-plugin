@@ -77,6 +77,14 @@
                         {
                             throw new InvalidPluginExecutionException("Return from virtual antity Retrieve must be of type Microsoft.Xrm.Sdk.Entity");
                         }
+
+                        if (be.GetType() != typeof(Microsoft.Xrm.Sdk.Entity))
+                        {
+                            var fr = new Microsoft.Xrm.Sdk.Entity { Id = be.Id, LogicalName = be.LogicalName };
+                            fr.Attributes = be.Attributes;
+                            be = fr;
+                        }
+
                         context.OutputParameters["BusinessEntity"] = be;
                     }
 
@@ -87,7 +95,21 @@
                         {
                             throw new InvalidPluginExecutionException("Return from virtual entity RetrieveMultiple must be of type Microsoft.Xrm.Sdk.EntityCollection");
                         }
-                        context.OutputParameters["BusinessEntityCollection"] = bes;
+
+                        var fes = new Microsoft.Xrm.Sdk.EntityCollection();
+                        foreach (var be in bes.Entities)
+                        {
+                            if (be.GetType() == typeof(Microsoft.Xrm.Sdk.Entity))
+                            {
+                                fes.Entities.Add(be);
+                            } else
+                            {
+                                var fr = new Microsoft.Xrm.Sdk.Entity { Id = be.Id, LogicalName = be.LogicalName };
+                                fr.Attributes = be.Attributes;
+                                fes.Entities.Add(fr);
+                            }
+                        }
+                        context.OutputParameters["BusinessEntityCollection"] = fes;
                     }
                 }
             }

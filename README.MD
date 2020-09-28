@@ -17,7 +17,7 @@ developing plugin for Dynamics 365 Customer Engagement platform.
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.2.3
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.2.4
 ```
 
 3) Rename the following files included in your project, and adjust according to your need
@@ -248,6 +248,52 @@ public Kipon.Solid.Actions.kipon_AccountCountContactsResponse OnPostkipon_Accoun
 	return new Kipon.Solid.Actions.kipon_AccountCountContactsResponse { .. here you have properties for each output field }
 }
 ```
+
+### Virtual Plugin Provider support (from version 1.0.2.4)
+You can use plugins to integration your Dyanmics 365 with external datasources (readonly), where the plugin is used as a datasource provider. The Kipon solid plugin framework supports building these plugins
+
+Your plugin must extend Kipon.Xrm.VirtualEntityPlugin and must have two public methods OnRetrieve and OnRetrieveMultiple. You can inject services etc. into the plugin business as usual.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Kipon.Solid.Plugin.Plugins.Virtual
+{
+    public class VirtualEntityPlugin : Kipon.Xrm.VirtualEntityPlugin
+    {
+        public Microsoft.Xrm.Sdk.Entity OnRetrieve(Guid primaryentityid, string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query)
+        {
+            return new Microsoft.Xrm.Sdk.Entity { LogicalName = primaryentityname, Id = primaryentityid };
+        }
+
+        public Microsoft.Xrm.Sdk.EntityCollection OnRetrieveMultiple(string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query)
+        {
+            var result = new Microsoft.Xrm.Sdk.EntityCollection();
+            for (var i = 0; i < 10; i++)
+            {
+                result.Entities.Add(new Microsoft.Xrm.Sdk.Entity { LogicalName = primaryentityname, Id = Guid.NewGuid() });
+            }
+            return result;
+        }
+    }
+}
+````
+
+Above example demonstrate how the structure of the plugin could look, getting the query from Dynamics 365 injected alongside the id and logical name for Retrieve and the logical name for RetrieveMultiple.
+For now you must use the standard PRT to create your datasource and you must manually create an instance of the datasource in your solution, and link it to your virtual entity before the concept will work.
+
+That part of the process is not 100% logical, so here are some hints:
+
+1) Create a datasource using the PRT. This will create a "special" virtual entity, holding information for your datasource provider, ex. connection string and more.
+2) Go into your Dynamics 365 menu as administrator, and use advanced find to search on the newley create entity.
+3) Create at least one row in the virtual entity table (the one create through the PRT tool)
+4) Now you can go into your real virtual entity and set the Data Source on the virtual entity to point to the row created in 3).
+5) Remember to add the Virtual Data Source to your solution so it is included when you deploy the solution to your test and production environment.
+
 
 ### Deploy your code to Dynamics 365 instance
 The Kipon.Solid.Plugin nuget package has placed a deploy.cmd.template file in the root of your project. Rename this file to deploy.cmd and  change the content to match your need
