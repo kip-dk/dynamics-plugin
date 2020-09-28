@@ -87,7 +87,7 @@
                         {
                             throw new InvalidPluginExecutionException("Return from virtual entity RetrieveMultiple must be of type Microsoft.Xrm.Sdk.EntityCollection");
                         }
-                        context.OutputParameters["BusinessEntityCollection"] = new EntityCollection();
+                        context.OutputParameters["BusinessEntityCollection"] = bes;
                     }
                 }
             }

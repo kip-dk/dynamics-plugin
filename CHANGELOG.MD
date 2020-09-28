@@ -1,7 +1,9 @@
 ## Last updated: 2020-09-28 09:20
 
-### 
-1.0.2.2
+### 1.0.2.3
+Fix for virtuel entity support
+
+### 1.0.2.2
 Fix for virtuel entity support.
 
 ### 1.0.2.1
