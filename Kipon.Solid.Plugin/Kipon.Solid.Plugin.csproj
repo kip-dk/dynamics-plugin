@@ -93,6 +93,7 @@
     <Compile Include="Plugins\Contact\ContactPlugin.cs" />
     <Compile Include="Plugins\Generic\ProspectPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
+    <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Xrm\Actions\AbstractActionRequest.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Xrm\Postimage.cs" />
     <Compile Include="Xrm\Preimage.cs" />
     <Compile Include="Xrm\Reflection\Types.cs" />
+    <Compile Include="Xrm\VirtualEntityPlugin.cs" />
     <Compile Include="Xrm\Services\PluginContext.cs" />
     <Compile Include="Xrm\Target.cs" />
     <Compile Include="Xrm\TargetReference.cs" />

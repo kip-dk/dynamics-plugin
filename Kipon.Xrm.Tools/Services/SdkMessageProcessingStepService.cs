@@ -70,6 +70,8 @@ namespace Kipon.Xrm.Tools.Services
 
             foreach (var plugin in plugins)
             {
+                if (plugin.IsVirtualEntityPlugin) continue;
+
                 foreach (var step in plugin.Steps)
                 {
                     var name = plugin.NameOf(step.Stage, step.Message, step.IsAsync, step.PrimaryEntityLogicalName);

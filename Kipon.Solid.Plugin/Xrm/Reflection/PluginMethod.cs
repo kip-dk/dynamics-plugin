@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Microsoft.Xrm.Sdk;
 
     public class PluginMethod
     {
@@ -54,8 +55,28 @@
 
                     methods = (from m in methods where !m.Name.StartsWith("get_") && !IGNORE_METHODS.Contains(m.Name) select m).ToArray();
 
-                    var stepStage = stage == 40 && isAsync ? 41 : stage;
+                    #region special handling of virtual entity plugin, that is the only thing than can end up calling in stage 30
+                    if (stage == 30)
+                    {
+                        methods = methods.Where(r => r.Name == $"On{message}").ToArray();
+                        if (methods.Length > 1)
+                        {
+                            throw new InvalidPluginExecutionException($"Virtual Entity plugin can have only one method to be called, this plugin has { methods.Length } methods.");
+                        }
 
+                        if (methods.Length == 0)
+                        {
+                            throw new InvalidPluginExecutionException($"Virtual Entity plugin must have a method called On{message}.");
+                        }
+
+                        var next = CreateFrom(methods[0], null);
+
+                        cache[key] = new[] { next };
+                        return cache[key];
+                    }
+                    #endregion
+
+                    var stepStage = stage == 40 && isAsync ? 41 : stage;
                     List<PluginMethod> results = new List<PluginMethod>();
 
                     foreach (var method in methods)
@@ -628,6 +649,7 @@
             {
                 case 10: return "Validate";
                 case 20: return "Pre";
+                case 30: return ""; // virtual entity query request
                 case 40: return "Post";
                 default: throw new Microsoft.Xrm.Sdk.InvalidPluginExecutionException($"Unknown state {value}");
             }

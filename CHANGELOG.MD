@@ -1,7 +1,12 @@
-## Last updated: 2020-08-06 08:50
+## Last updated: 2020-09-28 09:20
 
-### NOT RELEASE: 1.0.2.0
-Support for unbounded custom actions.
+### 1.0.2.1
+Experimental support for virtual entity plugin. A new base plugin type "Kipon.Xrm.VirtualEntityPlugin" has been put in place to support development of virtual entity data providers with this framework.
+
+A virtual entity plugin does not have any steps due to the design of virtual entities. It is called on stage 30 when entity and provider is linked togehter. For now, you must create the Data Provider manually 
+using the Microsoft standard PRT, but you can develop the plugin with Kipon.Solid.Plugin tool. Extend Kipon.Xrm.VirtualEntityPlugin, and write two methods in your plugin:  OnRetrieve and OnRetrieveMultiple.
+For the first method, return and Entity, for the second, return an EntityCollection. To get the query parsed from dynamics 365, inject an instance of Microsoft.Xrm.Sdk.Query.QueryExpression and vist the
+expression three to get the actual filter criteria for your query.
 
 ### 1.0.1.9 
 Allow use of Mergedimage interfaces in plugin method for message Create. I nthis case, the mergedimage will just be a copy of the target. Two way sync in pre-stage in pre stage is also supported on pre-create

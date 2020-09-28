@@ -8030,6 +8030,24 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// Skip Price Calculation (For Internal Use)
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("skippricecalculation")]
+		public Microsoft.Xrm.Sdk.OptionSetValue SkipPriceCalculation
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("skippricecalculation");
+			}
+			set
+			{
+				this.OnPropertyChanging("SkipPriceCalculation");
+				this.SetAttributeValue("skippricecalculation", value);
+				this.OnPropertyChanged("SkipPriceCalculation");
+			}
+		}
+		
+		/// <summary>
 		/// manualsla_opportunity
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("slaid")]
@@ -9851,6 +9869,24 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// Skip Price Calculation (For Internal use)
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("skippricecalculation")]
+		public Microsoft.Xrm.Sdk.OptionSetValue SkipPriceCalculation
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("skippricecalculation");
+			}
+			set
+			{
+				this.OnPropertyChanging("SkipPriceCalculation");
+				this.SetAttributeValue("skippricecalculation", value);
+				this.OnPropertyChanged("SkipPriceCalculation");
+			}
+		}
+		
+		/// <summary>
 		/// manualsla_quote
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("slaid")]
@@ -11664,6 +11700,24 @@ namespace Kipon.Solid.Plugin.Entities
 				this.OnPropertyChanging("ShipTo_Telephone");
 				this.SetAttributeValue("shipto_telephone", value);
 				this.OnPropertyChanged("ShipTo_Telephone");
+			}
+		}
+		
+		/// <summary>
+		/// Skip Price Calculation
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("skippricecalculation")]
+		public Microsoft.Xrm.Sdk.OptionSetValue SkipPriceCalculation
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("skippricecalculation");
+			}
+			set
+			{
+				this.OnPropertyChanging("SkipPriceCalculation");
+				this.SetAttributeValue("skippricecalculation", value);
+				this.OnPropertyChanged("SkipPriceCalculation");
 			}
 		}
 		
@@ -15609,44 +15663,6 @@ namespace Kipon.Solid.Plugin.Entities
 		
 		public msdyn_GDPROptoutUserResponse()
 		{
-		}
-	}
-	
-	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
-	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_ResetPrimaryNameFieldForOQOIDetailEntities")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
-	public partial class msdyn_ResetPrimaryNameFieldForOQOIDetailEntitiesRequest : Microsoft.Xrm.Sdk.OrganizationRequest
-	{
-		
-		public msdyn_ResetPrimaryNameFieldForOQOIDetailEntitiesRequest()
-		{
-			this.RequestName = "msdyn_ResetPrimaryNameFieldForOQOIDetailEntities";
-		}
-	}
-	
-	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
-	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_ResetPrimaryNameFieldForOQOIDetailEntities")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
-	public partial class msdyn_ResetPrimaryNameFieldForOQOIDetailEntitiesResponse : Microsoft.Xrm.Sdk.OrganizationResponse
-	{
-		
-		public msdyn_ResetPrimaryNameFieldForOQOIDetailEntitiesResponse()
-		{
-		}
-		
-		public int resultCode
-		{
-			get
-			{
-				if (this.Results.Contains("resultCode"))
-				{
-					return ((int)(this.Results["resultCode"]));
-				}
-				else
-				{
-					return default(int);
-				}
-			}
 		}
 	}
 	

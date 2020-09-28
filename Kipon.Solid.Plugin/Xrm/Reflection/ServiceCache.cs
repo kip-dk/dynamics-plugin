@@ -35,6 +35,11 @@
 
         public object Resolve(TypeCache type)
         {
+            return this.Resolve(type, null);
+        }
+
+        public object Resolve(TypeCache type, Microsoft.Xrm.Sdk.IOrganizationService orgService)
+        {
             try
             {
                 if (services.ContainsKey(type.ObjectInstanceKey))
@@ -47,6 +52,16 @@
                     if (services.ContainsKey(type.ObjectInstanceKey))
                     {
                         return services[type.ObjectInstanceKey];
+                    }
+
+                    if (type.FromType == typeof(Guid) && type.Name != null && type.Name.ToLower() == nameof(this.pluginExecutionContext.PrimaryEntityId).ToLower())
+                    {
+                        return this.pluginExecutionContext.PrimaryEntityId;
+                    }
+
+                    if (type.FromType == typeof(string) && type.Name != null && type.Name.ToLower() == nameof(this.pluginExecutionContext.PrimaryEntityName).ToLower())
+                    {
+                        return this.pluginExecutionContext.PrimaryEntityName;
                     }
 
                     if (type.IsTarget && !type.IsReference)
@@ -145,6 +160,32 @@
                         }
 
                         throw new Exceptions.UnresolveableParameterException(type.FromType, type.Name);
+                    }
+
+                    if (type.FromType == typeof(Microsoft.Xrm.Sdk.Query.QueryExpression))
+                    {
+                        if (pluginExecutionContext.InputParameters.Contains("Query"))
+                        {
+                            var query = pluginExecutionContext.InputParameters["Query"];
+                            if (query is Microsoft.Xrm.Sdk.Query.QueryExpression)
+                            {
+                                // no cache by design - need to be resolved on all request.
+                                return query;
+                            }
+
+                            if (query is Microsoft.Xrm.Sdk.Query.FetchExpression fe)
+                            {
+                                var resp = (Microsoft.Crm.Sdk.Messages.FetchXmlToQueryExpressionResponse)orgService.Execute(new Microsoft.Crm.Sdk.Messages.FetchXmlToQueryExpressionRequest
+                                {
+                                    FetchXml = fe.Query
+                                });
+
+                                return resp.Query;
+                            }
+                        } else
+                        {
+                            throw new InvalidPluginExecutionException("QueryExpression can only be requested form Retrieve and RetrieveMultiple requests");
+                        }
                     }
 
                     return this.CreateServiceInstance(type);

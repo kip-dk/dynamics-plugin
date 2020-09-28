@@ -50,6 +50,7 @@ namespace Kipon.Xrm.Tools.Services
             var customActions = (from sm in uow.SdkMessages.GetQuery()
                                  join wf in uow.Workflows.GetQuery() on sm.SdkMessageId equals wf.SdkMessageId.Id
                                  select sm.Name).Distinct().ToArray();
+
             var allActions = new List<string>(messages);
             allActions.AddRange(customActions);
             messages = allActions.ToArray();
@@ -59,10 +60,20 @@ namespace Kipon.Xrm.Tools.Services
             this.pluginMethodCache = new Kipon.Tools.Xrm.Reflection.PluginMethod.Cache(assembly);
 
             var plugins = assembly.GetTypes().Where(r => r.BaseType == types.BasePlugin).ToArray();
+            var vPlugins = assembly.GetTypes().Where(r => r.BaseType == types.VirtualEntityPlugin).ToArray();
 
-            this.messageService.Inform($"Kipon.Xrm.Tools, plugin deployment found {plugins.Length} plugins in {assembly.FullName}.");
+            this.messageService.Inform($"Kipon.Xrm.Tools, plugin deployment found {plugins.Length} plugins, virtual entityplugins: {vPlugins.Length} in {assembly.FullName}");
 
             List<Plugin> result = new List<Plugin>();
+
+            if (vPlugins != null && vPlugins.Length > 0)
+            {
+                foreach (var s in vPlugins)
+                {
+                    var next = new Models.Plugin(s, true);
+                    result.Add(next);
+                }
+            }
 
             this.entityLogicalNames = assembly.GetTypes().
                 Where(r => r.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))

@@ -15,6 +15,13 @@ namespace Kipon.Xrm.Tools.Models
             this.Type = type;
         }
 
+        public Plugin(Type type, bool virtualEntity)
+        {
+            this.Type = type;
+            this.IsVirtualEntityPlugin = virtualEntity;
+        }
+
+        public bool IsVirtualEntityPlugin { get; private set; }
         public Type Type { get; private set; }
         public Step[] Steps => this.steps.ToArray();
 
