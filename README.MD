@@ -17,7 +17,7 @@ developing plugin for Dynamics 365 Customer Engagement platform.
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.2.4
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.2.5
 ```
 
 3) Rename the following files included in your project, and adjust according to your need
@@ -249,7 +249,7 @@ public Kipon.Solid.Actions.kipon_AccountCountContactsResponse OnPostkipon_Accoun
 }
 ```
 
-### Virtual Plugin Provider support (from version 1.0.2.4)
+### Virtual Plugin Provider support (from version 1.0.2.5)
 You can use plugins to integration your Dyanmics 365 with external datasources (readonly), where the plugin is used as a datasource provider. The Kipon solid plugin framework supports building these plugins
 
 Your plugin must extend Kipon.Xrm.VirtualEntityPlugin and must have two public methods OnRetrieve and OnRetrieveMultiple. You can inject services etc. into the plugin business as usual.

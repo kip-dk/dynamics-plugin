@@ -85,6 +85,7 @@
                             be = fr;
                         }
 
+                        this.RemoveNullValues(be);
                         context.OutputParameters["BusinessEntity"] = be;
                     }
 
@@ -109,9 +110,23 @@
                                 fes.Entities.Add(fr);
                             }
                         }
+
+                        foreach (var fe in fes.Entities)
+                        {
+                            this.RemoveNullValues(fe);
+                        }
                         context.OutputParameters["BusinessEntityCollection"] = fes;
                     }
                 }
+            }
+        }
+
+        private void RemoveNullValues(Microsoft.Xrm.Sdk.Entity entity)
+        {
+            foreach (var k in entity.Attributes.Keys.ToArray())
+            {
+                var v = entity[k];
+                if (v == null) entity.Attributes.Remove(k);
             }
         }
     }

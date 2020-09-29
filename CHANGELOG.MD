@@ -1,5 +1,10 @@
 ## Last updated: 2020-09-28 09:20
 
+### 1.0.2.5 virtual entity plugin fix
+When a provider is populating null in an entity reference, the plugin works, but when receiving the result from a client using the SDK, this will fail, because null values for entityreferences is not supported
+by the linq query provider. The Kipon.Xrm.VirtualEntityPlugin now remove all null values from the result entity and result entity collection, witch looking from the client perspective is the same, so your plugin
+can set attributes to null, without the consequence of query fail for a client using the linq provider.
+
 ### 1.0.2.4
 Support for virtual entity plugin.
 
