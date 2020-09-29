@@ -265,7 +265,7 @@ namespace Kipon.Solid.Plugin.Plugins.Virtual
 {
     public class VirtualEntityPlugin : Kipon.Xrm.VirtualEntityPlugin
     {
-        public Microsoft.Xrm.Sdk.Entity OnRetrieve(Guid primaryentityid, string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query)
+        public Microsoft.Xrm.Sdk.Entity OnRetrieve(Guid primaryentityid, string primaryentityname)
         {
             return new Microsoft.Xrm.Sdk.Entity { LogicalName = primaryentityname, Id = primaryentityid };
         }

@@ -88,7 +88,7 @@
                         }
                         else
                         {
-                            throw new InvalidPluginExecutionException("QueryExpression can only be requested form Retrieve and RetrieveMultiple requests");
+                            throw new InvalidPluginExecutionException("QueryExpression can only be requested for RetrieveMultiple requests");
                         }
                     }
 
