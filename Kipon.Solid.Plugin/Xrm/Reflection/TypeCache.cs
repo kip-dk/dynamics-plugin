@@ -152,6 +152,12 @@
                     return resolvedTypes[key];
                 }
 
+                if (parameter.Name.ToLower() == "datasource" && (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.Entity) || parameter.ParameterType.BaseType == typeof(Microsoft.Xrm.Sdk.Entity)))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, Name = parameter.Name, ToType = type };
+                    return resolvedTypes[key];
+                }
+
                 #region not an abstract, and not an interface, the type can be used directly, see if the name indicates that it is target, preimage, mergedimage or postimage
                 if (!type.IsInterface && !type.IsAbstract)
                 {

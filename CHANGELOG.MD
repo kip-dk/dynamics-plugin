@@ -1,4 +1,8 @@
-## Last updated: 2020-09-28 09:20
+## Last updated: 2020-10-03 14:25
+
+### 1.0.2.6 inject datasource
+you can now ask for the datasource entity my adding an entity parameter to your Retrieve RetrieveMultiple method with type of Microsoft.Xrm.Sdk.Entity  or an extension of same (strongly typed version)
+datasource can only be injected into the plugin for now.
 
 ### 1.0.2.5 virtual entity plugin fix
 When a provider is populating null in an entity reference, the plugin works, but when receiving the result from a client using the SDK, this will fail, because null values for entityreferences is not supported

@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Microsoft.Xrm.Sdk;
+    using Microsoft.Xrm.Sdk.Extensions;
 
     public class VirtualEntityPlugin : Microsoft.Xrm.Sdk.IPlugin
     {
@@ -50,6 +51,7 @@
 
             IOrganizationService toolOrgService = null;
 
+
             if (type == CrmEventType.Retrieve || type == CrmEventType.RetrieveMultiple)
             {
                 toolOrgService = serviceFactory.CreateOrganizationService(null);
@@ -61,9 +63,31 @@
                 var args = new object[method.Parameters.Length];
 
                 var ix = 0;
+
+                Microsoft.Xrm.Sdk.Entity datasource = null;
+
                 foreach (var p in method.Parameters)
                 {
-                    args[ix] = serviceCache.Resolve(p,toolOrgService);
+                    if (p.Name.ToLower() == "datasource")
+                    {
+                        if (datasource == null)
+                        {
+                            var ds = (IEntityDataSourceRetrieverService)serviceProvider.GetService(typeof(IEntityDataSourceRetrieverService));
+                            datasource = ds.RetrieveEntityDataSource();
+
+                            if (p.FromType.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                            {
+                                var tmp = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(p.FromType);
+                                tmp.Attributes = datasource.Attributes;
+                                datasource = tmp;
+                            }
+                        }
+                        args[ix] = datasource;
+                    }
+                    else
+                    {
+                        args[ix] = serviceCache.Resolve(p, toolOrgService);
+                    }
                     ix++;
                 }
 
