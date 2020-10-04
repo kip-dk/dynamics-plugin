@@ -1,8 +1,16 @@
-## Last updated: 2020-10-03 14:25
+## Last updated: 2020-10-03 17:15
 
-### 1.0.2.6 inject datasource
-you can now ask for the datasource entity my adding an entity parameter to your Retrieve RetrieveMultiple method with type of Microsoft.Xrm.Sdk.Entity  or an extension of same (strongly typed version)
-datasource can only be injected into the plugin for now.
+### 1.0.2.8 paging info returned for virtual entities
+if underlying plugin is providing paging info, it is now returned in the EntityCollection.
+
+A number of convinient extensions has been added to the Kipon.Xrm.Extensions namespace. 
+
+### 1.0.2.7 fix datasource injection in virtual entity plugin
+See description on version 1.0.2.6
+
+### 1.0.2.6 inject datasource (virtual entity plugin do not work in this version)
+you can now ask for the datasource entity by adding an entity parameter to your Retrieve RetrieveMultiple method with type of Microsoft.Xrm.Sdk.Entity  or an extension of same (strongly typed version)
+datasource can only be injected into the plugin for now. The parameter name must be "datasource", otherwise the framework will think it is target, preimage, mergedimage or postimage.
 
 ### 1.0.2.5 virtual entity plugin fix
 When a provider is populating null in an entity reference, the plugin works, but when receiving the result from a client using the SDK, this will fail, because null values for entityreferences is not supported

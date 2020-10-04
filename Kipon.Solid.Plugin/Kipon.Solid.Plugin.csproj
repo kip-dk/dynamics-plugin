@@ -116,6 +116,9 @@
     <Compile Include="Xrm\CrmEventType.cs" />
     <Compile Include="Xrm\Exceptions\UnresolveableParameterException.cs" />
     <Compile Include="Xrm\Exceptions\UnresolvedQueryParameter.cs" />
+    <Compile Include="Xrm\Extensions\IQueryable\QueryableMethods.cs" />
+    <Compile Include="Xrm\Extensions\QueryExpression\QueryExpressionMethods.cs" />
+    <Compile Include="Xrm\Extensions\TypeConverters\TypeConvertersMethods.cs" />
     <Compile Include="Xrm\IPluginContext.cs" />
     <Compile Include="Xrm\IService.cs" />
     <Compile Include="Xrm\Reflection\CommonProperty.cs" />

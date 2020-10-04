@@ -45,5 +45,20 @@
             }
             return entity[attribLogicalName];
         }
+
+        public static bool IsChildOf(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, string entityLogicalName = null)
+        {
+            if (ctx == null)
+            {
+                return false;
+            }
+
+            if (ctx.MessageName == message && (ctx.PrimaryEntityName == entityLogicalName || entityLogicalName == null))
+            {
+                return true;
+            }
+
+            return ctx.ParentContext.IsChildOf(message, entityLogicalName);
+        }
     }
 }

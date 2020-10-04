@@ -68,7 +68,7 @@
 
                 foreach (var p in method.Parameters)
                 {
-                    if (p.Name.ToLower() == "datasource")
+                    if (p.Name != null && p.Name.ToLower() == "datasource")
                     {
                         if (datasource == null)
                         {
@@ -121,25 +121,28 @@
                             throw new InvalidPluginExecutionException("Return from virtual entity RetrieveMultiple must be of type Microsoft.Xrm.Sdk.EntityCollection");
                         }
 
-                        var fes = new Microsoft.Xrm.Sdk.EntityCollection();
-                        foreach (var be in bes.Entities)
+                        var entities = bes.Entities.ToArray();
+                        bes.Entities.Clear();
+
+
+                        foreach (var be in entities)
                         {
                             if (be.GetType() == typeof(Microsoft.Xrm.Sdk.Entity))
                             {
-                                fes.Entities.Add(be);
+                                bes.Entities.Add(be);
                             } else
                             {
                                 var fr = new Microsoft.Xrm.Sdk.Entity { Id = be.Id, LogicalName = be.LogicalName };
                                 fr.Attributes = be.Attributes;
-                                fes.Entities.Add(fr);
+                                bes.Entities.Add(fr);
                             }
                         }
 
-                        foreach (var fe in fes.Entities)
+                        foreach (var fe in bes.Entities)
                         {
                             this.RemoveNullValues(fe);
                         }
-                        context.OutputParameters["BusinessEntityCollection"] = fes;
+                        context.OutputParameters["BusinessEntityCollection"] = bes;
                     }
                 }
             }
