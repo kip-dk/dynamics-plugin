@@ -27,39 +27,39 @@
 
         public static T[] GetAttributeFilter<T>(this Microsoft.Xrm.Sdk.Query.QueryExpression query, string attributeLogicalName)
         {
-            if (query.Criteria != null && query.Criteria.Filters != null && query.Criteria.Filters.Count > 0)
-            {
-                var results = new List<T>();
+            var results = new List<T>();
 
-                void Resolve(Microsoft.Xrm.Sdk.Query.FilterExpression filter)
+            void Resolve(Microsoft.Xrm.Sdk.Query.FilterExpression filter)
+            {
+                if (filter.Conditions != null && filter.Conditions.Count > 0)
                 {
-                    if (filter.Conditions != null && filter.Conditions.Count > 0)
+                    var condition = filter.Conditions.Where(r => r.AttributeName == attributeLogicalName).FirstOrDefault();
+                    if (condition != null)
                     {
-                        var condition = filter.Conditions.Where(r => r.AttributeName == attributeLogicalName).FirstOrDefault();
-                        if (condition != null)
+                        foreach (var v in condition.Values)
                         {
-                            foreach (var v in condition.Values)
+                            var resolved = false;
+                            var t = v.ConvertValueTo<T>(out resolved);
+                            if (resolved && t != null)
                             {
-                                var resolved = false;
-                                var t = v.ConvertValueTo<T>(out resolved);
-                                if (resolved && t != null)
-                                {
-                                    results.Add(t);
-                                }
+                                results.Add(t);
                             }
                         }
                     }
                 }
+            }
 
-                if (query.Criteria.Conditions != null && query.Criteria.Conditions.Count > 0)
+            if (query != null && query.Criteria != null && query.Criteria.Conditions != null && query.Criteria.Conditions.Count > 0)
+            {
+                Resolve(query.Criteria);
+                if (results.Count > 0)
                 {
-                    Resolve(query.Criteria);
-                    if (results.Count > 0)
-                    {
-                        return results.ToArray();
-                    }
+                    return results.ToArray();
                 }
+            }
 
+            if (query.Criteria != null && query.Criteria.Filters != null && query.Criteria.Filters.Count > 0)
+            {
                 foreach (var filter in query.Criteria.Filters.Where(r => r.Conditions != null && r.Conditions.Count > 0))
                 {
                     Resolve(filter);

@@ -1,4 +1,6 @@
-## Last updated: 2020-10-03 17:15
+## Last updated: 2020-10-04 12:15
+
+### 1.0.2.9 fixe in new extension methods
 
 ### 1.0.2.8 paging info returned for virtual entities
 if underlying plugin is providing paging info, it is now returned in the EntityCollection.
