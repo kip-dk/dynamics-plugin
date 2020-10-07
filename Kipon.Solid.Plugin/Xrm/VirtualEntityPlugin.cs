@@ -59,7 +59,8 @@
 
             using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext))
             {
-                var method = PluginMethodCache.ForPlugin(this.GetType(), 30, message, null, context.Mode == 1).First();
+                var method = PluginMethodCache.ForPlugin(this.GetType(), 30, message, context.PrimaryEntityName, context.Mode == 1).Single();
+
                 var args = new object[method.Parameters.Length];
 
                 var ix = 0;

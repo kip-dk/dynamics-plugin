@@ -1,4 +1,10 @@
-## Last updated: 2020-10-04 12:15
+## Last updated: 2020-10-07 17:15
+
+### 1.0.2.10 Multi OnRetrieve and OnRetrieveMultiple on virtual entity plugins
+To support datasource providers that server more than one virtual entity in an external datasource, the virtualentity plugin can now
+have multiple on.. methods. You MUST decorate each method with logical name of the entity, using the LogicalName attribute to allow the frame
+to distinct. You can have one set off methods without logical name that will be used as fallback if a request for an non explicit logical name is received.
+For the sake of simplicity, and the cool thing about being explicit, i recommend that you always decorate your virtual entity plugin methods with logical names.
 
 ### 1.0.2.9 fixe in new extension methods
 

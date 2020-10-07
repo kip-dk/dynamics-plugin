@@ -59,17 +59,50 @@
                     if (stage == 30)
                     {
                         methods = methods.Where(r => r.Name == $"On{message}").ToArray();
-                        if (methods.Length > 1)
+
+                        MethodInfo fallback = null;
+                        MethodInfo match = null;
+
+                        foreach (var m in methods)
                         {
-                            throw new InvalidPluginExecutionException($"Virtual Entity plugin can have only one method to be called, this plugin has { methods.Length } methods.");
+                            var attr = m.GetCustomAttributes(Types.LogicalNameAttribute).FirstOrDefault();
+                            if (attr == null && fallback == null)
+                            {
+                                fallback = m;
+                                continue;
+                            }
+                            if (attr == null && fallback != null)
+                            {
+                                throw new InvalidPluginExecutionException($"Virtaul entity plugin can only have a single method On{message} without explcit LogicalName attribute");
+                            }
+
+                            var logicalname = (string)attr.GetType().GetProperty("Value").GetValue(attr);
+                            if (logicalname == primaryEntityName)
+                            {
+                                if (match == null)
+                                {
+                                    match = m;
+                                    continue;
+                                }
+
+                                if (match != null)
+                                {
+                                    throw new InvalidPluginExecutionException($"There is more than one method On{message} that match logical name {primaryEntityName}. That is not allowed.");
+                                }
+                            }
                         }
 
-                        if (methods.Length == 0)
+                        if (match != null)
+                        {
+                            fallback = match;
+                        }
+
+                        if (fallback == null)
                         {
                             throw new InvalidPluginExecutionException($"Virtual Entity plugin must have a method called On{message}.");
                         }
 
-                        var next = CreateFrom(methods[0], null);
+                        var next = CreateFrom(fallback, null);
 
                         cache[key] = new[] { next };
                         return cache[key];
