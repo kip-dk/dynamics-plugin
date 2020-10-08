@@ -1,4 +1,9 @@
-## Last updated: 2020-10-07 17:15
+## Last updated: 2020-10-08 08:15
+
+### 1.0.3.0 TypeConverters extension methods - wrong namespace
+Some Kipon.Solid... namespaced extension parse it through to release 1.0.2.10. This was unintentional. The Kipon Solid software should only expose method in the Kipon.Xrm namespace.
+The extensions methods are still there, but now under correct namespace Kipon.Xrm.Extensions.TypeConverters. Since this is a breaking change if anybody actually took advantage of the
+methods, the minor version has been increased to indicate potential breaking change.
 
 ### 1.0.2.10 Multi OnRetrieve and OnRetrieveMultiple on virtual entity plugins
 To support datasource providers that server more than one virtual entity in an external datasource, the virtualentity plugin can now

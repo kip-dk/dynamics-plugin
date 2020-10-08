@@ -1,4 +1,4 @@
-﻿namespace Kipon.Solid.Plugin.Xrm.Extensions.TypeConverters
+﻿namespace Kipon.Xrm.Extensions.TypeConverters
 {
     using System;
 
