@@ -1,4 +1,7 @@
-## Last updated: 2020-10-08 08:15
+
+## Last updated: 2020-11-08
+SDK reference only.
+
 
 ### 1.0.3.0 TypeConverters extension methods - wrong namespace
 Some Kipon.Solid... namespaced extension parse it through to release 1.0.2.10. This was unintentional. The Kipon Solid software should only expose method in the Kipon.Xrm namespace.
