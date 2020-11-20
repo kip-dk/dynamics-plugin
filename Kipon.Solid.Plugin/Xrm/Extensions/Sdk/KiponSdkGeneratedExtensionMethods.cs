@@ -46,6 +46,68 @@
             return entity[attribLogicalName];
         }
 
+        public static T ParentTarget<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, Guid id) where T: Microsoft.Xrm.Sdk.Entity, new()
+        {
+            if (message != "Create" && message != "Update")
+            {
+                throw new Exceptions.BaseException("ParentTarget method only support search for Create and Update request");
+            }
+
+            var parent = ctx.ParentContext;
+            if (parent == null)
+            {
+                return null;
+            }
+
+            var proto = new T();
+
+            if (parent.MessageName == message && parent.PrimaryEntityName == proto.LogicalName && parent.PrimaryEntityId == id)
+            {
+                var result = (Microsoft.Xrm.Sdk.Entity)parent.InputParameters["Target"];
+                return result.ToEntity<T>();
+            }
+
+            if (ctx.MessageName == "ExecuteTransaction")
+            {
+                if (ctx.InputParameters.Contains("Requests"))
+                {
+                    var requests = ctx.InputParameters["Requests"] as Microsoft.Xrm.Sdk.OrganizationRequestCollection;
+                    if (requests != null)
+                    {
+                        foreach (var r in requests)
+                        {
+                            switch (message)
+                            {
+                                case "Create":
+                                    {
+                                        if (r is Microsoft.Xrm.Sdk.Messages.CreateRequest c)
+                                        {
+                                            if (c.Target.LogicalName == proto.LogicalName && c.Target.Id == id)
+                                            {
+                                                return c.Target.ToEntity<T>();
+                                            }
+                                        }
+                                        break;
+                                    }
+                                case "Update":
+                                    {
+                                        if (r is Microsoft.Xrm.Sdk.Messages.UpdateRequest c)
+                                        {
+                                            if (c.Target.LogicalName == proto.LogicalName && c.Target.Id == id)
+                                            {
+                                                return c.Target.ToEntity<T>();
+                                            }
+                                        }
+                                        break;
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+            return parent.ParentTarget<T>(message, id);
+        }
+
         public static bool IsChildOf(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, string entityLogicalName = null, Guid? id = null)
         {
             if (ctx == null)

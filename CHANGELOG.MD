@@ -1,5 +1,9 @@
-
 ## Last updated: 2020-11-08
+
+### 1.0.4.1
+Extension method on PluginContext ParentTarget<T>(string message, Guid id) will return the strongly typed entity of the parent event trigger this event. This allow you to take information
+from the initiating entity payload directly
+
 ### 1.0.4.0
 Extension method on PluginContext isChildOf has been improved to also look for message in parent ExecuteTransaction messages. This is a change of behavior that might result in
 new behavior on existing plugins. that is why the version goes from ..3.0 to ..4.0. Running through message in a transaction to match only works for search on Create, Update and Delete message.
