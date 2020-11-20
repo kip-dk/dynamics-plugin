@@ -1,4 +1,4 @@
-## Last updated: 2020-11-08
+## Last updated: 2020-11-20
 
 ### 1.0.4.1
 Extension method on PluginContext ParentTarget<T>(string message, Guid id) will return the strongly typed entity of the parent event trigger this event. This allow you to take information
