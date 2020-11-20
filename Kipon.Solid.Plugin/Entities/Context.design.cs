@@ -15,7 +15,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public enum AccountState
 	{
 		
@@ -31,7 +31,7 @@ namespace Kipon.Solid.Plugin.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("account")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class Account : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -2940,7 +2940,7 @@ namespace Kipon.Solid.Plugin.Entities
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public enum ContactState
 	{
 		
@@ -2956,7 +2956,7 @@ namespace Kipon.Solid.Plugin.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("contact")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class Contact : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -6639,7 +6639,7 @@ namespace Kipon.Solid.Plugin.Entities
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public enum OpportunityState
 	{
 		
@@ -6658,7 +6658,7 @@ namespace Kipon.Solid.Plugin.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("opportunity")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class Opportunity : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -8655,7 +8655,7 @@ namespace Kipon.Solid.Plugin.Entities
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public enum QuoteState
 	{
 		
@@ -8677,7 +8677,7 @@ namespace Kipon.Solid.Plugin.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("quote")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class Quote : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -10427,7 +10427,7 @@ namespace Kipon.Solid.Plugin.Entities
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public enum SalesOrderState
 	{
 		
@@ -10452,7 +10452,7 @@ namespace Kipon.Solid.Plugin.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("salesorder")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class SalesOrder : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -12321,7 +12321,7 @@ namespace Kipon.Solid.Plugin.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("systemuser")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class SystemUser : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -15189,7 +15189,7 @@ namespace Kipon.Solid.Plugin.Entities
 	/// <summary>
 	/// Represents a source of entities bound to a CRM service. It tracks and manages changes made to the retrieved entities.
 	/// </summary>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class SolidContextService : Microsoft.Xrm.Sdk.Client.OrganizationServiceContext
 	{
 		
@@ -15270,7 +15270,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_GetSIPackageStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GetSIPackageStatusRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -15282,7 +15282,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_GetSIPackageStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GetSIPackageStatusResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -15308,7 +15308,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/kipon/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("kipon_AccountCountContacts")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class kipon_AccountCountContactsRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -15360,7 +15360,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/kipon/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("kipon_AccountCountContacts")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class kipon_AccountCountContactsResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -15401,7 +15401,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/kipon/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("kipon_Anunboundedaction")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class kipon_AnunboundedactionRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -15453,7 +15453,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/kipon/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("kipon_Anunboundedaction")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class kipon_AnunboundedactionResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -15479,7 +15479,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_GDPROptoutContact")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GDPROptoutContactRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -15531,7 +15531,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_GDPROptoutContact")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GDPROptoutContactResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -15542,7 +15542,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_GDPROptoutLead")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GDPROptoutLeadRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -15594,7 +15594,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_GDPROptoutLead")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GDPROptoutLeadResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -15605,7 +15605,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_GDPROptoutUser")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GDPROptoutUserRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -15657,7 +15657,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_GDPROptoutUser")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GDPROptoutUserResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -15668,7 +15668,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_GetLegalAcceptanceStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GetLegalAcceptanceStatusRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -15680,7 +15680,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_GetLegalAcceptanceStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GetLegalAcceptanceStatusResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -15706,7 +15706,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_SetLegalAcceptanceStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_SetLegalAcceptanceStatusRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -15738,7 +15738,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_SetLegalAcceptanceStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_SetLegalAcceptanceStatusResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -15749,7 +15749,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_RetrieveTypeValuesFromDCI")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_RetrieveTypeValuesFromDCIRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -15859,7 +15859,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_RetrieveTypeValuesFromDCI")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_RetrieveTypeValuesFromDCIResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -15885,7 +15885,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_GetRIProvisioningStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GetRIProvisioningStatusRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -15897,7 +15897,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_GetRIProvisioningStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GetRIProvisioningStatusResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -15983,7 +15983,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_SetFeatureStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_SetFeatureStatusRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -16052,7 +16052,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_SetFeatureStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_SetFeatureStatusResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -16063,7 +16063,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_GetACIMarsConnectorStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GetACIMarsConnectorStatusRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -16075,7 +16075,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_GetACIMarsConnectorStatus")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GetACIMarsConnectorStatusResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -16101,7 +16101,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_StartRIProvisioning")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_StartRIProvisioningRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -16151,7 +16151,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_StartRIProvisioning")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_StartRIProvisioningResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -16162,7 +16162,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_GetRITenantEndpoint")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GetRITenantEndpointRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -16174,7 +16174,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_GetRITenantEndpoint")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_GetRITenantEndpointResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -16200,7 +16200,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_Updatefeatureconfig")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_UpdatefeatureconfigRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -16250,7 +16250,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_Updatefeatureconfig")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_UpdatefeatureconfigResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -16261,7 +16261,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_UpdateRITenantInfo")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_UpdateRITenantInfoRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -16311,7 +16311,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_UpdateRITenantInfo")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_UpdateRITenantInfoResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		
@@ -16322,7 +16322,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_RetrieveKPIvaluesfromDCI")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_RetrieveKPIvaluesfromDCIRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 		
@@ -16372,7 +16372,7 @@ namespace Kipon.Solid.Plugin.Entities
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_RetrieveKPIvaluesfromDCI")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.49")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
 	public partial class msdyn_RetrieveKPIvaluesfromDCIResponse : Microsoft.Xrm.Sdk.OrganizationResponse
 	{
 		

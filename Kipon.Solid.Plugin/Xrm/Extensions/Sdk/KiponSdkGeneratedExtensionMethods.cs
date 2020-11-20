@@ -46,18 +46,61 @@
             return entity[attribLogicalName];
         }
 
-        public static bool IsChildOf(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, string entityLogicalName = null)
+        public static bool IsChildOf(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, string entityLogicalName = null, Guid? id = null)
         {
             if (ctx == null)
             {
                 return false;
             }
 
-            if (ctx.MessageName == message && (ctx.PrimaryEntityName == entityLogicalName || entityLogicalName == null))
+            if (ctx.MessageName == message && (entityLogicalName == null || ctx.PrimaryEntityName == entityLogicalName) && (id == null || ctx.PrimaryEntityId == id))
             {
                 return true;
             }
 
+            if (message == "Create" || message == "Update" || message == "Delete")
+            {
+                if (ctx.MessageName == "ExecuteTransaction")
+                {
+                    if (ctx.InputParameters.Contains("Requests"))
+                    {
+                        var requests = ctx.InputParameters["Requests"] as Microsoft.Xrm.Sdk.OrganizationRequestCollection;
+                        if (requests != null)
+                        {
+                            foreach (var r in requests)
+                            {
+                                switch (message)
+                                {
+                                    case "Create":
+                                        {
+                                            if (r is Microsoft.Xrm.Sdk.Messages.CreateRequest c)
+                                            {
+                                                if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
+                                            }
+                                            break;
+                                        }
+                                    case "Update":
+                                        {
+                                            if (r is Microsoft.Xrm.Sdk.Messages.UpdateRequest c)
+                                            {
+                                                if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
+                                            }
+                                            break;
+                                        }
+                                    case "Delete":
+                                        {
+                                            if (r is Microsoft.Xrm.Sdk.Messages.DeleteRequest c)
+                                            {
+                                                if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
+                                            }
+                                            break;
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             return ctx.ParentContext.IsChildOf(message, entityLogicalName);
         }
     }

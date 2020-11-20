@@ -1,7 +1,10 @@
 
 ## Last updated: 2020-11-08
-SDK reference only.
+### 1.0.4.0
+Extension method on PluginContext isChildOf has been improved to also look for message in parent ExecuteTransaction messages. This is a change of behavior that might result in
+new behavior on existing plugins. that is why the version goes from ..3.0 to ..4.0. Running through message in a transaction to match only works for search on Create, Update and Delete message.
 
+On top of that, you can now also add the id of the target entity that is suppose to be the parent, so you can ask if a plugin exectuion is a child of a create/update/delete operation for a specific target.
 
 ### 1.0.3.0 TypeConverters extension methods - wrong namespace
 Some Kipon.Solid... namespaced extension parse it through to release 1.0.2.10. This was unintentional. The Kipon Solid software should only expose method in the Kipon.Xrm namespace.
