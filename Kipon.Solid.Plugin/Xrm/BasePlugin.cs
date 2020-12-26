@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.4.1";
+        public const string Version = "1.0.4.2";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -93,7 +93,7 @@
                             args[ix] = serviceCache.Resolve(p, toolOrgService);
                         }
 
-                        if (stage <= 20)
+                        if (stage <= 20 && message == "Update")
                         {
                             if (p.IsMergedimage)
                             {
@@ -113,7 +113,7 @@
                     PropertyMirror mergedimageMirror = null;
                     PropertyMirror targetMirror = null;
 
-                    if (stage <= 20)
+                    if (stage <= 20 && message == "Update")
                     {
                         if (mergedimage != null)
                         {

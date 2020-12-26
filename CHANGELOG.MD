@@ -1,5 +1,8 @@
 ## Last updated: 2020-11-20
 
+### 1.0.4.2
+Allow mergedimage to be used as parameter in create to avoid. In Create, Merged images is the same as the target.
+
 ### 1.0.4.1
 Extension method on PluginContext ParentTarget<T>(string message, Guid id) will return the strongly typed entity of the parent event trigger this event. This allow you to take information
 from the initiating entity payload directly

@@ -299,7 +299,7 @@
                     case 10:
                     case 20:
                         /* pre image pre event */
-                        if (result.HasPreimage() && message == "Create")
+                        if (result.HasPreimageThatIsNotMergedImage() && message == "Create")
                         {
                             throw new Exceptions.UnavailableImageException(type, method, "Preimage", stage, message);
                         }
@@ -620,6 +620,11 @@
         public bool HasPreimage()
         {
             return this.Parameters != null && (this.Parameters.Where(r => r.IsPreimage || r.IsMergedimage)).Any();
+        }
+
+        public bool HasPreimageThatIsNotMergedImage()
+        {
+            return this.Parameters != null && (this.Parameters.Where(r => r.IsPreimage)).Any();
         }
 
         public object Invoke(object instance, object[] args)

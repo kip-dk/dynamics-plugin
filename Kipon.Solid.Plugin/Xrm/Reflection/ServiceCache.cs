@@ -122,7 +122,10 @@
                         merged.Id = target.Id;
                         merged.LogicalName = target.LogicalName;
 
-                        if (pluginExecutionContext.MessageName != "Create")
+                        if (pluginExecutionContext.MessageName == "Create")
+                        {
+                            merged = target; 
+                        } else
                         {
                             var imgName = PluginMethod.ImageSuffixFor(1, pluginExecutionContext.Stage, pluginExecutionContext.Mode == 1);
                             var pre = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.PreEntityImages[imgName];
@@ -131,11 +134,11 @@
                             {
                                 merged[attr] = pre[attr];
                             }
-                        }
 
-                        foreach (var attr in target.Attributes.Keys)
-                        {
-                            merged[attr] = target[attr];
+                            foreach (var attr in target.Attributes.Keys)
+                            {
+                                merged[attr] = target[attr];
+                            }
                         }
 
                         services[type.ObjectInstanceKey] = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(merged);

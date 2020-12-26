@@ -9,7 +9,8 @@ namespace Kipon.Solid.Plugin.Plugins.Account
 {
     public class AccountPlugin : Kipon.Xrm.BasePlugin
     {
-        public void OnPreDelete(Entities.AccountReference accountRef)
+
+        public void OnValidateCreate(Entities.Account.IAccountMergedImageWithTargetAttributes target)
         {
         }
 
@@ -18,12 +19,6 @@ namespace Kipon.Solid.Plugin.Plugins.Account
             accountService.OnNameChanged(target);
         }
 
-        [Sort(100)]
-        public void OnPreUpdate(Entities.Account.IAccountNameChanged target,  Entities.Account.IAccountPreName prename, ServiceAPI.IAccountService accountService)
-        {
-            accountService.OnNameChanged(target);
-            target.setDescription(prename.Name);
-        }
 
         [Sort(101)]
         public void OnPreUpdate(Entities.Account.ICreditLimitChanged target)
@@ -37,9 +32,23 @@ namespace Kipon.Solid.Plugin.Plugins.Account
             }
         }
 
+        [Sort(100)]
+        public void OnPreUpdate(Entities.Account.IAccountNameChanged target, Entities.Account.IAccountPreName prename, ServiceAPI.IAccountService accountService)
+        {
+            accountService.OnNameChanged(target);
+            target.setDescription(prename.Name);
+        }
+
+
         [Sort(102)]
         public void OnPreUpdate(Entities.Account.IAccountNameAndSettersOnly target)
         {
         }
+
+
+        public void OnPreDelete(Entities.AccountReference accountRef)
+        {
+        }
+
     }
 }

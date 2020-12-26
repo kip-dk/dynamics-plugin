@@ -12,12 +12,12 @@ developing plugin for Dynamics 365 Customer Engagement platform.
 * Tool to deploy the assembly and related steps to your Dyanmics 365 development instance, and adding these to your solution.
 
 ### Installation
-1) Create a C#.NET Framework library, at least version 4.5.2. (.NET Core is not yet supported for dynamics 365 plugin development)
+1) Create a C#.NET Framework library, at version 4.6.2. (.NET Core is not yet supported for dynamics 365 plugin development)
 
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.4.1
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.4.2
 ```
 
 3) Rename the following files included in your project, and adjust according to your need
