@@ -1,7 +1,7 @@
 ## Last updated: 2020-11-20
 
 ### 1.0.4.2
-Allow mergedimage to be used as parameter in create to avoid. In Create, Merged images is the same as the target.
+Allow mergedimage to be used as parameter in create. In Create, Merged images is the same as the target. This allow you to make mergedimage interfaces that can be shared between the create and the update event.
 
 ### 1.0.4.1
 Extension method on PluginContext ParentTarget<T>(string message, Guid id) will return the strongly typed entity of the parent event trigger this event. This allow you to take information
