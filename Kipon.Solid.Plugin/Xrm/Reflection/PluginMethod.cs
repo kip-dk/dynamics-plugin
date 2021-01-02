@@ -171,6 +171,26 @@
                         }
                         #endregion
 
+                        #region handling match on parameter of type ITarget, only continue and return this method, if the current primaryEntity actual implements the ITarget inherited interface
+                        if (!string.IsNullOrEmpty(primaryEntityName))
+                        {
+                            var parameters = method.GetParameters();
+
+                            if (parameters != null && parameters.Length > 0)
+                            {
+                                var itargetParameter = method.GetParameters().Where(p => Types.ITarget.IsAssignableFrom(p.ParameterType)).FirstOrDefault();
+                                if (itargetParameter != null)
+                                {
+                                    var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity(primaryEntityName));
+                                    if (!itargetParameter.ParameterType.IsAssignableFrom(entity.GetType()))
+                                    {
+                                        continue;
+                                    }
+                                }
+                            }
+                        }
+                        #endregion
+
                         #region find by naming convention
                         if (method.Name == lookFor)
                         {

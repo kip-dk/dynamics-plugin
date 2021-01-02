@@ -55,6 +55,7 @@
             this.SortAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.SortAttribute)}"];
             this.OutputAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.OutputAttribute)}"];
 
+            this.ITarget = allTypes[$"{NAMESPACE}{nameof(_instance.ITarget)}"];
             this.Target = allTypes[$"{NAMESPACE}{nameof(_instance.Target)}`1"];
             this.TargetReference = allTypes[$"{NAMESPACE}{nameof(_instance.TargetReference)}`1"];
             this.Preimage = allTypes[$"{NAMESPACE}{nameof(_instance.Preimage)}`1"];
@@ -85,7 +86,7 @@
         public Type LogicalNameAttribute { get; private set; }
         public Type SortAttribute { get; private set; }
         public Type OutputAttribute { get; private set; }
-
+        public Type ITarget { get; private set; }
         public Type Target { get; private set; }
         public Type TargetReference { get; private set; }
         public Type TargetFilterAttribute { get; private set; }
@@ -96,6 +97,7 @@
         public Type IUnitOfWork { get; private set; }
         public Type IAdminUnitOfWork { get; private set; }
         public Type IRepository { get; private set; }
+
 
         public System.Reflection.Assembly Assembly { get; private set; }
 

@@ -112,6 +112,27 @@
                     }
                 }
             }
+
+            if (Types.ITarget.IsAssignableFrom(interfaceType))
+            {
+                var attributes = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.TargetFilterAttributesOf(entityType, interfaceType);
+                if (attributes != null && attributes.Length > 0)
+                {
+                    foreach (var name in attributes)
+                    {
+                        var attr = result.Where(e => e.LogicalName == name).SingleOrDefault();
+                        if (attr == null)
+                        {
+                            attr = new CommonProperty { LogicalName = name };
+                            attr.Required = false;
+                            attr.TargetFilter = true;
+
+                            result.Add(attr);
+                        }
+                    }
+                }
+            }
+
             cache[key] = result.ToArray();
             return cache[key];
         }

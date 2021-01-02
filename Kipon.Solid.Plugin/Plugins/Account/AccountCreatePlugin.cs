@@ -9,7 +9,6 @@ namespace Kipon.Solid.Plugin.Plugins.Account
 {
     public class AccountCreatePlugin : Kipon.Xrm.BasePlugin
     {
-        /*
         [Sort(1)]
         public void OnValidateCreate(Entities.Account target, Entities.IUnitOfWork uow)
         {
@@ -33,6 +32,5 @@ namespace Kipon.Solid.Plugin.Plugins.Account
                 }
             }
         }
-        */
     }
 }

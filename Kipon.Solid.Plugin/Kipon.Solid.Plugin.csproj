@@ -76,10 +76,14 @@
     <Compile Include="Entities\Accounts\IAccountPreName.cs" />
     <Compile Include="Entities\Accounts\ICreditLimitChanged.cs" />
     <Compile Include="Entities\Accounts\IForgotToImplement.cs" />
+    <Compile Include="Entities\Accounts\IPhonenumberChanged.cs" />
     <Compile Include="Entities\AdminCrmUnitOfWork.cs" />
     <Compile Include="Entities\Contacts\Contact.cs" />
+    <Compile Include="Entities\Contacts\IPhonenumberChanged.cs" />
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
+    <Compile Include="Entities\Phonecalls\IPhonenumberChanged.cs" />
     <Compile Include="Model\INamed.cs" />
+    <Compile Include="Model\IPhonenumberChanged.cs" />
     <Compile Include="Model\IProspect.cs" />
     <Compile Include="Plugins\Account\AccountAction.cs" />
     <Compile Include="Plugins\Account\AccountCreatePlugin.cs" />
@@ -91,6 +95,7 @@
     <Compile Include="Plugins\AnunboundedactionPlugin.cs" />
     <Compile Include="Plugins\Contact\ContactDeletePlugin.cs" />
     <Compile Include="Plugins\Contact\ContactPlugin.cs" />
+    <Compile Include="Plugins\Generic\PhonenumberWashPlugin.cs" />
     <Compile Include="Plugins\Generic\ProspectPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
@@ -121,6 +126,7 @@
     <Compile Include="Xrm\Extensions\TypeConverters\TypeConvertersMethods.cs" />
     <Compile Include="Xrm\IPluginContext.cs" />
     <Compile Include="Xrm\IService.cs" />
+    <Compile Include="Xrm\ITarget.cs" />
     <Compile Include="Xrm\Reflection\CommonProperty.cs" />
     <Compile Include="Xrm\Reflection\Output.cs" />
     <Compile Include="Xrm\Reflection\ServiceCache.cs" />

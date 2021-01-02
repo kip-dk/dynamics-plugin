@@ -302,6 +302,25 @@
                             return result;
                         }
                     }
+
+                    if (type.IsITarget())
+                    {
+                        var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+                        var entityType = entity.GetType();
+
+                        if (type.IsAssignableFrom(entityType))
+                        {
+                            var result = new TypeCache { FromType = type, ToType = entityType, IsTarget = true };
+                            result.LogicalName = entity.LogicalName;
+                            result.ResolveProperties();
+
+                            if (ReturnIfOk(type, result))
+                            {
+                                resolvedTypes[key] = result;
+                                return result;
+                            }
+                        }
+                    }
                 }
                 #endregion
 
@@ -823,6 +842,12 @@
             }
 
             return null;
+        }
+
+        public static bool IsITarget(this Type fromType)
+        {
+            var propertytype = TypeCache.Types.ITarget;
+            return propertytype.IsAssignableFrom(fromType);
         }
 
         public static bool ExtendsGenericClassOf(this Type toCheck, Type generic)

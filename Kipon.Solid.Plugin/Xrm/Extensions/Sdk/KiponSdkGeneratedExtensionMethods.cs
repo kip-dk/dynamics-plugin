@@ -1,12 +1,16 @@
 ﻿namespace Kipon.Xrm.Extensions.Sdk
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
+    using Microsoft.Xrm.Sdk;
+
     public static partial class KiponSdkGeneratedExtensionMethods
     {
         private static readonly Dictionary<string, Type> entittypes = new Dictionary<string, Type>();
         private static readonly Dictionary<string, System.Reflection.MethodInfo> TO_ENT_GENS = new Dictionary<string, System.Reflection.MethodInfo>();
         private static readonly System.Reflection.MethodInfo TO_ENTITY = typeof(Microsoft.Xrm.Sdk.Entity).GetMethod("ToEntity", new Type[0]);
+        private static readonly Dictionary<string, string[]> targetattributes = new Dictionary<string, string[]>();
 
         public static T ToEarlyBoundEntity<T>(this T ent) where T : Microsoft.Xrm.Sdk.Entity
         {
@@ -35,6 +39,48 @@
             TO_ENT_GENS[ent.LogicalName] = TO_ENTITY.MakeGenericMethod(type);
 
             return TO_ENT_GENS[ent.LogicalName].Invoke(ent, new object[0]) as T;
+        }
+
+        public static string[] TargetFilterAttributesOf<T>(this T entity, Type interfaceType) where T : Microsoft.Xrm.Sdk.Entity 
+        {
+            return typeof(T).TargetFilterAttributesOf(interfaceType);
+        }
+
+        public static string[] TargetFilterAttributesOf(this Type entityType, Type interfaceType)
+        {
+            if (!typeof(Microsoft.Xrm.Sdk.Entity).IsAssignableFrom(entityType))
+            {
+                throw new InvalidPluginExecutionException("Only types that inherits from Microsoft.Xrm.Sdk.Entity can have class based TargetFilterAttribute.");
+            }
+
+            var key = $"{interfaceType.FullName}|{entityType.Name.ToLower()}";
+
+            {
+                if (targetattributes.TryGetValue(key, out string[] v))
+                {
+                    return v;
+                }
+            }
+
+            lock (targetattributes)
+            {
+                if (targetattributes.TryGetValue(key, out string[] v))
+                {
+                    return v;
+                }
+
+                var type = entityType.GetTargetFilterAttribute(interfaceType);
+
+                if (type == null)
+                {
+                    targetattributes[key] = null;
+                    return null;
+                }
+
+                targetattributes[key] = type.Attributes;
+                return targetattributes[key];
+            }
+
         }
 
         public static object GetSafeValue(this Microsoft.Xrm.Sdk.Entity entity, string attribLogicalName)
@@ -165,5 +211,37 @@
             }
             return ctx.ParentContext.IsChildOf(message, entityLogicalName);
         }
+
+        private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)
+        {
+            var properties = entityType.GetCustomAttributes(Reflection.TypeCache.Types.TargetFilterAttribute, false);
+
+            if (properties != null && properties.Length > 0)
+            {
+                foreach (var prop in properties)
+                {
+                    var type = prop.GetType().GetProperty("Type")?.GetValue(prop) as Type;
+                    var attr = prop.GetType().GetProperty("Attributes")?.GetValue(prop) as string[];
+                    if (type != null && attr != null && type == interfaceType)
+                    {
+                        return new TargetFilterAttribute(type, attr);
+                    }
+                }
+            }
+            return null;
+        }
+
+        private class TargetFilterAttribute
+        {
+            internal TargetFilterAttribute(Type type, string[] attributes)
+            {
+                this.Type = type;
+                this.Attributes = attributes.Select(r => r.ToLower()).ToArray();
+            }
+
+            internal Type Type { get; private set; }
+            internal string[] Attributes { get; private set; }
+        }
+
     }
 }

@@ -1,4 +1,11 @@
-## Last updated: 2020-11-20
+## Last updated: 2021-01-02
+
+### 1.0.4.3
+Introduction of Kipon.Xrm.ITarget interface. This interface allow you in combination with Kipon.Xrm.Attributes.TargetFilterAttribute to define an inteface to be the target object of an event, and
+then implement the interface and decorate each entity implementation of the interface (entity proxy class extending Microsoft.Xrm.Sdk.Entity) with the TargetFilter attributes, 
+defining the attributes of relevance for that paticular implementation of the target.
+
+This can reduce the need for dublicate plugins where the intention is to do the same operation on several entities, but the naming and relevant target fields are not the same for all entities.
 
 ### 1.0.4.2
 Allow mergedimage to be used as parameter in create. In Create, Merged images is the same as the target. This allow you to make mergedimage interfaces that can be shared between the create and the update event.
