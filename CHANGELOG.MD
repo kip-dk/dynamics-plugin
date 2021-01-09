@@ -1,4 +1,8 @@
-## Last updated: 2021-01-02
+## Last updated: 2021-01-09
+
+### 1.0.4.4
+Added simple extension method on Sdk to clone an entity without key and without system parameters as createdby, modifiedby, importsequencenumber,..
+
 
 ### 1.0.4.3
 Introduction of Kipon.Xrm.ITarget interface. This interface allow you in combination with Kipon.Xrm.Attributes.TargetFilterAttribute to define an inteface to be the target object of an event, and

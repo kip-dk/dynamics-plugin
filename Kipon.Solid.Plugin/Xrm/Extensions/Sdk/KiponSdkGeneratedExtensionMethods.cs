@@ -12,6 +12,17 @@
         private static readonly System.Reflection.MethodInfo TO_ENTITY = typeof(Microsoft.Xrm.Sdk.Entity).GetMethod("ToEntity", new Type[0]);
         private static readonly Dictionary<string, string[]> targetattributes = new Dictionary<string, string[]>();
 
+        private static readonly string[] CLONE_EXCLUDE = new string[]
+        {
+            "createdon",
+            "createdby",
+            "modifiedon",
+            "modifiedby",
+            "createdonbehalfby",
+            "modifiedonbehalfby",
+            "importsequencenumber"
+        };
+
         public static T ToEarlyBoundEntity<T>(this T ent) where T : Microsoft.Xrm.Sdk.Entity
         {
             if (ent.GetType().BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
@@ -41,7 +52,7 @@
             return TO_ENT_GENS[ent.LogicalName].Invoke(ent, new object[0]) as T;
         }
 
-        public static string[] TargetFilterAttributesOf<T>(this T entity, Type interfaceType) where T : Microsoft.Xrm.Sdk.Entity 
+        public static string[] TargetFilterAttributesOf<T>(this T entity, Type interfaceType) where T : Microsoft.Xrm.Sdk.Entity
         {
             return typeof(T).TargetFilterAttributesOf(interfaceType);
         }
@@ -92,7 +103,7 @@
             return entity[attribLogicalName];
         }
 
-        public static T ParentTarget<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, Guid id) where T: Microsoft.Xrm.Sdk.Entity, new()
+        public static T ParentTarget<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, Guid id) where T : Microsoft.Xrm.Sdk.Entity, new()
         {
             if (message != "Create" && message != "Update")
             {
@@ -210,6 +221,61 @@
                 }
             }
             return ctx.ParentContext.IsChildOf(message, entityLogicalName);
+        }
+
+
+        /// <summary>
+        ///  Create an in memory instance as a clone of target.
+        /// </summary>
+        /// <typeparam name="T">Any strongly typed entity</typeparam>
+        /// <param name="target">The entity instance</param>
+        /// <param name="ommits">Fields that should be omitted in the copy</param>
+        /// <returns></returns>
+        public static T Clone<T>(this T target, params string[] ommits) where T : Microsoft.Xrm.Sdk.Entity, new()
+        {
+            var result = new T();
+
+            var omitsLower = ommits?.Select(r => r.ToLower()).ToArray();
+            var logicalname = target.LogicalName.ToLower();
+            var keyname = $"{logicalname}id";
+
+            switch (logicalname)
+            {
+                case "email":
+                case "phonecall":
+                case "appointment":
+                case "task":
+                case "campaignresponse":
+                case "fax":
+                case "letter":
+                case "campaignactivity":
+                case "socialactivity":
+                case "opportunityclose":
+                case "quoteclose":
+                case "orderclose":
+                case "incidentresolution":
+                case "serviceappointment":
+                case "recurringappointmentmaster":
+                case "untrackedemail":
+                case "bulkoperation":
+                    {
+                        keyname = "activityid";
+                        break;
+                    }
+            }
+
+            if (target.Attributes != null)
+            {
+                foreach (var k in target.Attributes.Keys)
+                {
+                    if (CLONE_EXCLUDE.Contains(k)) continue;
+                    if (omitsLower != null && omitsLower.Contains(k)) continue;
+                    if (k == keyname) continue;
+ 
+                    result[k] = target[k];
+                }
+            }
+            return result;
         }
 
         private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)
