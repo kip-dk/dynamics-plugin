@@ -25,6 +25,7 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                         var conString = (from p in parameters
                                          where p.ToLower().StartsWith("/connectionstring:")
                                          select p).SingleOrDefault();
+
                         if (conString != null)
                         {
                             _value = conString.Substring(18);
@@ -36,6 +37,7 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                             var usr = (from p in parameters where p.ToLower().StartsWith("/username:") select p).SingleOrDefault()?.Substring(10);
                             var pwd = (from p in parameters where p.ToLower().StartsWith("/password:") select p).SingleOrDefault()?.Substring(10);
                             var dom = (from p in parameters where p.ToLower().StartsWith("/domain:") select p).SingleOrDefault()?.Substring(8);
+                            var auth = (from p in parameters where p.ToLower().StartsWith("/authtype:") select p).SingleOrDefault()?.Substring(11);
 
                             if (url != null && usr != null && pwd != null && dom != null)
                             {
@@ -44,6 +46,16 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                                     url = url.Substring(0, url.Length - END.Length);
                                 }
                                 _value = $"Url={url};UserName={usr};password={pwd};AuthType=AD;Domain={dom}";
+                            }
+
+                            if (_value == null && url != null && usr != null && pwd != null && dom == null)
+                            {
+                                if (auth == null)
+                                {
+                                    auth = "Office365";
+                                }
+
+                                _value = $"Url={url};UserName={usr};password={pwd};AuthType={auth}";
                             }
 
                             if (_value == null && url != null && usr == null && pwd == null && dom == null)
@@ -55,7 +67,7 @@ namespace Kipon.Xrm.Tools.XrmOrganization
 
                     if (string.IsNullOrWhiteSpace(_value))
                     {
-                        _value = ConfigurationManager.ConnectionStrings["CRM"].ConnectionString;
+                        _value = ConfigurationManager.ConnectionStrings["CRM"]?.ConnectionString;
                     }
 
                     if (string.IsNullOrWhiteSpace(_value))

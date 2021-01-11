@@ -1,4 +1,13 @@
-## Last updated: 2021-01-09
+## Last updated: 2021-01-10
+
+### 1.0.4.5 | 2021-01-10
+BasePlugin did not always allow an InvalidPluginExecutionException to drain all the way down to the plugin infrastructure due to reflection Invoke was catching
+the exception and wrapping it in a System.Reflection.TargetInvocationException. This problem has been solved so the original InvalidPluginExecutionException
+is now drained down to the Dynamics 365 infrastructure, and therefore shown correctly in the UI. The System.Reflection.TargetInvocationException is only mapped back
+to the original InvalidPluginExecutionException on its own root Inner excpetion.
+
+All unknown excepts are mapped to InvalidPluginExecutionException with the message of the original exception, and the original exception parsed to InvalidPluginExecutionException to allow
+better information to the client for diagnostic.
 
 ### 1.0.4.4 | 2021-01-09
 Added simple extension method on Sdk to clone an entity without key and without system parameters as createdby, modifiedby, importsequencenumber,..

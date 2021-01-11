@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.4.4";
+        public const string Version = "1.0.4.5";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -131,6 +131,7 @@
                     #endregion
 
                     #region run the method
+                    var inError = false;
                     try
                     {
                         var result = method.Invoke(this, args);
@@ -147,35 +148,53 @@
                                 }
                             }
                         }
-                    } catch (Exception be) {
-                        if (be.GetType().BaseType?.FullName == "Kipon.Xrm.Exceptions.BaseException") 
+                    }
+                    catch (Microsoft.Xrm.Sdk.InvalidPluginExecutionException)
+                    {
+                        inError = true;
+                        throw;
+                    } catch (System.Reflection.TargetInvocationException te)
+                    {
+                        inError = true;
+                        if (te.InnerException != null && te.InnerException is Microsoft.Xrm.Sdk.InvalidPluginExecutionException)
                         {
-                            // it is not a unit test, its the real thing, so we map the exception to a supported exception to allow message to parse alle the way to the client
-                            throw new InvalidPluginExecutionException($"{be.GetType().FullName}: {be.Message}", be);
+                            throw te.InnerException;
                         }
                         throw;
+                    } catch (Exception be) {
+                        inError = true;
+                        if (be.GetType().BaseType?.FullName == "Kipon.Xrm.Exceptions.BaseException") 
+                        {
+                            // it is not a unit test, its the real thing, so we map the exception to a supported exception to allow message to parse all the way to the client
+                            throw new InvalidPluginExecutionException($"{be.GetType().FullName}: {be.Message}", be);
+                        }
+
+                        throw new InvalidPluginExecutionException(be.Message, be);
                     } finally
                     {
-                        #region cleanup mirror
-                        if (stage <= 20)
+                        if (!inError)
                         {
-                            if (mergedimageMirror != null)
+                            #region cleanup mirror
+                            if (stage <= 20)
                             {
-                                mergedimage.PropertyChanged -= mergedimageMirror.MirrorpropertyChanged;
-                                mergedimageMirror = null;
-                            }
+                                if (mergedimageMirror != null)
+                                {
+                                    mergedimage.PropertyChanged -= mergedimageMirror.MirrorpropertyChanged;
+                                    mergedimageMirror = null;
+                                }
 
-                            if (targetMirror != null)
-                            {
-                                target.PropertyChanged -= targetMirror.MirrorpropertyChanged;
-                                targetMirror = null;
+                                if (targetMirror != null)
+                                {
+                                    target.PropertyChanged -= targetMirror.MirrorpropertyChanged;
+                                    targetMirror = null;
+                                }
                             }
+                            #endregion
+
+                            #region prepare for next method
+                            serviceCache.OnStepFinalize();
+                            #endregion
                         }
-                        #endregion
-
-                        #region prepare for next method
-                        serviceCache.OnStepFinalize();
-                        #endregion
                     }
                     #endregion
                 }
