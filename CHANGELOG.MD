@@ -1,5 +1,8 @@
 ## Last updated: 2021-01-10
 
+### 1.0.4.6 | 2021-01-11
+Extension method add in Sdk to return if an attribute is part of the target payload.
+
 ### 1.0.4.5 | 2021-01-10
 BasePlugin did not always allow an InvalidPluginExecutionException to drain all the way down to the plugin infrastructure due to reflection Invoke was catching
 the exception and wrapping it in a System.Reflection.TargetInvocationException. This problem has been solved so the original InvalidPluginExecutionException

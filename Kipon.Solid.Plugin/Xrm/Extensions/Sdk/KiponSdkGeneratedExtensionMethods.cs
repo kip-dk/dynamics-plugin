@@ -23,6 +23,12 @@
             "importsequencenumber"
         };
 
+        /// <summary>
+        /// Converts the entity to its early bound entity if it is not already such implemention. In that case it returns itself.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ent"></param>
+        /// <returns></returns>
         public static T ToEarlyBoundEntity<T>(this T ent) where T : Microsoft.Xrm.Sdk.Entity
         {
             if (ent.GetType().BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
@@ -52,11 +58,26 @@
             return TO_ENT_GENS[ent.LogicalName].Invoke(ent, new object[0]) as T;
         }
 
+
+        /// <summary>
+        /// Returns the target filter attributes of the entity, when implementing interfaceType
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <param name="interfaceType"></param>
+        /// <returns></returns>
         public static string[] TargetFilterAttributesOf<T>(this T entity, Type interfaceType) where T : Microsoft.Xrm.Sdk.Entity
         {
             return typeof(T).TargetFilterAttributesOf(interfaceType);
         }
 
+
+        /// <summary>
+        /// Ths method resolved the attributes that are related to  specific interface, that inherits from Kipon.Xrm.ITarget
+        /// </summary>
+        /// <param name="entityType">The type of the entity</param>
+        /// <param name="interfaceType">The interface implemented</param>
+        /// <returns>List of fields that are part of target of the interface</returns>
         public static string[] TargetFilterAttributesOf(this Type entityType, Type interfaceType)
         {
             if (!typeof(Microsoft.Xrm.Sdk.Entity).IsAssignableFrom(entityType))
@@ -94,6 +115,12 @@
 
         }
 
+        /// <summary>
+        /// Returns the property value of an entity if it is in there as an object, otherwise null
+        /// </summary>
+        /// <param name="entity">The entity</param>
+        /// <param name="attribLogicalName">Name of attribute</param>
+        /// <returns></returns>
         public static object GetSafeValue(this Microsoft.Xrm.Sdk.Entity entity, string attribLogicalName)
         {
             if (!entity.Attributes.ContainsKey(attribLogicalName))
@@ -103,6 +130,15 @@
             return entity[attribLogicalName];
         }
 
+
+        /// <summary>
+        /// Return the target of the parent event. We can only find target for Create and Update parent events.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ctx"></param>
+        /// <param name="message"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static T ParentTarget<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, Guid id) where T : Microsoft.Xrm.Sdk.Entity, new()
         {
             if (message != "Create" && message != "Update")
@@ -165,6 +201,15 @@
             return parent.ParentTarget<T>(message, id);
         }
 
+
+        /// <summary>
+        /// Find out if the ctx is OR has a parent contect that match the filter
+        /// </summary>
+        /// <param name="ctx">The context</param>
+        /// <param name="message">The message, ex Create, Update ..., required</param>
+        /// <param name="entityLogicalName">The logical name of the key, if null any, optional</param>
+        /// <param name="id">The id of the entity expected to be a parent event, if null any, optional</param>
+        /// <returns></returns>
         public static bool IsChildOf(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, string entityLogicalName = null, Guid? id = null)
         {
             if (ctx == null)
@@ -223,6 +268,20 @@
             return ctx.ParentContext.IsChildOf(message, entityLogicalName);
         }
 
+        /// <summary>
+        /// Returns true if the attribute is part of the target payload of the request. It only make sense in Create, Update requests
+        /// </summary>
+        /// <param name="ctx">The plugin execution context</param>
+        /// <param name="attributeName">The name of the attribute</param>
+        /// <returns>True if context contains Target as an entity and the entity has the attribute set.</returns>
+        public static bool AttributeChanged(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string attributeName)
+        {
+            if (ctx.InputParameters.Contains("Target") && ctx.InputParameters["Target"] is Microsoft.Xrm.Sdk.Entity e)
+            {
+                return e.Attributes.ContainsKey(attributeName.ToLower());
+            }
+            return false;
+        }
 
         /// <summary>
         ///  Create an in memory instance as a clone of target.
