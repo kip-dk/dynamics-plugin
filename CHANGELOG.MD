@@ -1,4 +1,7 @@
-## Last updated: 2021-01-10
+## Last updated: 2021-01-15
+
+### 1.0.4.7 | 2021-01-15
+Extenson method for IPluginExecutionContext IsChildOf can now resolve actions in a transaction, and id is parsed to child of child (bug fix).
 
 ### 1.0.4.6 | 2021-01-11
 Extension method add in Sdk to return if an attribute is part of the target payload.

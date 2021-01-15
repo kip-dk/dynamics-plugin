@@ -222,50 +222,71 @@
                 return true;
             }
 
-            if (message == "Create" || message == "Update" || message == "Delete")
+            if (ctx.MessageName == "ExecuteTransaction")
             {
-                if (ctx.MessageName == "ExecuteTransaction")
+                if (ctx.InputParameters.Contains("Requests"))
                 {
-                    if (ctx.InputParameters.Contains("Requests"))
+                    var requests = ctx.InputParameters["Requests"] as Microsoft.Xrm.Sdk.OrganizationRequestCollection;
+                    if (requests != null)
                     {
-                        var requests = ctx.InputParameters["Requests"] as Microsoft.Xrm.Sdk.OrganizationRequestCollection;
-                        if (requests != null)
+                        foreach (var r in requests)
                         {
-                            foreach (var r in requests)
+                            switch (message)
                             {
-                                switch (message)
+                                case "Create":
+                                    {
+                                        if (r is Microsoft.Xrm.Sdk.Messages.CreateRequest c)
+                                        {
+                                            if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
+                                        }
+                                        break;
+                                    }
+                                case "Update":
+                                    {
+                                        if (r is Microsoft.Xrm.Sdk.Messages.UpdateRequest c)
+                                        {
+                                            if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
+                                        }
+                                        break;
+                                    }
+                                case "Delete":
+                                    {
+                                        if (r is Microsoft.Xrm.Sdk.Messages.DeleteRequest c)
+                                        {
+                                            if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
+                                        }
+                                        break;
+                                    }
+                            }
+
+                            if (r.RequestName == message)
+                            {
+                                if (entityLogicalName == null && id == null)
                                 {
-                                    case "Create":
-                                        {
-                                            if (r is Microsoft.Xrm.Sdk.Messages.CreateRequest c)
-                                            {
-                                                if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
-                                            }
-                                            break;
-                                        }
-                                    case "Update":
-                                        {
-                                            if (r is Microsoft.Xrm.Sdk.Messages.UpdateRequest c)
-                                            {
-                                                if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
-                                            }
-                                            break;
-                                        }
-                                    case "Delete":
-                                        {
-                                            if (r is Microsoft.Xrm.Sdk.Messages.DeleteRequest c)
-                                            {
-                                                if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
-                                            }
-                                            break;
-                                        }
+                                    return true;
+                                }
+
+                                if (r.Parameters.ContainsKey("Target") && r.Parameters["Target"] is Microsoft.Xrm.Sdk.EntityReference targetid)
+                                {
+                                    if (targetid.LogicalName == entityLogicalName && (id == null || id == targetid.Id))
+                                    {
+                                        return true;
+                                    }
+                                }
+
+                                if (r.Parameters.ContainsKey("Target") && r.Parameters["Target"] is Microsoft.Xrm.Sdk.Entity target)
+                                {
+                                    if (target.LogicalName == entityLogicalName && (id == null || id == target.Id))
+                                    {
+                                        return true;
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-            return ctx.ParentContext.IsChildOf(message, entityLogicalName);
+            return ctx.ParentContext.IsChildOf(message, entityLogicalName, id);
         }
 
         /// <summary>
