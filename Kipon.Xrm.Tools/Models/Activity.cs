@@ -13,8 +13,9 @@ namespace Kipon.Xrm.Tools.Models
 {
     public class Activity
     {
-        public Activity(string xmlDoc)
+        public Activity(string xmlDoc, string primaryEntityLogicalName)
         {
+            this.PrimaryEntityLogicalName = primaryEntityLogicalName;
             var doc = new XmlDocument();
             doc.LoadXml(xmlDoc);
             var nsMgr = new XmlNamespaceManager(doc.NameTable);
@@ -61,6 +62,9 @@ namespace Kipon.Xrm.Tools.Models
             this.InputMembers = inputs.ToArray();
             this.OutputMembers = outputs.ToArray();
         }
+
+        public string PrimaryEntityLogicalName { get; set; }
+
         public string LogicalName { get; private set; }
 
         public Member[] InputMembers { get; private set; }

@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.4.7";
+        public const string Version = "1.0.4.9";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -160,7 +160,13 @@
                         {
                             throw te.InnerException;
                         }
-                        throw;
+
+                        if (te.InnerException != null)
+                        {
+                            throw new InvalidPluginExecutionException(te.InnerException.Message, te.InnerException);
+                        }
+
+                        throw new InvalidPluginExecutionException(te.Message, te);
                     } catch (Exception be) {
                         inError = true;
                         if (be.GetType().BaseType?.FullName == "Kipon.Xrm.Exceptions.BaseException") 

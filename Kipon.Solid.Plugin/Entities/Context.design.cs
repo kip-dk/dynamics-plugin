@@ -17063,6 +17063,64 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 	}
 	
+	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/new/")]
+	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("new_Kiponunboundtest")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	public partial class new_KiponunboundtestRequest : Microsoft.Xrm.Sdk.OrganizationRequest
+	{
+		
+		public string id
+		{
+			get
+			{
+				if (this.Parameters.Contains("id"))
+				{
+					return ((string)(this.Parameters["id"]));
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+			set
+			{
+				this.Parameters["id"] = value;
+			}
+		}
+		
+		public new_KiponunboundtestRequest()
+		{
+			this.RequestName = "new_Kiponunboundtest";
+			this.id = default(string);
+		}
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/new/")]
+	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("new_Kiponunboundtest")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	public partial class new_KiponunboundtestResponse : Microsoft.Xrm.Sdk.OrganizationResponse
+	{
+		
+		public new_KiponunboundtestResponse()
+		{
+		}
+		
+		public Microsoft.Xrm.Sdk.EntityCollection team
+		{
+			get
+			{
+				if (this.Results.Contains("team"))
+				{
+					return ((Microsoft.Xrm.Sdk.EntityCollection)(this.Results["team"]));
+				}
+				else
+				{
+					return default(Microsoft.Xrm.Sdk.EntityCollection);
+				}
+			}
+		}
+	}
+	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_RetrieveTypeValuesFromDCI")]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]

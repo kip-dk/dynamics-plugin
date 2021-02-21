@@ -51,7 +51,35 @@ namespace Kipon.Xrm.Tools.Services
                                  join wf in uow.Workflows.GetQuery() on sm.SdkMessageId equals wf.SdkMessageId.Id
                                  select sm.Name).Distinct().ToArray();
 
+            uow.ClearContext();
+
+            var unbounds = (from sm in uow.SdkMessages.GetQuery()
+                            join wf in uow.Workflows.GetQuery() on sm.SdkMessageId equals wf.SdkMessageId.Id
+                            where wf.PrimaryEntity == "none"
+                              && sm.Name != null
+                              && sm.Name != ""
+                            select sm.Name).Distinct().ToArray();
+
+            uow.ClearContext();
+
+            var bounds = (from sm in uow.SdkMessages.GetQuery()
+                         join wf in uow.Workflows.GetQuery() on sm.SdkMessageId equals wf.SdkMessageId.Id
+                         where wf.PrimaryEntity != "none"
+                             && sm.Name != null
+                             && sm.Name != ""
+                         select new
+                         {
+                             Name = sm.Name,
+                             PrimaryEntity = wf.PrimaryEntity
+                         }).Distinct()
+                         .ToArray()
+                         .Where(r => this.entityLogicalNames != null && this.entityLogicalNames.Length > 0 &&  this.entityLogicalNames.Contains(r.PrimaryEntity))
+                         .ToDictionary(r => r.Name, v => v.Name);
+
+            uow.ClearContext();
+
             var allActions = new List<string>(messages);
+
             allActions.AddRange(customActions);
             messages = allActions.ToArray();
 
@@ -97,6 +125,18 @@ namespace Kipon.Xrm.Tools.Services
                         if (Kipon.Tools.Xrm.Reflection.Types.MESSAGE_WITHOUT_PRIMARY_ENTITY.Contains(message))
                         {
                             handleEntities = new string[] { null };
+                        }
+                        else
+                        {
+                            if (unbounds.Contains(message))
+                            {
+                                handleEntities = new string[] { null };
+                            }
+                        }
+
+                        if (bounds.ContainsKey(message))
+                        {
+                            handleEntities = new string[] { bounds[message] };
                         }
 
                         foreach (var logicalname in handleEntities)

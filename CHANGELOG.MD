@@ -1,4 +1,11 @@
-## Last updated: 2021-01-15
+## Last updated: 2021-02-21
+
+### 1.0.4.9 Tools version only
+This version only changed the deploy tool to support auto registration of steps for unbounded actions. At same time it limits registration of bounded actions to only
+try to bind for the appropriate primary entity.
+
+### 1.0.4.8 | 2021-02-10 
+Map any exception in invoke to InvalidPluginExecutionException, with parse of the original exception, to make errors more transparent.
 
 ### 1.0.4.7 | 2021-01-15
 Extenson method for IPluginExecutionContext IsChildOf can now resolve actions in a transaction, and id is parsed to child of child (bug fix).

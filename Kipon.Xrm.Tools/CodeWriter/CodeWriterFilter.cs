@@ -210,7 +210,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
                                         && w.StateCode == Entities.WorkflowState.Activated
                                       select new
                                       {
-                                          Xaml = w.Xaml
+                                          Xaml = w.Xaml,
+                                          Entity = w.PrimaryEntity
                                       }).SingleOrDefault();
                             if (wf == null)
                             {
@@ -218,7 +219,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                             }
                             else
                             {
-                                var activity = new Kipon.Xrm.Tools.Models.Activity(wf.Xaml);
+                                var activity = new Kipon.Xrm.Tools.Models.Activity(wf.Xaml, wf.Entity);
                                 ACTIVITIES.Add(action.LogicalName, activity);
                             }
                         }
