@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.4.9";
+        public const string Version = "1.0.4.10";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -51,7 +51,7 @@
             {
                 var entityName = context.PrimaryEntityName;
 
-                if (Reflection.Types.MESSAGE_WITHOUT_PRIMARY_ENTITY.Contains(message))
+                if (entityName == "none" || Reflection.Types.MESSAGE_WITHOUT_PRIMARY_ENTITY.Contains(message))
                 {
                     entityName = null;
                 }

@@ -1,5 +1,8 @@
 ## Last updated: 2021-02-21
 
+### 1.0.4.10 Unbounded actions
+Unbounded actions did require a minor change in the plugin framework. It has been fixed int this version.
+
 ### 1.0.4.9 Tools version only
 This version only changed the deploy tool to support auto registration of steps for unbounded actions. At same time it limits registration of bounded actions to only
 try to bind for the appropriate primary entity.
