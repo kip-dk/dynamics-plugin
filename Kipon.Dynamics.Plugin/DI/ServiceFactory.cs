@@ -35,6 +35,26 @@ namespace Kipon.Dynamics.Plugin.DI
             exports = GetTypesWithExportAttribute();
         }
 
+        public void RegisterExternalExports(Type callingType)
+        {
+            var assembly = callingType.Assembly;
+            var exportAttribute = typeof(Export);
+            var result = new Dictionary<Type, Type>();
+            foreach (Type type in assembly.GetTypes())
+            {
+                var ea = type.GetCustomAttributes(exportAttribute, true).SingleOrDefault() as Export;
+                if (ea != null)
+                {
+                    if (!exports.ContainsKey(ea.Type))
+                    {
+                        exports.Add(ea.Type, type);
+                    }
+
+                }
+            }
+
+        }
+
         public static ServiceFactory Instance
         {
             get
