@@ -57,7 +57,7 @@
                 toolOrgService = serviceFactory.CreateOrganizationService(null);
             }
 
-            using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext))
+            using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext, this.UnsecureConfig, this.SecureConfig))
             {
                 var method = PluginMethodCache.ForPlugin(this.GetType(), 30, message, context.PrimaryEntityName, context.Mode == 1).Single();
 

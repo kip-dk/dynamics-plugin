@@ -24,9 +24,12 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
             var method = typeof(TestPlugin).GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)[0];
             var account = new Entities.Account { AccountId = Guid.NewGuid() };
 
+            var unsecureConfig = "unsecure config";
+            var secureConfig = "secure config";
+
             var context = PluginExecutionContext.ForMethodWithTarget(method, account);
 
-            var serviceCache = new Kipon.Xrm.Reflection.ServiceCache(context, organizationServiceFactory, traceService, null);
+            var serviceCache = new Kipon.Xrm.Reflection.ServiceCache(context, organizationServiceFactory, traceService, null,  unsecureConfig , secureConfig);
 
             var methodCache = pluginMethodcache.ForPlugin(typeof(TestPlugin), 20, "Update", Entities.Account.EntityLogicalName, false);
 
@@ -47,6 +50,9 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
 
             var p5 = serviceCache.Resolve(methodCache[0].Parameters[4]);
             Assert.AreEqual(account, p5);
+
+            Assert.AreEqual(unsecureConfig, p4.UnsecureConfig);
+            Assert.AreEqual(secureConfig, p4.SecureConfig);
         }
 
 

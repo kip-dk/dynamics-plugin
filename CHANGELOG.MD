@@ -1,7 +1,26 @@
-## Last updated: 2021-02-21
+## Last updated: 2021-04-22
+
+### 1.0.4.11 Inject secure- and unsecureconfig into plugin or services
+By adding a parameter of type string with name UnsecureConfig or SecureConfig (not case sensetive) to a plugin method or service constructor, you will get the
+config setting from the current plugin injected to your method/service constructor.
+
+Injecting the config into plugin method does not make a lot of sence, because you have to create the appropriate constructor anyway, but it has been added for consistancy.
+
+Remember, you must add both parameterless constructor and config constructor to your plugin when you need to support config settings from the plugin
+
+```csharp
+public class MyPlugin: Kipon.Xrm.BasePlugin
+{
+   public MyPlugin() {}
+   public MyPlugin(string unsecureConfig, string secureConfig): base(unsecureConfig, secureConfig) { }
+
+   public void OnPreCreate(...)
+}
+```
+
 
 ### 1.0.4.10 Unbounded actions
-Unbounded actions did require a minor change in the plugin framework. It has been fixed int this version.
+Unbounded actions did require a minor change in the plugin framework. It has been fixed in this version.
 
 ### 1.0.4.9 Tools version only
 This version only changed the deploy tool to support auto registration of steps for unbounded actions. At same time it limits registration of bounded actions to only

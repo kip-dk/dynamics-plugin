@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.4.10";
+        public const string Version = "1.0.4.11";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -47,7 +47,7 @@
 
             IPluginContext pluginContext = new Services.PluginContext(this.UnsecureConfig, this.SecureConfig, context, type, userId);
 
-            using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext))
+            using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext, this.UnsecureConfig, this.SecureConfig))
             {
                 var entityName = context.PrimaryEntityName;
 
@@ -85,7 +85,24 @@
                                 args[ix] = context.InputParameters[p.Name];
                             } else
                             {
-                                args[ix] = null;
+                                if (p.Name != null)
+                                {
+                                    if (p.Name.ToLower() == nameof(this.UnsecureConfig).ToLower())
+                                    {
+                                        args[ix] = this.UnsecureConfig;
+                                    }  else
+                                    if (p.Name.ToLower() == nameof(this.SecureConfig).ToLower())
+                                    {
+                                        args[ix] = this.SecureConfig;
+                                    } else
+                                    {
+                                        args[ix] = null;
+                                    }
+                                }
+                                else
+                                {
+                                    args[ix] = null;
+                                }
                             }
                         }
                         else

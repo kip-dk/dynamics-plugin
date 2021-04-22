@@ -13,5 +13,9 @@ namespace Kipon.Solid.Plugin.ServiceAPI
         Microsoft.Xrm.Sdk.IOrganizationService OrgService { get; }
 
         void OnPostMerged(Entities.Account.IAccountPostMergedImage mergedimage);
+
+        string UnsecureConfig { get;  }
+        string SecureConfig { get; }
+
     }
 }

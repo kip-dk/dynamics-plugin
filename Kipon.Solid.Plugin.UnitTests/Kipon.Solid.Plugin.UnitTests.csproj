@@ -75,6 +75,7 @@
     <Compile Include="Plugins\Account\AccountMergedImageInterfaceWithTargetAttrTest.cs" />
     <Compile Include="Plugins\Account\AccountMergeImageUpdateTest.cs" />
     <Compile Include="Plugins\Account\AccountPostUpdateTest.cs" />
+    <Compile Include="Plugins\Account\AccountWithConfigPluginTest.cs" />
     <Compile Include="Plugins\Contact\ContactDeletePluginTest.cs" />
     <Compile Include="Plugins\Generic\ProspectPluginTest.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPluginTest.cs" />

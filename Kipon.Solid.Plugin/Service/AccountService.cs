@@ -13,9 +13,15 @@ namespace Kipon.Solid.Plugin.Service
     {
         public static string POST_MERGE_TEST = null;
 
-        public AccountService(Microsoft.Xrm.Sdk.IOrganizationService orgService)
+        public string UnsecureConfig { get; private set; }
+        public string SecureConfig { get; private set; }
+
+
+        public AccountService(Microsoft.Xrm.Sdk.IOrganizationService orgService, string unsecureConfig, string secureConfig)
         {
             this.OrgService = orgService;
+            this.UnsecureConfig = unsecureConfig;
+            this.SecureConfig = secureConfig;
         }
 
         public IOrganizationService OrgService { get; private set; }

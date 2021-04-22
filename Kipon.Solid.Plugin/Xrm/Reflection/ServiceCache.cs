@@ -8,13 +8,18 @@
         private readonly Dictionary<string, object> services = new Dictionary<string, object>();
         private readonly object locks = new object();
 
+        public string UnsecureConfig { get; private set; }
+        public string SecureConfig { get; private set; }
+
         private Guid systemuserid;
 
         private IPluginExecutionContext pluginExecutionContext;
         private IOrganizationServiceFactory organizationServiceFactory;
 
-        public ServiceCache(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService, IPluginContext pluginContext)
+        public ServiceCache(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService, IPluginContext pluginContext, string config, string secureConfig)
         {
+            this.UnsecureConfig = config;
+            this.SecureConfig = secureConfig;
             this.pluginExecutionContext = pluginExecutionContext;
             this.organizationServiceFactory = organizationServiceFactory;
             this.services.Add(typeof(IPluginExecutionContext).FullName, pluginExecutionContext);
@@ -62,6 +67,16 @@
                     if (type.FromType == typeof(string) && type.Name != null && type.Name.ToLower() == nameof(this.pluginExecutionContext.PrimaryEntityName).ToLower())
                     {
                         return this.pluginExecutionContext.PrimaryEntityName;
+                    }
+
+                    if (type.FromType == typeof(string) && type.Name != null && type.Name.ToLower() == nameof(BasePlugin.UnsecureConfig).ToLower()) 
+                    {
+                        return this.UnsecureConfig;
+                    }
+
+                    if (type.FromType == typeof(string) && type.Name != null && type.Name.ToLower() == nameof(BasePlugin.SecureConfig).ToLower())
+                    {
+                        return this.SecureConfig;
                     }
 
                     if (type.FromType == typeof(Microsoft.Xrm.Sdk.Query.QueryExpression))
@@ -256,6 +271,20 @@
                 var ix = 0;
                 foreach (var argType in argTypes)
                 {
+                    if (argType.FromType == typeof(string) && argType.Name != null && argType.Name.ToLower() == nameof(BasePlugin.UnsecureConfig).ToLower())
+                    {
+                        args[ix] = this.UnsecureConfig;
+                        ix++;
+                        continue;
+                    }
+
+                    if (argType.FromType == typeof(string) && argType.Name != null && argType.Name.ToLower() == nameof(BasePlugin.SecureConfig).ToLower())
+                    {
+                        args[ix] = this.SecureConfig;
+                        ix++;
+                        continue;
+                    }
+
                     if (argType.FromType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
                     {
                         if (type.RequireAdminService)
