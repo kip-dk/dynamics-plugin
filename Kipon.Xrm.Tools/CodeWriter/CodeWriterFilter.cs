@@ -215,7 +215,9 @@ namespace Kipon.Xrm.Tools.CodeWriter
                                       }).SingleOrDefault();
                             if (wf == null)
                             {
-                                Console.WriteLine($"Error: Could not find action message for { action.Name }. It is ignored.");
+                                // the message does not have an attached workflow, we assume it is a standard CRM action.
+                                var activity = new Kipon.Xrm.Tools.Models.Activity(action.LogicalName);
+                                ACTIVITIES.Add(action.LogicalName, activity);
                             }
                             else
                             {

@@ -13,6 +13,31 @@ namespace Kipon.Xrm.Tools.Models
 {
     public class Activity
     {
+        public Activity(string messageName)
+        {
+            switch (messageName)
+            {
+                case "QualifyLead":
+                    {
+                        this.LogicalName = "lead";
+                        this.PrimaryEntityLogicalName = "lead";
+                        this.InputMembers = new Member[]
+                        {
+                            new Member("CreateAccount", typeof(bool), false, "CreateAccount"),
+                            new Member("CreateContact", typeof(bool), false, "CreateContact"),
+                            new Member("CreateOpportunity", typeof(bool), false, "CreateOpportunity"),
+                            new Member("OpportunityCurrencyId", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "OpportunityCurrencyId"),
+                            new Member("OpportunityCustomerId", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "OpportunityCustomerId"),
+                            new Member("SourceCampaignId", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "SourceCampaignId"),
+                            new Member("Status", typeof(int), true, "Status")
+                        };
+                        this.OutputMembers = new Member[0];
+                        break;
+                    }
+                default:throw new Exceptions.ConfigurationException($"{messageName} does not have a workflow an has not been match to an action activity in the framework. If this is a std Microsoft SDK action message then please post a feature request on the git repository. Before posting and issue, please verify that the action is a valid action part of the Microsoft standard SDK");
+            }
+        }
+
         public Activity(string xmlDoc, string primaryEntityLogicalName)
         {
             this.PrimaryEntityLogicalName = primaryEntityLogicalName;

@@ -18,6 +18,7 @@
     <entity servicename="Salesorders" logicalname="salesorder"></entity>
     <entity servicename="Systemusers" logicalname="systemuser"></entity>
     <entity servicename="Phonecalls" logicalname="phonecall"></entity>
+    <entity servicename="Leads" logicalname="lead"></entity>
   </entities>
   <optionsets>
     <optionset id="budget" name="BudgetEnum">
@@ -30,5 +31,6 @@
   <actions>
     <action name="AccountCountContacts">kipon_AccountCountContacts</action>
     <action name="Anunboundedaction">kipon_Anunboundedaction</action>
+    <action name="QualityLead">QualifyLead</action>
   </actions>
 </filter>

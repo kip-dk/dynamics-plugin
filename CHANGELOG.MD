@@ -1,5 +1,7 @@
 ## Last updated: 2021-04-22
 
+### 1.0.4.12 Tool version, generate QualifyLead action
+
 ### 1.0.4.11 Inject secure- and unsecureconfig into plugin or services
 By adding a parameter of type string with name UnsecureConfig or SecureConfig (not case sensetive) to a plugin method or service constructor, you will get the
 config setting from the current plugin injected to your method/service constructor.

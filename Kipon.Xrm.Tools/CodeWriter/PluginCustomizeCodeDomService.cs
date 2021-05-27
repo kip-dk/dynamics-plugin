@@ -154,7 +154,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         void ICustomizeCodeDomService.CustomizeCodeDom(CodeCompileUnit codeUnit, IServiceProvider services)
         {
-            Console.WriteLine("c 2020 Kipon ApS, " + this.GetType().FullName + ", Version: " + Kipon.Xrm.Tools.Version.No + ". All rights reserved");
+            Console.WriteLine("(c) 2020, 2021 Kipon ApS, " + this.GetType().FullName + ", Version: " + Kipon.Xrm.Tools.Version.No + ". All rights reserved");
             var ns = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/namespace:") select c.Split(':')[1]).Single();
             var xrmNS = "Kipon.Xrm";
 
@@ -348,6 +348,11 @@ namespace Kipon.Xrm.Tools.CodeWriter
                     writer.WriteLine("{");
                     foreach (var action in actions)
                     {
+                        if (!CodeWriterFilter.ACTIVITIES.ContainsKey(action.LogicalName))
+                        {
+                            throw new Exception($"Expected to find action { action.LogicalName } in the list of actions.");
+                        }
+
                         var activity = CodeWriterFilter.ACTIVITIES[action.LogicalName];
                         #region write request interface
                         if (activity.InputMembers != null && activity.InputMembers.Length > 0)
@@ -356,6 +361,11 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                             if (!string.IsNullOrEmpty(activity.LogicalName))
                             {
+                                if (!CodeWriterFilter.LOGICALNAME2SCHEMANAME.ContainsKey(activity.LogicalName))
+                                {
+                                    throw new Exception($"Action {action.Name} is bounded to entity { activity.LogicalName } but that entity is not included in the list of entities to be generated. You must generate entities for bounded actions.");
+                                }
+
                                 targetInterface = $": Kipon.Xrm.ActionTarget<{ns}.{CodeWriterFilter.LOGICALNAME2SCHEMANAME[activity.LogicalName]}>";
                             }
 

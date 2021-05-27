@@ -33,7 +33,9 @@ namespace Kipon.Xrm.Tools.Services
             "AddMember",
             "AddListMembers",
             "RemoveMember",
-            "Merge"
+            "Merge",
+
+            "QualifyLead"
         };
 
         private string[] entityLogicalNames;
@@ -81,6 +83,7 @@ namespace Kipon.Xrm.Tools.Services
             var allActions = new List<string>(messages);
 
             allActions.AddRange(customActions);
+
             messages = allActions.ToArray();
 
             this.types = Kipon.Tools.Xrm.Reflection.Types.Instance;

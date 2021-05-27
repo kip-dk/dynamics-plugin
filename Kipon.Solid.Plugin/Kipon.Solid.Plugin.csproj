@@ -98,6 +98,7 @@
     <Compile Include="Plugins\Contact\ContactPlugin.cs" />
     <Compile Include="Plugins\Generic\PhonenumberWashPlugin.cs" />
     <Compile Include="Plugins\Generic\ProspectPlugin.cs" />
+    <Compile Include="Plugins\Lead\LeadPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
