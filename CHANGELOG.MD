@@ -1,5 +1,17 @@
 ## Last updated: 2021-04-22
 
+### 1.0.4.13 Extension method added
+
+The extension namespace Kipon.Solid.Plugin.Extensions.Sdk got a new extension method for the IPluginExecutionContext, PreValueOf<T>(propertyname).
+The propertyname must be the name of the property in the stronly typed entity.
+
+The method will diig into the preimage of the context and find the value of the field, and return it as type T. This is convinient when working with mergedimages, where
+you need to know the current value (always the value return from the mergedimage - changed or not) and the prevalue at same same, ex. for comparrison. 
+This might save you from creating a specific preimageview. 
+
+the flawor of this method is somehow "less solid" so use it with case. The best solid approach is to define the preimage interfaces and inject that into your plugin, and thereby 
+be explicit in you service that the service need to know the pre value of a field.
+
 ### 1.0.4.12 Tool version, generate QualifyLead action
 
 ### 1.0.4.11 Inject secure- and unsecureconfig into plugin or services

@@ -12,6 +12,9 @@
         private static readonly System.Reflection.MethodInfo TO_ENTITY = typeof(Microsoft.Xrm.Sdk.Entity).GetMethod("ToEntity", new Type[0]);
         private static readonly Dictionary<string, string[]> targetattributes = new Dictionary<string, string[]>();
 
+        public const string UNDEFINED_ATTRIBUTE_MESSAGE = "Entity of type {0} does not have a property named {1}";
+        public const string MISSING_DECORATION_ATTRIBUTE_MESSAGE = "Property {0} on entity {1} is not decorated with Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute";
+
         private static readonly string[] CLONE_EXCLUDE = new string[]
         {
             "createdon",
@@ -351,12 +354,96 @@
                     if (CLONE_EXCLUDE.Contains(k)) continue;
                     if (omitsLower != null && omitsLower.Contains(k)) continue;
                     if (k == keyname) continue;
- 
+
                     result[k] = target[k];
                 }
             }
             return result;
         }
+
+
+        /// <summary>
+        /// Convinient method to find the prevalue of something in the execution context.
+        /// </summary>
+        /// <typeparam name="T">The type T you expect to get back</typeparam>
+        /// <param name="ctx">The Dynamics 365 execution context</param>
+        /// <param name="entitypropertyname">The property name on the strongly typed entity of the flow</param>
+        /// <returns></returns>
+        public static T PreValueOf<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string entitypropertyname)
+        {
+            System.Reflection.PropertyInfo prop = null;
+            System.Type propertyType = null;
+
+            string attributeName = null;
+            if (ctx.PreEntityImages != null)
+            {
+                foreach (var pi in ctx.PreEntityImages.Values)
+                {
+                    if (prop == null)
+                    {
+                        var e = pi.ToEarlyBoundEntity();
+
+                        prop = e.GetType().GetProperty(entitypropertyname);
+
+                        if (prop == null)
+                        {
+                            throw new InvalidPluginExecutionException(string.Format(UNDEFINED_ATTRIBUTE_MESSAGE, pi.LogicalName, entitypropertyname));
+                        }
+
+                        var ca = (Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute)prop.GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute), false).FirstOrDefault();
+                        if (ca == null)
+                        {
+                            throw new InvalidPluginExecutionException(string.Format(MISSING_DECORATION_ATTRIBUTE_MESSAGE, pi.LogicalName, entitypropertyname));
+                        }
+
+                        attributeName = ca.LogicalName;
+
+                        propertyType = prop.PropertyType;
+
+                        if (propertyType.IsGenericType)
+                        {
+                            var under = propertyType.GetGenericTypeDefinition();
+                            if (under == typeof(Nullable<>))
+                            {
+                                propertyType = Nullable.GetUnderlyingType(propertyType);
+                            }
+                        }
+                    }
+
+                    if (pi.Attributes.Contains(attributeName))
+                    {
+                        var v = pi[attributeName];
+
+                        if (v == null)
+                        {
+                            return default(T);
+                        }
+
+                        if (typeof(T).IsAssignableFrom(v.GetType()))
+                        {
+                            return (T)v;
+                        }
+
+                        if (propertyType.IsEnum && v is Microsoft.Xrm.Sdk.OptionSetValue osv)
+                        {
+                            foreach (T obj in Enum.GetValues(propertyType))
+                            {
+                                Enum test = Enum.Parse(propertyType, obj.ToString()) as Enum;
+                                int x = Convert.ToInt32(test);
+                                if (x == osv.Value)
+                                {
+                                    return (T)(object)test;
+                                }
+                            }
+                            throw new InvalidPluginExecutionException($"On entity { pi.LogicalName } value { osv.Value } has not been mapped to Enum value of { propertyType.Name }");
+                        }
+                    }
+                }
+            }
+
+            return default(T);
+        }
+
 
         private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)
         {

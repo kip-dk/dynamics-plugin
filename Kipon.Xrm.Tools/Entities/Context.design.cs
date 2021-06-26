@@ -1287,6 +1287,24 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
+		/// Name of the privilege that allows execution of the SDK message
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("executeprivilegename")]
+		public string ExecutePrivilegeName
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("executeprivilegename");
+			}
+			set
+			{
+				this.OnPropertyChanging("ExecutePrivilegeName");
+				this.SetAttributeValue("executeprivilegename", value);
+				this.OnPropertyChanged("ExecutePrivilegeName");
+			}
+		}
+		
+		/// <summary>
 		/// Indicates whether the SDK message should have its requests expanded per primary entity defined in its filters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("expand")]
@@ -1844,6 +1862,24 @@ namespace Kipon.Xrm.Tools.Entities
 			get
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Name of the SDK message filter.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		public string Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("name");
+			}
+			set
+			{
+				this.OnPropertyChanging("Name");
+				this.SetAttributeValue("name", value);
+				this.OnPropertyChanged("Name");
 			}
 		}
 		
@@ -3434,6 +3470,18 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
+		/// Information about whether the solution is api managed.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isapimanaged")]
+		public System.Nullable<bool> IsApiManaged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("isapimanaged");
+			}
+		}
+		
+		/// <summary>
 		/// Indicates whether the solution is managed or unmanaged.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
@@ -4164,6 +4212,12 @@ namespace Kipon.Xrm.Tools.Entities
 			{
 				return this.GetAttributeValue<string>("clientdata");
 			}
+			set
+			{
+				this.OnPropertyChanging("ClientData");
+				this.SetAttributeValue("clientdata", value);
+				this.OnPropertyChanged("ClientData");
+			}
 		}
 		
 		/// <summary>
@@ -4403,6 +4457,24 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("IsCustomizable");
 				this.SetAttributeValue("iscustomizable", value);
 				this.OnPropertyChanged("IsCustomizable");
+			}
+		}
+		
+		/// <summary>
+		/// Defines whether other publishers can attach custom processing steps to this action
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("iscustomprocessingstepallowedforotherpublishers")]
+		public Microsoft.Xrm.Sdk.BooleanManagedProperty IsCustomProcessingStepAllowedForOtherPublishers
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.BooleanManagedProperty>("iscustomprocessingstepallowedforotherpublishers");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsCustomProcessingStepAllowedForOtherPublishers");
+				this.SetAttributeValue("iscustomprocessingstepallowedforotherpublishers", value);
+				this.OnPropertyChanged("IsCustomProcessingStepAllowedForOtherPublishers");
 			}
 		}
 		
@@ -4689,6 +4761,42 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
+		/// Unique identifier of the associated form for process trigger.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("processtriggerformid")]
+		public System.Nullable<System.Guid> ProcessTriggerFormId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("processtriggerformid");
+			}
+			set
+			{
+				this.OnPropertyChanging("ProcessTriggerFormId");
+				this.SetAttributeValue("processtriggerformid", value);
+				this.OnPropertyChanged("ProcessTriggerFormId");
+			}
+		}
+		
+		/// <summary>
+		/// Scope of the process trigger.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("processtriggerscope")]
+		public Microsoft.Xrm.Sdk.OptionSetValue ProcessTriggerScope
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("processtriggerscope");
+			}
+			set
+			{
+				this.OnPropertyChanging("ProcessTriggerScope");
+				this.SetAttributeValue("processtriggerscope", value);
+				this.OnPropertyChanged("ProcessTriggerScope");
+			}
+		}
+		
+		/// <summary>
 		/// Indicates the rank for order of execution for the synchronous workflow.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rank")]
@@ -4952,6 +5060,24 @@ namespace Kipon.Xrm.Tools.Entities
 			get
 			{
 				return this.GetAttributeValue<string>("uidata");
+			}
+		}
+		
+		/// <summary>
+		/// Type of the Desktop Flow process.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("uiflowtype")]
+		public Microsoft.Xrm.Sdk.OptionSetValue UIFlowType
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("uiflowtype");
+			}
+			set
+			{
+				this.OnPropertyChanging("UIFlowType");
+				this.SetAttributeValue("uiflowtype", value);
+				this.OnPropertyChanged("UIFlowType");
 			}
 		}
 		

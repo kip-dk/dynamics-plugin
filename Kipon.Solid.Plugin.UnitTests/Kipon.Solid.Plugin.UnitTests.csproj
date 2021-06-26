@@ -72,6 +72,7 @@
     <Compile Include="Fake\Repository\Query\QueryResolverTest.cs" />
     <Compile Include="Fake\Xrm\Reflection\TypesTest.cs" />
     <Compile Include="General\GeneralTests.cs" />
+    <Compile Include="Mocks\PluginExecutionContext.cs" />
     <Compile Include="Plugins\Account\AccountMergedImageInterfaceWithTargetAttrTest.cs" />
     <Compile Include="Plugins\Account\AccountMergeImageUpdateTest.cs" />
     <Compile Include="Plugins\Account\AccountPostUpdateTest.cs" />
