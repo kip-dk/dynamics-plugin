@@ -15,7 +15,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
     /// CodeWriterFilter for CrmSvcUtil that reads list of entities from an xml file to
     /// determine whether or not the entity class should be generated.
     /// </summary>
-    public class PlainTxtWriterFilter : ICodeWriterFilterService
+    public class PlainTxtCodeWriterFilter : ICodeWriterFilterService
     {
         string[] entities;
         string[] startWith;
@@ -26,7 +26,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
         /// constructor
         /// </summary>
         /// <param name="defaultService">default implementation</param>
-        public PlainTxtWriterFilter(ICodeWriterFilterService defaultService)
+        public PlainTxtCodeWriterFilter(ICodeWriterFilterService defaultService)
         {
             this._defaultService = defaultService;
             LoadFilterData();

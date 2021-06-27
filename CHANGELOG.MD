@@ -1,5 +1,8 @@
 ## Last updated: 2021-06-27
 
+### 1.0.4.14 Fix tools
+Documentation of new generate tools updated on below change to match reality.
+
 ### 1.0.4.13 Extension method added
 
 
@@ -32,7 +35,7 @@ This will limit genration of entities to entities starting with kipon_, and it w
 
 On the command line prompt, you specify the filter same way as for plugins:
 
-..\..\Kipon.Xrm.Tools\bin\coretools\CrmSvcUtil.exe  [other parameters] /codewriterfilter:Kipon.Xrm.Tools.CodeWriter.PlainTxtCodeWriterFilter
+..\..\Kipon.Xrm.Tools\bin\coretools\CrmSvcUtil.exe  [other parameters] /codewriterfilter:Kipon.Xrm.Tools.CodeWriter.PlainTxtCodeWriterFilter,Kipon.Xrm.Tools
 
 Remeber to ensure that the Kipon.Xrm.Tools DLL is copied to the folder where you have CrmSvcUtil.exe
 
