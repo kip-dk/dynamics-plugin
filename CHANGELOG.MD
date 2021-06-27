@@ -1,16 +1,41 @@
-## Last updated: 2021-04-22
+## Last updated: 2021-06-27
 
 ### 1.0.4.13 Extension method added
 
+
+#### New extension to capture pre value from plugincontext.
 The extension namespace Kipon.Solid.Plugin.Extensions.Sdk got a new extension method for the IPluginExecutionContext, PreValueOf<T>(propertyname).
 The propertyname must be the name of the property in the stronly typed entity.
 
 The method will diig into the preimage of the context and find the value of the field, and return it as type T. This is convinient when working with mergedimages, where
-you need to know the current value (always the value return from the mergedimage - changed or not) and the prevalue at same same, ex. for comparrison. 
-This might save you from creating a specific preimageview. 
+you need to know the current value (always the value return from the mergedimage - changed or not) and the prevalue at same time, ex. for comparrison. 
+This might save you from creating a specific preimage-interfaces. 
 
-the flawor of this method is somehow "less solid" so use it with case. The best solid approach is to define the preimage interfaces and inject that into your plugin, and thereby 
-be explicit in you service that the service need to know the pre value of a field.
+the flawor of this method is somehow "less solid" so use it with care. The best solid approach is to define the preimage interfaces and inject that into your plugin, and thereby 
+be explicit in you service that the service need to know the pre value of a field as well as the current value, if changed.
+
+#### Kipon.Xrm.Tools.CodeWriter.PlainTxtWriterFilter
+You can use the Kipon.Xrm.Tools to generate entites for non Kipon.Xrm.Plugins, with a very simple filter mechanism. This is convinient, if you have old projects
+with strong entity type generation, but you wish to start filter entities out, because you upgraded to a Dynamics 365 version that adds way to much, if you just generate everything.
+
+The filter.txt file should be placed in the folder from where you run the CrmSvcUtil command (not nessesarrely the folder where you host the CrmSvcUtil.exe), 
+and have an entity name on each line. You can state all entities matching a start pattern
+by proiding all: keywork infront, ex
+
+[filter.txt]
+all:kipon_
+contact
+account
+task
+
+This will limit genration of entities to entities starting with kipon_, and it will also generate account, contact and task.
+
+On the command line prompt, you specify the filter same way as for plugins:
+
+..\..\Kipon.Xrm.Tools\bin\coretools\CrmSvcUtil.exe  [other parameters] /codewriterfilter:Kipon.Xrm.Tools.CodeWriter.PlainTxtCodeWriterFilter
+
+Remeber to ensure that the Kipon.Xrm.Tools DLL is copied to the folder where you have CrmSvcUtil.exe
+
 
 ### 1.0.4.12 Tool version, generate QualifyLead action
 
