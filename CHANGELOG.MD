@@ -1,5 +1,16 @@
 ## Last updated: 2021-06-28
 
+### 1.0.4.16 Code generator bug fix.
+
+To get any value of of this patch, you just regenerate entities after you installed this version.
+
+When using target and merge image on same plugin method, with supress-mapped-standard-optionset-properties set to true on filter.xml, 
+the mirror of changing values on target caused a null reference exception, because a property raise was 
+done on the default naming, instead of the actual naming of the property. This problem only apear if you map optionsetvalues in the filter.xml 
+file to another name than the schema name, ex property schema name  kipon_myoptionset,  is mapped to an enum representation named MyoptionsetEnumValue
+
+The propertychange event will now fire on the correct property name, but you must generate entities to get this part of the code in place.
+
 ### 1.0.4.15
 Added tracelog for each method invoke, that is pushed to tracelog, only if exception is thrown.
 

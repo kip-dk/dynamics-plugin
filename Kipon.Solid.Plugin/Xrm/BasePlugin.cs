@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.4.15";
+        public const string Version = "1.0.4.16";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -262,13 +262,17 @@
 
             internal void MirrorpropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
             {
-                var attr = (Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute)sender.GetType().GetProperty(e.PropertyName).GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute), false).FirstOrDefault();
-                if (attr != null)
+                var prop = sender.GetType().GetProperty(e.PropertyName);
+                if (prop != null)
                 {
-                    var source = sender as Microsoft.Xrm.Sdk.Entity;
-                    if (source != null)
+                    var attr = (Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute)prop.GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute), false).FirstOrDefault();
+                    if (attr != null)
                     {
-                        mirrorTo[attr.LogicalName] = source[attr.LogicalName];
+                        var source = sender as Microsoft.Xrm.Sdk.Entity;
+                        if (source != null)
+                        {
+                            mirrorTo[attr.LogicalName] = source[attr.LogicalName];
+                        }
                     }
                 }
             } 

@@ -119,20 +119,17 @@ namespace Kipon.Xrm.Tools.CodeWriter
                             }
                             else
                             {
-                                writer.WriteLine($"\t\t\t\tthis.OnPropertyChanging(\"{schemaName}\");");
+                                writer.WriteLine($"\t\t\t\tthis.OnPropertyChanging(\"{optionset.Name}\");");
                                 writer.WriteLine($"\t\t\t\tif (value != null)");
                                 writer.WriteLine("\t\t\t\t{");
                                 writer.WriteLine($"\t\t\t\t\tthis.SetAttributeValue(\"{optionset.Logicalname}\", new Microsoft.Xrm.Sdk.OptionSetValue((int)value.Value));");
-                                writer.WriteLine($"\t\t\t\t\tthis.OnPropertyChanged(\"{schemaName}\");");
+                                writer.WriteLine($"\t\t\t\t\tthis.OnPropertyChanged(\"{optionset.Name}\");");
                                 writer.WriteLine($"\t\t\t\t\treturn;");
                                 writer.WriteLine("\t\t\t\t}");
                                 writer.WriteLine($"\t\t\t\tthis.SetAttributeValue(\"{optionset.Logicalname}\", null);");
-                                writer.WriteLine($"\t\t\t\tthis.OnPropertyChanged(\"{schemaName}\");");
+                                writer.WriteLine($"\t\t\t\tthis.OnPropertyChanged(\"{optionset.Name}\");");
                             }
-
-
                             writer.WriteLine("\t\t\t}");
-
                             writer.WriteLine("\t\t}");
                         }
                         else
