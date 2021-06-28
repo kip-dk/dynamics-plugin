@@ -2,7 +2,7 @@
 
 ### 1.0.4.16 Code generator bug fix.
 
-To get any value of of this patch, you just regenerate entities after you installed this version.
+To get any value of of this patch, you must regenerate entities after you installed this version.
 
 When using target and merge image on same plugin method, with supress-mapped-standard-optionset-properties set to true on filter.xml, 
 the mirror of changing values on target caused a null reference exception, because a property raise was 
