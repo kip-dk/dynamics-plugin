@@ -399,6 +399,7 @@
             private PluginMethod CreateFrom(System.Reflection.MethodInfo method, string logicalname)
             {
                 var result = new PluginMethod();
+                result.Name = method.Name;
                 result.method = method;
                 var parameters = method.GetParameters().ToArray();
 
@@ -450,6 +451,7 @@
 
         private System.Reflection.MethodInfo method;
         public int Sort { get; set; }
+        public string Name { get; private set; }
         public TypeCache[] Parameters { get; private set; }
 
         public Dictionary<System.Reflection.PropertyInfo, Output> OutputProperties;

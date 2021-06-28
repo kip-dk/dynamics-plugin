@@ -1,4 +1,7 @@
-## Last updated: 2021-06-27
+## Last updated: 2021-06-28
+
+### 1.0.4.15
+Added tracelog for each method invoke, that is pushed to tracelog, only if exception is thrown.
 
 ### 1.0.4.14 Fix tools
 Documentation of new generate tools updated on below change to match reality.

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Solid.Plugin</id>
-    <version>1.0.4.14</version>
+    <version>1.0.4.15</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -10,7 +10,7 @@
     <iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Create Dynamics 365 plugins according to SOLID software princips. This package provide the basic infrastructur for building plugins with services and inject these into the Dynamics 365 plugin pipeline.</description>
-    <releaseNotes>Added PreValuOf extension method to Xrm entension workspace. Added new simple codefilter for non Kipon.Solid.Plugin entity generate</releaseNotes>
+    <releaseNotes>Std. tracelog, if a plugin fails, and have several eventhooks, you can now see in the tracelog witch method (including name and signatur) that was invoked (before and after), and that way if should be more easy to track down root cause</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020</copyright>
     <tags>Dynamics 365 plugin C# SOLID</tags>
     <dependencies>
