@@ -37,7 +37,7 @@ with strong entity type generation, but you wish to start filter entities out, b
 
 The filter.txt file should be placed in the folder from where you run the CrmSvcUtil command (not nessesarrely the folder where you host the CrmSvcUtil.exe), 
 and have an entity name on each line. You can state all entities matching a start pattern
-by proiding all: keywork infront, ex
+by proiding all: keyword infront, ex
 
 [filter.txt]
 all:kipon_
