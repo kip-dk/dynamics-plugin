@@ -16,6 +16,8 @@
         AddListMembers,
         RemoveMember,
 
+        QualifyLead,
+
         CustomPlugin
     }
 }

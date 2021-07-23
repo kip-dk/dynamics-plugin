@@ -1,4 +1,7 @@
-## Last updated: 2021-06-28
+## Last updated: 2021-07-23
+
+### 1.0.4.17 QualifyLead
+Action on QualifyLead did not work as expected.
 
 ### 1.0.4.16 Code generator bug fix.
 

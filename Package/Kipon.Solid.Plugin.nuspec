@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Solid.Plugin</id>
-    <version>1.0.4.16</version>
+    <version>1.0.4.17</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -10,7 +10,7 @@
     <iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Create Dynamics 365 plugins according to SOLID software princips. This package provide the basic infrastructur for building plugins with services and inject these into the Dynamics 365 plugin pipeline.</description>
-    <releaseNotes>When using target and merge image on same method, with supress-mapped-standard-optionset-properties set to true on filter.xml, the mirror of changing values on target caused a null reference exception, because a property raise was done on the default naming, instead of the actual naming of the property.</releaseNotes>
+    <releaseNotes>QualifyLead actions did not work due to missing value in EventType enum, conclusion is that only explicitly impl. standard actions are supported</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020</copyright>
     <tags>Dynamics 365 plugin C# SOLID</tags>
     <dependencies>
