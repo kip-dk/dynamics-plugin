@@ -125,11 +125,13 @@ namespace Kipon.Xrm.Tools.Models
                     if (this.Type == typeof(double) && !this.Required) return "double?";
                     if (this.Type == typeof(decimal) && this.Required) return "decimal";
                     if (this.Type == typeof(decimal) && !this.Required) return "decimal?";
-                    if (this.Type == typeof(Microsoft.Xrm.Sdk.OptionSetValue) && !this.Required) return Type.FullName;
+                    if (this.Type == typeof(Microsoft.Xrm.Sdk.OptionSetValue)) return Type.FullName;
+                    if (this.Type == typeof(Microsoft.Xrm.Sdk.OptionSetValueCollection)) return Type.FullName;
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.Money)) return Type.FullName;
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.Entity)) return Type.FullName;
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.EntityReference)) return Type.FullName;
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.EntityCollection)) return Type.FullName;
+                    if (this.Type == typeof(Microsoft.Xrm.Sdk.EntityReferenceCollection)) return Type.FullName;
                     return "object";
                 }
             }
@@ -158,10 +160,12 @@ namespace Kipon.Xrm.Tools.Models
                 case "Argument(x:Double)": return typeof(double);
                 case "Argument(x:Decimal)": return typeof(decimal);
                 case "Argument(mxs:OptionSetValue)": return typeof(Microsoft.Xrm.Sdk.OptionSetValue);
+                case "Argument(mxs:OptionSetValueCollection)": return typeof(Microsoft.Xrm.Sdk.OptionSetValueCollection);
                 case "Argument(mxs:Money)": return typeof(Microsoft.Xrm.Sdk.Money);
                 case "Argument(mxs:Entity)": return typeof(Microsoft.Xrm.Sdk.Entity);
                 case "Argument(mxs:EntityReference)": return typeof(Microsoft.Xrm.Sdk.EntityReference);
                 case "Argument(mxs:EntityCollection)": return typeof(Microsoft.Xrm.Sdk.EntityCollection);
+                case "Argument(mxs:EntityReferenceCollection)": return typeof(Microsoft.Xrm.Sdk.EntityReferenceCollection);
                 default: return typeof(object);
             }
         }

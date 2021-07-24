@@ -1,5 +1,8 @@
 ## Last updated: 2021-07-23
 
+### 1.0.4.18 OptionSetValue in actions mappes correctly
+Non required InputFields of type OptionSetValue was wrongly mapped to object in the action interface and implementation. This has been fixed.
+
 ### 1.0.4.17 QualifyLead
 Action on QualifyLead did not work as expected.
 

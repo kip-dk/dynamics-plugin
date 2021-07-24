@@ -17,7 +17,7 @@ developing plugin for Dynamics 365 Customer Engagement platform.
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.4.17
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.4.18
 ```
 
 3) Rename the following files included in your project, and adjust according to your need
@@ -75,6 +75,7 @@ ex.  kipon_AccountCountContacts
 * Retrieve
 * AddMember
 * AddListMembers
+* QualifyLead
 
 #### Async
 Only apply to stage Post, and should simply state Async if the plugin should run Async otherwise blank
@@ -248,6 +249,9 @@ public Kipon.Solid.Actions.kipon_AccountCountContactsResponse OnPostkipon_Accoun
 	return new Kipon.Solid.Actions.kipon_AccountCountContactsResponse { .. here you have properties for each output field }
 }
 ```
+
+Even though it is perfectly possible to return a response for a plugin in valudate or pre stage, it does not really make sense. Only output parameters added on Post Sync state are returned to the client that is triggering the action, so
+returning parameters in validate, pre or post async is really the same as sending a message where notbody will get the information.
 
 ### Virtual Plugin Provider support (from version 1.0.2.5)
 You can use plugins to integration your Dyanmics 365 with external datasources (readonly), where the plugin is used as a datasource provider. The Kipon solid plugin framework supports building these plugins

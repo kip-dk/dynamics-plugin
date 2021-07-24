@@ -20700,11 +20700,31 @@ namespace Kipon.Solid.Plugin.Entities
 			}
 		}
 		
+		public Microsoft.Xrm.Sdk.OptionSetValue Picklist
+		{
+			get
+			{
+				if (this.Parameters.Contains("Picklist"))
+				{
+					return ((Microsoft.Xrm.Sdk.OptionSetValue)(this.Parameters["Picklist"]));
+				}
+				else
+				{
+					return default(Microsoft.Xrm.Sdk.OptionSetValue);
+				}
+			}
+			set
+			{
+				this.Parameters["Picklist"] = value;
+			}
+		}
+		
 		public kipon_AnunboundedactionRequest()
 		{
 			this.RequestName = "kipon_Anunboundedaction";
 			this.Name = default(string);
 			this.Document = default(string);
+			this.Picklist = default(Microsoft.Xrm.Sdk.OptionSetValue);
 		}
 	}
 	
