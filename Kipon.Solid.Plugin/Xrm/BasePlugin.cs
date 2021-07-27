@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.4.18";
+        public const string Version = "1.0.4.22";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -174,6 +174,34 @@
                                     var value = key.GetValue(result);
                                     if (value != null)
                                     {
+                                        #region map strongly typed entities back to base entities to allow correct serrialization back to client
+                                        if (value is Microsoft.Xrm.Sdk.Entity e && value.GetType() != typeof(Microsoft.Xrm.Sdk.Entity))
+                                        {
+                                            var entity = new Microsoft.Xrm.Sdk.Entity(e.LogicalName, e.Id);
+                                            entity.Attributes = e.Attributes;
+                                            value = entity;
+                                        }
+
+                                        if (value is Microsoft.Xrm.Sdk.EntityCollection ec && ec.Entities != null && ec.Entities.Count > 0)
+                                        {
+                                            var final = new Microsoft.Xrm.Sdk.EntityCollection { EntityName = ec.EntityName };
+                                            foreach (var ent in ec.Entities)
+                                            {
+                                                if (ent.GetType() == typeof(Microsoft.Xrm.Sdk.Entity))
+                                                {
+                                                    final.Entities.Add(ent);
+                                                }
+                                                else
+                                                {
+                                                    var entity = new Microsoft.Xrm.Sdk.Entity(ent.LogicalName, ent.Id);
+                                                    entity.Attributes = ent.Attributes;
+                                                    final.Entities.Add(entity);
+                                                }
+                                            }
+                                            value = final;
+                                        }
+                                        #endregion
+
                                         context.OutputParameters[output.LogicalName] = value;
                                     }
                                 }

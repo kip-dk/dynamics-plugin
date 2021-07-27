@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Collections.Generic;
     using Microsoft.Xrm.Sdk;
+    using Reflection;
 
     public static partial class KiponSdkGeneratedExtensionMethods
     {
@@ -369,7 +370,7 @@
         /// <param name="ctx">The Dynamics 365 execution context</param>
         /// <param name="entitypropertyname">The property name on the strongly typed entity of the flow</param>
         /// <returns></returns>
-        public static T PreValueOf<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string entitypropertyname)
+        public static T PreValueOf<T>(this IPluginExecutionContext ctx, string entitypropertyname)
         {
             System.Reflection.PropertyInfo prop = null;
             System.Type propertyType = null;
@@ -444,6 +445,106 @@
             return default(T);
         }
 
+        /// <summary>
+        /// Return input parameters of the first parent object matching logicalname and message as T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ctx"></param>
+        /// <param name="logicalName">name of entity, null if unbound action</param>
+        /// <param name="message">the message name, ex. update, create, or the action name</param>
+        /// <returns></returns>
+        public static T ParentInputParameters<T>(this IPluginExecutionContext ctx, string logicalName, string message)
+        {
+            var parent = ctx.ParentContext(logicalName, message);
+            if (parent != null)
+            {
+                var type = typeof(T);
+                var cType = type;
+                #region T is an interface, and we need to find the one and only implementation
+                if (type.IsInterface)
+                {
+                    cType = Types.Instance.TypeForInterface(type);
+                }
+                #endregion
+
+                #region the T knows about IPluginExecutionContext and can extract values itself
+                var con = cType.GetConstructor(new Type[] { typeof(IPluginExecutionContext) });
+                if (con != null)
+                {
+                    return (T)con.Invoke(new object[] { parent });
+                }
+                #endregion
+
+                #region parameter less constructor on type, simply assign value by naming convention
+                con = cType.GetConstructor(new Type[0]);
+                if (con != null)
+                {
+                    var result = con.Invoke(null);
+
+                    foreach (var pam in parent.InputParameters)
+                    {
+                        if (pam.Value != null)
+                        {
+                            var name = pam.Key;
+                            var prop = type.GetProperty(pam.Key);
+                            if (prop != null && prop.CanWrite && prop.PropertyType.IsAssignableFrom(pam.Value.GetType()))
+                            {
+                                prop.SetValue(result, pam.Value);
+                            }
+                        }
+                    }
+                    return (T)result;
+                }
+                #endregion
+            }
+            return default(T);
+        }
+
+        /// <summary>
+        /// Returns a single parameters as type T or default(T) if parent not found or parameter name not contained in parent context input parameters
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ctx"></param>
+        /// <param name="logicalName"></param>
+        /// <param name="message"></param>
+        /// <param name="parameterName"></param>
+        /// <returns></returns>
+        public static T ParentInputParameter<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string logicalName, string message, string parameterName)
+        {
+            var parent = ctx.ParentContext(logicalName, message);
+
+            if (parent != null && parent.InputParameters != null && parent.InputParameters.Contains(parameterName))
+            {
+                return (T)parent.InputParameters[parameterName];
+            }
+            return default(T);
+        }
+
+        /// <summary>
+        /// return parent context matching logicalname and message, null if no so parent exists in the pipeline
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="logicalName"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static Microsoft.Xrm.Sdk.IPluginExecutionContext ParentContext(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string logicalName, string message)
+        {
+            if (ctx.ParentContext != null)
+            {
+                if (ctx.ParentContext.PrimaryEntityName == logicalName && ctx.ParentContext.MessageName == message)
+                {
+                    return ctx.ParentContext;
+                }
+
+                if (logicalName == null && ctx.ParentContext.PrimaryEntityName == null && ctx.ParentContext.MessageName == message)
+                {
+                    return ctx.ParentContext;
+                }
+
+                return ctx.ParentContext.ParentContext(logicalName, message);
+            }
+            return null;
+        }
 
         private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)
         {

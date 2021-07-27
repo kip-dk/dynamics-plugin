@@ -1,4 +1,13 @@
-## Last updated: 2021-07-23
+## Last updated: 2021-07-27
+
+### 1.0.4.22 transform output parameters to SDK serializable types + IPluginExecutionContext extension method
+Output parameters of type Entity and EntityCollection is now transformed from strongly typed entities to SDK classes before added to the OutputParameters, because dynamics 365 is not able to serialize the strongly typed classes.
+    
+New extension methods added to IPluginExecutionContext to make it easy to extract input paramters from a parent context.
+
+(now with unit-test that actualy verifies the sanity of the new extension method  [:-(. it is never easer to shortcut test .. sorry for version 19-21, should not happen)]
+
+### 1.0.4.19,20,21 same as 21, but did not work 100% as expected.
 
 ### 1.0.4.18 OptionSetValue in actions mappes correctly
 Non required InputFields of type OptionSetValue was wrongly mapped to object in the action interface and implementation. This has been fixed.

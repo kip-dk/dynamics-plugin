@@ -55,6 +55,8 @@
             this.SortAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.SortAttribute)}"];
             this.OutputAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.OutputAttribute)}"];
 
+            this.AbstractActionRequest = allTypes[$"{NAMESPACE}Actions.{nameof(_instance.AbstractActionRequest)}"];
+
             this.ITarget = allTypes[$"{NAMESPACE}{nameof(_instance.ITarget)}"];
             this.Target = allTypes[$"{NAMESPACE}{nameof(_instance.Target)}`1"];
             this.TargetReference = allTypes[$"{NAMESPACE}{nameof(_instance.TargetReference)}`1"];
@@ -98,6 +100,7 @@
         public Type IAdminUnitOfWork { get; private set; }
         public Type IRepository { get; private set; }
 
+        public Type AbstractActionRequest { get; private set; }
 
         public System.Reflection.Assembly Assembly { get; private set; }
 
@@ -133,6 +136,11 @@
             }
             throw new Exceptions.UnknownEntityTypeException(logicalname);
         }
+
+        public Type TypeForInterface(Type intf)
+        {
+            return this.Assembly.GetTypes().Where(t => t.Implements(intf)).Single();
+        } 
 
     }
 }

@@ -21,6 +21,8 @@ namespace Kipon.Xrm.Fake.Services
         private EntityImageCollection preImages = new EntityImageCollection();
         private EntityImageCollection posImages = new EntityImageCollection();
 
+        private IPluginExecutionContext parentContext = null;
+
         private int stage;
         private int dept;
         private string message;
@@ -48,9 +50,16 @@ namespace Kipon.Xrm.Fake.Services
             return result;
         }
 
+        public IPluginExecutionContext Next(int stage, int dept, string message, string primaryEntityName, Guid primaryEntityId, bool async)
+        {
+            var next = new PluginExecutionContext(stage, dept, message, primaryEntityName, primaryEntityId, async);
+            next.parentContext = this;
+            return next;
+        }
+
         public int Stage => this.stage;
 
-        public IPluginExecutionContext ParentContext => null;
+        public IPluginExecutionContext ParentContext => this.parentContext;
 
         public int Mode => async ? 1 : 0;
 
@@ -100,6 +109,11 @@ namespace Kipon.Xrm.Fake.Services
         public Guid OperationId => Guid.NewGuid();
 
         public DateTime OperationCreatedOn => System.DateTime.Now;
+
+        public void AddInput(string name, object obj)
+        {
+            this.inputParam.Add(name, obj);
+        }
     }
 
     public static class PluginExecutionContextLocalExtensions

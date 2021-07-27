@@ -78,5 +78,45 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.Sdk
                 Assert.AreEqual(string.Format(Kipon.Xrm.Extensions.Sdk.KiponSdkGeneratedExtensionMethods.MISSING_DECORATION_ATTRIBUTE_MESSAGE, "account", nameof(Kipon.Solid.Plugin.Entities.Account.NoDecorationProperty)), ex.Message);
             }
         }
+
+        [TestMethod]
+        public void PluginExecutionContextParentParmetersTest()
+        {
+            var types = Kipon.Xrm.Reflection.Types.Instance;
+            var title = "The name";
+            types.SetAssembly(typeof(Kipon.Solid.Plugin.Actions.IAccountCountContactsRequest).Assembly);
+
+            var accountId = Guid.NewGuid();
+            var ctx = new Kipon.Xrm.Fake.Services.PluginExecutionContext(1, 1, "kipon_AccountCountContacts", "account", accountId, false);
+
+            ctx.AddInput(nameof(Kipon.Solid.Plugin.Actions.IAccountCountContactsRequest.Name), title);
+            ctx.AddInput("Target", new Microsoft.Xrm.Sdk.EntityReference("account", accountId));
+            var child = ctx.Next(1, 1, "Create", "contact", Guid.NewGuid(), false);
+
+            {
+                var parentInput = child.ParentInputParameters<Kipon.Solid.Plugin.Actions.IAccountCountContactsRequest>("account", "kipon_AccountCountContacts");
+
+                Assert.AreEqual(accountId, parentInput.Target.Id);
+                Assert.AreEqual(title, parentInput.Name);
+            }
+
+            {
+                var parentInput = child.ParentInputParameters<MyParam>("account", "kipon_AccountCountContacts");
+
+                Assert.AreEqual(accountId, parentInput.Target.Id);
+                Assert.AreEqual(title, parentInput.Name);
+            }
+
+            {
+                var name = child.ParentInputParameter<string>("account", "kipon_AccountCountContacts", "Name");
+                Assert.AreEqual(title, name);
+            }
+        }
+
+        public class MyParam
+        {
+            public string Name { get; set; }
+            public Microsoft.Xrm.Sdk.EntityReference Target { get; set; }
+        }
     }
 }
