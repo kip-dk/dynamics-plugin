@@ -1132,6 +1132,1173 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	/// <summary>
+	/// A publisher of a CRM solution.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("publisher")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	public partial class Publisher : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public Publisher() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "publisher";
+		
+		public const int EntityTypeCode = 7101;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_addressid")]
+		public System.Nullable<System.Guid> Address1_AddressId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("address1_addressid");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_AddressId");
+				this.SetAttributeValue("address1_addressid", value);
+				this.OnPropertyChanged("Address1_AddressId");
+			}
+		}
+		
+		/// <summary>
+		/// Type of address for address 1, such as billing, shipping, or primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_addresstypecode")]
+		public Microsoft.Xrm.Sdk.OptionSetValue Address1_AddressTypeCode
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("address1_addresstypecode");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_AddressTypeCode");
+				this.SetAttributeValue("address1_addresstypecode", value);
+				this.OnPropertyChanged("Address1_AddressTypeCode");
+			}
+		}
+		
+		/// <summary>
+		/// City name for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_city")]
+		public string Address1_City
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_city");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_City");
+				this.SetAttributeValue("address1_city", value);
+				this.OnPropertyChanged("Address1_City");
+			}
+		}
+		
+		/// <summary>
+		/// Country/region name for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_country")]
+		public string Address1_Country
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_country");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Country");
+				this.SetAttributeValue("address1_country", value);
+				this.OnPropertyChanged("Address1_Country");
+			}
+		}
+		
+		/// <summary>
+		/// County name for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_county")]
+		public string Address1_County
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_county");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_County");
+				this.SetAttributeValue("address1_county", value);
+				this.OnPropertyChanged("Address1_County");
+			}
+		}
+		
+		/// <summary>
+		/// Fax number for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_fax")]
+		public string Address1_Fax
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_fax");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Fax");
+				this.SetAttributeValue("address1_fax", value);
+				this.OnPropertyChanged("Address1_Fax");
+			}
+		}
+		
+		/// <summary>
+		/// Latitude for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_latitude")]
+		public System.Nullable<double> Address1_Latitude
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<double>>("address1_latitude");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Latitude");
+				this.SetAttributeValue("address1_latitude", value);
+				this.OnPropertyChanged("Address1_Latitude");
+			}
+		}
+		
+		/// <summary>
+		/// First line for entering address 1 information.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line1")]
+		public string Address1_Line1
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_line1");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Line1");
+				this.SetAttributeValue("address1_line1", value);
+				this.OnPropertyChanged("Address1_Line1");
+			}
+		}
+		
+		/// <summary>
+		/// Second line for entering address 1 information.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line2")]
+		public string Address1_Line2
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_line2");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Line2");
+				this.SetAttributeValue("address1_line2", value);
+				this.OnPropertyChanged("Address1_Line2");
+			}
+		}
+		
+		/// <summary>
+		/// Third line for entering address 1 information.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line3")]
+		public string Address1_Line3
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_line3");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Line3");
+				this.SetAttributeValue("address1_line3", value);
+				this.OnPropertyChanged("Address1_Line3");
+			}
+		}
+		
+		/// <summary>
+		/// Longitude for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_longitude")]
+		public System.Nullable<double> Address1_Longitude
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<double>>("address1_longitude");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Longitude");
+				this.SetAttributeValue("address1_longitude", value);
+				this.OnPropertyChanged("Address1_Longitude");
+			}
+		}
+		
+		/// <summary>
+		/// Name to enter for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_name")]
+		public string Address1_Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_name");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Name");
+				this.SetAttributeValue("address1_name", value);
+				this.OnPropertyChanged("Address1_Name");
+			}
+		}
+		
+		/// <summary>
+		/// ZIP Code or postal code for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postalcode")]
+		public string Address1_PostalCode
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_postalcode");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_PostalCode");
+				this.SetAttributeValue("address1_postalcode", value);
+				this.OnPropertyChanged("Address1_PostalCode");
+			}
+		}
+		
+		/// <summary>
+		/// Post office box number for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postofficebox")]
+		public string Address1_PostOfficeBox
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_postofficebox");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_PostOfficeBox");
+				this.SetAttributeValue("address1_postofficebox", value);
+				this.OnPropertyChanged("Address1_PostOfficeBox");
+			}
+		}
+		
+		/// <summary>
+		/// Method of shipment for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_shippingmethodcode")]
+		public Microsoft.Xrm.Sdk.OptionSetValue Address1_ShippingMethodCode
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("address1_shippingmethodcode");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_ShippingMethodCode");
+				this.SetAttributeValue("address1_shippingmethodcode", value);
+				this.OnPropertyChanged("Address1_ShippingMethodCode");
+			}
+		}
+		
+		/// <summary>
+		/// State or province for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_stateorprovince")]
+		public string Address1_StateOrProvince
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_stateorprovince");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_StateOrProvince");
+				this.SetAttributeValue("address1_stateorprovince", value);
+				this.OnPropertyChanged("Address1_StateOrProvince");
+			}
+		}
+		
+		/// <summary>
+		/// First telephone number associated with address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone1")]
+		public string Address1_Telephone1
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_telephone1");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Telephone1");
+				this.SetAttributeValue("address1_telephone1", value);
+				this.OnPropertyChanged("Address1_Telephone1");
+			}
+		}
+		
+		/// <summary>
+		/// Second telephone number associated with address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone2")]
+		public string Address1_Telephone2
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_telephone2");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Telephone2");
+				this.SetAttributeValue("address1_telephone2", value);
+				this.OnPropertyChanged("Address1_Telephone2");
+			}
+		}
+		
+		/// <summary>
+		/// Third telephone number associated with address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone3")]
+		public string Address1_Telephone3
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_telephone3");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_Telephone3");
+				this.SetAttributeValue("address1_telephone3", value);
+				this.OnPropertyChanged("Address1_Telephone3");
+			}
+		}
+		
+		/// <summary>
+		/// United Parcel Service (UPS) zone for address 1.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_upszone")]
+		public string Address1_UPSZone
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address1_upszone");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_UPSZone");
+				this.SetAttributeValue("address1_upszone", value);
+				this.OnPropertyChanged("Address1_UPSZone");
+			}
+		}
+		
+		/// <summary>
+		/// UTC offset for address 1. This is the difference between local time and standard Coordinated Universal Time.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_utcoffset")]
+		public System.Nullable<int> Address1_UTCOffset
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("address1_utcoffset");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address1_UTCOffset");
+				this.SetAttributeValue("address1_utcoffset", value);
+				this.OnPropertyChanged("Address1_UTCOffset");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_addressid")]
+		public System.Nullable<System.Guid> Address2_AddressId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("address2_addressid");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_AddressId");
+				this.SetAttributeValue("address2_addressid", value);
+				this.OnPropertyChanged("Address2_AddressId");
+			}
+		}
+		
+		/// <summary>
+		/// Type of address for address 2. such as billing, shipping, or primary address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_addresstypecode")]
+		public Microsoft.Xrm.Sdk.OptionSetValue Address2_AddressTypeCode
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("address2_addresstypecode");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_AddressTypeCode");
+				this.SetAttributeValue("address2_addresstypecode", value);
+				this.OnPropertyChanged("Address2_AddressTypeCode");
+			}
+		}
+		
+		/// <summary>
+		/// City name for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_city")]
+		public string Address2_City
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_city");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_City");
+				this.SetAttributeValue("address2_city", value);
+				this.OnPropertyChanged("Address2_City");
+			}
+		}
+		
+		/// <summary>
+		/// Country/region name for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_country")]
+		public string Address2_Country
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_country");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Country");
+				this.SetAttributeValue("address2_country", value);
+				this.OnPropertyChanged("Address2_Country");
+			}
+		}
+		
+		/// <summary>
+		/// County name for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_county")]
+		public string Address2_County
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_county");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_County");
+				this.SetAttributeValue("address2_county", value);
+				this.OnPropertyChanged("Address2_County");
+			}
+		}
+		
+		/// <summary>
+		/// Fax number for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_fax")]
+		public string Address2_Fax
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_fax");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Fax");
+				this.SetAttributeValue("address2_fax", value);
+				this.OnPropertyChanged("Address2_Fax");
+			}
+		}
+		
+		/// <summary>
+		/// Latitude for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_latitude")]
+		public System.Nullable<double> Address2_Latitude
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<double>>("address2_latitude");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Latitude");
+				this.SetAttributeValue("address2_latitude", value);
+				this.OnPropertyChanged("Address2_Latitude");
+			}
+		}
+		
+		/// <summary>
+		/// First line for entering address 2 information.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line1")]
+		public string Address2_Line1
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_line1");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Line1");
+				this.SetAttributeValue("address2_line1", value);
+				this.OnPropertyChanged("Address2_Line1");
+			}
+		}
+		
+		/// <summary>
+		/// Second line for entering address 2 information.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line2")]
+		public string Address2_Line2
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_line2");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Line2");
+				this.SetAttributeValue("address2_line2", value);
+				this.OnPropertyChanged("Address2_Line2");
+			}
+		}
+		
+		/// <summary>
+		/// Third line for entering address 2 information.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line3")]
+		public string Address2_Line3
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_line3");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Line3");
+				this.SetAttributeValue("address2_line3", value);
+				this.OnPropertyChanged("Address2_Line3");
+			}
+		}
+		
+		/// <summary>
+		/// Longitude for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_longitude")]
+		public System.Nullable<double> Address2_Longitude
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<double>>("address2_longitude");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Longitude");
+				this.SetAttributeValue("address2_longitude", value);
+				this.OnPropertyChanged("Address2_Longitude");
+			}
+		}
+		
+		/// <summary>
+		/// Name to enter for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_name")]
+		public string Address2_Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_name");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Name");
+				this.SetAttributeValue("address2_name", value);
+				this.OnPropertyChanged("Address2_Name");
+			}
+		}
+		
+		/// <summary>
+		/// ZIP Code or postal code for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postalcode")]
+		public string Address2_PostalCode
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_postalcode");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_PostalCode");
+				this.SetAttributeValue("address2_postalcode", value);
+				this.OnPropertyChanged("Address2_PostalCode");
+			}
+		}
+		
+		/// <summary>
+		/// Post office box number for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postofficebox")]
+		public string Address2_PostOfficeBox
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_postofficebox");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_PostOfficeBox");
+				this.SetAttributeValue("address2_postofficebox", value);
+				this.OnPropertyChanged("Address2_PostOfficeBox");
+			}
+		}
+		
+		/// <summary>
+		/// Method of shipment for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_shippingmethodcode")]
+		public Microsoft.Xrm.Sdk.OptionSetValue Address2_ShippingMethodCode
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("address2_shippingmethodcode");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_ShippingMethodCode");
+				this.SetAttributeValue("address2_shippingmethodcode", value);
+				this.OnPropertyChanged("Address2_ShippingMethodCode");
+			}
+		}
+		
+		/// <summary>
+		/// State or province for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_stateorprovince")]
+		public string Address2_StateOrProvince
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_stateorprovince");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_StateOrProvince");
+				this.SetAttributeValue("address2_stateorprovince", value);
+				this.OnPropertyChanged("Address2_StateOrProvince");
+			}
+		}
+		
+		/// <summary>
+		/// First telephone number associated with address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone1")]
+		public string Address2_Telephone1
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_telephone1");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Telephone1");
+				this.SetAttributeValue("address2_telephone1", value);
+				this.OnPropertyChanged("Address2_Telephone1");
+			}
+		}
+		
+		/// <summary>
+		/// Second telephone number associated with address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone2")]
+		public string Address2_Telephone2
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_telephone2");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Telephone2");
+				this.SetAttributeValue("address2_telephone2", value);
+				this.OnPropertyChanged("Address2_Telephone2");
+			}
+		}
+		
+		/// <summary>
+		/// Third telephone number associated with address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone3")]
+		public string Address2_Telephone3
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_telephone3");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_Telephone3");
+				this.SetAttributeValue("address2_telephone3", value);
+				this.OnPropertyChanged("Address2_Telephone3");
+			}
+		}
+		
+		/// <summary>
+		/// United Parcel Service (UPS) zone for address 2.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_upszone")]
+		public string Address2_UPSZone
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("address2_upszone");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_UPSZone");
+				this.SetAttributeValue("address2_upszone", value);
+				this.OnPropertyChanged("Address2_UPSZone");
+			}
+		}
+		
+		/// <summary>
+		/// UTC offset for address 2. This is the difference between local time and standard Coordinated Universal Time.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_utcoffset")]
+		public System.Nullable<int> Address2_UTCOffset
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("address2_utcoffset");
+			}
+			set
+			{
+				this.OnPropertyChanging("Address2_UTCOffset");
+				this.SetAttributeValue("address2_utcoffset", value);
+				this.OnPropertyChanged("Address2_UTCOffset");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who created the publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the publisher was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who created the publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Default option value prefix used for newly created options for solutions associated with this publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customizationoptionvalueprefix")]
+		public System.Nullable<int> CustomizationOptionValuePrefix
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("customizationoptionvalueprefix");
+			}
+			set
+			{
+				this.OnPropertyChanging("CustomizationOptionValuePrefix");
+				this.SetAttributeValue("customizationoptionvalueprefix", value);
+				this.OnPropertyChanged("CustomizationOptionValuePrefix");
+			}
+		}
+		
+		/// <summary>
+		/// Prefix used for new entities, attributes, and entity relationships for solutions associated with this publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customizationprefix")]
+		public string CustomizationPrefix
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("customizationprefix");
+			}
+			set
+			{
+				this.OnPropertyChanging("CustomizationPrefix");
+				this.SetAttributeValue("customizationprefix", value);
+				this.OnPropertyChanged("CustomizationPrefix");
+			}
+		}
+		
+		/// <summary>
+		/// Description of the solution.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("description")]
+		public string Description
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("description");
+			}
+			set
+			{
+				this.OnPropertyChanging("Description");
+				this.SetAttributeValue("description", value);
+				this.OnPropertyChanged("Description");
+			}
+		}
+		
+		/// <summary>
+		/// Email address for the publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress")]
+		public string EMailAddress
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("emailaddress");
+			}
+			set
+			{
+				this.OnPropertyChanging("EMailAddress");
+				this.SetAttributeValue("emailaddress", value);
+				this.OnPropertyChanged("EMailAddress");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the default image for the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage")]
+		public byte[] EntityImage
+		{
+			get
+			{
+				return this.GetAttributeValue<byte[]>("entityimage");
+			}
+			set
+			{
+				this.OnPropertyChanging("EntityImage");
+				this.SetAttributeValue("entityimage", value);
+				this.OnPropertyChanged("EntityImage");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_timestamp")]
+		public System.Nullable<long> EntityImage_Timestamp
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("entityimage_timestamp");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
+		public string EntityImage_URL
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("entityimage_url");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimageid")]
+		public System.Nullable<System.Guid> EntityImageId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("entityimageid");
+			}
+		}
+		
+		/// <summary>
+		/// User display name for this publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("friendlyname")]
+		public string FriendlyName
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("friendlyname");
+			}
+			set
+			{
+				this.OnPropertyChanging("FriendlyName");
+				this.SetAttributeValue("friendlyname", value);
+				this.OnPropertyChanged("FriendlyName");
+			}
+		}
+		
+		/// <summary>
+		/// Indicates whether the publisher was created as part of a managed solution installation.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isreadonly")]
+		public System.Nullable<bool> IsReadonly
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("isreadonly");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who last modified the publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the publisher was last modified.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who modified the publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the organization associated with the publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		/// <summary>
+		/// Default locale of the publisher in Microsoft Pinpoint.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("pinpointpublisherdefaultlocale")]
+		public string PinpointPublisherDefaultLocale
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("pinpointpublisherdefaultlocale");
+			}
+		}
+		
+		/// <summary>
+		/// Identifier of the publisher in Microsoft Pinpoint.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("pinpointpublisherid")]
+		public System.Nullable<long> PinpointPublisherId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("pinpointpublisherid");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("publisherid")]
+		public System.Nullable<System.Guid> PublisherId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("publisherid");
+			}
+			set
+			{
+				this.OnPropertyChanging("PublisherId");
+				this.SetAttributeValue("publisherid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("PublisherId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("publisherid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.PublisherId = value;
+			}
+		}
+		
+		/// <summary>
+		/// URL for the supporting website of this publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("supportingwebsiteurl")]
+		public string SupportingWebsiteUrl
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("supportingwebsiteurl");
+			}
+			set
+			{
+				this.OnPropertyChanging("SupportingWebsiteUrl");
+				this.SetAttributeValue("supportingwebsiteurl", value);
+				this.OnPropertyChanged("SupportingWebsiteUrl");
+			}
+		}
+		
+		/// <summary>
+		/// The unique name of this publisher.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("uniquename")]
+		public string UniqueName
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("uniquename");
+			}
+			set
+			{
+				this.OnPropertyChanging("UniqueName");
+				this.SetAttributeValue("uniquename", value);
+				this.OnPropertyChanged("UniqueName");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N publisher_solution
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("publisher_solution")]
+		public System.Collections.Generic.IEnumerable<Kipon.Xrm.Tools.Entities.Solution> publisher_solution
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Xrm.Tools.Entities.Solution>("publisher_solution", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("publisher_solution");
+				this.SetRelatedEntities<Kipon.Xrm.Tools.Entities.Solution>("publisher_solution", null, value);
+				this.OnPropertyChanged("publisher_solution");
+			}
+		}
+	}
+	
+	/// <summary>
 	/// Message that is supported by the SDK.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -3803,6 +4970,44 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
+		/// N:1 publisher_solution
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("publisherid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("publisher_solution")]
+		public Kipon.Xrm.Tools.Entities.Publisher publisher_solution
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Xrm.Tools.Entities.Publisher>("publisher_solution", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("publisher_solution");
+				this.SetRelatedEntity<Kipon.Xrm.Tools.Entities.Publisher>("publisher_solution", null, value);
+				this.OnPropertyChanged("publisher_solution");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 solution_configuration_webresource
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("configurationpageid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("solution_configuration_webresource")]
+		public Kipon.Xrm.Tools.Entities.WebResource solution_configuration_webresource
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Xrm.Tools.Entities.WebResource>("solution_configuration_webresource", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("solution_configuration_webresource");
+				this.SetRelatedEntity<Kipon.Xrm.Tools.Entities.WebResource>("solution_configuration_webresource", null, value);
+				this.OnPropertyChanged("solution_configuration_webresource");
+			}
+		}
+		
+		/// <summary>
 		/// N:1 solution_parent_solution
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentsolutionid")]
@@ -4079,6 +5284,1069 @@ namespace Kipon.Xrm.Tools.Entities
 			get
 			{
 				return this.GetRelatedEntity<Kipon.Xrm.Tools.Entities.SolutionComponent>("solutioncomponent_parent_solutioncomponent", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+			}
+		}
+	}
+	
+	/// <summary>
+	/// Organization-owned entity customizations including form layout and dashboards.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("systemform")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	public partial class SystemForm : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public SystemForm() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "systemform";
+		
+		public const int EntityTypeCode = 1030;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the parent form.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ancestorformid")]
+		public Microsoft.Xrm.Sdk.EntityReference AncestorFormId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ancestorformid");
+			}
+			set
+			{
+				this.OnPropertyChanging("AncestorFormId");
+				this.SetAttributeValue("ancestorformid", value);
+				this.OnPropertyChanged("AncestorFormId");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component can be deleted.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("canbedeleted")]
+		public Microsoft.Xrm.Sdk.BooleanManagedProperty CanBeDeleted
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.BooleanManagedProperty>("canbedeleted");
+			}
+			set
+			{
+				this.OnPropertyChanging("CanBeDeleted");
+				this.SetAttributeValue("canbedeleted", value);
+				this.OnPropertyChanged("CanBeDeleted");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
+		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
+			}
+		}
+		
+		/// <summary>
+		/// Description of the form or dashboard.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("description")]
+		public string Description
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("description");
+			}
+			set
+			{
+				this.OnPropertyChanging("Description");
+				this.SetAttributeValue("description", value);
+				this.OnPropertyChanged("Description");
+			}
+		}
+		
+		/// <summary>
+		/// Specifies the state of the form.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formactivationstate")]
+		public Microsoft.Xrm.Sdk.OptionSetValue FormActivationState
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("formactivationstate");
+			}
+			set
+			{
+				this.OnPropertyChanging("FormActivationState");
+				this.SetAttributeValue("formactivationstate", value);
+				this.OnPropertyChanged("FormActivationState");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the record type form.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formid")]
+		public System.Nullable<System.Guid> FormId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("formid");
+			}
+			set
+			{
+				this.OnPropertyChanging("FormId");
+				this.SetAttributeValue("formid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("FormId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.FormId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the form used when synchronizing customizations for the Microsoft Dynamics 365 client for Outlook.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formidunique")]
+		public System.Nullable<System.Guid> FormIdUnique
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("formidunique");
+			}
+		}
+		
+		/// <summary>
+		/// Json representation of the form layout.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formjson")]
+		public string FormJson
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("formjson");
+			}
+			set
+			{
+				this.OnPropertyChanging("FormJson");
+				this.SetAttributeValue("formjson", value);
+				this.OnPropertyChanged("FormJson");
+			}
+		}
+		
+		/// <summary>
+		/// Specifies whether this form is in the updated UI layout in Microsoft Dynamics CRM 2015 or Microsoft Dynamics CRM Online 2015 Update.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formpresentation")]
+		public Microsoft.Xrm.Sdk.OptionSetValue FormPresentation
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("formpresentation");
+			}
+			set
+			{
+				this.OnPropertyChanging("FormPresentation");
+				this.SetAttributeValue("formpresentation", value);
+				this.OnPropertyChanged("FormPresentation");
+			}
+		}
+		
+		/// <summary>
+		/// XML representation of the form layout.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formxml")]
+		public string FormXml
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("formxml");
+			}
+			set
+			{
+				this.OnPropertyChanging("FormXml");
+				this.SetAttributeValue("formxml", value);
+				this.OnPropertyChanged("FormXml");
+			}
+		}
+		
+		/// <summary>
+		/// Version in which the form is introduced.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("introducedversion")]
+		public string IntroducedVersion
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("introducedversion");
+			}
+			set
+			{
+				this.OnPropertyChanging("IntroducedVersion");
+				this.SetAttributeValue("introducedversion", value);
+				this.OnPropertyChanged("IntroducedVersion");
+			}
+		}
+		
+		/// <summary>
+		/// Specifies whether this form is merged with the updated UI layout in Microsoft Dynamics CRM 2015 or Microsoft Dynamics CRM Online 2015 Update.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isairmerged")]
+		public System.Nullable<bool> IsAIRMerged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("isairmerged");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsAIRMerged");
+				this.SetAttributeValue("isairmerged", value);
+				this.OnPropertyChanged("IsAIRMerged");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component can be customized.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("iscustomizable")]
+		public Microsoft.Xrm.Sdk.BooleanManagedProperty IsCustomizable
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.BooleanManagedProperty>("iscustomizable");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsCustomizable");
+				this.SetAttributeValue("iscustomizable", value);
+				this.OnPropertyChanged("IsCustomizable");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether the form or the dashboard is the system default.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isdefault")]
+		public System.Nullable<bool> IsDefault
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("isdefault");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsDefault");
+				this.SetAttributeValue("isdefault", value);
+				this.OnPropertyChanged("IsDefault");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether the dashboard is enabled for desktop.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isdesktopenabled")]
+		public System.Nullable<bool> IsDesktopEnabled
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("isdesktopenabled");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsDesktopEnabled");
+				this.SetAttributeValue("isdesktopenabled", value);
+				this.OnPropertyChanged("IsDesktopEnabled");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
+		public System.Nullable<bool> IsManaged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("ismanaged");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether the dashboard is enabled for tablet.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("istabletenabled")]
+		public System.Nullable<bool> IsTabletEnabled
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("istabletenabled");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsTabletEnabled");
+				this.SetAttributeValue("istabletenabled", value);
+				this.OnPropertyChanged("IsTabletEnabled");
+			}
+		}
+		
+		/// <summary>
+		/// Name of the form.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		public string Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("name");
+			}
+			set
+			{
+				this.OnPropertyChanging("Name");
+				this.SetAttributeValue("name", value);
+				this.OnPropertyChanged("Name");
+			}
+		}
+		
+		/// <summary>
+		/// Code that represents the record type.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("objecttypecode")]
+		public string ObjectTypeCode
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("objecttypecode");
+			}
+			set
+			{
+				this.OnPropertyChanging("ObjectTypeCode");
+				this.SetAttributeValue("objecttypecode", value);
+				this.OnPropertyChanged("ObjectTypeCode");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the organization.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overwritetime")]
+		public System.Nullable<System.DateTime> OverwriteTime
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overwritetime");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("publishedon")]
+		public System.Nullable<System.DateTime> PublishedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("publishedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the associated solution.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("solutionid")]
+		public System.Nullable<System.Guid> SolutionId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("solutionid");
+			}
+		}
+		
+		/// <summary>
+		/// Type of the form, for example, Dashboard or Preview.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("type")]
+		public Microsoft.Xrm.Sdk.OptionSetValue Type
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("type");
+			}
+			set
+			{
+				this.OnPropertyChanging("Type");
+				this.SetAttributeValue("type", value);
+				this.OnPropertyChanged("Type");
+			}
+		}
+		
+		/// <summary>
+		/// Unique Name
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("uniquename")]
+		public string UniqueName
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("uniquename");
+			}
+			set
+			{
+				this.OnPropertyChanging("UniqueName");
+				this.SetAttributeValue("uniquename", value);
+				this.OnPropertyChanged("UniqueName");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("version")]
+		public System.Nullable<int> Version
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("version");
+			}
+			set
+			{
+				this.OnPropertyChanging("Version");
+				this.SetAttributeValue("version", value);
+				this.OnPropertyChanged("Version");
+			}
+		}
+		
+		/// <summary>
+		/// Represents a version of customizations to be synchronized with the Microsoft Dynamics 365 client for Outlook.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N form_ancestor_form
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+		public System.Collections.Generic.IEnumerable<Kipon.Xrm.Tools.Entities.SystemForm> Referencedform_ancestor_form
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Xrm.Tools.Entities.SystemForm>("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+			}
+			set
+			{
+				this.OnPropertyChanging("Referencedform_ancestor_form");
+				this.SetRelatedEntities<Kipon.Xrm.Tools.Entities.SystemForm>("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+				this.OnPropertyChanged("Referencedform_ancestor_form");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 form_ancestor_form
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ancestorformid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+		public Kipon.Xrm.Tools.Entities.SystemForm Referencingform_ancestor_form
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Xrm.Tools.Entities.SystemForm>("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+			}
+			set
+			{
+				this.OnPropertyChanging("Referencingform_ancestor_form");
+				this.SetRelatedEntity<Kipon.Xrm.Tools.Entities.SystemForm>("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+				this.OnPropertyChanged("Referencingform_ancestor_form");
+			}
+		}
+	}
+	
+	/// <summary>
+	/// Data equivalent to files used in Web development. Web resources provide client-side components that are used to provide custom user interface elements.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("webresource")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	public partial class WebResource : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public WebResource() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "webresource";
+		
+		public const int EntityTypeCode = 9333;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component can be deleted.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("canbedeleted")]
+		public Microsoft.Xrm.Sdk.BooleanManagedProperty CanBeDeleted
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.BooleanManagedProperty>("canbedeleted");
+			}
+			set
+			{
+				this.OnPropertyChanging("CanBeDeleted");
+				this.SetAttributeValue("canbedeleted", value);
+				this.OnPropertyChanged("CanBeDeleted");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
+		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
+			}
+		}
+		
+		/// <summary>
+		/// Bytes of the web resource, in Base64 format.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("content")]
+		public string Content
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("content");
+			}
+			set
+			{
+				this.OnPropertyChanging("Content");
+				this.SetAttributeValue("content", value);
+				this.OnPropertyChanged("Content");
+			}
+		}
+		
+		/// <summary>
+		/// Json representation of the content of the resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("contentjson")]
+		public string ContentJson
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("contentjson");
+			}
+			set
+			{
+				this.OnPropertyChanging("ContentJson");
+				this.SetAttributeValue("contentjson", value);
+				this.OnPropertyChanged("ContentJson");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who created the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the web resource was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who created the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("dependencyxml")]
+		public string DependencyXml
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("dependencyxml");
+			}
+			set
+			{
+				this.OnPropertyChanging("DependencyXml");
+				this.SetAttributeValue("dependencyxml", value);
+				this.OnPropertyChanged("DependencyXml");
+			}
+		}
+		
+		/// <summary>
+		/// Description of the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("description")]
+		public string Description
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("description");
+			}
+			set
+			{
+				this.OnPropertyChanging("Description");
+				this.SetAttributeValue("description", value);
+				this.OnPropertyChanged("Description");
+			}
+		}
+		
+		/// <summary>
+		/// Display name of the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("displayname")]
+		public string DisplayName
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("displayname");
+			}
+			set
+			{
+				this.OnPropertyChanging("DisplayName");
+				this.SetAttributeValue("displayname", value);
+				this.OnPropertyChanged("DisplayName");
+			}
+		}
+		
+		/// <summary>
+		/// Version in which the form is introduced.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("introducedversion")]
+		public string IntroducedVersion
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("introducedversion");
+			}
+			set
+			{
+				this.OnPropertyChanging("IntroducedVersion");
+				this.SetAttributeValue("introducedversion", value);
+				this.OnPropertyChanged("IntroducedVersion");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this web resource is available for mobile client in offline mode.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isavailableformobileoffline")]
+		public System.Nullable<bool> IsAvailableForMobileOffline
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("isavailableformobileoffline");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsAvailableForMobileOffline");
+				this.SetAttributeValue("isavailableformobileoffline", value);
+				this.OnPropertyChanged("IsAvailableForMobileOffline");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component can be customized.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("iscustomizable")]
+		public Microsoft.Xrm.Sdk.BooleanManagedProperty IsCustomizable
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.BooleanManagedProperty>("iscustomizable");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsCustomizable");
+				this.SetAttributeValue("iscustomizable", value);
+				this.OnPropertyChanged("IsCustomizable");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this web resource is enabled for mobile client.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isenabledformobileclient")]
+		public System.Nullable<bool> IsEnabledForMobileClient
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("isenabledformobileclient");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsEnabledForMobileClient");
+				this.SetAttributeValue("isenabledformobileclient", value);
+				this.OnPropertyChanged("IsEnabledForMobileClient");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component should be hidden.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ishidden")]
+		public Microsoft.Xrm.Sdk.BooleanManagedProperty IsHidden
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.BooleanManagedProperty>("ishidden");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsHidden");
+				this.SetAttributeValue("ishidden", value);
+				this.OnPropertyChanged("IsHidden");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
+		public System.Nullable<bool> IsManaged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("ismanaged");
+			}
+		}
+		
+		/// <summary>
+		/// Language of the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("languagecode")]
+		public System.Nullable<int> LanguageCode
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("languagecode");
+			}
+			set
+			{
+				this.OnPropertyChanging("LanguageCode");
+				this.SetAttributeValue("languagecode", value);
+				this.OnPropertyChanged("LanguageCode");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who last modified the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the web resource was last modified.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who modified the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Name of the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		public string Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("name");
+			}
+			set
+			{
+				this.OnPropertyChanging("Name");
+				this.SetAttributeValue("name", value);
+				this.OnPropertyChanged("Name");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the organization associated with the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overwritetime")]
+		public System.Nullable<System.DateTime> OverwriteTime
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overwritetime");
+			}
+		}
+		
+		/// <summary>
+		/// Silverlight runtime version number required by a silverlight web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("silverlightversion")]
+		public string SilverlightVersion
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("silverlightversion");
+			}
+			set
+			{
+				this.OnPropertyChanging("SilverlightVersion");
+				this.SetAttributeValue("silverlightversion", value);
+				this.OnPropertyChanged("SilverlightVersion");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the associated solution.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("solutionid")]
+		public System.Nullable<System.Guid> SolutionId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("solutionid");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("webresourceid")]
+		public System.Nullable<System.Guid> WebResourceId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("webresourceid");
+			}
+			set
+			{
+				this.OnPropertyChanging("WebResourceId");
+				this.SetAttributeValue("webresourceid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("WebResourceId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("webresourceid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.WebResourceId = value;
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("webresourceidunique")]
+		public System.Nullable<System.Guid> WebResourceIdUnique
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("webresourceidunique");
+			}
+		}
+		
+		/// <summary>
+		/// Drop-down list for selecting the type of the web resource.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("webresourcetype")]
+		public Microsoft.Xrm.Sdk.OptionSetValue WebResourceType
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("webresourcetype");
+			}
+			set
+			{
+				this.OnPropertyChanging("WebResourceType");
+				this.SetAttributeValue("webresourcetype", value);
+				this.OnPropertyChanged("WebResourceType");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N solution_configuration_webresource
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("solution_configuration_webresource")]
+		public System.Collections.Generic.IEnumerable<Kipon.Xrm.Tools.Entities.Solution> solution_configuration_webresource
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Xrm.Tools.Entities.Solution>("solution_configuration_webresource", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("solution_configuration_webresource");
+				this.SetRelatedEntities<Kipon.Xrm.Tools.Entities.Solution>("solution_configuration_webresource", null, value);
+				this.OnPropertyChanged("solution_configuration_webresource");
 			}
 		}
 	}
@@ -5299,6 +7567,17 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Xrm.Tools.Entities.Publisher"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Xrm.Tools.Entities.Publisher> PublisherSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Xrm.Tools.Entities.Publisher>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="Kipon.Xrm.Tools.Entities.SdkMessage"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<Kipon.Xrm.Tools.Entities.SdkMessage> SdkMessageSet
@@ -5361,6 +7640,28 @@ namespace Kipon.Xrm.Tools.Entities
 			get
 			{
 				return this.CreateQuery<Kipon.Xrm.Tools.Entities.SolutionComponent>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Xrm.Tools.Entities.SystemForm"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Xrm.Tools.Entities.SystemForm> SystemFormSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Xrm.Tools.Entities.SystemForm>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Xrm.Tools.Entities.WebResource"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Xrm.Tools.Entities.WebResource> WebResourceSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Xrm.Tools.Entities.WebResource>();
 			}
 		}
 		

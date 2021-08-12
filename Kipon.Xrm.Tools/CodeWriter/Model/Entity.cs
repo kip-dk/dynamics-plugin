@@ -10,6 +10,8 @@ namespace Kipon.Xrm.Tools.CodeWriter.Model
     {
         public string LogicalName { get; set; }
         public string ServiceName { get; set; }
+        public string Primaryfield { get; set; }
+        public string PrimaryfieldValuetemplate { get; set; }
         public OptionSet[] Optionsets { get; set; }
     }
 }

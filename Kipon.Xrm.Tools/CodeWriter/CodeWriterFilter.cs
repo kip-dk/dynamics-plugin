@@ -76,6 +76,24 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         throw new Exception($"No logical name on entity number {row} : {uowName.Value}");
                     }
 
+                    string primaryfield = null;
+                    {
+                        var pf = entityElement.Attribute("primaryfield");
+                        if (pf != null)
+                        {
+                            primaryfield = pf.Value;
+                        }
+                    }
+
+                    string primaryfieldvaluetemplate = null;
+                    {
+                        var pfv = entityElement.Attribute("primaryfieldvaluetemplate");
+                        if (pfv != null)
+                        {
+                            primaryfieldvaluetemplate = pfv.Value;
+                        }
+                    }
+
                     List<Model.OptionSet> optionsets = new List<Model.OptionSet>();
                     if (optionsets != null)
                     {
@@ -118,8 +136,11 @@ namespace Kipon.Xrm.Tools.CodeWriter
                     {
                         LogicalName = logicalname.Value,
                         ServiceName = uowName.Value,
+                        Primaryfield = primaryfield,
+                        PrimaryfieldValuetemplate = primaryfieldvaluetemplate,
                         Optionsets = optionsets.ToArray()
                     };
+
                     _validEntities.Add(entity.LogicalName, entity);
                 }
             }

@@ -41,6 +41,30 @@ namespace Kipon.Xrm.Tools.Entities
 				return _sdkmessageprocessingsteps;
 			}
 		}
+		private IRepository<Publisher> _publishers; 
+		public IRepository<Publisher> Publishers
+		{
+			get
+			{
+				if (_publishers == null)
+					{
+						_publishers = new CrmRepository<Publisher>(this.context);
+					}
+				return _publishers;
+			}
+		}
+		private IRepository<Solution> _solutions; 
+		public IRepository<Solution> Solutions
+		{
+			get
+			{
+				if (_solutions == null)
+					{
+						_solutions = new CrmRepository<Solution>(this.context);
+					}
+				return _solutions;
+			}
+		}
 		private IRepository<SdkMessage> _sdkmessages; 
 		public IRepository<SdkMessage> SdkMessages
 		{
@@ -77,18 +101,6 @@ namespace Kipon.Xrm.Tools.Entities
 				return _sdkmessageprocessingstepimages;
 			}
 		}
-		private IRepository<Solution> _solutions; 
-		public IRepository<Solution> Solutions
-		{
-			get
-			{
-				if (_solutions == null)
-					{
-						_solutions = new CrmRepository<Solution>(this.context);
-					}
-				return _solutions;
-			}
-		}
 		private IRepository<SolutionComponent> _solutioncomponents; 
 		public IRepository<SolutionComponent> SolutionComponents
 		{
@@ -99,6 +111,30 @@ namespace Kipon.Xrm.Tools.Entities
 						_solutioncomponents = new CrmRepository<SolutionComponent>(this.context);
 					}
 				return _solutioncomponents;
+			}
+		}
+		private IRepository<WebResource> _webresources; 
+		public IRepository<WebResource> WebResources
+		{
+			get
+			{
+				if (_webresources == null)
+					{
+						_webresources = new CrmRepository<WebResource>(this.context);
+					}
+				return _webresources;
+			}
+		}
+		private IRepository<SystemForm> _systemforms; 
+		public IRepository<SystemForm> SystemForms
+		{
+			get
+			{
+				if (_systemforms == null)
+					{
+						_systemforms = new CrmRepository<SystemForm>(this.context);
+					}
+				return _systemforms;
 			}
 		}
 		private IRepository<Workflow> _workflows; 

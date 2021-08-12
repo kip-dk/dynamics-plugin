@@ -9,11 +9,14 @@ namespace Kipon.Xrm.Tools.Entities
 		IRepository<PluginAssembly> PluginAssemblies { get; }
 		IRepository<PluginType> PluginTypes { get; }
 		IRepository<SdkMessageProcessingStep> SdkMessageProcessingSteps { get; }
+		IRepository<Publisher> Publishers { get; }
+		IRepository<Solution> Solutions { get; }
 		IRepository<SdkMessage> SdkMessages { get; }
 		IRepository<SdkMessageFilter> SdkMessageFilters { get; }
 		IRepository<SdkMessageProcessingStepImage> SdkMessageProcessingStepImages { get; }
-		IRepository<Solution> Solutions { get; }
 		IRepository<SolutionComponent> SolutionComponents { get; }
+		IRepository<WebResource> WebResources { get; }
+		IRepository<SystemForm> SystemForms { get; }
 		IRepository<Workflow> Workflows { get; }
 		#endregion
 	}

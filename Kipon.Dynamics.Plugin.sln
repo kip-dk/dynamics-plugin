@@ -59,6 +59,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{31
 		Package\content\Entities\generate.cmd.template = Package\content\Entities\generate.cmd.template
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Example.WebResources", "Kipon.Example.WebResources\Kipon.Example.WebResources.csproj", "{5B175A06-C544-4606-86DD-766E9A8919CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79EEBBAF-B35E-459D-B6B0-AD5E2365D0E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B175A06-C544-4606-86DD-766E9A8919CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B175A06-C544-4606-86DD-766E9A8919CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B175A06-C544-4606-86DD-766E9A8919CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B175A06-C544-4606-86DD-766E9A8919CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

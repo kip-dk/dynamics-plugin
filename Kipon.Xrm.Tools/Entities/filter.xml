@@ -9,5 +9,10 @@
     <entity servicename="PluginTypes" logicalname="plugintype"></entity>
     <entity servicename="SdkMessageProcessingSteps" logicalname="sdkmessageprocessingstep"></entity>
     <entity servicename="SdkMessageProcessingStepImages" logicalname="sdkmessageprocessingstepimage"></entity>
+
+    <!-- related to typescript from generator -->
+    <entity servicename="WebResources" logicalname="webresource"></entity>
+    <entity servicename="Publishers" logicalname="publisher"></entity>
+    <entity servicename="SystemForms" logicalname="systemform"></entity>
   </entities>
 </filter>

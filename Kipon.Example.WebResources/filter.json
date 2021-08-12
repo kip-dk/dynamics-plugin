@@ -1,0 +1,24 @@
+[
+  {
+    "entitylogicalname": "account",
+    "forms": [
+      {
+        "title": "Information form something",
+        "name": "Information"
+      },
+      {
+        "title": "Information other form something",
+        "name": "Other"
+      }
+    ]
+  },
+  {
+    "entitylogicalname": "contact",
+    "forms": [
+      {
+        "title": "A form",
+        "name":  "Aform"
+      }
+    ]
+  }
+]
