@@ -2,7 +2,7 @@
 /// <reference path="../typings/kiponexample.xrm.d.ts" />
 
 
-module Kiponexport.Account {
+module Kipon.Account {
     var Information: KiponExample.Forms.kipon_invoice.InformationForm;
 
     export function onLoad(ctx: Xrm.Page.EventContext) {
@@ -15,5 +15,7 @@ module Kiponexport.Account {
         Information.ui.tabs.forEach(r => {
         });
 
+        Information.ui.tabs.get("tab_t1").sections.forEach(s => {
+        });
     }
 }

@@ -1,7 +1,7 @@
 /// <reference path="../../node_modules/@types/xrm/index.d.ts" />
 /// <reference path="../typings/kiponexample.xrm.d.ts" />
-var Kiponexport;
-(function (Kiponexport) {
+var Kipon;
+(function (Kipon) {
     var Account;
     (function (Account) {
         var Information;
@@ -11,8 +11,10 @@ var Kiponexport;
             var p = Information.getAttribute("a1c").getValue();
             Information.ui.tabs.forEach(function (r) {
             });
+            Information.ui.tabs.get("tab_t1").sections.forEach(function (s) {
+            });
         }
         Account.onLoad = onLoad;
-    })(Account = Kiponexport.Account || (Kiponexport.Account = {}));
-})(Kiponexport || (Kiponexport = {}));
+    })(Account = Kipon.Account || (Kipon.Account = {}));
+})(Kipon || (Kipon = {}));
 //# sourceMappingURL=Account.js.map

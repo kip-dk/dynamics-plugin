@@ -1,0 +1,10 @@
+<webresource>
+  <forms namespace="Kipon.Forms">
+    <form entitylogicalname="account" title="Account information form" name="Information" />
+    <form entitylogicalname="contact" title="Contact information form" name="Information" />
+  </forms>
+  <deploys solution="Kipon">
+    <deploy script="Scripts/Forms/Account.js" name="kipon_/Forms/Account.js"/>
+    <deploy script="Scripts/Forms/Contact.js" name="kipon_/Forms/Contact.js"/>
+  </deploys>
+</webresource>

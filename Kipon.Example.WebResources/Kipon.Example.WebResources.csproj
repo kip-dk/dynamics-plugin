@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="filter.xml" />
     <None Remove="Scripts\typings\kiponexample.xrm.d.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="filter.xml" />
   </ItemGroup>
 
   <ItemGroup>

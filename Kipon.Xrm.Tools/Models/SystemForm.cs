@@ -39,6 +39,7 @@ namespace Kipon.Xrm.Tools.Models
                     fieldName = fieldName.Substring(7);
                 }
                 var attr = entity.Attributes.Where(r => r.LogicalName == fieldName).SingleOrDefault();
+
                 if (attr != null)
                 {
                     if (attributes.TryGetValue(fieldName, out Attribute at))
@@ -54,7 +55,7 @@ namespace Kipon.Xrm.Tools.Models
                         {
                             LogicalName = attr.LogicalName,
                             DisplayName = attr.DisplayName?.UserLocalizedLabel?.Label,
-                            Type = attr.AttributeTypeName?.Value,
+                            Type = attr.AttributeType,
                             Controls = new Control[] { new Control { Name = controlName } }
                         };
                         attributes.Add(fieldName, next);
@@ -110,8 +111,52 @@ namespace Kipon.Xrm.Tools.Models
         {
             public string LogicalName { get; set; }
             public string DisplayName { get; set; }
-            public string Type { get; set; }
+            public Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode? Type { get; set; }
             public Control[] Controls { get; set; }
+
+            public string TypescriptAttributeType
+            {
+                get
+                {
+                    return NameOf(this.Type, "Xrm.Attributes.", "Attribute");
+                }
+            }
+
+            public string TypescriptControlType
+            {
+                get
+                {
+                    return NameOf(this.Type, "Xrm.Controls.", "Control");
+                }
+            }
+
+            private string NameOf(Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode? type, string baseName, string ext)
+            {
+                switch (this.Type)
+                {
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.BigInt:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Integer:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Decimal:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Double:
+                        return $"{baseName}Number{ext}";
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Boolean:
+                        return $"{baseName}Boolean{ext}";
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Customer:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Lookup:
+                        return $"{baseName}Lookup{ext}";
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.DateTime:
+                        return $"{baseName}Date{ext}";
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Memo:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.String:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Uniqueidentifier:
+                        return $"{baseName}String{ext}";
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Picklist:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.State:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Status:
+                        return $"{baseName}OptionSet{ext}";
+                    default: return $"{baseName}{ext}";
+                }
+            }
         }
 
         public class Control

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Xrm.Tools.ServiceAPI
+namespace Kipon.Xrm.Tools.Services
 {
     [Export(typeof(ServiceAPI.ISystemFormService))]
     public class SystemFormService : ServiceAPI.ISystemFormService
@@ -18,6 +18,8 @@ namespace Kipon.Xrm.Tools.ServiceAPI
         {
             this.uow = uow;
         }
+
+        private Dictionary<string, Microsoft.Xrm.Sdk.Metadata.EntityMetadata> entities = new Dictionary<string, Microsoft.Xrm.Sdk.Metadata.EntityMetadata>();
 
         public SystemForm GetForm(string entityLogicalName, string formName)
         {
@@ -39,15 +41,20 @@ namespace Kipon.Xrm.Tools.ServiceAPI
                 throw new Exception($"More than one form with name {formName} was found on entity {entityLogicalName}.");
             }
 
-            var req = new Microsoft.Xrm.Sdk.Messages.RetrieveEntityRequest
+            if (!entities.TryGetValue(entityLogicalName, out Microsoft.Xrm.Sdk.Metadata.EntityMetadata entity))
             {
-                LogicalName = entityLogicalName,
-                EntityFilters = Microsoft.Xrm.Sdk.Metadata.EntityFilters.All
-            };
+                var req = new Microsoft.Xrm.Sdk.Messages.RetrieveEntityRequest
+                {
+                    LogicalName = entityLogicalName,
+                    EntityFilters = Microsoft.Xrm.Sdk.Metadata.EntityFilters.All
+                };
 
-            var resp = uow.ExecuteRequest<Microsoft.Xrm.Sdk.Messages.RetrieveEntityResponse>(req);
+                var resp = uow.ExecuteRequest<Microsoft.Xrm.Sdk.Messages.RetrieveEntityResponse>(req);
+                entity = resp.EntityMetadata;
+                entities[entityLogicalName] = entity;
+            }
 
-            forms[0].Parse(resp.EntityMetadata);
+            forms[0].Parse(entity);
             return forms[0];
         }
     }

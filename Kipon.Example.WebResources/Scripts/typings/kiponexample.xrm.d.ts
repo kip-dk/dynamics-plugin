@@ -30,12 +30,32 @@ declare namespace KiponExample.Forms {
     module kipon_invoice {
 
         interface InformationForm {
-            getAttribute(name: "xx"): Xrm.Attributes.StringAttribute;
+            getAttribute(name: 'xx'): Xrm.Attributes.StringAttribute;
             getControl(name: "xx"): Xrm.Controls.StringControl;
+
+            getAttribute(name: 'no'): Xrm.Attributes.NumberAttribute;
+            getControl(name: "no"): Xrm.Controls.NumberControl;
+
+            getAttribute(name: 'yesno'): Xrm.Attributes.BooleanAttribute;
+            getControl(name: "yesno"): Xrm.Controls.NumberControl;
+
+            getAttribute(name: 'cust'): Xrm.Attributes.LookupAttribute;
+            getControl(name: "cust"): Xrm.Controls.LookupControl;
+
+            getAttribute(name: 'dt'): Xrm.Attributes.DateAttribute;
+            getControl(name: "dt"): Xrm.Controls.DateControl;
+
+            getAttribute(name: 'dc'): Xrm.Attributes.DateAttribute;
+            getControl(name: "dc"): Xrm.Controls.DateControl;
+
+            getAttribute(name: 'tx'): Xrm.Attributes.StringAttribute;
+            getControl(name: "tx"): Xrm.Controls.StringControl;
+
+
             getAttribute(name: "a1"): Xrm.Attributes.StringAttribute;
             getControl(name: "a1"): Xrm.Controls.StringControl;
 
-            getAttribute(name: "a1c"): Xrm.Attributes.OptionSetAttribute;
+            getAttribute(name: "a1c"): Xrm.Attributes.Attribute;
             getControl(name: "a1c"): Xrm.Controls.OptionSetControl;
 
             ui: InformationFormUi & Xrm.Kipon.Ui;
