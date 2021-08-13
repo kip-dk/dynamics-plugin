@@ -1,5 +1,5 @@
 /// <reference path="../../node_modules/@types/xrm/index.d.ts" />
-/// <reference path="../typings/kiponexample.xrm.d.ts" />
+/// <reference path="../typings/Kipon.Forms.d.ts" />
 var Kipon;
 (function (Kipon) {
     var Account;
@@ -7,12 +7,11 @@ var Kipon;
         var Information;
         function onLoad(ctx) {
             Information = ctx.getFormContext();
-            var s = Information.getAttribute("xx").getValue();
-            var p = Information.getAttribute("a1c").getValue();
+            var s = Information.getAttribute("name").getValue();
+            var p = Information.getAttribute("donotemail").getValue();
             Information.ui.tabs.forEach(function (r) {
             });
-            Information.ui.tabs.get("tab_t1").sections.forEach(function (s) {
-            });
+            Information.ui.tabs.get("SUMMARY_TAB");
         }
         Account.onLoad = onLoad;
     })(Account = Kipon.Account || (Kipon.Account = {}));

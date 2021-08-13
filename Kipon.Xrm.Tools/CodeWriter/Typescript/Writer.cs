@@ -48,14 +48,19 @@ namespace Kipon.Xrm.Tools.CodeWriter.Typescript
                                 var tabIx = startIX;
                                 foreach (var tab in crmForm.Tabs)
                                 {
-                                    using (var tabInterface = md.Interface($"{form.Name}FormTab_t{tabIx}"))
+                                    using (var tabSectionsInterface = md.Interface($"{form.Name}FormTab_t{tabIx}Sections"))
                                     {
                                         foreach (var section in tab.Sections)
                                         {
-                                            tabInterface.Stub($"get(name: '{section.Name}'): Xrm.Controls.Section;");
+                                            tabSectionsInterface.Stub($"get(name: '{section.Name}'): Xrm.Controls.Section;");
                                         }
-                                        tabInterface.Stub($"getLength(): number;");
-                                        tabInterface.Stub($"forEach(f: (c: Xrm.Controls.Section) => void);");
+                                        tabSectionsInterface.Stub($"getLength(): number;");
+                                        tabSectionsInterface.Stub($"forEach(f: (c: Xrm.Controls.Section) => void);");
+                                    }
+
+                                    using (var tabInterface = md.Interface($"{form.Name}FormTab_t{tabIx}"))
+                                    {
+                                        tabInterface.Stub($"sections: {form.Name}FormTab_t{tabIx}Sections;");
                                     }
                                     tabIx++;
                                 }

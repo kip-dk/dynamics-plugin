@@ -2,7 +2,7 @@
 
 declare namespace Kipon.Forms {
     module account {
-            interface AccountFormTab_t1 {
+            interface AccountFormTab_t1Sections {
                 get(name: "ACCOUNT_INFORMATION"): Xrm.Controls.Section;
                 get(name: "ADDRESS"): Xrm.Controls.Section;
                 get(name: "MapSection"): Xrm.Controls.Section;
@@ -13,7 +13,11 @@ declare namespace Kipon.Forms {
                 forEach(f: (c: Xrm.Controls.Section) => void);
             }
 
-            interface AccountFormTab_t2 {
+            interface AccountFormTab_t1 {
+                sections: AccountFormTab_t1Sections;
+            }
+
+            interface AccountFormTab_t2Sections {
                 get(name: "COMPANY_PROFILE"): Xrm.Controls.Section;
                 get(name: "DETAILS_TAB_section_6"): Xrm.Controls.Section;
                 get(name: "MARKETING"): Xrm.Controls.Section;
@@ -25,16 +29,28 @@ declare namespace Kipon.Forms {
                 forEach(f: (c: Xrm.Controls.Section) => void);
             }
 
-            interface AccountFormTab_t3 {
+            interface AccountFormTab_t2 {
+                sections: AccountFormTab_t2Sections;
+            }
+
+            interface AccountFormTab_t3Sections {
                 get(name: "tab_3_section_1"): Xrm.Controls.Section;
                 getLength(): number;
                 forEach(f: (c: Xrm.Controls.Section) => void);
             }
 
-            interface AccountFormTab_t4 {
+            interface AccountFormTab_t3 {
+                sections: AccountFormTab_t3Sections;
+            }
+
+            interface AccountFormTab_t4Sections {
                 get(name: "documents_sharepoint_section"): Xrm.Controls.Section;
                 getLength(): number;
                 forEach(f: (c: Xrm.Controls.Section) => void);
+            }
+
+            interface AccountFormTab_t4 {
+                sections: AccountFormTab_t4Sections;
             }
 
             interface AccountFormTabs {
@@ -119,7 +135,7 @@ declare namespace Kipon.Forms {
                 data: Xrm.Data;
             }
 
-            interface SalesInsightsFormTab_t1 {
+            interface SalesInsightsFormTab_t1Sections {
                 get(name: "ACCOUNT_INFORMATION"): Xrm.Controls.Section;
                 get(name: "ADDRESS"): Xrm.Controls.Section;
                 get(name: "MapSection"): Xrm.Controls.Section;
@@ -130,7 +146,11 @@ declare namespace Kipon.Forms {
                 forEach(f: (c: Xrm.Controls.Section) => void);
             }
 
-            interface SalesInsightsFormTab_t2 {
+            interface SalesInsightsFormTab_t1 {
+                sections: SalesInsightsFormTab_t1Sections;
+            }
+
+            interface SalesInsightsFormTab_t2Sections {
                 get(name: "COMPANY_PROFILE"): Xrm.Controls.Section;
                 get(name: "DETAILS_TAB_section_6"): Xrm.Controls.Section;
                 get(name: "MARKETING"): Xrm.Controls.Section;
@@ -140,6 +160,10 @@ declare namespace Kipon.Forms {
                 get(name: "ChildAccounts"): Xrm.Controls.Section;
                 getLength(): number;
                 forEach(f: (c: Xrm.Controls.Section) => void);
+            }
+
+            interface SalesInsightsFormTab_t2 {
+                sections: SalesInsightsFormTab_t2Sections;
             }
 
             interface SalesInsightsFormTabs {
@@ -223,7 +247,7 @@ declare namespace Kipon.Forms {
     }
 
     module contact {
-            interface ContactFormTab_t1 {
+            interface ContactFormTab_t1Sections {
                 get(name: "CONTACT_INFORMATION"): Xrm.Controls.Section;
                 get(name: "MapSection"): Xrm.Controls.Section;
                 get(name: "BusinessCard"): Xrm.Controls.Section;
@@ -235,7 +259,11 @@ declare namespace Kipon.Forms {
                 forEach(f: (c: Xrm.Controls.Section) => void);
             }
 
-            interface ContactFormTab_t2 {
+            interface ContactFormTab_t1 {
+                sections: ContactFormTab_t1Sections;
+            }
+
+            interface ContactFormTab_t2Sections {
                 get(name: "PERSONAL INFORMATION"): Xrm.Controls.Section;
                 get(name: "PERSONAL_NOTES_SECTION"): Xrm.Controls.Section;
                 get(name: "marketing information"): Xrm.Controls.Section;
@@ -246,10 +274,18 @@ declare namespace Kipon.Forms {
                 forEach(f: (c: Xrm.Controls.Section) => void);
             }
 
-            interface ContactFormTab_t3 {
+            interface ContactFormTab_t2 {
+                sections: ContactFormTab_t2Sections;
+            }
+
+            interface ContactFormTab_t3Sections {
                 get(name: "documents_sharepoint_section"): Xrm.Controls.Section;
                 getLength(): number;
                 forEach(f: (c: Xrm.Controls.Section) => void);
+            }
+
+            interface ContactFormTab_t3 {
+                sections: ContactFormTab_t3Sections;
             }
 
             interface ContactFormTabs {
@@ -335,7 +371,7 @@ declare namespace Kipon.Forms {
                 data: Xrm.Data;
             }
 
-            interface AIforSalesFormTab_t1 {
+            interface AIforSalesFormTab_t1Sections {
                 get(name: "CONTACT_INFORMATION"): Xrm.Controls.Section;
                 get(name: "MapSection"): Xrm.Controls.Section;
                 get(name: "SOCIAL_PANE_TAB"): Xrm.Controls.Section;
@@ -346,7 +382,11 @@ declare namespace Kipon.Forms {
                 forEach(f: (c: Xrm.Controls.Section) => void);
             }
 
-            interface AIforSalesFormTab_t2 {
+            interface AIforSalesFormTab_t1 {
+                sections: AIforSalesFormTab_t1Sections;
+            }
+
+            interface AIforSalesFormTab_t2Sections {
                 get(name: "PERSONAL INFORMATION"): Xrm.Controls.Section;
                 get(name: "PERSONAL_NOTES_SECTION"): Xrm.Controls.Section;
                 get(name: "marketing information"): Xrm.Controls.Section;
@@ -355,6 +395,10 @@ declare namespace Kipon.Forms {
                 get(name: "shipping information"): Xrm.Controls.Section;
                 getLength(): number;
                 forEach(f: (c: Xrm.Controls.Section) => void);
+            }
+
+            interface AIforSalesFormTab_t2 {
+                sections: AIforSalesFormTab_t2Sections;
             }
 
             interface AIforSalesFormTabs {
