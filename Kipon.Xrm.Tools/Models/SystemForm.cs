@@ -140,7 +140,14 @@ namespace Kipon.Xrm.Tools.Models
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Double:
                         return $"{baseName}Number{ext}";
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Boolean:
-                        return $"{baseName}Boolean{ext}";
+                        if (baseName == "Xrm.Attributes.")
+                        {
+                            return $"{baseName}Boolean{ext}";
+                        }
+                        else
+                        {
+                            return $"{baseName}OptionSet{ext}";
+                        }
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Customer:
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Lookup:
                         return $"{baseName}Lookup{ext}";

@@ -1,7 +1,9 @@
 <webresource>
   <forms namespace="Kipon.Forms">
-    <form entitylogicalname="account" title="Account information form" name="Information" />
-    <form entitylogicalname="contact" title="Contact information form" name="Information" />
+    <form entitylogicalname="account" title="Account" name="Account" />
+    <form entitylogicalname="account" title="Sales Insights" name="SalesInsights" />
+    <form entitylogicalname="contact" title="Contact" name="Contact" />
+    <form entitylogicalname="contact" title="AI for Sales" name="AIforSales" />
   </forms>
   <deploys solution="Kipon">
     <deploy script="Scripts/Forms/Account.js" name="kipon_/Forms/Account.js"/>

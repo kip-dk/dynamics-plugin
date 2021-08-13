@@ -18,7 +18,7 @@ namespace Kipon.Xrm.Tools.CodeWriter.Typescript
 
         public Module Module(string name)
         {
-            return new Module(1, this.writer, name);
+            return new Module(this.indent, this.writer, name);
         }
 
     }

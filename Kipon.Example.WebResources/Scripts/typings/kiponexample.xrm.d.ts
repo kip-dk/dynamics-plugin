@@ -37,7 +37,7 @@ declare namespace KiponExample.Forms {
             getControl(name: "no"): Xrm.Controls.NumberControl;
 
             getAttribute(name: 'yesno'): Xrm.Attributes.BooleanAttribute;
-            getControl(name: "yesno"): Xrm.Controls.NumberControl;
+            getControl(name: "yesno"): Xrm.Controls.OptionSetControl;
 
             getAttribute(name: 'cust'): Xrm.Attributes.LookupAttribute;
             getControl(name: "cust"): Xrm.Controls.LookupControl;

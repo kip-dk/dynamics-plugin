@@ -16,7 +16,7 @@ namespace Kipon.Xrm.Tools.CodeWriter.Typescript
             this.indent = indent;
             this.writer = writer;
             this.Writeline(code + " {");
-            indent++;
+            this.indent++;
         }
 
 
@@ -26,7 +26,7 @@ namespace Kipon.Xrm.Tools.CodeWriter.Typescript
             {
                 this.writer.writer.Write("    ");
             }
-            this.writer.writer.WriteLine(code);
+            this.writer.writer.WriteLine(code?.Replace("'","\""));
         }
 
 
@@ -38,6 +38,7 @@ namespace Kipon.Xrm.Tools.CodeWriter.Typescript
                 this.writer.writer.Write("    ");
             }
             this.writer.writer.WriteLine("}");
+            this.writer.writer.WriteLine("");
         }
     }
 }

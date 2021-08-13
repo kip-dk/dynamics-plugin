@@ -30,6 +30,9 @@ namespace Kipon.Xrm.Tools.Services
                            && f.FormActivationState.Value != 0
                          select new SystemForm
                          {
+                             EntityLogicalName = entityLogicalName,
+                             FormXml = f.FormXml,
+                             Name = f.Name
                          }).ToArray();
             if (forms.Length == 0)
             {

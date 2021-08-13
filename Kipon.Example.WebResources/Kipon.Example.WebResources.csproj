@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Remove="node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="filter.xml" />
     <None Remove="Scripts\typings\kiponexample.xrm.d.ts" />
   </ItemGroup>
