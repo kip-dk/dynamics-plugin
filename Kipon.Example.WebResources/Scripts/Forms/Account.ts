@@ -15,6 +15,6 @@ module Kipon.Account {
         Information.ui.tabs.forEach(r => {
         });
 
-        Information.ui.tabs.get("SUMMARY_TAB");
+        Information.ui.tabs.get("SUMMARY_TAB").sections.get("SOCIAL_PANE_TAB").setVisible(false);
     }
 }

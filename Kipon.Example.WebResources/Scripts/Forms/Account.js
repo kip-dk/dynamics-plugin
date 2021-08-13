@@ -11,7 +11,7 @@ var Kipon;
             var p = Information.getAttribute("donotemail").getValue();
             Information.ui.tabs.forEach(function (r) {
             });
-            Information.ui.tabs.get("SUMMARY_TAB");
+            Information.ui.tabs.get("SUMMARY_TAB").sections.get("SOCIAL_PANE_TAB").setVisible(false);
         }
         Account.onLoad = onLoad;
     })(Account = Kipon.Account || (Kipon.Account = {}));
