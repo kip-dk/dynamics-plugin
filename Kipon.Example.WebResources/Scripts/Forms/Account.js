@@ -1,5 +1,6 @@
 /// <reference path="../../node_modules/@types/xrm/index.d.ts" />
 /// <reference path="../typings/Kipon.Forms.d.ts" />
+//#include Services/AccountService
 var Kipon;
 (function (Kipon) {
     var Account;
@@ -12,6 +13,7 @@ var Kipon;
             Form.ui.tabs.forEach(function (r) {
             });
             Form.ui.tabs.get("SUMMARY_TAB").sections.get("SOCIAL_PANE_TAB").setVisible(false);
+            var ac = new Kipon.AccountService().getSomething();
         }
         Account.onLoad = onLoad;
     })(Account = Kipon.Account || (Kipon.Account = {}));

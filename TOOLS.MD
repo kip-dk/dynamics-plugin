@@ -151,5 +151,34 @@ the webresources to the solutions.
 
 Finally the tool will publish all resource that was created or updated in the process.
 
+
+#### merging scripts on deploy #include
+
+Instead of deploying each and every javascript as a separate file, you can organize the scripts in "natural" script containers, describing the dependencies within the root script.
+
+```typescript
+/// <reference path="../../node_modules/@types/xrm/index.d.ts" />
+/// <reference path="../typings/Kipon.Forms.d.ts" />
+
+//#include Services/AccountService
+
+module Kipon.Account {
+    var Form: Kipon.Forms.account.AccountForm;
+
+    export function onLoad(ctx: Xrm.Page.EventContext) {
+
+        var ac = new Kipon.AccountService().getSomething();
+    }
+}
+```
+Take a look at above example. In the code i need to work with a "generic" service that can be used cross form scripts, ex. to fetch som account data.
+The AccountService is a typescript that will be compiled into AccountScript.js, and normally we could deploy this script to Dynamics 365 CE, and then include
+both the Account.js script and the AccountService.js on the form.
+
+But instead of using such deploy model, i can ask the deployment tool to merge the scripts into a single script that is deployed. That way I only need to deploy the
+Account.js script, and the AccountService will be embedded in any formscript adding the above include.
+
+//#include also works for nested scrpts. So if the AccountService script also have includes, these will also be expanded into the single script deployment Account.js
+
 ## License 
 MIT (c) Kipon ApS, 2019,2020,2021
