@@ -108,6 +108,48 @@ Scripts\typings
 
 The generated d.ts file is added or updated in the Scripts\typings folder.
 
+#### Deploy webresouce files from you source repository into Dynamics 365 CE
+The Kipon.Xrm.Tools can help you deploy your "code-managed" webresource into your Dynamics 365 development instance.
+
+This makes a lot of sence if you are using the above "generate" tool to write typescript forms based on strongly typed formdefinitions.
+
+First you need to configure what to deploy. This is done within the shared filter.xml til in the deploys section of the xml:
+
+[filter.xml]
+```xml
+<webresource>
+  <forms namespace="Kipon.Forms">
+  ---
+  </forms>
+  
+  <deploys managed-solution="WebResourceManagerKipon">
+    <solutions>
+      <solution name="KiponToCustomer"/>
+    </solutions>
+    <deploy file="Scripts/Forms/Account.js" name="kipon_/Forms/Account.js" description="Form script for the standard account form" />
+  </deploys>
+</webresource>
+```
+
+You should setup an unmaned solution in your development instanse that has the single purpose of hosting all webresources that is deployed from you webresource source projekt.
+In ahove example i have named that solution [WebResourceManagerKipon]. This solution should be "owned" by the Kipon.Xrm.Tools deployment context. This allow the tool to cleanup
+if scripts are removed. 
+
+If you need the scripts to be deployed in additional solutions, (ex. thouse you use to move the DEV to TEST and PROD environments), simply add more solutions names under the solutions container in the xml.
+
+The difference between the managed-solution, and the list of solutions is, that this tool assume to have full control on all elements in the "managed-solution", while it does not assume anything about elements
+in the solutions list, beside the fact that webresources deployed through this tool, also need to be added to these solutions.
+
+#### run the tool
+
+.\bin\coretools\Kipon.Xrm.Cmd wr-deploy "/connectionstring:[Dynamics365CEConnectionString]"
+
+[Dynamics365CEConnectionString] supported the Xrm.Tools pattern for connectionstring.
+
+This will create/update webresource mentioned in the deploy section, delete components that are in the WebResourceManagerKipon that is no longer mentioned in the deploys section, and finally attach
+the webresources to the solutions.
+
+Finally the tool will publish all resource that was created or updated in the process.
 
 ## License 
 MIT (c) Kipon ApS, 2019,2020,2021
