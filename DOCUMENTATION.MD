@@ -1,5 +1,7 @@
 ### Building solid and testable plugins.
 
+### this documentation is OUTDATED. Please read on readme file of the project to get the documentation for version 2. of this framework. The kipon.solid plugin framework.
+
 The purpose of this project is to create a baseline for easy creating plugins for Dynamics 365 that follow some
 good helthy patterns with service oriented structure of code, that makes the code easyer to read, maintain and reuse
 cross plugins, but also enable us to write unit test that potentially can be executed outside Dynamics 365.

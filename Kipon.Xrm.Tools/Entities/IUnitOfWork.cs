@@ -32,5 +32,9 @@ namespace Kipon.Xrm.Tools.Entities
         void ClearChanges();
         void ClearContext();
 
+        void Detach(string entitylogicalname, IEnumerable<Guid> ids);
+        void Detach(string entitylogicalname, Guid id);
+        void Detach(string entitylogicalname);
+
     }
 }

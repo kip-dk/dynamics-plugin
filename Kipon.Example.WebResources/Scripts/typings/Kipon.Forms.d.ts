@@ -1,6 +1,30 @@
 /// <reference path="../../node_modules/@types/xrm/index.d.ts" />
 
 declare namespace Kipon.Forms {
+    interface Tab {
+        addTabStateChange(handler: Xrm.Events.ContextSensitiveHandler): void;
+        getDisplayState(): Xrm.DisplayState;
+        getName(): string;
+        getParent(): Ui;
+        removeTabStateChange(handler: Xrm.Events.ContextSensitiveHandler): void;
+        setDisplayState(displayState: Xrm.DisplayState): void;
+    }
+
+    interface Ui {
+        setFormNotification(message: string, level: Xrm.FormNotificationLevel, uniqueId: string): boolean;
+        clearFormNotification(uniqueId: string): boolean;
+        close(): void;
+        getFormType(): XrmEnum.FormType;
+        getViewPortHeight(): number;
+        getViewPortWidth(): number;
+        refreshRibbon(refreshAll?: boolean): void;
+        process: Xrm.Controls.ProcessControl;
+        controls: Xrm.Collection.ItemCollection<Xrm.Controls.Control>;
+        formSelector: Xrm.Controls.FormSelector;
+        navigation: Xrm.Controls.Navigation;
+        quickForms: Xrm.Collection.ItemCollection<Xrm.Controls.QuickFormControl>;
+    }
+
     module account {
             interface AccountFormTab_t1Sections {
                 get(name: "ACCOUNT_INFORMATION"): Xrm.Controls.Section;
@@ -54,10 +78,10 @@ declare namespace Kipon.Forms {
             }
 
             interface AccountFormTabs {
-                get(name: "SUMMARY_TAB"): AccountFormTab_t1 & Xrm.Kipon.Tab;
-                get(name: "DETAILS_TAB"): AccountFormTab_t2 & Xrm.Kipon.Tab;
-                get(name: "tab_3"): AccountFormTab_t3 & Xrm.Kipon.Tab;
-                get(name: "documents_sharepoint"): AccountFormTab_t4 & Xrm.Kipon.Tab;
+                get(name: "SUMMARY_TAB"): AccountFormTab_t1 & Tab;
+                get(name: "DETAILS_TAB"): AccountFormTab_t2 & Tab;
+                get(name: "tab_3"): AccountFormTab_t3 & Tab;
+                get(name: "documents_sharepoint"): AccountFormTab_t4 & Tab;
                 getLength(): number;
                 forEach(f: (c: Xrm.Controls.Tab) => void);
             }
@@ -131,7 +155,7 @@ declare namespace Kipon.Forms {
                 getControl(name: "header_numberofemployees"): Xrm.Controls.NumberControl;
                 getAttribute(name: "ownerid"): Xrm.Attributes.Attribute;
                 getControl(name: "header_ownerid"): Xrm.Controls.Control;
-                ui: AccountFormUi & Xrm.Kipon.Ui;
+                ui: AccountFormUi & Ui;
                 data: Xrm.Data;
             }
 
@@ -167,8 +191,8 @@ declare namespace Kipon.Forms {
             }
 
             interface SalesInsightsFormTabs {
-                get(name: "SUMMARY_TAB"): SalesInsightsFormTab_t1 & Xrm.Kipon.Tab;
-                get(name: "DETAILS_TAB"): SalesInsightsFormTab_t2 & Xrm.Kipon.Tab;
+                get(name: "SUMMARY_TAB"): SalesInsightsFormTab_t1 & Tab;
+                get(name: "DETAILS_TAB"): SalesInsightsFormTab_t2 & Tab;
                 getLength(): number;
                 forEach(f: (c: Xrm.Controls.Tab) => void);
             }
@@ -240,7 +264,7 @@ declare namespace Kipon.Forms {
                 getControl(name: "header_numberofemployees"): Xrm.Controls.NumberControl;
                 getAttribute(name: "ownerid"): Xrm.Attributes.Attribute;
                 getControl(name: "header_ownerid"): Xrm.Controls.Control;
-                ui: SalesInsightsFormUi & Xrm.Kipon.Ui;
+                ui: SalesInsightsFormUi & Ui;
                 data: Xrm.Data;
             }
 
@@ -289,9 +313,9 @@ declare namespace Kipon.Forms {
             }
 
             interface ContactFormTabs {
-                get(name: "SUMMARY_TAB"): ContactFormTab_t1 & Xrm.Kipon.Tab;
-                get(name: "DETAILS_TAB"): ContactFormTab_t2 & Xrm.Kipon.Tab;
-                get(name: "documents_sharepoint"): ContactFormTab_t3 & Xrm.Kipon.Tab;
+                get(name: "SUMMARY_TAB"): ContactFormTab_t1 & Tab;
+                get(name: "DETAILS_TAB"): ContactFormTab_t2 & Tab;
+                get(name: "documents_sharepoint"): ContactFormTab_t3 & Tab;
                 getLength(): number;
                 forEach(f: (c: Xrm.Controls.Tab) => void);
             }
@@ -367,7 +391,7 @@ declare namespace Kipon.Forms {
                 getControl(name: "address1_freighttermscode"): Xrm.Controls.OptionSetControl;
                 getAttribute(name: "ownerid"): Xrm.Attributes.Attribute;
                 getControl(name: "header_ownerid"): Xrm.Controls.Control;
-                ui: ContactFormUi & Xrm.Kipon.Ui;
+                ui: ContactFormUi & Ui;
                 data: Xrm.Data;
             }
 
@@ -402,8 +426,8 @@ declare namespace Kipon.Forms {
             }
 
             interface AIforSalesFormTabs {
-                get(name: "SUMMARY_TAB"): AIforSalesFormTab_t1 & Xrm.Kipon.Tab;
-                get(name: "DETAILS_TAB"): AIforSalesFormTab_t2 & Xrm.Kipon.Tab;
+                get(name: "SUMMARY_TAB"): AIforSalesFormTab_t1 & Tab;
+                get(name: "DETAILS_TAB"): AIforSalesFormTab_t2 & Tab;
                 getLength(): number;
                 forEach(f: (c: Xrm.Controls.Tab) => void);
             }
@@ -477,7 +501,7 @@ declare namespace Kipon.Forms {
                 getControl(name: "address1_freighttermscode"): Xrm.Controls.OptionSetControl;
                 getAttribute(name: "ownerid"): Xrm.Attributes.Attribute;
                 getControl(name: "header_ownerid"): Xrm.Controls.Control;
-                ui: AIforSalesFormUi & Xrm.Kipon.Ui;
+                ui: AIforSalesFormUi & Ui;
                 data: Xrm.Data;
             }
 

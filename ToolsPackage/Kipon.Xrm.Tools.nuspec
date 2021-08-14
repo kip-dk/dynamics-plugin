@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Kipon.Xrm.Tools</id>
+    <version>1.0.4.22</version>
+    <authors>Kjeld Ingemann Poulsen</authors>
+    <owners>Kipon ApS</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/kip-dk/dynamics-plugin</projectUrl>
+    <iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Kipon.Xrm.Tools - tool to generate and deploy Dynamics 365 CE items</description>
+    <releaseNotes>This package is the "tool-part" for Kipon.Solid.Plugin, however additional tools has been added to support task related to other Dynamics 365 CE development areas</releaseNotes>
+    <copyright>Copyright Kipon ApS 2019,2020,2021</copyright>
+    <tags>Dynamics 365 plugin C# SOLID</tags>
+    <dependencies>
+      <dependency id="Microsoft.CrmSdk.CoreTools" version="9.1.0.46" />
+    </dependencies>
+  </metadata>
+</package>

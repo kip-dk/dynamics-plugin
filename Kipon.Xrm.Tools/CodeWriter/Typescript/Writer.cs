@@ -33,6 +33,34 @@ namespace Kipon.Xrm.Tools.CodeWriter.Typescript
 
             using (var ns = this.Namespace(formList.Namespace))
             {
+                #region generic interfaces that are copies of the defenetlytyped interface omitting the part that is form specific
+                using (var tabIf = ns.Interface("Tab"))
+                {
+                    tabIf.Stub("addTabStateChange(handler: Xrm.Events.ContextSensitiveHandler): void;");
+                    tabIf.Stub("getDisplayState(): Xrm.DisplayState;");
+                    tabIf.Stub("getName(): string;");
+                    tabIf.Stub("getParent(): Ui;");
+                    tabIf.Stub("removeTabStateChange(handler: Xrm.Events.ContextSensitiveHandler): void;");
+                    tabIf.Stub("setDisplayState(displayState: Xrm.DisplayState): void;");
+                }
+
+                using (var UiIf = ns.Interface("Ui"))
+                {
+                    UiIf.Stub("setFormNotification(message: string, level: Xrm.FormNotificationLevel, uniqueId: string): boolean;");
+                    UiIf.Stub("clearFormNotification(uniqueId: string): boolean;");
+                    UiIf.Stub("close(): void;");
+                    UiIf.Stub("getFormType(): XrmEnum.FormType;");
+                    UiIf.Stub("getViewPortHeight(): number;");
+                    UiIf.Stub("getViewPortWidth(): number;");
+                    UiIf.Stub("refreshRibbon(refreshAll?: boolean): void;");
+                    UiIf.Stub("process: Xrm.Controls.ProcessControl;");
+                    UiIf.Stub("controls: Xrm.Collection.ItemCollection<Xrm.Controls.Control>;");
+                    UiIf.Stub("formSelector: Xrm.Controls.FormSelector;");
+                    UiIf.Stub("navigation: Xrm.Controls.Navigation;");
+                    UiIf.Stub("quickForms: Xrm.Collection.ItemCollection<Xrm.Controls.QuickFormControl>;");
+                }
+                #endregion
+
                 foreach (var entity in entities)
                 {
                     using (var md = ns.Module(entity.Entity))
@@ -73,7 +101,7 @@ namespace Kipon.Xrm.Tools.CodeWriter.Typescript
                                 var tabIx = startIX;
                                 foreach (var tab in crmForm.Tabs)
                                 {
-                                    formUiTabs.Stub($"get(name: '{tab.Name}'): {form.Name}FormTab_t{tabIx} & Xrm.Kipon.Tab;");
+                                    formUiTabs.Stub($"get(name: '{tab.Name}'): {form.Name}FormTab_t{tabIx} & Tab;");
                                     tabIx++;
                                 }
 
@@ -100,7 +128,7 @@ namespace Kipon.Xrm.Tools.CodeWriter.Typescript
                                         formInterface.Stub($"getControl(name: '{ ctrl.Name }'): { attr.TypescriptControlType };");
                                     }
                                 }
-                                formInterface.Stub($"ui: {form.Name}FormUi & Xrm.Kipon.Ui;");
+                                formInterface.Stub($"ui: {form.Name}FormUi & Ui;");
                                 formInterface.Stub($"data: Xrm.Data;");
                             }
                             #endregion

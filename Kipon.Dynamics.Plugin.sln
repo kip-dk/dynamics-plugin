@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		generate-package.cmd = generate-package.cmd
 		README.MD = README.MD
 		READMEOLD.MD = READMEOLD.MD
+		TOOLS.MD = TOOLS.MD
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{A590DDDB-7B0D-4158-B0EC-F6AB9A7C3B95}"
@@ -59,7 +60,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{31
 		Package\content\Entities\generate.cmd.template = Package\content\Entities\generate.cmd.template
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Example.WebResources", "Kipon.Example.WebResources\Kipon.Example.WebResources.csproj", "{5B175A06-C544-4606-86DD-766E9A8919CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kipon.Example.WebResources", "Kipon.Example.WebResources\Kipon.Example.WebResources.csproj", "{5B175A06-C544-4606-86DD-766E9A8919CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToolsPackage", "ToolsPackage", "{DCA485B6-2998-4568-A5F8-41283F336884}"
+	ProjectSection(SolutionItems) = preProject
+		ToolsPackage\Kipon.Xrm.Tools.nuspec = ToolsPackage\Kipon.Xrm.Tools.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +106,7 @@ Global
 		{38544696-D4F5-44AE-9C12-A24960238F97} = {ACEBBA29-7891-46F0-8D1C-992A728C7AAB}
 		{96A8281F-FD9B-4E40-A4C8-194437E4223F} = {38544696-D4F5-44AE-9C12-A24960238F97}
 		{316C8C8D-9E87-43B5-93A5-854CE2A48A57} = {96A8281F-FD9B-4E40-A4C8-194437E4223F}
+		{DCA485B6-2998-4568-A5F8-41283F336884} = {ACEBBA29-7891-46F0-8D1C-992A728C7AAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C512F021-FD52-4DEA-8137-EA27986B2E7D}

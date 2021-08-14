@@ -21,5 +21,9 @@ namespace Kipon.Xrm.Tools.CodeWriter.Typescript
             return new Module(this.indent, this.writer, name);
         }
 
+        public Interface Interface(string name)
+        {
+            return new Interface(this.indent, this.writer, name);
+        }
     }
 }

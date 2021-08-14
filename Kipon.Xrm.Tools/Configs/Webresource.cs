@@ -31,14 +31,27 @@ namespace Kipon.Xrm.Tools.Configs
             }
 
             this.Deploys = new DeployList();
-            this.Deploys.Solution = doc.SelectSingleNode("/webresource/deploys")?.Attributes["solution"]?.InnerText;
+            this.Deploys.ManagedSolution = doc.SelectSingleNode("/webresource/deploys")?.Attributes["managed-solution"]?.InnerText;
+
+            var solutions = doc.SelectNodes("/webresource/solutions/solution");
+            if (solutions != null)
+            {
+                var res = new List<string>();
+                foreach (System.Xml.XmlNode solution in solutions)
+                {
+                    res.Add(solution.Attributes["name"].InnerText);
+                }
+                this.Deploys.Solutions = res.ToArray();
+            }
+
             var deploys = doc.SelectNodes("/webresource/deploys/deploy");
             foreach (System.Xml.XmlNode deploy in deploys)
             {
                 this.Deploys.Add(new Deploy
                 {
                     Name = deploy.Attributes["name"]?.InnerText,
-                    Script = deploy.Attributes["script"]?.InnerText
+                    Filename = deploy.Attributes["file"]?.InnerText,
+                    Description = deploy.Attributes["description"]?.InnerText
                 });
             }
         }

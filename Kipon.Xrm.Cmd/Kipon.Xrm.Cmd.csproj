@@ -96,6 +96,7 @@
     <Compile Include="Tests\AnunboundedactionTest.cs" />
     <Compile Include="Tools\CodeCopy.cs" />
     <Compile Include="Tools\Deploy.cs" />
+    <Compile Include="Tools\WebResourceDeploy.cs" />
     <Compile Include="Tools\WebResourceGenerateDefinitions.cs" />
   </ItemGroup>
   <ItemGroup>

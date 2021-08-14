@@ -1,32 +1,30 @@
 ﻿/// <reference path="../../node_modules/@types/xrm/index.d.ts" />
 
-declare namespace Xrm.Kipon {
+declare namespace KiponExample.Forms {
     interface Tab extends Xrm.Controls.UiStandardElement, Xrm.Controls.UiFocusable {
-        addTabStateChange(handler: Events.ContextSensitiveHandler): void;
-        getDisplayState(): DisplayState;
+        addTabStateChange(handler: Xrm.Events.ContextSensitiveHandler): void;
+        getDisplayState(): Xrm.DisplayState;
         getName(): string;
         getParent(): Ui;
-        removeTabStateChange(handler: Events.ContextSensitiveHandler): void;
-        setDisplayState(displayState: DisplayState): void;
+        removeTabStateChange(handler: Xrm.Events.ContextSensitiveHandler): void;
+        setDisplayState(displayState: Xrm.DisplayState): void;
     }
 
     interface Ui {
-        setFormNotification(message: string, level: FormNotificationLevel, uniqueId: string): boolean;
+        setFormNotification(message: string, level: Xrm.FormNotificationLevel, uniqueId: string): boolean;
         clearFormNotification(uniqueId: string): boolean;
         close(): void;
         getFormType(): XrmEnum.FormType;
         getViewPortHeight(): number;
         getViewPortWidth(): number;
         refreshRibbon(refreshAll?: boolean): void;
-        process: Controls.ProcessControl;
-        controls: Collection.ItemCollection<Controls.Control>;
-        formSelector: Controls.FormSelector;
-        navigation: Controls.Navigation;
-        quickForms: Collection.ItemCollection<Controls.QuickFormControl>;
+        process: Xrm.Controls.ProcessControl;
+        controls: Xrm.Collection.ItemCollection<Xrm.Controls.Control>;
+        formSelector: Xrm.Controls.FormSelector;
+        navigation: Xrm.Controls.Navigation;
+        quickForms: Xrm.Collection.ItemCollection<Xrm.Controls.QuickFormControl>;
     }
-}
 
-declare namespace KiponExample.Forms {
     module kipon_invoice {
 
         interface InformationForm {
@@ -58,7 +56,7 @@ declare namespace KiponExample.Forms {
             getAttribute(name: "a1c"): Xrm.Attributes.Attribute;
             getControl(name: "a1c"): Xrm.Controls.OptionSetControl;
 
-            ui: InformationFormUi & Xrm.Kipon.Ui;
+            ui: InformationFormUi & Ui;
             data: Xrm.Data;
         }
 
@@ -67,8 +65,8 @@ declare namespace KiponExample.Forms {
         }
 
         interface InformationFormTabs {
-            get(name: "tab_t1"): InformationFormTab_t1 & Xrm.Kipon.Tab;
-            get(name: "tab_t2"): InformationFormTab_t2 & Xrm.Kipon.Tab;
+            get(name: "tab_t1"): InformationFormTab_t1 & Tab;
+            get(name: "tab_t2"): InformationFormTab_t2 & Tab;
             getLength(): number;
             forEach(f: (c: Xrm.Controls.Tab) => void);
         }

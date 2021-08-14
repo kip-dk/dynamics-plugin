@@ -5,8 +5,11 @@
     <form entitylogicalname="contact" title="Contact" name="Contact" />
     <form entitylogicalname="contact" title="AI for Sales" name="AIforSales" />
   </forms>
-  <deploys solution="Kipon">
-    <deploy script="Scripts/Forms/Account.js" name="kipon_/Forms/Account.js"/>
-    <deploy script="Scripts/Forms/Contact.js" name="kipon_/Forms/Contact.js"/>
+  
+  <deploys managed-solution="WebResourceManagerKipon">
+    <solutions>
+      <solution name="KiponToCustomer"/>
+    </solutions>
+    <deploy file="Scripts/Forms/Account.js" name="kipon_/Forms/Account.js" description="Form script for the standard account form" />
   </deploys>
 </webresource>

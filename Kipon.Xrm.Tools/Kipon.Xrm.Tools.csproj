@@ -125,6 +125,8 @@
     <Compile Include="Entities\IRepository.cs" />
     <Compile Include="Entities\IUnitOfWork.cs" />
     <Compile Include="Entities\IUnitOfWork.Design.cs" />
+    <Compile Include="Entities\WebResource.cs" />
+    <Compile Include="Entities\WebResourceTypeEnum.cs" />
     <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\ConfigurationException.cs" />
     <Compile Include="Extensions\Strings\StringsExtensions.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Models\Plugin.cs" />
     <Compile Include="Models\Step.cs" />
     <Compile Include="Models\SystemForm.cs" />
+    <Compile Include="Models\WebResourceMerge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceAPI\IMessageService.cs" />
     <Compile Include="ServiceAPI\IPluginAssemblyService.cs" />

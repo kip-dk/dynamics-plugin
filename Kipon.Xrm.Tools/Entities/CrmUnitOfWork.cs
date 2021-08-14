@@ -87,6 +87,45 @@ namespace Kipon.Xrm.Tools.Entities
                 this.context.Detach(ent);
             }
         }
+
+        public void Detach(string entitylogicalname, IEnumerable<Guid> ids)
+        {
+            var removes = (from en in this.context.GetAttachedEntities()
+                          join id in ids on en.Id equals id
+                          where en.LogicalName == entitylogicalname
+                          select en).ToArray();
+            if (removes != null && removes.Length > 0)
+            {
+                foreach (var re in removes)
+                {
+                    this.context.Detach(re);
+                }
+            }
+        }
+
+        public void Detach(string entitylogicalname, Guid id)
+        {
+            var remove = (from en in this.context.GetAttachedEntities()
+                           where en.LogicalName == entitylogicalname
+                             && en.Id == id
+                           select en).SingleOrDefault();
+            if (remove != null)
+            {
+                this.context.Detach(remove);
+            }
+        }
+
+        public void Detach(string entitylogicalname)
+        {
+            var remove = (from en in this.context.GetAttachedEntities()
+                          where en.LogicalName == entitylogicalname
+                          select en).SingleOrDefault();
+
+            if (remove != null)
+            {
+                this.context.Detach(remove);
+            }
+        }
         #endregion
     }
 }

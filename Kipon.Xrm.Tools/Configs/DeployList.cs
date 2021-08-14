@@ -8,6 +8,7 @@ namespace Kipon.Xrm.Tools.Configs
 {
     public class DeployList : List<Deploy>
     {
-        public string Solution { get; set; }
+        public string ManagedSolution { get; set; }
+        public string[] Solutions { get; set; }
     }
 }
