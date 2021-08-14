@@ -34,10 +34,10 @@ Installing the kipon.xrm.tools package ensure that the filter mentioned above is
 #### WebResources
 
 ##### Generate d.ts definition files based on the DefinitelyTyped, @types/xrm type
-If you are writing webresources in typescript and uses the @types/xrm types to help you with intelicense while doing development, this is the framework for you to go one step futher.
-This tool allow you to generate .d.ts files that match your forms.
+If you are writing webresources in typescript and uses the @types/xrm types to help you with intelicese while doing development, this is the framework for you to go one step futher.
+This tool allow you to generate .d.ts files that match your Dynamics 365 CE entityforms.
 
-This if for Dynamics 365 CE forms what Data EntityContext is for the database. You will work with strongly typed forms, that only have attributes and controls according to the actual form,
+This is for Dynamics 365 CE forms what Data EntityContext is for the database. You will work with strongly typed forms, that only have attributes and controls according to the actual form,
 and if you make changes to the form in Dynamics 365 CE, simply regenerate the .d.ts files with this tool, and the ts compiler will guide you to places where attributes or controls has been remove,
 because it will generate compile errors in you IDE.
 
@@ -89,6 +89,27 @@ module Kipon.Account {
     }
 }
 ```
+Above code is just to demonstrate that "casting" the formcontext into a specific interface (Kipon.Forms.account.AccountForm) allow us to work on the formcontext business-as-usual, if you
+are using @types/xrm, but the difference is, if you address attributes through Form.getAttribute("xxx") or Form.getControl("xxx") that does not sit on the form, you will get compile time errors.
+
+On to of that, you IDE can give you intelise when working with the Form instance. It is from a development perspective easer to work with, and causes fewer bugs, and help you keep your code in sync.
+with whatever changes are made to the form through the Dynamis 365 CE customization interface.
+
+The files generated is pure d.ts files (interface only), so it will have zero impact on the size of the scripts deployed to the Dynamics 365 CE platform
+
+#### Using the tool.
+
+Assuming the filter.xml is hosted in the root of you webresource project:
+
+the folder must contain a folder structure before you generate
+
+Scripts\typings
+
+.\bin\coretools\Kipon.Xrm.Cmd ws-generate "/connectionstring:[Dynamics365CEConnectionString]"
+
+[Dynamics365CEConnectionString] supported the Xrm.Tools pattern for connectionstring.
+
+The generated d.ts file is added or updated in the Scripts\typings folder.
 
 
 ## License 
