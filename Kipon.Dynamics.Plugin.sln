@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		DEVELOPMENT.MD = DEVELOPMENT.MD
 		DOCUMENTATION.MD = DOCUMENTATION.MD
 		generate-package.cmd = generate-package.cmd
+		generate-tools-package.cmd = generate-tools-package.cmd
 		README.MD = README.MD
 		READMEOLD.MD = READMEOLD.MD
 		TOOLS.MD = TOOLS.MD

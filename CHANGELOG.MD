@@ -1,4 +1,13 @@
-## Last updated: 2021-07-27
+## Last updated: 2021-08-14
+
+### 1.0.5.0 Kipon.Xrm.Tools version
+This is the first release of the framework where the toolbox of the framework is published a its own package.
+The tooling of the framework can now be installed separately from the Kipon.Xrm.Tools nuget package.  This is ONLY relevant outside a Kipon.Solid.Plugin context (because in this context the tools are already included).
+
+Take a look at the official documentation page for the Kipon.Xrm.Tools to se what's in the package:
+
+[Kipon.Xrm.Tools](TOOLS.MD)
+
 
 ### 1.0.4.22 transform output parameters to SDK serializable types + IPluginExecutionContext extension method
 Output parameters of type Entity and EntityCollection is now transformed from strongly typed entities to SDK classes before added to the OutputParameters, because dynamics 365 is not able to serialize the strongly typed classes.
