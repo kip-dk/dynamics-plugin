@@ -1,9 +1,9 @@
-### Kipon Dynamics 365 CE tools
+## Kipon Dynamics 365 CE tools
 
-#### This is the documentation site for Kipon.Xrm.Cmd (a small toolbox to support Dynamics 365 CE development related tasks.)
+### This is the documentation site for Kipon.Xrm.Cmd (a small toolbox to support Dynamics 365 CE development related tasks.)
 
-#### Plugins
-##### Kipon.Solid.Plugin
+### Plugins
+#### Kipon.Solid.Plugin
 This tool is used to generate plugins and deploy the plugins when you are using the Kipon.Solid.Plugin framework. You do NOT need to install this package if you use the
 Kipon.Solid.Plugin nuget package. Everything you need is already included in that package. 
 
@@ -31,9 +31,9 @@ On the command line prompt, you specify the filter same way as for plugins:
 
 Installing the kipon.xrm.tools package ensure that the filter mentioned above is in the coretools folder.
 
-#### WebResources
+### WebResources
 
-##### Generate d.ts definition files based on the DefinitelyTyped, @types/xrm type
+#### Generate d.ts definition files based on the DefinitelyTyped, @types/xrm type
 If you are writing webresources in typescript and uses the @types/xrm types to help you with intelicese while doing development, this is the framework for you to go one step futher.
 This tool allow you to generate .d.ts files that match your Dynamics 365 CE entityforms.
 
@@ -94,7 +94,7 @@ with whatever changes are made to the form through the Dynamis 365 CE customizat
 
 The files generated is pure d.ts files (interface only), so it will have zero impact on the size of the scripts deployed to the Dynamics 365 CE platform
 
-#### Using the tool.
+### Using the genrate tool.
 
 Assuming the filter.xml is hosted in the root of you webresource project:
 
@@ -102,7 +102,7 @@ the folder must contain a folder structure before you generate
 
 Scripts\typings
 
-.\bin\coretools\Kipon.Xrm.Cmd ws-generate "/connectionstring:[Dynamics365CEConnectionString]"
+.\bin\coretools\Kipon.Xrm.Cmd wr-generate "/connectionstring:[Dynamics365CEConnectionString]"
 
 [Dynamics365CEConnectionString] supported the Xrm.Tools pattern for connectionstring.
 
