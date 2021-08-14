@@ -57,8 +57,11 @@ namespace Kipon.Xrm.Tools.Models
             return false;
         }
 
+        private List<string> added = new List<string>();
+
         public byte[] GetMergedFileContent(string file, Entities.WebResourceTypeEnum type)
         {
+            this.added = new List<string>();
             if (type == Entities.WebResourceTypeEnum.Jscript)
             {
                 var sb = new StringBuilder();
@@ -86,10 +89,17 @@ namespace Kipon.Xrm.Tools.Models
                 {
                     var file = line.Split(' ')[1].Trim().TsToJsFileName();
 
+                    if (this.added.Contains(file.ToLower()))
+                    {
+                        continue;
+                    }
+
                     sb.Append("// Start include " + file + "\n");
                     var subFileLines = System.IO.File.ReadAllLines(path + file);
                     AddLines(sb, subFileLines);
                     sb.Append("// End include " + file + "\n");
+
+                    this.added.Add(file.ToLower());
                 }
                 else
                 {

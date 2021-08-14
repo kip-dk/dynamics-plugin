@@ -160,7 +160,7 @@ Instead of deploying each and every javascript as a separate file, you can organ
 /// <reference path="../../node_modules/@types/xrm/index.d.ts" />
 /// <reference path="../typings/Kipon.Forms.d.ts" />
 
-//#include Services/AccountService
+//#include Scripts/Services/AccountService
 
 module Kipon.Account {
     var Form: Kipon.Forms.account.AccountForm;
@@ -172,10 +172,10 @@ module Kipon.Account {
 }
 ```
 Take a look at above example. In the code i need to work with a "generic" service that can be used cross form scripts, ex. to fetch som account data.
-The AccountService is a typescript that will be compiled into AccountScript.js, and normally we could deploy this script to Dynamics 365 CE, and then include
-both the Account.js script and the AccountService.js on the form.
+The AccountService is a typescript that will be compiled into AccountService.js, and normally we would deploy this script to Dynamics 365 CE, and then include
+both the AccountService.js script and the Account.js on the form.
 
-But instead of using such deploy model, i can ask the deployment tool to merge the scripts into a single script that is deployed. That way I only need to deploy the
+But instead of using such deploy model, i can ask the deployment tool to merge the scripts into a single script that is merged and deployed. That way I only need to deploy the
 Account.js script, and the AccountService will be embedded in any formscript adding the above include.
 
 //#include also works for nested scrpts. So if the AccountService script also have includes, these will also be expanded into the single script deployment Account.js

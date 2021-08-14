@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../node_modules/@types/xrm/index.d.ts" />
 /// <reference path="../typings/Kipon.Forms.d.ts" />
 
-//#include Services/AccountService
+//#include Scripts/Services/AccountService
 
 module Kipon.Account {
     var Form: Kipon.Forms.account.AccountForm;

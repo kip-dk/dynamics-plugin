@@ -1,6 +1,6 @@
 /// <reference path="../../node_modules/@types/xrm/index.d.ts" />
 /// <reference path="../typings/Kipon.Forms.d.ts" />
-//#include Services/AccountService
+//#include Scripts/Services/AccountService
 var Kipon;
 (function (Kipon) {
     var Account;
