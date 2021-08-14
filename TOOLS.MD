@@ -140,7 +140,7 @@ If you need the scripts to be deployed in additional solutions, (ex. thouse you 
 The difference between the managed-solution, and the list of solutions is, that this tool assume to have full control on all elements in the "managed-solution", while it does not assume anything about elements
 in the solutions list, beside the fact that webresources deployed through this tool, also need to be added to these solutions.
 
-#### run the tool
+#### Run the tool
 
 .\bin\coretools\Kipon.Xrm.Cmd wr-deploy "/connectionstring:[Dynamics365CEConnectionString]"
 
@@ -152,7 +152,7 @@ the webresources to the solutions.
 Finally the tool will publish all resource that was created or updated in the process.
 
 
-#### merging scripts on deploy #include
+#### Merging scripts on deploy #include
 
 Instead of deploying each and every javascript as a separate file, you can organize the scripts in "natural" script containers, describing the dependencies within the root script.
 
