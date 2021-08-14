@@ -1,6 +1,6 @@
-## Kipon Dynamics 365 CE tools
+### Kipon Dynamics 365 CE tools
 
-## This id the documentation site for Kipon.Xrm.Cmd (a small toolbox to support Dynamics 365 CE development related tasks.)
+#### This id the documentation site for Kipon.Xrm.Cmd (a small toolbox to support Dynamics 365 CE development related tasks.)
 
 each tool to be described here
 
