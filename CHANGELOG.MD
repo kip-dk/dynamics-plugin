@@ -48,7 +48,7 @@ be explicit in you service that the service need to know the pre value of a fiel
 
 #### Kipon.Xrm.Tools.CodeWriter.PlainTxtWriterFilter
 You can use the Kipon.Xrm.Tools to generate entites for non Kipon.Xrm.Plugins, with a very simple filter mechanism. This is convinient, if you have old projects
-with strong entity type generation, but you wish to start filter entities out, because you upgraded to a Dynamics 365 version that adds way to much, if you just generate everything.
+with strong entity type generation, but you wish to start filter entities out, because you upgraded to a Dynamics 365 CE version that adds way to much, if you just generate everything.
 
 The filter.txt file should be placed in the folder from where you run the CrmSvcUtil command (not nessesarrely the folder where you host the CrmSvcUtil.exe), 
 and have an entity name on each line. You can state all entities matching a start pattern

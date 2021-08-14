@@ -1,8 +1,39 @@
 ### Kipon Dynamics 365 CE tools
 
-#### This id the documentation site for Kipon.Xrm.Cmd (a small toolbox to support Dynamics 365 CE development related tasks.)
+#### This is the documentation site for Kipon.Xrm.Cmd (a small toolbox to support Dynamics 365 CE development related tasks.)
 
-each tool to be described here
+#### Plugin
+##### Kipon.Solid.Plugin
+This tool is used to generate plugins and deploy the plugins when you are using the Kipon.Solid.Plugin framework. You do NOT need to install this package if you use the
+Kipon.Solid.Plugin nuget package. Everything you need is already included in that package. 
+
+##### Simple text file to filter entities to be generated
+You can use the Kipon.Xrm.Tools to generate entites for non Kipon.Xrm.BasePlugin, with a very simple filter mechanism. This is convinient, if you have old projects
+with strong entity type generation, but you wish to start filter entities out, because you upgraded to a Dynamics 365 CE version that adds way to much, if you just generate everything.
+
+The filter.txt file should be placed in the folder from where you run the CrmSvcUtil command (not nessesarrely the folder where you host the CrmSvcUtil.exe), 
+and have an entity name on each line. You can state all entities matching a start pattern
+by proiding all: keyword infront, ex
+
+[filter.txt]
+all:kipon_
+contact
+account
+task
+
+This will limit genration of entities to entities starting with kipon_, and it will also generate account, contact and task.
+
+On the command line prompt, you specify the filter same way as for plugins:
+
+(assuming you generate command is hosted in a folder a single level down from the root of your plugin/tooling project)
+
+..\bin\coretools\CrmSvcUtil.exe  [other parameters] /codewriterfilter:Kipon.Xrm.Tools.CodeWriter.PlainTxtCodeWriterFilter,Kipon.Xrm.Tools
+
+Installing the kipon.xrm.tools package ensure that the filter mentioned above is in the coretools folder.
+
+#### WebResources
+
+
 
 
 ## License 
