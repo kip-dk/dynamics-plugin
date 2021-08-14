@@ -54,10 +54,7 @@ You must setup a filter.xml in the root of your webresources project:
   </forms>
   
   <deploys managed-solution="WebResourceManagerKipon">
-    <solutions>
-      <solution name="KiponToCustomer"/>
-    </solutions>
-    <deploy file="Scripts/Forms/Account.js" name="kipon_/Forms/Account.js" description="Form script for the standard account form" />
+     ...
   </deploys>
 </webresource>
 ```
