@@ -37,7 +37,15 @@ Installing the kipon.xrm.tools package ensure that the filter mentioned above is
 If you are writing webresources in typescript and uses the @types/xrm types to help you with intelicense while doing development, this is the framework for you to go one step futher.
 This tool allow you to generate .d.ts files that match your Dynamics 365 CE entityforms.
 
-This is for Dynamics 365 CE forms what Data EntityContext is for the database. You will work with strongly typed forms, that only have attributes and controls according to the actual form,
+If you are new to @types/xrm, and this is your first typescript based webresource library, follow these simple steps:
+
+* Create a new project of type ASP.NET Core
+* Use nuget tool to add the Kipon.Xrm.Tools to your newly created ASP.NET Core web application
+* After install of the Kipon.Xrm.Tools, rightclick on the package.json file in the root of the project and click Restore packages
+
+Now your solution is ready for typescript based webresources.
+
+This generator tool is for Dynamics 365 CE forms what Data EntityContext (CrmSvcUtil.exe) is for the database. You will work with strongly typed forms, that only have attributes and controls according to the actual form,
 and if you make changes to the form in Dynamics 365 CE, simply regenerate the .d.ts files with this tool, and the ts compiler will guide you to places where attributes or controls has been remove,
 because it will generate compile errors in you IDE.
 

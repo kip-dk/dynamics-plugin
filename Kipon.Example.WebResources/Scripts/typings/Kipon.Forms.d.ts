@@ -1,4 +1,3 @@
-/// <reference path="../../node_modules/@types/xrm/index.d.ts" />
 
 declare namespace Kipon.Forms {
     interface Tab {

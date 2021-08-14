@@ -1,5 +1,4 @@
-﻿/// <reference path="../../node_modules/@types/xrm/index.d.ts" />
-
+﻿
 declare namespace KiponExample.Forms {
     interface Tab extends Xrm.Controls.UiStandardElement, Xrm.Controls.UiFocusable {
         addTabStateChange(handler: Xrm.Events.ContextSensitiveHandler): void;
