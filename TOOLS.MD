@@ -2,7 +2,7 @@
 
 #### This is the documentation site for Kipon.Xrm.Cmd (a small toolbox to support Dynamics 365 CE development related tasks.)
 
-#### Plugin
+#### Plugins
 ##### Kipon.Solid.Plugin
 This tool is used to generate plugins and deploy the plugins when you are using the Kipon.Solid.Plugin framework. You do NOT need to install this package if you use the
 Kipon.Solid.Plugin nuget package. Everything you need is already included in that package. 
@@ -33,7 +33,34 @@ Installing the kipon.xrm.tools package ensure that the filter mentioned above is
 
 #### WebResources
 
+##### Generate d.ts definition files based on the DefinitelyTyped, @types/xrm type
+If you are writing webresources in typescript and uses the @types/xrm types to help you with intelicense while doing development, this is the framework for you to go one step futher.
+This tool allow you to generate .d.ts files that match your forms.
 
+This if for Dynamics 365 CE forms what Data EntityContext is for the database. You will work with strongly typed forms, that only have attributes and controls according to the actual form,
+and if you make changes to the form in Dynamics 365 CE, simply regenerate the .d.ts files with this tool, and the ts compiler will guide you to places where attributes or controls has been remove,
+because it will generate compile errors in you IDE.
+
+You must setup a filter.xml in the root of your webresources project:
+
+[filter.xml]
+```xml
+<webresource>
+  <forms namespace="Kipon.Forms">
+    <form entitylogicalname="account" title="Account" name="Account" />
+    <form entitylogicalname="account" title="Sales Insights" name="SalesInsights" />
+    <form entitylogicalname="contact" title="Contact" name="Contact" />
+    <form entitylogicalname="contact" title="AI for Sales" name="AIforSales" />
+  </forms>
+  
+  <deploys managed-solution="WebResourceManagerKipon">
+    <solutions>
+      <solution name="KiponToCustomer"/>
+    </solutions>
+    <deploy file="Scripts/Forms/Account.js" name="kipon_/Forms/Account.js" description="Form script for the standard account form" />
+  </deploys>
+</webresource>
+```
 
 
 ## License 
