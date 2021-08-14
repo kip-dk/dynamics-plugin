@@ -19,6 +19,7 @@ namespace Kipon.Xrm.Tools.Configs
 
             this.Forms = new FormList();
             this.Forms.Namespace = doc.SelectSingleNode("/webresource/forms")?.Attributes["namespace"]?.InnerText;
+            this.Forms.Typings = doc.SelectSingleNode("/webresource/forms")?.Attributes["typings"]?.InnerText;
             var forms = doc.SelectNodes("/webresource/forms/form");
             foreach (System.Xml.XmlNode form in forms)
             {

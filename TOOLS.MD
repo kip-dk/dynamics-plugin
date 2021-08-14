@@ -54,14 +54,14 @@ You must setup a filter.xml in the root of your webresources project:
 [filter.xml]
 ```xml
 <webresource>
-  <forms namespace="Kipon.Forms">
+  <forms namespace="Kipon.Forms" typings="Scripts\typings\">
     <form entitylogicalname="account" title="Account" name="Account" />
     <form entitylogicalname="account" title="Sales Insights" name="SalesInsights" />
     <form entitylogicalname="contact" title="Contact" name="Contact" />
     <form entitylogicalname="contact" title="AI for Sales" name="AIforSales" />
   </forms>
   
-  <deploys managed-solution="WebResourceManagerKipon">
+  <deploys ..>
      ...
   </deploys>
 </webresource>
@@ -106,15 +106,13 @@ The files generated is pure d.ts files (interface only), so it will have zero im
 
 Assuming the filter.xml is hosted in the root of you webresource project:
 
-the folder must contain a folder structure before you generate
-
-Scripts\typings
+The folder must contain a folder structure before you generate correspinding to the typings attribute of the forms tag. this folder is NOT created on the fly
 
 .\bin\coretools\Kipon.Xrm.Cmd wr-generate "/connectionstring:[Dynamics365CEConnectionString]"
 
-[Dynamics365CEConnectionString] supported the Xrm.Tools pattern for connectionstring.
+[Dynamics365CEConnectionString] supported the Dynamics 365 CE Tools pattern for connectionstring.
 
-The generated d.ts file is added or updated in the Scripts\typings folder.
+The generated d.ts file is added or updated in the typings folder.
 
 #### Deploy webresouce files from you source repository into Dynamics 365 CE
 The Kipon.Xrm.Tools can help you deploy your "code-managed" webresource into your Dynamics 365 development instance.
@@ -126,7 +124,7 @@ First you need to configure what to deploy. This is done within the shared filte
 [filter.xml]
 ```xml
 <webresource>
-  <forms namespace="Kipon.Forms">
+  <forms  ..>
   ---
   </forms>
   

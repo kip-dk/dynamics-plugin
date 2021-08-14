@@ -28,7 +28,7 @@ namespace Kipon.Xrm.Cmd.Tools
                 using (var file = new System.IO.FileStream("filter.xml", System.IO.FileMode.Open))
                 {
                     var config = new Kipon.Xrm.Tools.Configs.Webresource(file);
-                    using (var output = new System.IO.FileStream($@"Scripts\typings\{config.Forms.Namespace}.d.ts", System.IO.FileMode.Create))
+                    using (var output = new System.IO.FileStream($@"{config.Forms.Typings}{config.Forms.Namespace}.d.ts", System.IO.FileMode.Create))
                     {
                         using (var tsWriter = new Kipon.Xrm.Tools.CodeWriter.Typescript.Writer(output))
                         {

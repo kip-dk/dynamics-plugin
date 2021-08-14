@@ -1,5 +1,5 @@
 <webresource>
-  <forms namespace="Kipon.Forms">
+  <forms namespace="Kipon.Forms" typings="Scripts\typings\">
     <form entitylogicalname="account" title="Account" name="Account" />
     <form entitylogicalname="account" title="Sales Insights" name="SalesInsights" />
     <form entitylogicalname="contact" title="Contact" name="Contact" />
