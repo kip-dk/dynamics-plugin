@@ -1,7 +1,7 @@
 ## Last updated: 2021-08-14
 
 ### 1.0.5.0 Kipon.Xrm.Tools version
-This is the first release of the framework where the toolbox of the framework is published a its own package.
+This is the first release of the framework where the toolbox of the framework is published as its own package.
 The tooling of the framework can now be installed separately from the Kipon.Xrm.Tools nuget package.  This is ONLY relevant outside a Kipon.Solid.Plugin context (because in this context the tools are already included).
 
 Take a look at the official documentation page for the Kipon.Xrm.Tools to se what's in the package:
