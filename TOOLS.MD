@@ -34,7 +34,7 @@ Installing the kipon.xrm.tools package ensure that the filter mentioned above is
 ### WebResources
 
 #### Generate d.ts definition files based on the DefinitelyTyped, @types/xrm type
-If you are writing webresources in typescript and uses the @types/xrm types to help you with intelicese while doing development, this is the framework for you to go one step futher.
+If you are writing webresources in typescript and uses the @types/xrm types to help you with intelicense while doing development, this is the framework for you to go one step futher.
 This tool allow you to generate .d.ts files that match your Dynamics 365 CE entityforms.
 
 This is for Dynamics 365 CE forms what Data EntityContext is for the database. You will work with strongly typed forms, that only have attributes and controls according to the actual form,
