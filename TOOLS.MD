@@ -61,6 +61,34 @@ You must setup a filter.xml in the root of your webresources project:
   </deploys>
 </webresource>
 ```
+For each form, add a form tag to the forms container, specifying the entitylogicalname, the title of the form, and the TypeScript conformed name to be used the generating the .d.ts fil for the form.
+
+the Above definition will generate d.ts files for the account entity, form Account, and form SalesInsights, and for the contact entity it will generate Contact and AiForSales form definitions.
+Be aware the the word "Form" wil be added to the end of the interface.
+
+After the d.ts file has been generated, it can be imported and used within your forms:
+
+```typescript
+/// <reference path="../../node_modules/@types/xrm/index.d.ts" />
+/// <reference path="../typings/Kipon.Forms.d.ts" />
+
+module Kipon.Account {
+    var Form: Kipon.Forms.account.AccountForm;
+
+    export function onLoad(ctx: Xrm.Page.EventContext) {
+
+        Form = ctx.getFormContext();
+
+        var s = Form.getAttribute("name").getValue();
+        var p = Form.getAttribute("donotemail").getValue();
+
+        Form.ui.tabs.forEach(r => {
+        });
+
+        Form.ui.tabs.get("SUMMARY_TAB").sections.get("SOCIAL_PANE_TAB").setVisible(false);
+    }
+}
+```
 
 
 ## License 

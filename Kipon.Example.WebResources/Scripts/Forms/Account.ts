@@ -1,8 +1,6 @@
 ﻿/// <reference path="../../node_modules/@types/xrm/index.d.ts" />
 /// <reference path="../typings/Kipon.Forms.d.ts" />
 
-//#include Scripts\Services\AccountService
-
 module Kipon.Account {
     var Form: Kipon.Forms.account.AccountForm;
 
@@ -17,7 +15,5 @@ module Kipon.Account {
         });
 
         Form.ui.tabs.get("SUMMARY_TAB").sections.get("SOCIAL_PANE_TAB").setVisible(false);
-
-        new Kipon.AccountService().getSomething();
     }
 }
