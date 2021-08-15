@@ -21,19 +21,6 @@ namespace Kipon.Xrm.Cmd.Tests
 
         public Task ExecuteAsync(string[] args)
         {
-            var req = new OrganizationRequest
-            {
-                RequestName = "kipon_Anunboundedaction"
-            };
-
-
-            req.Parameters.Add(nameof(Kipon.Solid.Plugin.Entities.kipon_AnunboundedactionRequest.Document), "Document");
-            req.Parameters.Add(nameof(Kipon.Solid.Plugin.Entities.kipon_AnunboundedactionRequest.Name), "Name");
-            req.Parameters.Add(nameof(Kipon.Solid.Plugin.Entities.kipon_AnunboundedactionRequest.Picklist), new { value = 1 });
-
-            Console.WriteLine("Ready");
-            this.uow.Execute(req);
-            Console.WriteLine("Done");
             return Task.CompletedTask;
 
         }

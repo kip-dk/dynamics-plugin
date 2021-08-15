@@ -104,15 +104,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kipon.Solid.Plugin\Kipon.Solid.Plugin.csproj">
-      <Project>{e0b9dbe2-fc07-4970-9971-b0d37cbfdab9}</Project>
-      <Name>Kipon.Solid.Plugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Kipon.Xrm.Tools\Kipon.Xrm.Tools.csproj">
       <Project>{ff06f849-850f-41bc-aa62-e1673c368217}</Project>
       <Name>Kipon.Xrm.Tools</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,2 @@
+@echo off
+call "kipontools\Kipon.Xrm.Cmd.exe" "wr-generate" "/connectionstring:[your connection string]"

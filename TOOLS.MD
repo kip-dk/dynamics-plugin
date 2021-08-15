@@ -2,36 +2,22 @@
 
 ### This is the documentation site for Kipon.Xrm.Cmd (a small toolbox to support Dynamics 365 CE development related tasks.)
 
-### Plugins
-#### Kipon.Solid.Plugin
-This tool is used to generate plugins and deploy the plugins when you are using the Kipon.Solid.Plugin framework. You do NOT need to install this package if you use the
-Kipon.Solid.Plugin nuget package. Everything you need is already included in that package. 
+### Be aware, this package cannot be installed in a .NET Core project (nore ASP.NET Core).
+You must create a .NET framework project, because sharing files over the content folder is not support for .NET Core. But the Kipon.Xrm.Tools does not need to live within your actual
+target project because it is just a command line tool that can do the task of solving common "generate source for metadata" and "deploy source to Dynamics 365 CE". The tool it self does not add
+anythings else beside som configuration templates for each tool supported.
 
-##### Simple text file to filter entities to be generated
-You can use the Kipon.Xrm.Tools to generate entites for non Kipon.Xrm.BasePlugin, with a very simple filter mechanism. This is convinient, if you have old projects
-with strong entity type generation, but you wish to start filter entities out, because you upgraded to a Dynamics 365 CE version that adds way to much, if you just generate everything.
+### Installation
 
-The filter.txt file should be placed in the folder from where you run the CrmSvcUtil command (not nessesarrely the folder where you host the CrmSvcUtil.exe), 
-and have an entity name on each line. You can state all entities matching a start pattern
-by proiding all: keyword infront, ex
+* Create an .NET Framework project. It can be a commandline tool or a class library, ex. .NET 4.7.2 framework. (it must be .NET Framework, but the version is less important)
+* Now install the Kipon.Xrm.Tools nuget package within that project.
+* After install (Microsoft.CrmSdk.CoreTools will be installed as well), you have a folder bin\coretools within that project. 
 
-[filter.txt]
-all:kipon_
-contact
-account
-task
+Here you have Kipon.Xrm.Cmd executable. This is the entrypoint for the tools offered by this package.
 
-This will limit genration of entities to entities starting with kipon_, and it will also generate account, contact and task.
+## TOOLS
 
-On the command line prompt, you specify the filter same way as for plugins:
-
-(assuming you generate command is hosted in a folder a single level down from the root of your plugin/tooling project)
-
-..\bin\coretools\CrmSvcUtil.exe  [other parameters] /codewriterfilter:Kipon.Xrm.Tools.CodeWriter.PlainTxtCodeWriterFilter,Kipon.Xrm.Tools
-
-Installing the kipon.xrm.tools package ensure that the filter mentioned above is in the coretools folder.
-
-### WebResources
+### WebResources - generate d.ts for your forms, and deploy scripts to Dynamics 365 ce web resource, and components to solutions.
 
 #### Generate d.ts definition files based on the DefinitelyTyped, @types/xrm type
 If you are writing webresources in typescript and uses the @types/xrm types to help you with intelicense while doing development, this is the framework for you to go one step futher.
@@ -40,8 +26,9 @@ This tool allow you to generate .d.ts files that match your Dynamics 365 CE enti
 If you are new to @types/xrm, and this is your first typescript based webresource library, follow these simple steps:
 
 * Create a new project of type ASP.NET Core
-* Use nuget tool to add the Kipon.Xrm.Tools to your newly created ASP.NET Core web application
-* After install of the Kipon.Xrm.Tools, rightclick on the package.json file in the root of the project and click Restore packages
+* Add npm support to your project
+* Add @types/xrm package to your project
+
 
 Now your solution is ready for typescript based webresources.
 
@@ -102,13 +89,13 @@ with whatever changes are made to the form through the Dynamis 365 CE customizat
 
 The files generated is pure d.ts files (interface only), so it will have zero impact on the size of the scripts deployed to the Dynamics 365 CE platform
 
-### Using the genrate tool.
+### Using the generate tool.
 
 Assuming the filter.xml is hosted in the root of you webresource project:
 
 The folder must contain a folder structure before you generate correspinding to the typings attribute of the forms tag. this folder is NOT created on the fly
 
-.\bin\coretools\Kipon.Xrm.Cmd wr-generate "/connectionstring:[Dynamics365CEConnectionString]"
+[Kipon.Xrm.Tools project folder]\bin\coretools\Kipon.Xrm.Cmd wr-generate "/connectionstring:[Dynamics365CEConnectionString]"
 
 [Dynamics365CEConnectionString] supported the Dynamics 365 CE Tools pattern for connectionstring.
 
@@ -148,7 +135,7 @@ in the solutions list, beside the fact that webresources deployed through this t
 
 #### Run the tool
 
-.\bin\coretools\Kipon.Xrm.Cmd wr-deploy "/connectionstring:[Dynamics365CEConnectionString]"
+[Kipon.Xrm.Tools project folder]\bin\coretools\Kipon.Xrm.Cmd wr-deploy "/connectionstring:[Dynamics365CEConnectionString]"
 
 [Dynamics365CEConnectionString] supported the Xrm.Tools pattern for connectionstring.
 
@@ -185,6 +172,36 @@ But instead of using such deploy model, i can ask the deployment tool to merge t
 Account.js script, and the AccountService will be embedded in any formscript adding the above include.
 
 //#include also works for nested scrpts. So if the AccountService script also have includes, these will also be expanded into the single script deployment Account.js
+
+
+### Plugins
+#### Kipon.Solid.Plugin
+This tool is used to generate plugins and deploy the plugins when you are using the Kipon.Solid.Plugin framework. You do NOT need to install this package if you use the
+Kipon.Solid.Plugin nuget package. Everything you need is already included in that package. 
+
+##### Simple text file to filter entities to be generated
+You can use the Kipon.Xrm.Tools to generate entites for non Kipon.Xrm.BasePlugin, with a very simple filter mechanism. This is convinient, if you have old projects
+with strong entity type generation, but you wish to start filter entities out, because you upgraded to a Dynamics 365 CE version that adds way to much, if you just generate everything.
+
+The filter.txt file should be placed in the folder from where you run the CrmSvcUtil command (not nessesarrely the folder where you host the CrmSvcUtil.exe), 
+and have an entity name on each line. You can state all entities matching a start pattern
+by proiding all: keyword infront, ex
+
+[filter.txt]
+all:kipon_
+contact
+account
+task
+
+This will limit genration of entities to entities starting with kipon_, and it will also generate account, contact and task.
+
+On the command line prompt, you specify the filter same way as for plugins:
+
+(assuming you generate command is hosted in a folder a single level down from the root of your plugin/tooling project)
+
+[Kipon.Xrm.Tools project folder]\bin\coretools\CrmSvcUtil.exe  [other parameters] /codewriterfilter:Kipon.Xrm.Tools.CodeWriter.PlainTxtCodeWriterFilter,Kipon.Xrm.Tools
+
+Installing the kipon.xrm.tools package ensure that the filter mentioned above is in the coretools folder.
 
 ## License 
 MIT (c) Kipon ApS, 2019,2020,2021

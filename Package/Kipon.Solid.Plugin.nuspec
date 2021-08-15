@@ -16,7 +16,7 @@
     <tags>Dynamics 365 plugin C# SOLID</tags>
     <dependencies>
       <dependency id="Microsoft.CrmSdk.CoreAssemblies" version="9.0.2.26" />
-      <dependency id="Microsoft.CrmSdk.CoreTools" version="9.1.0.46" />
+      <dependency id="Microsoft.CrmSdk.CoreTools" version="9.1.0.79" />
     </dependencies>
   </metadata>
 </package>

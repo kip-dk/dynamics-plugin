@@ -10,10 +10,12 @@
 
   <ItemGroup>
     <None Remove="filter.xml" />
+    <None Remove="filter.xml.template" />
     <None Remove="Scripts\typings\kiponexample.xrm.d.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="filter.xml.template" />
     <Content Include="filter.xml" />
   </ItemGroup>
 

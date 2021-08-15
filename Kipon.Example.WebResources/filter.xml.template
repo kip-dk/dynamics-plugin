@@ -1,0 +1,15 @@
+<webresource>
+  <forms namespace="Kipon.Forms" typings="Scripts\typings\">
+    <form entitylogicalname="account" title="Account" name="Account" />
+    <form entitylogicalname="account" title="Sales Insights" name="SalesInsights" />
+    <form entitylogicalname="contact" title="Contact" name="Contact" />
+    <form entitylogicalname="contact" title="AI for Sales" name="AIforSales" />
+  </forms>
+  
+  <deploys managed-solution="WebResourceManagerKipon">
+    <solutions>
+      <solution name="KiponToCustomer"/>
+    </solutions>
+    <deploy file="Scripts/Forms/Account.js" name="kipon_/Forms/Account.js" description="Form script for the standard account form" />
+  </deploys>
+</webresource>
