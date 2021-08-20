@@ -192,6 +192,18 @@ namespace Kipon.Solid.Plugin.Entities
 				return _systemusers;
 			}
 		}
+		private Kipon.Xrm.IRepository<kipon_datepoc> _datepocs; 
+		public Kipon.Xrm.IRepository<kipon_datepoc> Datepocs
+		{
+			get
+			{
+				if (_datepocs == null)
+					{
+						_datepocs = new CrmRepository<kipon_datepoc>(this.context, this._service);
+					}
+				return _datepocs;
+			}
+		}
 	}
 	[Kipon.Xrm.Attributes.Export(typeof(IAdminUnitOfWork))]
 	[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IAdminUnitOfWork))]
@@ -372,6 +384,18 @@ namespace Kipon.Solid.Plugin.Entities
 				return _systemusers;
 			}
 		}
+		private Kipon.Xrm.IRepository<kipon_datepoc> _datepocs; 
+		public Kipon.Xrm.IRepository<kipon_datepoc> Datepocs
+		{
+			get
+			{
+				if (_datepocs == null)
+					{
+						_datepocs = new CrmRepository<kipon_datepoc>(this.context, this._service);
+					}
+				return _datepocs;
+			}
+		}
 	}
 	public partial interface IAccountTarget : Kipon.Xrm.Target<Account>{ }
 	public partial interface IAccountPreimage : Kipon.Xrm.Preimage<Account>{ }
@@ -461,6 +485,17 @@ namespace Kipon.Solid.Plugin.Entities
 		ISystemUserMergedimage
 	{
 	}
+	public partial interface Ikipon_datepocTarget : Kipon.Xrm.Target<kipon_datepoc>{ }
+	public partial interface Ikipon_datepocPreimage : Kipon.Xrm.Preimage<kipon_datepoc>{ }
+	public partial interface Ikipon_datepocPostimage : Kipon.Xrm.Postimage<kipon_datepoc>{ }
+	public partial interface Ikipon_datepocMergedimage : Kipon.Xrm.Mergedimage<kipon_datepoc>{ }
+	public sealed partial class kipon_datepoc :
+		Ikipon_datepocTarget,
+		Ikipon_datepocPreimage,
+		Ikipon_datepocPostimage,
+		Ikipon_datepocMergedimage
+	{
+	}
 	public sealed class AccountReference : Kipon.Xrm.TargetReference<Account>
 	{
 		public AccountReference(EntityReference target): base(target){ }
@@ -501,6 +536,11 @@ namespace Kipon.Solid.Plugin.Entities
 		public SystemUserReference(EntityReference target): base(target){ }
 		protected sealed override string _logicalName => SystemUser.EntityLogicalName;
 	}
+	public sealed class kipon_datepocReference : Kipon.Xrm.TargetReference<kipon_datepoc>
+	{
+		public kipon_datepocReference(EntityReference target): base(target){ }
+		protected sealed override string _logicalName => kipon_datepoc.EntityLogicalName;
+	}
 	public partial interface IUnitOfWork : Kipon.Xrm.IUnitOfWork
 	{
 		#region entity repositories
@@ -512,6 +552,7 @@ namespace Kipon.Solid.Plugin.Entities
 		Kipon.Xrm.IRepository<SalesOrder> Salesorders { get; }
 		Kipon.Xrm.IRepository<Quote> Quotes { get; }
 		Kipon.Xrm.IRepository<SystemUser> Systemusers { get; }
+		Kipon.Xrm.IRepository<kipon_datepoc> Datepocs { get; }
 		#endregion
 	}
 	public partial interface IAdminUnitOfWork : Kipon.Xrm.IAdminUnitOfWork, IUnitOfWork { }
@@ -695,6 +736,7 @@ namespace Kipon.Xrm.Extensions.Sdk
 			entittypes[Kipon.Solid.Plugin.Entities.SalesOrder.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.SalesOrder);
 			entittypes[Kipon.Solid.Plugin.Entities.Quote.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.Quote);
 			entittypes[Kipon.Solid.Plugin.Entities.SystemUser.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.SystemUser);
+			entittypes[Kipon.Solid.Plugin.Entities.kipon_datepoc.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.kipon_datepoc);
 		}
 	}
 }
