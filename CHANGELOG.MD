@@ -1,4 +1,4 @@
-## Last updated: 2021-08-14
+## Last updated: 2021-08-22
 
 ### 1.0.5.2 Kipon.Solid.Plugin entity metadata
 Additional properties is now generated for each entity:
