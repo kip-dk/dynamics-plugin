@@ -160,6 +160,8 @@
     <Compile Include="Xrm\Postimage.cs" />
     <Compile Include="Xrm\Preimage.cs" />
     <Compile Include="Xrm\Reflection\Types.cs" />
+    <Compile Include="Xrm\ServiceAPI\INamingService.cs" />
+    <Compile Include="Xrm\Services\NamingService.cs" />
     <Compile Include="Xrm\VirtualEntityPlugin.cs" />
     <Compile Include="Xrm\Services\PluginContext.cs" />
     <Compile Include="Xrm\Target.cs" />

@@ -19,7 +19,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("pluginassembly")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class PluginAssembly : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -32,6 +32,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "pluginassembly";
+		
+		public const string EntityLogicalCollectionName = "pluginassemblies";
+		
+		public const string EntitySetName = "pluginassemblies";
 		
 		public const int EntityTypeCode = 4605;
 		
@@ -628,7 +632,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("plugintype")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class PluginType : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -641,6 +645,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "plugintype";
+		
+		public const string EntityLogicalCollectionName = "plugintypes";
+		
+		public const string EntitySetName = "plugintypes";
 		
 		public const int EntityTypeCode = 4602;
 		
@@ -1136,7 +1144,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("publisher")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class Publisher : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -1149,6 +1157,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "publisher";
+		
+		public const string EntityLogicalCollectionName = "publishers";
+		
+		public const string EntitySetName = "publishers";
 		
 		public const int EntityTypeCode = 7101;
 		
@@ -2303,7 +2315,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessage")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class SdkMessage : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -2316,6 +2328,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "sdkmessage";
+		
+		public const string EntityLogicalCollectionName = "sdkmessages";
+		
+		public const string EntitySetName = "sdkmessages";
 		
 		public const int EntityTypeCode = 4606;
 		
@@ -2822,7 +2838,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessagefilter")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class SdkMessageFilter : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -2835,6 +2851,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "sdkmessagefilter";
+		
+		public const string EntityLogicalCollectionName = "sdkmessagefilters";
+		
+		public const string EntitySetName = "sdkmessagefilters";
 		
 		public const int EntityTypeCode = 4607;
 		
@@ -3260,7 +3280,7 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public enum SdkMessageProcessingStepState
 	{
 		
@@ -3276,7 +3296,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessageprocessingstep")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class SdkMessageProcessingStep : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -3289,6 +3309,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "sdkmessageprocessingstep";
+		
+		public const string EntityLogicalCollectionName = "sdkmessageprocessingsteps";
+		
+		public const string EntitySetName = "sdkmessageprocessingsteps";
 		
 		public const int EntityTypeCode = 4608;
 		
@@ -4050,7 +4074,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessageprocessingstepimage")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class SdkMessageProcessingStepImage : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -4063,6 +4087,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "sdkmessageprocessingstepimage";
+		
+		public const string EntityLogicalCollectionName = "sdkmessageprocessingstepimages";
+		
+		public const string EntitySetName = "sdkmessageprocessingstepimages";
 		
 		public const int EntityTypeCode = 4615;
 		
@@ -4498,7 +4526,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("solution")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class Solution : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -4511,6 +4539,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "solution";
+		
+		public const string EntityLogicalCollectionName = "solutions";
+		
+		public const string EntitySetName = "solutions";
 		
 		public const int EntityTypeCode = 7100;
 		
@@ -5026,7 +5058,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("solutioncomponent")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class SolutionComponent : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -5039,6 +5071,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "solutioncomponent";
+		
+		public const string EntityLogicalCollectionName = "solutioncomponentss";
+		
+		public const string EntitySetName = "solutioncomponents";
 		
 		public const int EntityTypeCode = 7103;
 		
@@ -5293,7 +5329,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("systemform")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class SystemForm : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -5306,6 +5342,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "systemform";
+		
+		public const string EntityLogicalCollectionName = "systemforms";
+		
+		public const string EntitySetName = "systemforms";
 		
 		public const int EntityTypeCode = 1030;
 		
@@ -5831,7 +5871,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("webresource")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class WebResource : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -5844,6 +5884,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "webresource";
+		
+		public const string EntityLogicalCollectionName = "webresources";
+		
+		public const string EntitySetName = "webresourceset";
 		
 		public const int EntityTypeCode = 9333;
 		
@@ -6352,7 +6396,7 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public enum WorkflowState
 	{
 		
@@ -6368,7 +6412,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("workflow")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class Workflow : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -6381,6 +6425,10 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		public const string EntityLogicalName = "workflow";
+		
+		public const string EntityLogicalCollectionName = "workflows";
+		
+		public const string EntitySetName = "workflows";
 		
 		public const int EntityTypeCode = 4703;
 		
@@ -7532,7 +7580,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// <summary>
 	/// Represents a source of entities bound to a CRM service. It tracks and manages changes made to the retrieved entities.
 	/// </summary>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.52")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
 	public partial class ContextService : Microsoft.Xrm.Sdk.Client.OrganizationServiceContext
 	{
 		

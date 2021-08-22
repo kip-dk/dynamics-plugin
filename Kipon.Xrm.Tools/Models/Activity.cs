@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Crm.Services.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Activities.Expressions;
 using System.CodeDom;
@@ -36,6 +37,45 @@ namespace Kipon.Xrm.Tools.Models
                     }
                 default:throw new Exceptions.ConfigurationException($"{messageName} does not have a workflow an has not been match to an action activity in the framework. If this is a std Microsoft SDK action message then please post a feature request on the git repository. Before posting and issue, please verify that the action is a valid action part of the Microsoft standard SDK");
             }
+        }
+
+        public Activity(SdkMessage message, string entityLogicalName, bool isActivityEntity)
+        {
+            this.PrimaryEntityLogicalName = entityLogicalName;
+
+            List<Member> inputs = new List<Member>();
+            List<Member> outputs = new List<Member>();
+
+            var inputFields = message.SdkMessagePairs?.Values?.FirstOrDefault()?.Request?.RequestFields?.Values;
+
+            if (inputFields != null)
+            {
+                foreach (var input in inputFields)
+                {
+                    var name = input.Name;
+
+                    if (!string.IsNullOrEmpty(entityLogicalName) && ($"{entityLogicalName}id" == name.ToLower() || (isActivityEntity && name.ToLower() == "activityid")))
+                    {
+                        name = "Target";
+                    }
+
+                    var next = new Member(name, input.CLRFormatter.ClrToDatatype(), !input.IsOptional, name);
+                    inputs.Add(next);
+                }
+            }
+
+            var outputFields = message.SdkMessagePairs?.Values?.FirstOrDefault()?.Response?.ResponseFields?.Values;
+
+            if (outputFields != null)
+            {
+                foreach (var output in outputFields)
+                {
+                    var next = new Member(output.Name, output.CLRFormatter.ClrToDatatype(), true, output.Name);
+                    outputs.Add(next);
+                }
+            }
+            this.InputMembers = inputs.ToArray();
+            this.OutputMembers = outputs.ToArray();
         }
 
         public Activity(string xmlDoc, string primaryEntityLogicalName)
@@ -166,6 +206,33 @@ namespace Kipon.Xrm.Tools.Models
                 case "Argument(mxs:EntityReference)": return typeof(Microsoft.Xrm.Sdk.EntityReference);
                 case "Argument(mxs:EntityCollection)": return typeof(Microsoft.Xrm.Sdk.EntityCollection);
                 case "Argument(mxs:EntityReferenceCollection)": return typeof(Microsoft.Xrm.Sdk.EntityReferenceCollection);
+                default: return typeof(object);
+            }
+        }
+
+        public static Type ClrToDatatype(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return typeof(object);
+            }
+            var typePart = value.Split(',')[0];
+
+            switch (typePart)
+            {
+                case "System.String": return typeof(string);
+                case "System.Boolean": return typeof(bool);
+                case "System.Int32": return typeof(int);
+                case "System.Double": return typeof(double);
+                case "System.Decimal": return typeof(decimal);
+                case "System.DateTime": return typeof(DateTime);
+                case "Microsoft.Xrm.Sdk.Money": return typeof(Microsoft.Xrm.Sdk.Money);
+                case "Microsoft.Xrm.Sdk.OptionSetValue": return typeof(Microsoft.Xrm.Sdk.OptionSetValue);
+                case "Microsoft.Xrm.Sdk.OptionSetValueCollection": return typeof(Microsoft.Xrm.Sdk.OptionSetValueCollection);
+                case "Microsoft.Xrm.Sdk.EntityReference": return typeof(Microsoft.Xrm.Sdk.EntityReference);
+                case "Microsoft.Xrm.Sdk.EntityReferenceCollection": return typeof(Microsoft.Xrm.Sdk.EntityReferenceCollection);
+                case "Microsoft.Xrm.Sdk.Entity": return typeof(Microsoft.Xrm.Sdk.Entity);
+                case "Microsoft.Xrm.Sdk.EntityCollection": return typeof(Microsoft.Xrm.Sdk.EntityCollection);
                 default: return typeof(object);
             }
         }

@@ -1,5 +1,28 @@
 ## Last updated: 2021-08-14
 
+### 1.0.5.2 Kipon.Solid.Plugin entity metadata
+Additional properties is now generated for each entity:
+
+This can be helpfull when working with the stronly named properties to know metadata details on the entity, without having to lookup via metadata service.
+
+The following const properties of each entity has been mad available:
+```csharp
+	/// example from generated PhoneCall entity
+	public partial class PhoneCall {
+		public const bool IsEntityActivityType = true;
+		public const string EntitySchemaName = "PhoneCall";
+		public const string PrimaryIdAttribute = "activityid";
+		public const string PrimaryNameAttribute = "subject";
+	}
+```
+
+As you can see, valueable information about the entity has been added.
+
+On top, Kipon.Xrm  plugin framework now comes with its first build in service "Kipon.Xrm.ServiceAPI.INamingService"
+You can inject this service anywhere, and use it to lookup missing names for EntityReference fields. This is convinient in situations where you need
+the name of a reference field, but the client did not populate that part of the EntityReference. The name found will be added to the EntityReference parsed, and returned.
+
+
 ### 1.0.5.0 Kipon.Xrm.Tools version
 This is the first release of the framework where the toolbox of the framework is published as its own package.
 The tooling of the framework can now be installed separately from the Kipon.Xrm.Tools nuget package.  This is ONLY relevant outside a Kipon.Solid.Plugin context (because in this context the tools are already included).

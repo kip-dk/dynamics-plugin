@@ -29,6 +29,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         //list of entity names to generate classes for.
         private Dictionary<string, Model.Entity> _validEntities = new Dictionary<string, Model.Entity>();
+        private bool initialized = false;
 
         //reference to the default service.
         private ICodeWriterFilterService _defaultService = null;
@@ -39,15 +40,26 @@ namespace Kipon.Xrm.Tools.CodeWriter
         /// <param name="defaultService">default implementation</param>
         public CodeWriterFilter(ICodeWriterFilterService defaultService)
         {
+            if (System.Environment.GetCommandLineArgs()?.Where(r => r == "/debug").Any() == true)
+            {
+                Console.WriteLine("Please attach debugger to crmsvcutil.exe process");
+                Console.WriteLine("Pres [Enter when ready]");
+                Console.ReadLine();
+                Console.WriteLine("Continues...");
+            }
             this._defaultService = defaultService;
-            LoadFilterData();
         }
 
         /// <summary>
         /// loads the entity filter data from the filter.xml file
         /// </summary>
-        private void LoadFilterData()
+        private void LoadFilterData(IServiceProvider services)
         {
+            if (this.initialized) return;
+
+            var metaService = services.GetService(typeof(Microsoft.Crm.Services.Utility.IMetadataProviderService)) as Microsoft.Crm.Services.Utility.IMetadataProviderService;
+            var meta = metaService.LoadMetadata();
+
             XElement xml = XElement.Load("filter.xml");
 
             var supress = xml.Attribute("supress-mapped-standard-optionset-properties");
@@ -220,37 +232,36 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                 if (ACTIONS.Count > 0)
                 {
-                    using (var uow = new Entities.CrmUnitOfWork())
+
+                    foreach (var action in ACTIONS)
                     {
-                        foreach (var action in ACTIONS)
+                        #region test code
+                        var sdkMessage = meta.Messages.MessageCollection.Values.Where(r => r.Name == action.LogicalName).Single();
+
+                        string entityLogicalName = null;
+                        var isActivity = false;
+                        if (sdkMessage.SdkMessageFilters != null && sdkMessage.SdkMessageFilters.Values.Count == 1)
                         {
-                            var wf = (from w in uow.Workflows.GetQuery()
-                                      join s in uow.SdkMessages.GetQuery() on w.SdkMessageId.Id equals s.SdkMessageId
-                                      where w.Type.Value == 2
-                                        && s.Name == action.LogicalName
-                                        && w.StateCode == Entities.WorkflowState.Activated
-                                      select new
-                                      {
-                                          Xaml = w.Xaml,
-                                          Entity = w.PrimaryEntity
-                                      }).SingleOrDefault();
-                            if (wf == null)
+                            var code = sdkMessage.SdkMessageFilters.Values.First().PrimaryObjectTypeCode;
+                            if (code > 0)
                             {
-                                // the message does not have an attached workflow, we assume it is a standard CRM action.
-                                var activity = new Kipon.Xrm.Tools.Models.Activity(action.LogicalName);
-                                ACTIVITIES.Add(action.LogicalName, activity);
-                            }
-                            else
-                            {
-                                var activity = new Kipon.Xrm.Tools.Models.Activity(wf.Xaml, wf.Entity);
-                                ACTIVITIES.Add(action.LogicalName, activity);
+                                // even unbound entities has a filter with the primparyobjecttypecode equals 0
+                                var ent = meta.Entities.Where(r => r.ObjectTypeCode == code).Single();
+                                entityLogicalName = ent.LogicalName;
+                                isActivity = ent.IsActivity ?? false;
                             }
                         }
+
+                        var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage, entityLogicalName, isActivity);
+                        ACTIVITIES.Add(action.LogicalName, na);
+                        #endregion
                     }
 
                 }
             }
             #endregion
+
+            initialized = true;
         }
 
         /// <summary>
@@ -258,6 +269,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
         /// </summary>
         public bool GenerateEntity(EntityMetadata entityMetadata, IServiceProvider services)
         {
+            this.LoadFilterData(services);
             var generate = _validEntities.ContainsKey(entityMetadata.LogicalName.ToLowerInvariant());
 
             if (generate)
@@ -280,6 +292,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         public bool GenerateAttribute(AttributeMetadata attributeMetadata, IServiceProvider services)
         {
+            this.LoadFilterData(services);
             if (!_validEntities.ContainsKey(attributeMetadata.EntityLogicalName.ToLowerInvariant()))
             {
                 return _defaultService.GenerateAttribute(attributeMetadata, services);

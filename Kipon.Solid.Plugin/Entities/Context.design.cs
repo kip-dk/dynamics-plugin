@@ -45,6 +45,14 @@ namespace Kipon.Solid.Plugin.Entities
 		
 		public const string EntityLogicalName = "account";
 		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "Account";
+		
+		public const string PrimaryIdAttribute = "accountid";
+		
+		public const string PrimaryNameAttribute = "name";
+		
 		public const string EntityLogicalCollectionName = "accounts";
 		
 		public const string EntitySetName = "accounts";
@@ -3082,6 +3090,14 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		public const string EntityLogicalName = "contact";
+		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "Contact";
+		
+		public const string PrimaryIdAttribute = "contactid";
+		
+		public const string PrimaryNameAttribute = "fullname";
 		
 		public const string EntityLogicalCollectionName = "contacts";
 		
@@ -6949,6 +6965,14 @@ namespace Kipon.Solid.Plugin.Entities
 		
 		public const string EntityLogicalName = "kipon_datepoc";
 		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "kipon_datepoc";
+		
+		public const string PrimaryIdAttribute = "kipon_datepocid";
+		
+		public const string PrimaryNameAttribute = "kipon_name";
+		
 		public const string EntityLogicalCollectionName = "kipon_datepocs";
 		
 		public const string EntitySetName = "kipon_datepocs";
@@ -7518,6 +7542,14 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		public const string EntityLogicalName = "lead";
+		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "Lead";
+		
+		public const string PrimaryIdAttribute = "leadid";
+		
+		public const string PrimaryNameAttribute = "fullname";
 		
 		public const string EntityLogicalCollectionName = "leads";
 		
@@ -10483,6 +10515,14 @@ namespace Kipon.Solid.Plugin.Entities
 		
 		public const string EntityLogicalName = "opportunity";
 		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "Opportunity";
+		
+		public const string PrimaryIdAttribute = "opportunityid";
+		
+		public const string PrimaryNameAttribute = "name";
+		
 		public const string EntityLogicalCollectionName = "opportunities";
 		
 		public const string EntitySetName = "opportunities";
@@ -12576,6 +12616,14 @@ namespace Kipon.Solid.Plugin.Entities
 		
 		public const string EntityLogicalName = "phonecall";
 		
+		public const bool IsEntityActivityType = true;
+		
+		public const string EntitySchemaName = "PhoneCall";
+		
+		public const string PrimaryIdAttribute = "activityid";
+		
+		public const string PrimaryNameAttribute = "subject";
+		
 		public const string EntityLogicalCollectionName = "phonecalls";
 		
 		public const string EntitySetName = "phonecalls";
@@ -13726,6 +13774,14 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		public const string EntityLogicalName = "quote";
+		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "Quote";
+		
+		public const string PrimaryIdAttribute = "quoteid";
+		
+		public const string PrimaryNameAttribute = "name";
 		
 		public const string EntityLogicalCollectionName = "quotes";
 		
@@ -15523,6 +15579,14 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		public const string EntityLogicalName = "salesorder";
+		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "SalesOrder";
+		
+		public const string PrimaryIdAttribute = "salesorderid";
+		
+		public const string PrimaryNameAttribute = "name";
 		
 		public const string EntityLogicalCollectionName = "salesorders";
 		
@@ -17414,6 +17478,14 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		public const string EntityLogicalName = "systemuser";
+		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "SystemUser";
+		
+		public const string PrimaryIdAttribute = "systemuserid";
+		
+		public const string PrimaryNameAttribute = "fullname";
 		
 		public const string EntityLogicalCollectionName = "systemusers";
 		

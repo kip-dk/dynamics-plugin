@@ -9,6 +9,9 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Extensions;
 using Microsoft.Xrm.Sdk.Metadata;
 
+using System.Diagnostics;
+using System.Globalization;
+
 
 namespace Kipon.Xrm.Tools.CodeWriter
 {
@@ -154,9 +157,13 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         void ICustomizeCodeDomService.CustomizeCodeDom(CodeCompileUnit codeUnit, IServiceProvider services)
         {
+            var metaService = services.GetService(typeof(Microsoft.Crm.Services.Utility.IMetadataProviderService)) as Microsoft.Crm.Services.Utility.IMetadataProviderService;
+            var meta = metaService.LoadMetadata();
+
             Console.WriteLine("(c) 2020, 2021 Kipon ApS, " + this.GetType().FullName + ", Version: " + Kipon.Xrm.Tools.Version.No + ". All rights reserved");
             var ns = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/namespace:") select c.Split(':')[1]).Single();
             var xrmNS = "Kipon.Xrm";
+
 
             var nsa = ns.Replace("Entities", "Actions");
             {
@@ -171,6 +178,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
             var entities = CodeWriterFilter.ENTITIES;
             var actions = CodeWriterFilter.ACTIONS;
+
+            this.AddEntityConsts(codeUnit, ns, entities, meta);
 
             using (var writer = new System.IO.StreamWriter("CrmUnitOfWork.Design.cs", false))
             {
@@ -337,6 +346,23 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 }
                 /* SC */ writer.WriteLine("\t\t}");
                 /* CL */ writer.WriteLine("\t}");
+
+                /* CL */ writer.WriteLine("\tpublic partial class NamingService");
+                /* CL */ writer.WriteLine("\t{");
+
+                /* ST */ writer.WriteLine("\t\tstatic NamingService()");
+                /*    */ writer.WriteLine("\t\t{");
+                foreach (var ent in meta.Entities)
+                {
+                    if (!string.IsNullOrEmpty(ent.PrimaryIdAttribute) && !string.IsNullOrEmpty(ent.PrimaryNameAttribute))
+                    {
+                        writer.WriteLine($"\t\t\tAdd(\"{ent.LogicalName}\",\"{ent.PrimaryIdAttribute}\",\"{ent.PrimaryNameAttribute}\");");
+                    }
+                }
+                /*    */ writer.WriteLine("\t\t}");
+
+                /* CL */ writer.WriteLine("\t}");
+
                 /* NS */ writer.WriteLine("}");
                 #endregion
 
@@ -436,6 +462,74 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                 }
                 #endregion
+            }
+        }
+
+        private void AddEntityConsts(CodeCompileUnit codeUnit, string ns, Dictionary<string, Model.Entity> entities, IOrganizationMetadata meta)
+        {
+            foreach (CodeNamespace n in codeUnit.Namespaces)
+            {
+                if (n.Name == ns)
+                {
+                    foreach (CodeTypeDeclaration type in n.Types)
+                    {
+                        if (type.IsClass)
+                        {
+                            var logicalNameAttribute = type.CustomAttributes.Cast<CodeAttributeDeclaration>()
+                                .FirstOrDefault(a => a.Name == "Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute");
+
+                            if (logicalNameAttribute == null)
+                            {
+                                continue;
+                            }
+
+                            var typeEntityName = ((CodePrimitiveExpression)logicalNameAttribute.Arguments[0].Value).Value.ToString();
+                            if (entities.Values.Where(r => r.LogicalName == typeEntityName).Any())
+                            {
+                                var entity = new { Type = type, Metadata = meta.Entities.Where(r => r.LogicalName == typeEntityName).Single() };
+
+                                if (entity.Metadata.PrimaryNameAttribute != null)
+                                {
+                                    entity.Type.Members.Insert(2,
+                                        new CodeMemberField
+                                        {
+                                            Attributes = System.CodeDom.MemberAttributes.Public | System.CodeDom.MemberAttributes.Const,
+                                            Name = "PrimaryNameAttribute",
+                                            Type = new CodeTypeReference(typeof(string)),
+                                            InitExpression = new CodePrimitiveExpression(entity.Metadata.PrimaryNameAttribute)
+                                        });
+                                }
+
+                                entity.Type.Members.Insert(2,
+                                    new CodeMemberField
+                                    {
+                                        Attributes = System.CodeDom.MemberAttributes.Public | System.CodeDom.MemberAttributes.Const,
+                                        Name = "PrimaryIdAttribute",
+                                        Type = new CodeTypeReference(typeof(string)),
+                                        InitExpression = new CodePrimitiveExpression(entity.Metadata.PrimaryIdAttribute)
+                                    });
+
+                                entity.Type.Members.Insert(2,
+                                    new CodeMemberField
+                                    {
+                                        Attributes = System.CodeDom.MemberAttributes.Public | System.CodeDom.MemberAttributes.Const,
+                                        Name = "EntitySchemaName",
+                                        Type = new CodeTypeReference(typeof(string)),
+                                        InitExpression = new CodePrimitiveExpression(entity.Metadata.SchemaName)
+                                    });
+
+                                entity.Type.Members.Insert(2,
+                                    new CodeMemberField
+                                    {
+                                        Attributes = System.CodeDom.MemberAttributes.Public | System.CodeDom.MemberAttributes.Const,
+                                        Name = "IsEntityActivityType",
+                                        Type = new CodeTypeReference(typeof(bool)),
+                                        InitExpression = new CodePrimitiveExpression(entity.Metadata.IsActivity)
+                                    });
+                            }
+                        }
+                    }
+                }
             }
         }
     }
