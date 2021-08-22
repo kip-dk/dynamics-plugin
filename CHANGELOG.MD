@@ -5,7 +5,7 @@ Additional properties is now generated for each entity:
 
 This can be helpfull when working with the stronly named properties to know metadata details on the entity, without having to lookup via metadata service.
 
-The following const properties of each entity has been mad available:
+The following const properties of each entity has been made available:
 ```csharp
 	/// example from generated PhoneCall entity
 	public partial class PhoneCall {
