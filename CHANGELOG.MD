@@ -22,6 +22,10 @@ On top, Kipon.Xrm  plugin framework now comes with its first build in service "K
 You can inject this service anywhere, and use it to lookup missing names for EntityReference fields. This is convinient in situations where you need
 the name of a reference field, but the client did not populate that part of the EntityReference. The name found will be added to the EntityReference parsed, and returned.
 
+Generating actions is no longer using a specialized version of the IOrganizationServce. The end result is the same, but the good news is that now
+it is only crmsvcutil.exe than handles the connection to CRM, metadata for actions is only fetch once, 
+and the framework no longer need to align connection string support for this part. 
+
 
 ### 1.0.5.0 Kipon.Xrm.Tools version
 This is the first release of the framework where the toolbox of the framework is published as its own package.
