@@ -1,5 +1,17 @@
 ### Kipon Dynamics 365 SOLID plugin template
 
+SERVICE INFO
+=====================================
+Do not install version 1.0.5.2 if you are using bound actions in your impl. The new generic way of resolving actions binding without specialized connection string had
+unforseen sideeffects on the code generator, so the request are not marked with Target interface, and therefore not registred, and even removed on deploy after generating entities.
+
+A fix is on its way, and expected to land within a few days.
+
+If you already installed 1.0.5.2, simply rollback to version 1.0.5.0 and you are all set and ready to take of again.
+
+Sorry for any inconvinience.
+=====================================
+
 This is the second version of the Kipon plugin template. It is a 100%  rewrite and it aims to make is possible to be 100% SOLID when
 developing plugin for Dynamics 365 Customer Engagement platform.
 

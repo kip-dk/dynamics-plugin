@@ -281,7 +281,7 @@
                                 // TO-DO: complete the list of messages not related to a specific entity.
                                 if (!IsKnownMessage(message))
                                 {
-                                    throw new NotImplementedException("handling method not attached to a logicalname is not supported yet.");
+                                    throw new NotImplementedException($"handling method not attached to a logicalname is not supported yet { message }.");
                                 }
                             }
                         }
@@ -303,6 +303,7 @@
                 switch (message)
                 {
                     case "RemoveMember": return true;
+                    case "QualifyLead": return true;
                 }
 
                 if (!message.StartsWith("_") && message.Contains("_")) return true;

@@ -60,23 +60,37 @@ namespace Kipon.Xrm.Tools.Services
                             where wf.PrimaryEntity == "none"
                               && sm.Name != null
                               && sm.Name != ""
-                            select sm.Name).Distinct().ToArray();
+                            select sm.Name).Distinct().ToArray().OrderBy(r => r).ToArray();
 
             uow.ClearContext();
 
-            var bounds = (from sm in uow.SdkMessages.GetQuery()
-                         join wf in uow.Workflows.GetQuery() on sm.SdkMessageId equals wf.SdkMessageId.Id
-                         where wf.PrimaryEntity != "none"
-                             && sm.Name != null
-                             && sm.Name != ""
-                         select new
-                         {
-                             Name = sm.Name,
-                             PrimaryEntity = wf.PrimaryEntity
-                         }).Distinct()
-                         .ToArray()
-                         .Where(r => this.entityLogicalNames != null && this.entityLogicalNames.Length > 0 &&  this.entityLogicalNames.Contains(r.PrimaryEntity))
-                         .ToDictionary(r => r.Name, v => v.Name);
+            this.entityLogicalNames = assembly.GetTypes().
+                Where(r => r.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                .Select(r => ((Microsoft.Xrm.Sdk.Entity)System.Activator.CreateInstance(r)).LogicalName)
+                .Distinct()
+                .ToArray();
+
+            this.messageService.Inform($"Found {this.entityLogicalNames.Length} entities.");
+
+
+            var x = this.entityLogicalNames;
+
+            var tmp = (from sm in uow.SdkMessages.GetQuery()
+                       join wf in uow.Workflows.GetQuery() on sm.SdkMessageId equals wf.SdkMessageId.Id
+                       where wf.PrimaryEntity != "none"
+                           && sm.Name != null
+                           && sm.Name != ""
+                       select new
+                       {
+                           Name = sm.Name,
+                           PrimaryEntity = wf.PrimaryEntity
+                       }).Distinct()
+                         .ToArray();
+
+            var bounds = tmp.Where(r => this.entityLogicalNames != null && this.entityLogicalNames.Length > 0 &&  this.entityLogicalNames.Contains(r.PrimaryEntity))
+                         .ToDictionary(r => r.Name, v => v.PrimaryEntity);
+
+            bounds["QualifyLead"] = "lead";
 
             uow.ClearContext();
 
@@ -105,14 +119,6 @@ namespace Kipon.Xrm.Tools.Services
                     result.Add(next);
                 }
             }
-
-            this.entityLogicalNames = assembly.GetTypes().
-                Where(r => r.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
-                .Select(r => ((Microsoft.Xrm.Sdk.Entity)System.Activator.CreateInstance(r)).LogicalName)
-                .Distinct()
-                .ToArray();
-
-            this.messageService.Inform($"Found {this.entityLogicalNames.Length} entities.");
 
             foreach (var pluginType in plugins)
             {

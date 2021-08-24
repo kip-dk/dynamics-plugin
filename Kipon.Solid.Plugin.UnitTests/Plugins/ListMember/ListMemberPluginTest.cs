@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+/*
 using Kipon.Solid.Plugin.Plugins.ListMember;
 
 namespace Kipon.Solid.Plugin.UnitTests.Plugins.ListMember
@@ -26,3 +27,4 @@ namespace Kipon.Solid.Plugin.UnitTests.Plugins.ListMember
         }
     }
 }
+*/

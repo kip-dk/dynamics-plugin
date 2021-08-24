@@ -85,22 +85,7 @@
     <Compile Include="Model\INamed.cs" />
     <Compile Include="Model\IPhonenumberChanged.cs" />
     <Compile Include="Model\IProspect.cs" />
-    <Compile Include="Plugins\Account\AccountAction.cs" />
-    <Compile Include="Plugins\Account\AccountCreatePlugin.cs" />
-    <Compile Include="Plugins\Account\AccountMergedImageInterfaceWithTargetAttr.cs" />
-    <Compile Include="Plugins\Account\AccountMergeImageUpdate.cs" />
-    <Compile Include="Plugins\Account\AccountPostCreate.cs" />
-    <Compile Include="Plugins\Account\AccountRetrieveMultiplePostAsync.cs" />
-    <Compile Include="Plugins\Account\AccountWithConfigPlugin.cs" />
-    <Compile Include="Plugins\Account\AccoutPostUpdate.cs" />
-    <Compile Include="Plugins\AnunboundedactionPlugin.cs" />
-    <Compile Include="Plugins\Contact\ContactDeletePlugin.cs" />
-    <Compile Include="Plugins\Contact\ContactPlugin.cs" />
-    <Compile Include="Plugins\Generic\PhonenumberWashPlugin.cs" />
-    <Compile Include="Plugins\Generic\ProspectPlugin.cs" />
-    <Compile Include="Plugins\kipon_datepoc\kipon_datepocPlugin.cs" />
     <Compile Include="Plugins\Lead\LeadPlugin.cs" />
-    <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="Setting.cs" />
@@ -145,7 +130,6 @@
     <Compile Include="Xrm\Exceptions\UnresolvablePluginMethodException.cs" />
     <Compile Include="Xrm\Extensions\Sdk\KiponSdkGeneratedExtensionMethods.cs" />
     <Compile Include="Xrm\Extensions\Strings\StringMethods.cs" />
-    <Compile Include="Plugins\Account\AccountPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceAPI\IAccountService.cs" />
     <Compile Include="Service\AccountService.cs" />
@@ -178,6 +162,12 @@
   <ItemGroup>
     <Content Include="Entities\filter.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Plugins\Account\" />
+    <Folder Include="Plugins\Contact\" />
+    <Folder Include="Plugins\Generic\" />
+    <Folder Include="Plugins\kipon_datepoc\" />
+    <Folder Include="Plugins\ListMember\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

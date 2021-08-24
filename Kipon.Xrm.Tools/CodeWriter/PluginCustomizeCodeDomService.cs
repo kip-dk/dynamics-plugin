@@ -392,7 +392,12 @@ namespace Kipon.Xrm.Tools.CodeWriter
                                     throw new Exception($"Action {action.Name} is bounded to entity { activity.LogicalName } but that entity is not included in the list of entities to be generated. You must generate entities for bounded actions.");
                                 }
 
-                                targetInterface = $": Kipon.Xrm.ActionTarget<{ns}.{CodeWriterFilter.LOGICALNAME2SCHEMANAME[activity.LogicalName]}>";
+                                targetInterface = $": Kipon.Xrm.ActionTarget<{ns}.{CodeWriterFilter.LOGICALNAME2SCHEMANAME[activity.PrimaryEntityLogicalName]}>";
+                            }
+
+                            if (activity.PrimaryEntityLogicalName != null)
+                            {
+                                writer.WriteLine($"\t[Kipon.Xrm.Attributes.LogicalName(\"{ activity.PrimaryEntityLogicalName }\")]");
                             }
 
                             writer.WriteLine($"\tpublic partial interface I{action.Name}Request{targetInterface}");
@@ -400,6 +405,11 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                             foreach (var inp in activity.InputMembers)
                             {
+                                if (targetInterface != null && inp.Name == "Target")
+                                {
+                                    continue;
+                                }
+
                                 writer.WriteLine($"\t\t{inp.Typename} {inp.Name} " + "{ get; }");
                             }
                             writer.WriteLine("\t}");
@@ -440,11 +450,6 @@ namespace Kipon.Xrm.Tools.CodeWriter
                                 writer.WriteLine($"\tpublic partial class {action.Name}Request : AbstractActionRequest, I{action.Name}Request");
                                 writer.WriteLine("\t{");
                                 writer.WriteLine($"\t\tpublic {action.Name}Request(Microsoft.Xrm.Sdk.IPluginExecutionContext ctx): base(ctx)" + "{ }");
-
-                                if (activity.LogicalName != null)
-                                {
-                                    writer.WriteLine($"\t\tpublic Microsoft.Xrm.Sdk.EntityReference Target " + "{ get => this.ValueOf<Microsoft.Xrm.Sdk.EntityReference>(\"Target\"); }");
-                                }
 
                                 foreach (var inp in activity.InputMembers)
                                 {

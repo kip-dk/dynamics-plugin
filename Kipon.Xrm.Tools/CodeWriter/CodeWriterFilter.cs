@@ -235,7 +235,6 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                     foreach (var action in ACTIONS)
                     {
-                        #region test code
                         var sdkMessage = meta.Messages.MessageCollection.Values.Where(r => r.Name == action.LogicalName).Single();
 
                         string entityLogicalName = null;
@@ -254,9 +253,12 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                         var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage, entityLogicalName, isActivity);
                         ACTIVITIES.Add(action.LogicalName, na);
-                        #endregion
-                    }
 
+                        if (!string.IsNullOrEmpty(entityLogicalName))
+                        {
+                            LOGICALNAME2SCHEMANAME[action.LogicalName] = entityLogicalName;
+                        }
+                    }
                 }
             }
             #endregion

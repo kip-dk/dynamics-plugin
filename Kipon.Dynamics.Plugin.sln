@@ -36,8 +36,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{A590DD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Solid.Plugin", "Kipon.Solid.Plugin\Kipon.Solid.Plugin.csproj", "{E0B9DBE2-FC07-4970-9971-B0D37CBFDAB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Solid.Plugin.UnitTests", "Kipon.Solid.Plugin.UnitTests\Kipon.Solid.Plugin.UnitTests.csproj", "{F47F28E0-66C9-4363-8D45-419766C2DAC9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Solid.Xrm.Fake", "Kipon.Solid.Xrm.Fake\Kipon.Solid.Xrm.Fake.csproj", "{B82125A9-765D-48C3-BFDF-590235D390A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Tools", "Kipon.Xrm.Tools\Kipon.Xrm.Tools.csproj", "{FF06F849-850F-41BC-AA62-E1673C368217}"
@@ -78,10 +76,6 @@ Global
 		{E0B9DBE2-FC07-4970-9971-B0D37CBFDAB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0B9DBE2-FC07-4970-9971-B0D37CBFDAB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0B9DBE2-FC07-4970-9971-B0D37CBFDAB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F47F28E0-66C9-4363-8D45-419766C2DAC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F47F28E0-66C9-4363-8D45-419766C2DAC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F47F28E0-66C9-4363-8D45-419766C2DAC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F47F28E0-66C9-4363-8D45-419766C2DAC9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B82125A9-765D-48C3-BFDF-590235D390A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B82125A9-765D-48C3-BFDF-590235D390A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B82125A9-765D-48C3-BFDF-590235D390A3}.Release|Any CPU.ActiveCfg = Release|Any CPU

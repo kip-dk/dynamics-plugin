@@ -1134,10 +1134,10 @@ namespace Kipon.Xrm.Extensions.Sdk
 }
 namespace Kipon.Solid.Plugin.Actions
 {
-	public partial interface IAccountCountContactsRequest
+	[Kipon.Xrm.Attributes.LogicalName("account")]
+	public partial interface IAccountCountContactsRequest: Kipon.Xrm.ActionTarget<Kipon.Solid.Plugin.Entities.Account>
 	{
 		string Name { get; }
-		Microsoft.Xrm.Sdk.EntityReference Target { get; }
 	}
 	public partial class AccountCountContactsResponse
 	{
@@ -1157,11 +1157,11 @@ namespace Kipon.Solid.Plugin.Actions
 		[Kipon.Xrm.Attributes.Output("Id", true)]
 		 public string Id { get; set; }
 	}
-	public partial interface IQualityLeadRequest
+	[Kipon.Xrm.Attributes.LogicalName("lead")]
+	public partial interface IQualityLeadRequest: Kipon.Xrm.ActionTarget<Kipon.Solid.Plugin.Entities.Lead>
 	{
 		Microsoft.Xrm.Sdk.EntityReference OpportunityCurrencyId { get; }
 		bool CreateContact { get; }
-		Microsoft.Xrm.Sdk.EntityReference Target { get; }
 		Microsoft.Xrm.Sdk.OptionSetValue Status { get; }
 		bool? SuppressDuplicateDetection { get; }
 		Microsoft.Xrm.Sdk.EntityReference ProcessInstanceId { get; }

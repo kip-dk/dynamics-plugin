@@ -42,6 +42,7 @@ namespace Kipon.Xrm.Tools.Models
         public Activity(SdkMessage message, string entityLogicalName, bool isActivityEntity)
         {
             this.PrimaryEntityLogicalName = entityLogicalName;
+            this.LogicalName = entityLogicalName;
 
             List<Member> inputs = new List<Member>();
             List<Member> outputs = new List<Member>();

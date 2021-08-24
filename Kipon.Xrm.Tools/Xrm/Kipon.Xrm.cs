@@ -818,7 +818,7 @@ namespace Kipon.Tools.Xrm.Attributes
     /// <summary>
     /// For steps supporting multi entity types, decorate the method with one ore mote logical names to be supported
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Interface, AllowMultiple = true)]
     class LogicalNameAttribute : Attribute
     {
         public LogicalNameAttribute(string name)
@@ -2658,7 +2658,7 @@ namespace Kipon.Tools.Xrm.Reflection
                                 // TO-DO: complete the list of messages not related to a specific entity.
                                 if (!IsKnownMessage(message))
                                 {
-                                    throw new NotImplementedException("handling method not attached to a logicalname is not supported yet.");
+                                    throw new NotImplementedException($"handling method not attached to a logicalname is not supported yet { message }.");
                                 }
                             }
                         }
@@ -2680,6 +2680,7 @@ namespace Kipon.Tools.Xrm.Reflection
                 switch (message)
                 {
                     case "RemoveMember": return true;
+                    case "QualifyLead": return true;
                 }
 
                 if (!message.StartsWith("_") && message.Contains("_")) return true;
@@ -4567,8 +4568,27 @@ namespace Kipon.Tools.Xrm.ServiceAPI
 {
     public interface INamingService
     {
+        /// <summary>
+        /// If refid is not null, but name is null, the service will try to populate the name from the SDK, and return the result. 
+        /// If found the name will also be populated in refid.Name
+        /// If Name is already populated on the entityreference, that name will be return.
+        /// </summary>
+        /// <param name="refid">Reference to lookup name for</param>
+        /// <returns>null or name of the eference instance</returns>
         string NameOf(Microsoft.Xrm.Sdk.EntityReference refid);
+
+        /// <summary>
+        /// Returns the primary attributeid for the entity
+        /// </summary>
+        /// <param name="entitylogicalname"></param>
+        /// <returns></returns>
         string PrimaryAttributeId(string entitylogicalname);
+
+        /// <summary>
+        /// returns the attribute name that carries the name of the entity.
+        /// </summary>
+        /// <param name="entitylogicalname"></param>
+        /// <returns></returns>
         string PrimaryAttributeName(string entitylogicalname);
     }
 }
@@ -4592,6 +4612,11 @@ namespace Kipon.Tools.Xrm.Extensions.Sdk
 
         public string NameOf(EntityReference refid)
         {
+            if (refid == null)
+            {
+                return null;
+            }
+
             if (!string.IsNullOrEmpty(refid.Name))
             {
                 return refid.Name;
