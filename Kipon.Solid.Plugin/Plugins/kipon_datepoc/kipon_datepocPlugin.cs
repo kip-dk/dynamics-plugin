@@ -10,8 +10,10 @@ namespace Kipon.Solid.Plugin.Plugins.kipon_datepoc
     {
         private const string label = "Test of: ";
 
-        public void OnPreCreate(Entities.kipon_datepoc target/*, Kipon.Xrm.IRepository<Entities.kipon_datepoc> repository */)
+        public void OnPreCreate(Entities.kipon_datepoc target, Kipon.Xrm.IRepository<Entities.kipon_datepoc> repository)
         {
+            target.kipon_no = (from r in repository.GetQuery() select r.kipon_datepocId.Value).ToArray().Count() + 1;
+
             if (target.kipon_name == "test")
             {
                 var testDate = System.DateTime.Now;

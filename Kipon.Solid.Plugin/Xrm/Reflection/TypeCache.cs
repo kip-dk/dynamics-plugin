@@ -428,6 +428,19 @@
                 }
                 #endregion
 
+                #region IRepository
+                if (type.IsInterface && type.IsGenericType && type.GenericTypeArguments.Length == 1 && type.GenericTypeArguments[0].BaseType != null && type.GenericTypeArguments[0].BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                {
+                    var result = ForRepository(type);
+                    if (result != null)
+                    {
+                        result.RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
+                        return result;
+                    }
+                }
+                #endregion
+
+
                 #region find implementing interface
                 if (type.IsInterface)
                 {
@@ -471,6 +484,19 @@
             }
             return null;
         }
+
+        public static TypeCache ForRepository(Type type)
+        {
+            var repositoryType = Types.IRepository;
+            var queryType = repositoryType.MakeGenericType(type.GenericTypeArguments[0]);
+            if (type == queryType)
+            {
+                var result = new TypeCache { FromType = type, ToType = queryType, IsRepository = true };
+                return result;
+            }
+            return null;
+        }
+
 
         public static TypeCache ForUow(bool admin)
         {
@@ -625,6 +651,7 @@
         public bool IsPostimage { get; private set; }
         public string LogicalName { get; private set; }
         public bool IsQuery { get; private set; }
+        public bool IsRepository { get; private set; }
         public bool RequireAdminService { get; private set; }
         public bool AllProperties { get; private set; }
         public CommonProperty[] FilteredProperties { get; private set; }

@@ -43,7 +43,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
             if (System.Environment.GetCommandLineArgs()?.Where(r => r == "/debug").Any() == true)
             {
                 Console.WriteLine("Please attach debugger to crmsvcutil.exe process");
-                Console.WriteLine("Pres [Enter when ready]");
+                Console.WriteLine("Press [Enter] when ready");
                 Console.ReadLine();
                 Console.WriteLine("Continues...");
             }

@@ -1,4 +1,12 @@
-## Last updated: 2021-08-22
+## Last updated: 2021-08-26
+
+### 1.0.5.6 Tools version (only)
+Fixed generate correct typescript Attrigute and Control types for money, partylist and more
+
+### 1.0.5.3 Fixed deploy and run of bound entities
+Version 1.0.5.2 introduced a bug in deploy of bounded actions resulting that they did not get deployed, and if already in the solution they where removed. This has been fixed.
+
+It is now possible to inject IRepository<EntityType> into plugins if you need to do repository related task on a single repository. This is more solid than injecting the full unit of work.
 
 ### 1.0.5.2 Kipon.Solid.Plugin entity metadata
 Additional properties is now generated for each entity:

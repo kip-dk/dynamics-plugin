@@ -138,6 +138,7 @@ namespace Kipon.Xrm.Tools.Models
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Integer:
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Decimal:
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Double:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Money:
                         return $"{baseName}Number{ext}";
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Boolean:
                         if (baseName == "Xrm.Attributes.")
@@ -150,6 +151,8 @@ namespace Kipon.Xrm.Tools.Models
                         }
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Customer:
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Lookup:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Owner:
+                    case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.PartyList:
                         return $"{baseName}Lookup{ext}";
                     case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.DateTime:
                         return $"{baseName}Date{ext}";

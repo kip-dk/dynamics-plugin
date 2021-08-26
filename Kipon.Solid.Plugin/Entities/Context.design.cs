@@ -7167,6 +7167,24 @@ namespace Kipon.Solid.Plugin.Entities
 		/// <summary>
 		/// 
 		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_no")]
+		public System.Nullable<int> kipon_no
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("kipon_no");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_no");
+				this.SetAttributeValue("kipon_no", value);
+				this.OnPropertyChanged("kipon_no");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_testresult")]
 		public string kipon_testresult
 		{

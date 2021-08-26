@@ -188,6 +188,13 @@
                         return queryMethod.Invoke(repository, new object[0]);
                     }
 
+                    if (type.IsRepository)
+                    {
+                        var uow = this.GetIUnitOfWork(type.RequireAdminService);
+                        var queryProperty = type.RepositoryProperty;
+                        return queryProperty.GetValue(uow, new object[0]);
+                    }
+
                     if (type.FromType == typeof(Guid))
                     {
                         if (type.Name.ToLower() == "id")

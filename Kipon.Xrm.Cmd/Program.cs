@@ -15,7 +15,7 @@ namespace Kipon.Xrm.Cmd
 
             if (args != null && args.Where(r => r == "debug").Any())
             {
-                Console.WriteLine("Attach debugger to cmd.exe now, and press enter");
+                Console.WriteLine("Attach debugger to cmd.exe now, and press [Enter]");
                 Console.ReadLine();
             }
 
@@ -48,7 +48,7 @@ namespace Kipon.Xrm.Cmd
                         Console.WriteLine($"  Inner: {inner.Message}");
                         inner = inner.InnerException;
                     }
-                    Console.Write("Pres [Enter] to continue.");
+                    Console.Write("Press [Enter] to continue.");
                     Console.ReadLine();
                     return;
                 }
