@@ -3,6 +3,10 @@
 This is the second version of the Kipon plugin template. It is a 100%  rewrite and it aims to make is possible to be 100% SOLID when
 developing plugin for Dynamics 365 Customer Engagement platform.
 
+### The official Kipon.Solid documentation site
+
+![Open the Kipon Solid documentation site](https://kipon.dk/solidplugin)
+
 ### Project offer
 * Quick startup of new plugin project with simple installation with nuget
 * A base plugin (Kipon.Xrm.BasePlugin) that allow you to write event oriented plugins that get needed things auto injected
@@ -34,11 +38,13 @@ Remeber to include the following files to you project after first time early bou
 * Entities\CrmUnitOfWork.Design.cs
 
 ### Creating a plugin
-We are working on a creating a rich documentation side with examples and recommendations as the concept mature. That part is still work in process, so for now
-you will have to settle with below small examples to get started.
-
 Creating a plugin is as simple as creating a class. I recommend creating a folder in your project for all plugins (ex. named Plugins), and depending on the expected size
 of your library, you can ether create a plugin for each entity you need to listen to, or a folder for each entity, and then below plugins related to that entity
+
+
+Below some documentation highlight, but remember to visit the official site for the plugin concept:
+![Open the Kipon Solid documentation site](https://kipon.dk/solidplugin)
+
 
 Any plugin must extend from Kipon.Xrm.BasePlugin
 
