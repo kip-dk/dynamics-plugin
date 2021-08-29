@@ -5,7 +5,7 @@ developing plugin for Dynamics 365 Customer Engagement platform.
 
 ### The official Kipon.Solid documentation site
 
-![Open the Kipon Solid documentation site](https://kipon.dk/solidplugin)
+[Open the Kipon Solid documentation site](https://kipon.dk/solidplugin)
 
 ### Project offer
 * Quick startup of new plugin project with simple installation with nuget
