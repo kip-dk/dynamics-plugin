@@ -5,7 +5,7 @@ developing plugin for Dynamics 365 Customer Engagement platform.
 
 ### The official Kipon.Solid documentation site
 
-[Open the Kipon Solid documentation site](https://kipon.dk/solidplugin)
+[Open the Kipon Solid plugin documentation site](https://kipon.dk/solidplugin)
 
 ### Project offer
 * Quick startup of new plugin project with simple installation with nuget
@@ -43,7 +43,7 @@ of your library, you can ether create a plugin for each entity you need to liste
 
 
 Below some documentation highlight, but remember to visit the official site for the plugin concept:
-![Open the Kipon Solid documentation site](https://kipon.dk/solidplugin)
+[Open the Kipon Solid plugin documentation site](https://kipon.dk/solidplugin)
 
 
 Any plugin must extend from Kipon.Xrm.BasePlugin
