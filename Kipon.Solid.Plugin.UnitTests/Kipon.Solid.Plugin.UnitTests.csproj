@@ -79,6 +79,7 @@
     <Compile Include="Plugins\Account\AccountWithConfigPluginTest.cs" />
     <Compile Include="Plugins\Contact\ContactDeletePluginTest.cs" />
     <Compile Include="Plugins\Generic\ProspectPluginTest.cs" />
+    <Compile Include="Plugins\kipon_datepoc\PostUpdateTest.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPluginTest.cs" />
     <Compile Include="Xrm\Extensions\QueryExpression\QueryExpressionTest.cs" />
     <Compile Include="Xrm\Reflection\ServiceCacheTest.cs" />

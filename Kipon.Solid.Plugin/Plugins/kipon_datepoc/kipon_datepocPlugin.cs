@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,6 +60,17 @@ namespace Kipon.Solid.Plugin.Plugins.kipon_datepoc
                     kipon_wastest = false
                 };
                 uow.Update(clean);
+            }
+        }
+
+        public void OnPostUpdate(Entities.kipon_datepoc.IDateChanged mergedimage)
+        {
+            if (mergedimage.kipon_dateonly != null && mergedimage.kipon_dateonly.Value == new DateTime(1964, 1, 20))
+            {
+                if (mergedimage.kipon_name != "Kjeld I. Poulsen")
+                {
+                    throw new InvalidPluginExecutionException("Name is not as expected");
+                }
             }
         }
     }

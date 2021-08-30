@@ -81,6 +81,7 @@
     <Compile Include="Entities\Contacts\Contact.cs" />
     <Compile Include="Entities\Contacts\IPhonenumberChanged.cs" />
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
+    <Compile Include="Entities\kipon_datepocs\IDateChanged.cs" />
     <Compile Include="Entities\Phonecalls\IPhonenumberChanged.cs" />
     <Compile Include="Model\INamed.cs" />
     <Compile Include="Model\IPhonenumberChanged.cs" />
