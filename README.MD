@@ -70,8 +70,10 @@ public void On[Stage][Message][Async](parameters)
 * RemoveMember
 
 #### Custom actions - messagename
-You can create custom actions in CRM, and bind them to plugins. For now we have only tested bounded custom actions. Message will be the process logicalname [prefix]_[processuniquename],
-ex.  kipon_AccountCountContacts
+You can create custom actions in CRM, and bind these to plugins. Message will be the process logicalname [prefix]_[processuniquename],
+ex.  kipon_AccountCountContacts. Custom actions can be bounded or unbounded. The difference is wether the payload of the actions has a Target field.
+
+Both bounded and unbounded actions are supported by the framework.
 
 ##### Below here work in progress on std action messages - might or might not work (most likely they do NOT work yet):
 * Associate
