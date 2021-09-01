@@ -67,6 +67,7 @@
 
             this.IUnitOfWork = allTypes[$"{NAMESPACE}{nameof(_instance.IUnitOfWork)}"];
             this.IAdminUnitOfWork = allTypes[$"{NAMESPACE}{nameof(_instance.IAdminUnitOfWork)}"];
+            this.IEntityCache = allTypes[$"{NAMESPACE}ServiceAPI.{nameof(_instance.IEntityCache)}"];
 
             this.IRepository = allTypes[$"{NAMESPACE}{nameof(_instance.IRepository)}`1"];
 
@@ -102,7 +103,10 @@
 
         public Type AbstractActionRequest { get; private set; }
 
+        public Type IEntityCache { get; private set; }
+
         public System.Reflection.Assembly Assembly { get; private set; }
+
 
         public Type BasePlugin { get; private set; }
         public Type VirtualEntityPlugin { get; private set; }

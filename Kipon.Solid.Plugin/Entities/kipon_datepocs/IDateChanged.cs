@@ -15,6 +15,8 @@ namespace Kipon.Solid.Plugin.Entities
             DateTime? kipon_dateonly { get; }
 
             string kipon_name { get; }
+
+            string kipon_testresult { set; }
         }
     }
 }

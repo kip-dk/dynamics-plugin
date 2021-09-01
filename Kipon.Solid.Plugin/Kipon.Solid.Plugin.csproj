@@ -129,6 +129,9 @@
     <Compile Include="Xrm\Extensions\IQueryable\QueryableMethods.cs" />
     <Compile Include="Xrm\Extensions\QueryExpression\QueryExpressionMethods.cs" />
     <Compile Include="Xrm\Extensions\TypeConverters\TypeConvertersMethods.cs" />
+    <Compile Include="Xrm\Implementations\EnumeratorWrapper.cs" />
+    <Compile Include="Xrm\ServiceAPI\IEntityCache.cs" />
+    <Compile Include="Xrm\Implementations\NoCacheQueryable.cs" />
     <Compile Include="Xrm\IPluginContext.cs" />
     <Compile Include="Xrm\IService.cs" />
     <Compile Include="Xrm\ITarget.cs" />

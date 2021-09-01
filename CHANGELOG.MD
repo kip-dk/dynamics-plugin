@@ -1,7 +1,20 @@
-## Last updated: 2021-08-26
+## Last updated: 2021-09-01
+
+### 1.0.6.0 making entity cache more visible
+This version is a solid plugin version only. After install you must regenerate entities, since you will have compiletime errors after upgrade to this version.
+
+This is because the entity context now implements a new declaretive interface Kipon.Xrm.ServiceAPI.IEntityCache. This allow you to inject the entity cache into your service
+ether with the purpose of adding or removing cached entities - without injecting the iunitofwork.
+
+The reason for upgrading the version from 1.0.5 to 1.0.5 is the fact that IQueryable<EntityType> injected into a service or a plugin will now be injected as a queryable, that ignore
+any cached objects. It will return the raw entity output from the query. This should not be a breaking change, because the end result can at most be that same data is fetch more than once,
+but at least it is a change of behavior.
+
+On top of that, IRepository interface now has a guery method "GetQueryIgnoreCache". This method will return an IQueryable<EntityType>, but as the name state´s, it will ignore any items in the
+cache and return values from data crm-database fetch "as-is".
 
 ### 1.0.5.6 Tools version (only)
-Fixed generate correct typescript Attrigute and Control types for money, partylist and more
+Fixed generate correct typescript Attribute and Control types for money, partylist and more
 
 ### 1.0.5.3 Fixed deploy and run of bound entities
 Version 1.0.5.2 introduced a bug in deploy of bounded actions resulting that they did not get deployed, and if already in the solution they where removed. This has been fixed.

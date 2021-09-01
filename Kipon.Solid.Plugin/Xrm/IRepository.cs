@@ -13,7 +13,7 @@
         /// </summary>
         /// <returns>An <see cref="IQueryable{T}"/>.</returns>
         IQueryable<T> GetQuery();
-
+        IQueryable<T> GetQueryIgnoreCache();
         T GetById(Guid id);
 
         /// <summary>

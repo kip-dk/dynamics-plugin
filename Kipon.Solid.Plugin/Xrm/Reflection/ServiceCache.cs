@@ -195,6 +195,13 @@
                         return queryProperty.GetValue(uow, new object[0]);
                     }
 
+                    if (type.IsEntityCache)
+                    {
+                        var uow = this.GetIUnitOfWork(type.RequireAdminService);
+                        var cacheProperty = uow.GetType().GetProperty("Cache");
+                        return cacheProperty.GetValue(uow, new object[0]);
+                    }
+
                     if (type.FromType == typeof(Guid))
                     {
                         if (type.Name.ToLower() == "id")

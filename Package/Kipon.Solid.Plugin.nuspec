@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Solid.Plugin</id>
-    <version>1.0.5.3</version>
+    <version>1.0.6.0</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -10,9 +10,8 @@
     <iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Create Dynamics 365 plugins according to SOLID software princips. This package provide the basic infrastructur for building plugins with services and inject these into the Dynamics 365 plugin pipeline.</description>
-    <releaseNotes>Output parameters of type Entity and EntityCollection is now transformed from strongly typed entities to SDK classes before added to the OutputParameters, because dynamics 365 is not able to serialize the strongly typed classes.
-    new extension methods added to IPluginExecutionContext to make it easy to extract input paramters from a parent context.</releaseNotes>
-    <copyright>Copyright Kipon ApS 2019,2020</copyright>
+    <releaseNotes>Context Entity cache has been made more visible</releaseNotes>
+    <copyright>Copyright Kipon ApS 2019,2020,2021</copyright>
     <tags>Dynamics 365 plugin C# SOLID</tags>
     <dependencies>
       <dependency id="Microsoft.CrmSdk.CoreAssemblies" version="9.0.2.26" />

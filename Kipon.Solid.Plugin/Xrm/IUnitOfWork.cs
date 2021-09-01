@@ -13,5 +13,6 @@
         void Detach(string logicalname, params Guid[] ids);
         void Detach(Microsoft.Xrm.Sdk.EntityReference reference);
         void Detach(Microsoft.Xrm.Sdk.Entity entity);
+        ServiceAPI.IEntityCache Cache { get; }
     }
 }

@@ -440,6 +440,12 @@
                 }
                 #endregion
 
+                if (type == Types.IEntityCache)
+                {
+                    var result = ForEntityCache(type);
+                    result.RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any();
+                    return result;
+                }
 
                 #region find implementing interface
                 if (type.IsInterface)
@@ -495,6 +501,11 @@
                 return result;
             }
             return null;
+        }
+
+        public static TypeCache ForEntityCache(Type type)
+        {
+            return new TypeCache { FromType = type, IsEntityCache = true };
         }
 
 
@@ -652,6 +663,7 @@
         public string LogicalName { get; private set; }
         public bool IsQuery { get; private set; }
         public bool IsRepository { get; private set; }
+        public bool IsEntityCache { get; private set; }
         public bool RequireAdminService { get; private set; }
         public bool AllProperties { get; private set; }
         public CommonProperty[] FilteredProperties { get; private set; }
@@ -728,7 +740,7 @@
                 if (this._queryMethod == null)
                 {
                     var repository = this.RepositoryProperty;
-                    this._queryMethod = repository.PropertyType.GetMethod("GetQuery", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                    this._queryMethod = repository.PropertyType.GetMethod("GetQueryIgnoreCache", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
                     if (this.QueryMethod == null)
                     {
                         throw new Exceptions.UnresolvableTypeException(this.ToType);

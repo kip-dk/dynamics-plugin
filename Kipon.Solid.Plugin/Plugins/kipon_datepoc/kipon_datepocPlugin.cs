@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Kipon.Xrm.Attributes;
+using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,6 +63,73 @@ namespace Kipon.Solid.Plugin.Plugins.kipon_datepoc
                 uow.Update(clean);
             }
         }
+
+
+        [Sort(1)]
+        public void OnPreUpdate(Entities.kipon_datepoc.IDateChanged mergedimage, IQueryable<Entities.kipon_datepoc> dateQuery, Kipon.Xrm.ServiceAPI.IEntityCache cache, Entities.IUnitOfWork uow)
+        {
+            // Cached query, that only fetch a few fields
+            var gb = (from d in uow.Datepocs.GetQuery()
+                      where d.kipon_dateonly < System.DateTime.Today.AddYears(10)
+                        && d.kipon_name != null
+                      select new
+                      {
+                          Id = d.kipon_datepocId.Value,
+                          TSDate = d.kipon_timezonefreedatetime
+                      }).ToArray();
+
+            foreach (var g in gb)
+            {
+                cache.Attach(new Entities.kipon_datepoc { kipon_datepocId = g.Id, kipon_timezonefreedatetime = g.TSDate, EntityState = EntityState.Unchanged });
+            }
+
+            /// this query will return values where Name is null, even though it does not make sense from a logical point of view
+            /// This is due to that fact that we are puttning the elements into the context cache in above query
+            var names = (from g in uow.Datepocs.GetQuery()
+                         where g.kipon_dateonly < System.DateTime.Today.AddYears(3)
+                           && g.kipon_name != null
+                         select new
+                         {
+                             Id = g.kipon_datepocId.Value,
+                             Name = g.kipon_name
+                         }).ToArray();
+
+            var counts = cache.GetAttachedEntities().Count();
+
+            if (dateQuery is Kipon.Xrm.Implementations.NoCacheQueryable<Entities.kipon_datepoc>)
+            {
+                /// queries injected directly to a service will 
+
+                var older = (from d in dateQuery
+                               where d.kipon_datepocId != mergedimage.Id
+                                 && d.kipon_dateonly < mergedimage.kipon_dateonly
+                                 && d.kipon_name != null
+                               select new
+                               {
+                                   Id = d.kipon_datepocId.Value,
+                                   Name = d.kipon_name
+                               }).ToArray();
+
+                if (older.Where(r => string.IsNullOrEmpty(r.Name)).Any())
+                {
+                    throw new InvalidPluginExecutionException("Ups!, we did loos the name in the query running before us.");
+                }
+
+                var cn = cache.GetAttachedEntities().Count();
+
+                if (counts != cn)
+                {
+                    throw new InvalidPluginExecutionException("The process did add things to the context, that must be a bug.");
+                }
+
+                mergedimage.kipon_testresult = $"Found { older.Length } people older than your {counts} / {cn}  ({gb.Length}) names: {names.Length} missing names: { names.Where(n => string.IsNullOrEmpty(n.Name)).Count() }";
+            }
+            else
+            {
+                throw new InvalidPluginExecutionException("dateQuery is not expected type of query");
+            }
+        }
+
 
         public void OnPostUpdate(Entities.kipon_datepoc.IDateChanged mergedimage)
         {
