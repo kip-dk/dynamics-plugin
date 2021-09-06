@@ -6,6 +6,8 @@
     using System.Linq.Expressions;
     public static class IQueryableExtensions
     {
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static IQueryable<TSource> WhereIn<TSource, TValue>(this IQueryable<TSource> source, Expression<Func<TSource, TValue>> valueSelector, IEnumerable<TValue> values)
         {
             if (null == source) { throw new ArgumentNullException("source"); }
@@ -27,6 +29,8 @@
             return source.Where(combinedLambda);
         }
 
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static Expression<Func<TElement, bool>> BuildContainsExpression<TElement, TValue>(
             Expression<Func<TElement, TValue>> valueSelector,
             IEnumerable<TValue> values)
@@ -46,6 +50,8 @@
 
             return Expression.Lambda<Func<TElement, bool>>(body, p);
         }
+
+        [System.Diagnostics.DebuggerNonUserCode()]
 
         public static Expression<Func<TElement, bool>> BuildContainsNotExpression<TElement, TValue>(
             Expression<Func<TElement, TValue>> valueSelector,

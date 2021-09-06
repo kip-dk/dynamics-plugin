@@ -95,6 +95,7 @@
     <Compile Include="Plugins\Account\AccountRetrieveMultiplePostAsync.cs" />
     <Compile Include="Plugins\Account\AccountWithConfigPlugin.cs" />
     <Compile Include="Plugins\Account\AccoutPostUpdate.cs" />
+    <Compile Include="Plugins\Account\SpecialAccountPlugin.cs" />
     <Compile Include="Plugins\AnunboundedactionPlugin.cs" />
     <Compile Include="Plugins\Contact\ContactDeletePlugin.cs" />
     <Compile Include="Plugins\Contact\ContactPlugin.cs" />
@@ -104,7 +105,11 @@
     <Compile Include="Plugins\Lead\LeadPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
+    <Compile Include="ServiceAPI\IContactService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
+    <Compile Include="ServiceAPI\ISpecialAccountService.cs" />
+    <Compile Include="Service\ContactService.cs" />
+    <Compile Include="Service\SpecialAccountService.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Xrm\Actions\AbstractActionRequest.cs" />
     <Compile Include="Xrm\ActionTarget.cs" />

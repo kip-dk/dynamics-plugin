@@ -8,6 +8,8 @@
 
     public static class QueryExpressionMethods
     {
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static string QuickFindFilter(this Microsoft.Xrm.Sdk.Query.QueryExpression query)
         {
             if (query.Criteria != null && query.Criteria.Filters != null && query.Criteria.Filters.Count > 0)
@@ -24,6 +26,8 @@
             }
             return null;
         }
+
+        [System.Diagnostics.DebuggerNonUserCode()]
 
         public static T[] GetAttributeFilter<T>(this Microsoft.Xrm.Sdk.Query.QueryExpression query, string attributeLogicalName)
         {
@@ -72,6 +76,8 @@
             return null;
         }
 
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static Guid? GetIdFilter(this Microsoft.Xrm.Sdk.Query.QueryExpression query, string logicalName)
         {
             if (!string.IsNullOrEmpty(logicalName) && query != null && query.Criteria != null && query.Criteria.Filters != null && query.Criteria.Filters.Count > 0)
@@ -84,6 +90,8 @@
             }
             return null;
         }
+
+        [System.Diagnostics.DebuggerNonUserCode()]
 
         public static T ConvertValueTo<T>(this object o, out bool resolved)
         {

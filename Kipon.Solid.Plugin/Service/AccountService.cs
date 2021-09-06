@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Kipon.Solid.Plugin.Entities;
+using Kipon.Solid.Plugin.ServiceAPI;
 using Kipon.Xrm.Extensions.Strings;
 using Microsoft.Xrm.Sdk;
 
@@ -15,7 +16,6 @@ namespace Kipon.Solid.Plugin.Service
 
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
-
 
         public AccountService(Microsoft.Xrm.Sdk.IOrganizationService orgService, string unsecureConfig, string secureConfig)
         {

@@ -350,14 +350,31 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 /* NS */ writer.WriteLine("{");
                 /*    */ writer.WriteLine("\tpublic static partial class KiponSdkGeneratedExtensionMethods");
                 /* CL */ writer.WriteLine("\t{");
+
+                /*    */ writer.WriteLine("\t\tprivate static System.Collections.Generic.Dictionary<string, int> entityLogicalNameToTypeCodeIndex = new System.Collections.Generic.Dictionary<string, int>();");
+                /*    */ writer.WriteLine("\t\tprivate static System.Collections.Generic.Dictionary<int, string> typecodeToEntityLogicalNameIndex = new System.Collections.Generic.Dictionary<int, string>();");
+
                 /*    */ writer.WriteLine("\t\tstatic KiponSdkGeneratedExtensionMethods()");
                 /* SC */ writer.WriteLine("\t\t{");
                 foreach (var logicalname in entities.Keys)
                 {
                     writer.WriteLine($"\t\t\tentittypes[{ns}.{logicalname}.EntityLogicalName] = typeof({ns}.{logicalname});");
                 }
+
+                foreach (var ent in meta.Entities)
+                {
+                    writer.WriteLine($"\t\t\tentityLogicalNameToTypeCodeIndex[\"{ent.LogicalName}\"] = {ent.ObjectTypeCode.Value};");
+                    writer.WriteLine($"\t\t\ttypecodeToEntityLogicalNameIndex[{ent.ObjectTypeCode.Value}] = \"{ent.LogicalName}\";");
+                }
+
+
                 /* SC */ writer.WriteLine("\t\t}");
-                /* CL */ writer.WriteLine("\t}");
+
+                writer.WriteLine("\t\t\tpublic static int ToEntityTypeCode(this string value) { return entityLogicalNameToTypeCodeIndex[value]; }");
+                writer.WriteLine("\t\t\tpublic static string ToEntityLogicalName(this int value) { return typecodeToEntityLogicalNameIndex[value]; }");
+
+                /* CL */
+                writer.WriteLine("\t}");
 
                 /* CL */ writer.WriteLine("\tpublic partial class NamingService");
                 /* CL */ writer.WriteLine("\t{");

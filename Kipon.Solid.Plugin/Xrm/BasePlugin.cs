@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.6.0";
+        public const string Version = "1.0.6.3";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -266,8 +266,11 @@
                         }
                         #endregion
                     }
-                } catch (Exception)
+                } catch (Exception ex)
                 {
+                    tracingService.Trace(ex.Message);
+                    tracingService.Trace(ex.GetType().FullName);
+                    tracingService.Trace(ex.StackTrace);
                     foreach (var l in logs)
                     {
                         tracingService.Trace(l);

@@ -4,6 +4,7 @@
 
     public static class TypeConvertersMethods
     {
+        [System.Diagnostics.DebuggerNonUserCode()]
         public static Guid ToGuid(this int v1, params int[] others)
         {
             if (v1 > 99999999) throw new ArgumentException("Larges value for v1 is 99999999");
@@ -20,6 +21,13 @@
             return new Guid(result);
         }
 
+        [System.Diagnostics.DebuggerNonUserCode()]
+        public static Guid ToId(this int value, int typecode)
+        {
+            return value.ToGuid(0, 0, 0, typecode);
+        }
+
+        [System.Diagnostics.DebuggerNonUserCode()]
         public static bool IsSame(this object from, object other)
         {
             if (from == null && other == null) return true;

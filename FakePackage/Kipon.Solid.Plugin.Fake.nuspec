@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Kipon.Solid.Plugin</id>
+    <id>Kipon.Solid.Plugin.Fake</id>
     <version>1.0.6.3</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
@@ -9,8 +9,8 @@
     <projectUrl>https://kipon.dk/solidplugin</projectUrl>
     <iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Create Dynamics 365 plugins according to SOLID software princips. This package provide the basic infrastructur for building plugins with services and inject these into the Dynamics 365 plugin pipeline.</description>
-    <releaseNotes>Fixed deep dependencies on Iqueryable and Irepository</releaseNotes>
+    <description>Unit Test library for the Kipon.Solid.Plugin framework</description>
+    <releaseNotes>Create unit test for your Kipon.Solid.Plugin implementations with this fake impl. of the Dynamics 365 SDK services</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020,2021</copyright>
     <tags>Dynamics 365 plugin C# SOLID</tags>
     <dependencies>

@@ -33,6 +33,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="ent"></param>
         /// <returns></returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
         public static T ToEarlyBoundEntity<T>(this T ent) where T : Microsoft.Xrm.Sdk.Entity
         {
             if (ent.GetType().BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
@@ -70,6 +71,8 @@
         /// <param name="entity"></param>
         /// <param name="interfaceType"></param>
         /// <returns></returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static string[] TargetFilterAttributesOf<T>(this T entity, Type interfaceType) where T : Microsoft.Xrm.Sdk.Entity
         {
             return typeof(T).TargetFilterAttributesOf(interfaceType);
@@ -82,6 +85,8 @@
         /// <param name="entityType">The type of the entity</param>
         /// <param name="interfaceType">The interface implemented</param>
         /// <returns>List of fields that are part of target of the interface</returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static string[] TargetFilterAttributesOf(this Type entityType, Type interfaceType)
         {
             if (!typeof(Microsoft.Xrm.Sdk.Entity).IsAssignableFrom(entityType))
@@ -125,6 +130,8 @@
         /// <param name="entity">The entity</param>
         /// <param name="attribLogicalName">Name of attribute</param>
         /// <returns></returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static object GetSafeValue(this Microsoft.Xrm.Sdk.Entity entity, string attribLogicalName)
         {
             if (!entity.Attributes.ContainsKey(attribLogicalName))
@@ -142,7 +149,9 @@
         /// <param name="ctx"></param>
         /// <param name="message"></param>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns></returns
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static T ParentTarget<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, Guid id) where T : Microsoft.Xrm.Sdk.Entity, new()
         {
             if (message != "Create" && message != "Update")
@@ -214,6 +223,8 @@
         /// <param name="entityLogicalName">The logical name of the key, if null any, optional</param>
         /// <param name="id">The id of the entity expected to be a parent event, if null any, optional</param>
         /// <returns></returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static bool IsChildOf(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message, string entityLogicalName = null, Guid? id = null)
         {
             if (ctx == null)
@@ -299,6 +310,7 @@
         /// <param name="ctx">The plugin execution context</param>
         /// <param name="attributeName">The name of the attribute</param>
         /// <returns>True if context contains Target as an entity and the entity has the attribute set.</returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
         public static bool AttributeChanged(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string attributeName)
         {
             if (ctx.InputParameters.Contains("Target") && ctx.InputParameters["Target"] is Microsoft.Xrm.Sdk.Entity e)
@@ -315,6 +327,8 @@
         /// <param name="target">The entity instance</param>
         /// <param name="ommits">Fields that should be omitted in the copy</param>
         /// <returns></returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static T Clone<T>(this T target, params string[] ommits) where T : Microsoft.Xrm.Sdk.Entity, new()
         {
             var result = new T();
@@ -370,6 +384,8 @@
         /// <param name="ctx">The Dynamics 365 execution context</param>
         /// <param name="entitypropertyname">The property name on the strongly typed entity of the flow</param>
         /// <returns></returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static T PreValueOf<T>(this IPluginExecutionContext ctx, string entitypropertyname)
         {
             System.Reflection.PropertyInfo prop = null;
@@ -453,6 +469,8 @@
         /// <param name="logicalName">name of entity, null if unbound action</param>
         /// <param name="message">the message name, ex. update, create, or the action name</param>
         /// <returns></returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static T ParentInputParameters<T>(this IPluginExecutionContext ctx, string logicalName, string message)
         {
             var parent = ctx.ParentContext(logicalName, message);
@@ -509,6 +527,8 @@
         /// <param name="message"></param>
         /// <param name="parameterName"></param>
         /// <returns></returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static T ParentInputParameter<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string logicalName, string message, string parameterName)
         {
             var parent = ctx.ParentContext(logicalName, message);
@@ -527,6 +547,8 @@
         /// <param name="logicalName"></param>
         /// <param name="message"></param>
         /// <returns></returns>
+        [System.Diagnostics.DebuggerNonUserCode()]
+
         public static Microsoft.Xrm.Sdk.IPluginExecutionContext ParentContext(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string logicalName, string message)
         {
             if (ctx.ParentContext != null)

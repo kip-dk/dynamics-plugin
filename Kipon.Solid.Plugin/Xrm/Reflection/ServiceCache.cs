@@ -337,6 +337,7 @@
                         }
                     }
 
+
                     if (services.ContainsKey(argType.ObjectInstanceKey))
                     {
                         args[ix] = services[argType.ObjectInstanceKey];
@@ -345,12 +346,17 @@
                     }
 
                     {
-                        services[argType.ObjectInstanceKey] = this.CreateServiceInstance(argType);
-                        args[ix] = services[argType.ObjectInstanceKey];
-                        ix++;
-                        continue;
+                        var next = this.Resolve(argType);
+                        if (next != null)
+                        {
+                            services[argType.ObjectInstanceKey] = next;
+                            args[ix] = services[argType.ObjectInstanceKey];
+                            ix++;
+                            continue;
+                        }
                     }
                 }
+
                 return type.Constructor.Invoke(args);
             }
             finally

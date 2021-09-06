@@ -1,4 +1,16 @@
-## Last updated: 2021-09-01
+## Last updated: 2021-09-05
+
+### 1.0.6.3 fixed injection of iqueryable and irepository into nested services
+Is is better to inject IQueryable<entity> or IRepository<entity> than the full unitofwork into your service. Is
+allow you to write simple unit test without having to have a full crm context available. The inject of these "partial services"
+did not drain correctly when the service nested hiracky spaned more than two levels. That has been fixed not.
+
+Remember - cycle references is still not allowed and unsupported. If two services require each other, the on of them must get the other by parsing as a service.
+
+### 1.0.6.2 added extension methods to map between entitytypecode and entitylogicalname
+
+These new extension methods is hosted in t he namespace Kipon.Xrm.Extensions.Sdk. The plugin entitycode generate will generate maps for
+all entities in the target database, even though not included in the filter.xml configuration. This allow easy convert between entitylogicalname and entitytypecode
 
 ### 1.0.6.0 making entity cache more visible
 This version is a solid plugin version only. After install you must regenerate entities, since you will have compiletime errors after upgrade to this version.

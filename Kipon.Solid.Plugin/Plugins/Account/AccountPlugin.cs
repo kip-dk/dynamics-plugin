@@ -10,7 +10,7 @@ namespace Kipon.Solid.Plugin.Plugins.Account
     public class AccountPlugin : Kipon.Xrm.BasePlugin
     {
 
-        public void OnValidateCreate(Entities.Account.IAccountMergedImageWithTargetAttributes target)
+        public void OnValidateCreate(Entities.Account.IAccountMergedImageWithTargetAttributes target, ServiceAPI.IAccountService accountService)
         {
         }
 
