@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.6.3";
+        public const string Version = "1.0.6.4";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -118,6 +118,16 @@
                             else
                             {
                                 args[ix] = serviceCache.Resolve(p, toolOrgService);
+                            }
+
+                            if (p.IsMergedimage || p.IsPreimage || p.IsPostimage)
+                            {
+                                var tap = p.GetType().GetProperty("TargetAttributes");
+                                if (tap != null)
+                                {
+                                    var tg = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
+                                    tap.SetValue(p, tg.Attributes);
+                                }
                             }
 
                             if (stage <= 20 && message == "Update")

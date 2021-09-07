@@ -1,4 +1,7 @@
-## Last updated: 2021-09-05
+## Last updated: 2021-09-07
+
+### 1.0.6.4
+Make target attributes available directly on pre-/merged and post images (entities (private)) to easy allow definition of "field actually changed" conditions.
 
 ### 1.0.6.3 fixed injection of iqueryable and irepository into nested services
 Is is better to inject IQueryable<entity> or IRepository<entity> than the full unitofwork into your service. Is
