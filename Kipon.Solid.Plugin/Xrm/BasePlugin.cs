@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.6.4";
+        public const string Version = "1.0.6.5";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -120,16 +120,52 @@
                                 args[ix] = serviceCache.Resolve(p, toolOrgService);
                             }
 
-                            if (p.IsMergedimage || p.IsPreimage || p.IsPostimage)
+                            #region set TargetAttributes
+                            if (message == "Create" || message == "Update")
                             {
-                                var tap = p.GetType().GetProperty("TargetAttributes");
-                                if (tap != null)
+                                if (p.IsMergedimage || p.IsPreimage || p.IsPostimage)
                                 {
-                                    var tg = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
-                                    tap.SetValue(p, tg.Attributes);
+                                    var tap = args[ix].GetType().GetProperty("TargetAttributes");
+
+                                    if (tap != null)
+                                    {
+                                        var tg = (Microsoft.Xrm.Sdk.Entity)context.InputParameters["Target"];
+                                        tap.SetValue(args[ix], tg.Attributes);
+                                    }
                                 }
                             }
+                            #endregion
 
+                            #region set preimage attributes
+                            if (p.IsMergedimage || p.IsTarget || p.IsPreimage || p.IsPostimage)
+                            {
+                                if (message == "Update" || message == "Delete")
+                                {
+                                    if (context.PreEntityImages != null && context.PreEntityImages.Values != null)
+                                    {
+                                        var col = new AttributeCollection();
+                                        foreach (Entity pre in context.PreEntityImages.Values)
+                                        {
+                                            foreach (var at in pre.Attributes) 
+                                            {
+                                                if (!col.Keys.Contains(at.Key))
+                                                {
+                                                    col.Add(at.Key, at.Value);
+                                                }
+                                            }
+                                        }
+                                        var tap = args[ix].GetType().GetProperty("PreimageAttributes");
+
+                                        if (tap != null)
+                                        {
+                                            tap.SetValue(args[ix], col);
+                                        }
+                                    }
+                                }
+                            }
+                            #endregion
+
+                            #region add property notification to ensure mirror of set in pre state on merged images
                             if (stage <= 20 && message == "Update")
                             {
                                 if (p.IsMergedimage)
@@ -142,6 +178,7 @@
                                     target = args[ix] as System.ComponentModel.INotifyPropertyChanged;
                                 }
                             }
+                            #endregion
                             ix++;
                         }
                         #endregion

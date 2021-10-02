@@ -299,7 +299,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
                     writer.WriteLine($"\t\tI{logicalname}Postimage,");
                     writer.WriteLine($"\t\tI{logicalname}Mergedimage");
                     /* C */ writer.WriteLine("\t{");
-                    /*   */ writer.WriteLine("\t\tprivate Microsoft.Xrm.Sdk.AttributeCollection TargetAttributes { get; set; }");
+                    /*   */ writer.WriteLine("\t\tpublic Microsoft.Xrm.Sdk.AttributeCollection TargetAttributes { get; set; }");
+                    /*   */ writer.WriteLine("\t\tpublic Microsoft.Xrm.Sdk.AttributeCollection PreimageAttributes { get; set; }");
                     /* C */ writer.WriteLine("\t}");
                 }
                 #endregion

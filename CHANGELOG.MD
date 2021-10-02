@@ -1,4 +1,10 @@
-## Last updated: 2021-09-07
+## Last updated: 2021-10-02
+
+### 1.0.6.5
+
+Generated TargetAttributes on image entities was not populated as expected.  
+The property has been changed to have access public to allow a safe way to set the value with reflection.
+PreimageAttributes is now generated for mergedimages. This allow you to create simple interfaces that has direct access to the target as well as the preimage values without needing access to the plugin context. 
 
 ### 1.0.6.4
 Make target attributes available directly on pre-/merged and post images (entities (private)) to easy allow definition of "field actually changed" conditions.

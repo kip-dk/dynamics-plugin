@@ -77,6 +77,7 @@
     <Compile Include="Entities\Accounts\ICreditLimitChanged.cs" />
     <Compile Include="Entities\Accounts\IForgotToImplement.cs" />
     <Compile Include="Entities\Accounts\IPhonenumberChanged.cs" />
+    <Compile Include="Entities\Accounts\IUseTargetAttributes.cs" />
     <Compile Include="Entities\AdminCrmUnitOfWork.cs" />
     <Compile Include="Entities\Contacts\Contact.cs" />
     <Compile Include="Entities\Contacts\IPhonenumberChanged.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Plugins\Account\AccountWithConfigPlugin.cs" />
     <Compile Include="Plugins\Account\AccoutPostUpdate.cs" />
     <Compile Include="Plugins\Account\SpecialAccountPlugin.cs" />
+    <Compile Include="Plugins\Account\UseTargetAttributesPlugin.cs" />
     <Compile Include="Plugins\AnunboundedactionPlugin.cs" />
     <Compile Include="Plugins\Contact\ContactDeletePlugin.cs" />
     <Compile Include="Plugins\Contact\ContactPlugin.cs" />
