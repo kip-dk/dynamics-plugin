@@ -13,7 +13,12 @@
         /// </summary>
         /// <returns>An <see cref="IQueryable{T}"/>.</returns>
         IQueryable<T> GetQuery();
-        IQueryable<T> GetQueryIgnoreCache();
+
+        /// <summary>
+        /// Get single know instance of T with id equals id
+        /// </summary>
+        /// <param name="id">The unique id of the instance</param>
+        /// <returns></returns>
         T GetById(Guid id);
 
         /// <summary>

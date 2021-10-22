@@ -1,4 +1,19 @@
-## Last updated: 2021-10-02
+## Last updated: 2021-10-22
+
+### 1.0.7.0
+Generated IRepository impl. no longer add or remove things to the context cache on create/update/delete. The context cahce i now living its own life, and if you do not
+add elements to the cache explicit it will stay empty
+
+Support for @obsolete. By adding the word "@obsolete" to entity- or entity-property description in the CRM metadata, the entity / property will be makred obsolete in the code.
+This makes it easier to cleanup code when attributes or entities are removed from the datamodel.
+
+Experimental decoration of properties with entity property metadata are generated. Kipon Xrm generate metadata is hosted in the namespace Kipon.Xrm.Attributes.Metadata. 
+This is to  access to hardcoded metadata information about the entity, without first having to fetch it through the metadata service..
+(The naming will be keept as is - defacto api), and more metadata will bee added later, including methods to easy access these information without the need to write reflection based code you self.
+
+### 1.0.6.6
+Extension method in the Sdk extension method to easy extract typesafe values from Microsoft.Xrm.Sdk.AttributeCollection. This is especially convinient when createting event interfaces
+that expore both pre and target values in same interface, using the PreimageAttribute and the TargetAttributes, populated for mergedimages.
 
 ### 1.0.6.5
 
@@ -27,7 +42,7 @@ This version is a solid plugin version only. After install you must regenerate e
 This is because the entity context now implements a new declaretive interface Kipon.Xrm.ServiceAPI.IEntityCache. This allow you to inject the entity cache into your service
 ether with the purpose of adding or removing cached entities - without injecting the iunitofwork.
 
-The reason for upgrading the version from 1.0.5 to 1.0.5 is the fact that IQueryable<EntityType> injected into a service or a plugin will now be injected as a queryable, that ignore
+The reason for upgrading the version from 1.0.5 to 1.0.6 is the fact that IQueryable<EntityType> injected into a service or a plugin will now be injected as a queryable, that ignore
 any cached objects. It will return the raw entity output from the query. This should not be a breaking change, because the end result can at most be that same data is fetch more than once,
 but at least it is a change of behavior.
 

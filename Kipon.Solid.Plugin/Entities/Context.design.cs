@@ -158,6 +158,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type an ID number or code for the account to quickly search and identify the account in system views.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountnumber")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string AccountNumber
 		{
 			get
@@ -230,6 +231,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address1_City
 		{
 			get
@@ -260,6 +262,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the country or region for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address1_Country
 		{
 			get
@@ -278,6 +281,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the county for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_county")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_County
 		{
 			get
@@ -296,6 +300,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Fax
 		{
 			get
@@ -350,6 +355,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first line of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address1_Line1
 		{
 			get
@@ -368,6 +374,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the second line of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address1_Line2
 		{
 			get
@@ -386,6 +393,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the third line of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address1_Line3
 		{
 			get
@@ -422,6 +430,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a descriptive name for the primary address, such as Corporate Headquarters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string Address1_Name
 		{
 			get
@@ -440,6 +449,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the ZIP Code or postal code for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address1_PostalCode
 		{
 			get
@@ -458,6 +468,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the post office box number of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postofficebox")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address1_PostOfficeBox
 		{
 			get
@@ -476,6 +487,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the name of the main contact at the account's primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_primarycontactname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Address1_PrimaryContactName
 		{
 			get
@@ -512,6 +524,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the state or province of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_StateOrProvince
 		{
 			get
@@ -530,6 +543,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the main phone number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone1
 		{
 			get
@@ -548,6 +562,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second phone number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone2
 		{
 			get
@@ -566,6 +581,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a third phone number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone3
 		{
 			get
@@ -584,6 +600,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the UPS zone of the primary address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_upszone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4)]
 		public string Address1_UPSZone
 		{
 			get
@@ -602,6 +619,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_utcoffset")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1500, 1500)]
 		public System.Nullable<int> Address1_UTCOffset
 		{
 			get
@@ -656,6 +674,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address2_City
 		{
 			get
@@ -686,6 +705,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the country or region for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address2_Country
 		{
 			get
@@ -704,6 +724,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the county for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_county")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_County
 		{
 			get
@@ -722,6 +743,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Fax
 		{
 			get
@@ -776,6 +798,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first line of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address2_Line1
 		{
 			get
@@ -794,6 +817,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the second line of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address2_Line2
 		{
 			get
@@ -812,6 +836,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the third line of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address2_Line3
 		{
 			get
@@ -848,6 +873,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a descriptive name for the secondary address, such as Corporate Headquarters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string Address2_Name
 		{
 			get
@@ -866,6 +892,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the ZIP Code or postal code for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address2_PostalCode
 		{
 			get
@@ -884,6 +911,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the post office box number of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postofficebox")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address2_PostOfficeBox
 		{
 			get
@@ -902,6 +930,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the name of the main contact at the account's secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_primarycontactname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Address2_PrimaryContactName
 		{
 			get
@@ -938,6 +967,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the state or province of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_StateOrProvince
 		{
 			get
@@ -956,6 +986,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the main phone number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone1
 		{
 			get
@@ -974,6 +1005,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second phone number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone2
 		{
 			get
@@ -992,6 +1024,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a third phone number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone3
 		{
 			get
@@ -1010,6 +1043,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the UPS zone of the secondary address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_upszone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4)]
 		public string Address2_UPSZone
 		{
 			get
@@ -1028,6 +1062,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_utcoffset")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1500, 1500)]
 		public System.Nullable<int> Address2_UTCOffset
 		{
 			get
@@ -1430,6 +1465,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the primary email address for the account.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EMailAddress1
 		{
 			get
@@ -1448,6 +1484,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the secondary email address for the account.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EMailAddress2
 		{
 			get
@@ -1466,6 +1503,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type an alternate email address for the account.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EMailAddress3
 		{
 			get
@@ -1514,6 +1552,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string EntityImage_URL
 		{
 			get
@@ -1550,6 +1589,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number for the account.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Fax
 		{
 			get
@@ -1586,6 +1626,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the URL for the account's FTP site to enable users to access data and share documents.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ftpsiteurl")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string FtpSiteURL
 		{
 			get
@@ -1604,6 +1645,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Unique identifier of the data import or data migration that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> ImportSequenceNumber
 		{
 			get
@@ -1796,6 +1838,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the company or business name.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(160)]
 		public string Name
 		{
 			get
@@ -1814,6 +1857,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the number of employees that work at the account for use in marketing segmentation and demographic analysis.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("numberofemployees")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 1000000000)]
 		public System.Nullable<int> NumberOfEmployees
 		{
 			get
@@ -1832,6 +1876,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows how long, in minutes, that the record was on hold.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("onholdtime")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> OnHoldTime
 		{
 			get
@@ -1844,6 +1889,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Number of open opportunities against an account and its child accounts.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("opendeals")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> OpenDeals
 		{
 			get
@@ -1868,6 +1914,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// State of Open Deals.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("opendeals_state")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> OpenDeals_State
 		{
 			get
@@ -1916,6 +1963,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// State of Open Revenue.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("openrevenue_state")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> OpenRevenue_State
 		{
 			get
@@ -2198,6 +2246,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Primary Satori ID for Account
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("primarysatoriid")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string PrimarySatoriId
 		{
 			get
@@ -2216,6 +2265,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Primary Twitter ID for Account
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("primarytwitterid")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string PrimaryTwitterId
 		{
 			get
@@ -2282,6 +2332,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the number of shares available to the public for the account. This number is used as an indicator in financial performance analysis.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sharesoutstanding")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 1000000000)]
 		public System.Nullable<int> SharesOutstanding
 		{
 			get
@@ -2318,6 +2369,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the Standard Industrial Classification (SIC) code that indicates the account's primary industry of business, for use in marketing segmentation and demographic analysis.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sic")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string SIC
 		{
 			get
@@ -2435,6 +2487,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the stock exchange at which the account is listed to track their stock and financial performance of the company.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("stockexchange")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string StockExchange
 		{
 			get
@@ -2453,6 +2506,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Number of users or conversations followed the record
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("teamsfollowed")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> TeamsFollowed
 		{
 			get
@@ -2471,6 +2525,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the main phone number for this account.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Telephone1
 		{
 			get
@@ -2489,6 +2544,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second phone number for this account.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Telephone2
 		{
 			get
@@ -2507,6 +2563,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a third phone number for this account.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Telephone3
 		{
 			get
@@ -2561,6 +2618,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the stock exchange symbol for the account to track financial performance of the company. You can click the code entered in this field to access the latest trading information from MSN Money.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("tickersymbol")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(10)]
 		public string TickerSymbol
 		{
 			get
@@ -2579,6 +2637,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Total time spent for emails (read and write) and meetings by me in relation to account record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timespentbymeonemailandmeetings")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TimeSpentByMeOnEmailAndMeetings
 		{
 			get
@@ -2591,6 +2650,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> TimeZoneRuleVersionNumber
 		{
 			get
@@ -2627,6 +2687,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TraversedPath
 		{
 			get
@@ -2645,6 +2706,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> UTCConversionTimeZoneCode
 		{
 			get
@@ -2675,6 +2737,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the account's website URL to get quick details about the company profile.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("websiteurl")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string WebSiteURL
 		{
 			get
@@ -2693,6 +2756,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phonetic spelling of the company name, if specified in Japanese, to make sure the name is pronounced correctly in phone calls and other communications.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yominame")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(160)]
 		public string YomiName
 		{
 			get
@@ -3195,6 +3259,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address1_City
 		{
 			get
@@ -3225,6 +3290,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the country or region for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address1_Country
 		{
 			get
@@ -3243,6 +3309,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the county for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_county")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_County
 		{
 			get
@@ -3261,6 +3328,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Fax
 		{
 			get
@@ -3315,6 +3383,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first line of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address1_Line1
 		{
 			get
@@ -3333,6 +3402,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the second line of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address1_Line2
 		{
 			get
@@ -3351,6 +3421,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the third line of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address1_Line3
 		{
 			get
@@ -3387,6 +3458,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a descriptive name for the primary address, such as Corporate Headquarters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string Address1_Name
 		{
 			get
@@ -3405,6 +3477,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the ZIP Code or postal code for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address1_PostalCode
 		{
 			get
@@ -3423,6 +3496,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the post office box number of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postofficebox")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address1_PostOfficeBox
 		{
 			get
@@ -3441,6 +3515,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the name of the main contact at the account's primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_primarycontactname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Address1_PrimaryContactName
 		{
 			get
@@ -3477,6 +3552,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the state or province of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_StateOrProvince
 		{
 			get
@@ -3495,6 +3571,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the main phone number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone1
 		{
 			get
@@ -3513,6 +3590,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second phone number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone2
 		{
 			get
@@ -3531,6 +3609,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a third phone number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone3
 		{
 			get
@@ -3549,6 +3628,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the UPS zone of the primary address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_upszone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4)]
 		public string Address1_UPSZone
 		{
 			get
@@ -3567,6 +3647,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_utcoffset")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1500, 1500)]
 		public System.Nullable<int> Address1_UTCOffset
 		{
 			get
@@ -3621,6 +3702,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address2_City
 		{
 			get
@@ -3651,6 +3733,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the country or region for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address2_Country
 		{
 			get
@@ -3669,6 +3752,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the county for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_county")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_County
 		{
 			get
@@ -3687,6 +3771,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Fax
 		{
 			get
@@ -3741,6 +3826,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first line of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address2_Line1
 		{
 			get
@@ -3759,6 +3845,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the second line of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address2_Line2
 		{
 			get
@@ -3777,6 +3864,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the third line of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address2_Line3
 		{
 			get
@@ -3813,6 +3901,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a descriptive name for the secondary address, such as Corporate Headquarters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Address2_Name
 		{
 			get
@@ -3831,6 +3920,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the ZIP Code or postal code for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address2_PostalCode
 		{
 			get
@@ -3849,6 +3939,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the post office box number of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postofficebox")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address2_PostOfficeBox
 		{
 			get
@@ -3867,6 +3958,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the name of the main contact at the account's secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_primarycontactname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Address2_PrimaryContactName
 		{
 			get
@@ -3903,6 +3995,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the state or province of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_StateOrProvince
 		{
 			get
@@ -3921,6 +4014,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the main phone number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone1
 		{
 			get
@@ -3939,6 +4033,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second phone number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone2
 		{
 			get
@@ -3957,6 +4052,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a third phone number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone3
 		{
 			get
@@ -3975,6 +4071,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the UPS zone of the secondary address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_upszone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4)]
 		public string Address2_UPSZone
 		{
 			get
@@ -3993,6 +4090,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_utcoffset")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1500, 1500)]
 		public System.Nullable<int> Address2_UTCOffset
 		{
 			get
@@ -4047,6 +4145,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the 3rd address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address3_City
 		{
 			get
@@ -4077,6 +4176,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// the country or region for the 3rd address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address3_Country
 		{
 			get
@@ -4095,6 +4195,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the county for the third address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_county")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address3_County
 		{
 			get
@@ -4113,6 +4214,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number associated with the third address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address3_Fax
 		{
 			get
@@ -4167,6 +4269,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// the first line of the 3rd address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address3_Line1
 		{
 			get
@@ -4185,6 +4288,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// the second line of the 3rd address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address3_Line2
 		{
 			get
@@ -4203,6 +4307,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// the third line of the 3rd address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address3_Line3
 		{
 			get
@@ -4239,6 +4344,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a descriptive name for the third address, such as Corporate Headquarters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string Address3_Name
 		{
 			get
@@ -4257,6 +4363,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// the ZIP Code or postal code for the 3rd address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address3_PostalCode
 		{
 			get
@@ -4275,6 +4382,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// the post office box number of the 3rd address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_postofficebox")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address3_PostOfficeBox
 		{
 			get
@@ -4293,6 +4401,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the name of the main contact at the account's third address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_primarycontactname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Address3_PrimaryContactName
 		{
 			get
@@ -4329,6 +4438,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// the state or province of the third address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address3_StateOrProvince
 		{
 			get
@@ -4347,6 +4457,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the main phone number associated with the third address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address3_Telephone1
 		{
 			get
@@ -4365,6 +4476,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second phone number associated with the third address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address3_Telephone2
 		{
 			get
@@ -4383,6 +4495,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a third phone number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address3_Telephone3
 		{
 			get
@@ -4401,6 +4514,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the UPS zone of the third address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_upszone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4)]
 		public string Address3_UPSZone
 		{
 			get
@@ -4419,6 +4533,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address3_utcoffset")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1500, 1500)]
 		public System.Nullable<int> Address3_UTCOffset
 		{
 			get
@@ -4557,6 +4672,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the name of the contact's assistant.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("assistantname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string AssistantName
 		{
 			get
@@ -4575,6 +4691,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phone number for the contact's assistant.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("assistantphone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string AssistantPhone
 		{
 			get
@@ -4611,6 +4728,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second business phone number for this contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("business2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Business2
 		{
 			get
@@ -4647,6 +4765,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Stores Business Card Control Properties.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("businesscardattributes")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4000)]
 		public string BusinessCardAttributes
 		{
 			get
@@ -4665,6 +4784,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a callback phone number for this contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("callback")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Callback
 		{
 			get
@@ -4683,6 +4803,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the names of the contact's children for reference in communications and client programs.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("childrensnames")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(255)]
 		public string ChildrensNames
 		{
 			get
@@ -4701,6 +4822,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the company phone of the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("company")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Company
 		{
 			get
@@ -4908,6 +5030,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the department or business unit where the contact works in the parent company or business.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("department")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Department
 		{
 			get
@@ -5088,6 +5211,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the primary email address for the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EMailAddress1
 		{
 			get
@@ -5106,6 +5230,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the secondary email address for the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EMailAddress2
 		{
 			get
@@ -5124,6 +5249,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type an alternate email address for the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EMailAddress3
 		{
 			get
@@ -5142,6 +5268,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the employee ID or number for the contact for reference in orders, service cases, or other communications with the contact's organization.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("employeeid")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string EmployeeId
 		{
 			get
@@ -5190,6 +5317,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string EntityImage_URL
 		{
 			get
@@ -5226,6 +5354,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Identifier for an external user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("externaluseridentifier")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string ExternalUserIdentifier
 		{
 			get
@@ -5262,6 +5391,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number for the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Fax
 		{
 			get
@@ -5280,6 +5410,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the contact's first name to make sure the contact is addressed correctly in sales calls, email, and marketing campaigns.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("firstname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string FirstName
 		{
 			get
@@ -5316,6 +5447,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the URL for the contact's FTP site to enable users to access data and share documents.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ftpsiteurl")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string FtpSiteUrl
 		{
 			get
@@ -5334,6 +5466,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Combines and shows the contact's first and last names so that the full name can be displayed in views and reports.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fullname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(160)]
 		public string FullName
 		{
 			get
@@ -5364,6 +5497,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the passport number or other government ID for the contact for use in documents or reports.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("governmentid")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string GovernmentId
 		{
 			get
@@ -5400,6 +5534,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second home phone number for this contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("home2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Home2
 		{
 			get
@@ -5418,6 +5553,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Unique identifier of the data import or data migration that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> ImportSequenceNumber
 		{
 			get
@@ -5454,6 +5590,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the job title of the contact to make sure the contact is addressed correctly in sales calls, email, and marketing campaigns.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("jobtitle")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string JobTitle
 		{
 			get
@@ -5472,6 +5609,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the contact's last name to make sure the contact is addressed correctly in sales calls, email, and marketing campaigns.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lastname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string LastName
 		{
 			get
@@ -5544,6 +5682,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the name of the contact's manager for use in escalating issues or other follow-up communications with the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("managername")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string ManagerName
 		{
 			get
@@ -5562,6 +5701,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phone number for the contact's manager.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("managerphone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string ManagerPhone
 		{
 			get
@@ -5622,6 +5762,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the contact's middle name or initial to make sure the contact is addressed correctly.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("middlename")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string MiddleName
 		{
 			get
@@ -5640,6 +5781,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the mobile phone number for the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("mobilephone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string MobilePhone
 		{
 			get
@@ -5742,6 +5884,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the contact's nickname.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("nickname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string NickName
 		{
 			get
@@ -5760,6 +5903,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the number of children the contact has for reference in follow-up phone calls and other communications.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("numberofchildren")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 1000000000)]
 		public System.Nullable<int> NumberOfChildren
 		{
 			get
@@ -5778,6 +5922,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows how long, in minutes, that the record was on hold.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("onholdtime")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> OnHoldTime
 		{
 			get
@@ -5880,6 +6025,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the pager number for the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("pager")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Pager
 		{
 			get
@@ -6090,6 +6236,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the salutation of the contact to make sure the contact is addressed correctly in sales calls, email messages, and marketing campaigns.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("salutation")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Salutation
 		{
 			get
@@ -6156,6 +6303,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the name of the contact's spouse or partner for reference during calls, events, or other communications with the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("spousesname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string SpousesName
 		{
 			get
@@ -6261,6 +6409,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the suffix used in the contact's name, such as Jr. or Sr. to make sure the contact is addressed correctly in sales calls, email, and marketing campaigns.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("suffix")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(10)]
 		public string Suffix
 		{
 			get
@@ -6279,6 +6428,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Number of users or conversations followed the record
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("teamsfollowed")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> TeamsFollowed
 		{
 			get
@@ -6297,6 +6447,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the main phone number for this contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Telephone1
 		{
 			get
@@ -6315,6 +6466,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second phone number for this contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Telephone2
 		{
 			get
@@ -6333,6 +6485,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a third phone number for this contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Telephone3
 		{
 			get
@@ -6369,6 +6522,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Total time spent for emails (read and write) and meetings by me in relation to the contact record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timespentbymeonemailandmeetings")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TimeSpentByMeOnEmailAndMeetings
 		{
 			get
@@ -6381,6 +6535,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> TimeZoneRuleVersionNumber
 		{
 			get
@@ -6417,6 +6572,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TraversedPath
 		{
 			get
@@ -6435,6 +6591,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> UTCConversionTimeZoneCode
 		{
 			get
@@ -6465,6 +6622,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the contact's professional or personal website or blog URL.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("websiteurl")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string WebSiteUrl
 		{
 			get
@@ -6483,6 +6641,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phonetic spelling of the contact's first name, if the name is specified in Japanese, to make sure the name is pronounced correctly in phone calls with the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomifirstname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(150)]
 		public string YomiFirstName
 		{
 			get
@@ -6501,6 +6660,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows the combined Yomi first and last names of the contact so that the full phonetic name can be displayed in views and reports.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomifullname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(450)]
 		public string YomiFullName
 		{
 			get
@@ -6513,6 +6673,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phonetic spelling of the contact's last name, if the name is specified in Japanese, to make sure the name is pronounced correctly in phone calls with the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomilastname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(150)]
 		public string YomiLastName
 		{
 			get
@@ -6531,6 +6692,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phonetic spelling of the contact's middle name, if the name is specified in Japanese, to make sure the name is pronounced correctly in phone calls with the contact.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomimiddlename")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(150)]
 		public string YomiMiddleName
 		{
 			get
@@ -7039,6 +7201,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Sequence number of the import that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> ImportSequenceNumber
 		{
 			get
@@ -7150,6 +7313,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// The name of the custom entity.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(400)]
 		public string kipon_name
 		{
 			get
@@ -7168,6 +7332,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_no")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(1, 2147483647)]
 		public System.Nullable<int> kipon_no
 		{
 			get
@@ -7417,6 +7582,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> TimeZoneRuleVersionNumber
 		{
 			get
@@ -7435,6 +7601,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> UTCConversionTimeZoneCode
 		{
 			get
@@ -7647,6 +7814,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address1_City
 		{
 			get
@@ -7677,6 +7845,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the country or region for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address1_Country
 		{
 			get
@@ -7695,6 +7864,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the county for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_county")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_County
 		{
 			get
@@ -7713,6 +7883,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Fax
 		{
 			get
@@ -7749,6 +7920,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first line of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address1_Line1
 		{
 			get
@@ -7767,6 +7939,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the second line of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address1_Line2
 		{
 			get
@@ -7785,6 +7958,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the third line of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address1_Line3
 		{
 			get
@@ -7821,6 +7995,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a descriptive name for the primary address, such as Corporate Headquarters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Address1_Name
 		{
 			get
@@ -7839,6 +8014,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the ZIP Code or postal code for the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address1_PostalCode
 		{
 			get
@@ -7857,6 +8033,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the post office box number of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postofficebox")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address1_PostOfficeBox
 		{
 			get
@@ -7893,6 +8070,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the state or province of the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_StateOrProvince
 		{
 			get
@@ -7911,6 +8089,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the main phone number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone1
 		{
 			get
@@ -7929,6 +8108,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second phone number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone2
 		{
 			get
@@ -7947,6 +8127,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a third phone number associated with the primary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone3
 		{
 			get
@@ -7965,6 +8146,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the UPS zone of the primary address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_upszone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4)]
 		public string Address1_UPSZone
 		{
 			get
@@ -7983,6 +8165,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_utcoffset")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1500, 1500)]
 		public System.Nullable<int> Address1_UTCOffset
 		{
 			get
@@ -8037,6 +8220,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address2_City
 		{
 			get
@@ -8067,6 +8251,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the country or region for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string Address2_Country
 		{
 			get
@@ -8085,6 +8270,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the county for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_county")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_County
 		{
 			get
@@ -8103,6 +8289,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Fax
 		{
 			get
@@ -8139,6 +8326,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first line of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address2_Line1
 		{
 			get
@@ -8157,6 +8345,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the second line of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address2_Line2
 		{
 			get
@@ -8175,6 +8364,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the third line of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Address2_Line3
 		{
 			get
@@ -8211,6 +8401,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a descriptive name for the secondary address, such as Corporate Headquarters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Address2_Name
 		{
 			get
@@ -8229,6 +8420,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the ZIP Code or postal code for the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address2_PostalCode
 		{
 			get
@@ -8247,6 +8439,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the post office box number of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postofficebox")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Address2_PostOfficeBox
 		{
 			get
@@ -8283,6 +8476,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the state or province of the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_StateOrProvince
 		{
 			get
@@ -8301,6 +8495,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the main phone number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone1
 		{
 			get
@@ -8319,6 +8514,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a second phone number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone2
 		{
 			get
@@ -8337,6 +8533,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a third phone number associated with the secondary address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone3
 		{
 			get
@@ -8355,6 +8552,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the UPS zone of the secondary address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_upszone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4)]
 		public string Address2_UPSZone
 		{
 			get
@@ -8373,6 +8571,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_utcoffset")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1500, 1500)]
 		public System.Nullable<int> Address2_UTCOffset
 		{
 			get
@@ -8457,6 +8656,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Stores Business Card Control Properties.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("businesscardattributes")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4000)]
 		public string BusinessCardAttributes
 		{
 			get
@@ -8493,6 +8693,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the name of the company associated with the lead. This becomes the account name when the lead is qualified and converted to a customer account.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("companyname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string CompanyName
 		{
 			get
@@ -8739,6 +8940,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the primary email address for the lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EMailAddress1
 		{
 			get
@@ -8757,6 +8959,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the secondary email address for the lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EMailAddress2
 		{
 			get
@@ -8775,6 +8978,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a third email address for the lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EMailAddress3
 		{
 			get
@@ -8823,6 +9027,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string EntityImage_URL
 		{
 			get
@@ -8943,6 +9148,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number for the primary contact for the lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Fax
 		{
 			get
@@ -8961,6 +9167,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first name of the primary contact for the lead to make sure the prospect is addressed correctly in sales calls, email, and marketing campaigns.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("firstname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string FirstName
 		{
 			get
@@ -8997,6 +9204,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Combines and shows the lead's first and last names so the full name can be displayed in views and reports.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fullname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(160)]
 		public string FullName
 		{
 			get
@@ -9009,6 +9217,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Unique identifier of the data import or data migration that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> ImportSequenceNumber
 		{
 			get
@@ -9063,6 +9272,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the job title of the primary contact for this lead to make sure the prospect is addressed correctly in sales calls, email, and marketing campaigns.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("jobtitle")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string JobTitle
 		{
 			get
@@ -9081,6 +9291,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the last name of the primary contact for the lead to make sure the prospect is addressed correctly in sales calls, email, and marketing campaigns.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lastname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string LastName
 		{
 			get
@@ -9234,6 +9445,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the middle name or initial of the primary contact for the lead to make sure the prospect is addressed correctly.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("middlename")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string MiddleName
 		{
 			get
@@ -9252,6 +9464,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the mobile phone number for the primary contact for the lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("mobilephone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string MobilePhone
 		{
 			get
@@ -9342,6 +9555,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the number of employees that work at the company associated with the lead, for use in marketing segmentation and demographic analysis.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("numberofemployees")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 1000000)]
 		public System.Nullable<int> NumberOfEmployees
 		{
 			get
@@ -9360,6 +9574,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows how long, in minutes, that the record was on hold.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("onholdtime")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> OnHoldTime
 		{
 			get
@@ -9462,6 +9677,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the pager number for the primary contact for the lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("pager")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Pager
 		{
 			get
@@ -9744,6 +9960,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the salutation of the primary contact for this lead to make sure the prospect is addressed correctly in sales calls, email messages, and marketing campaigns.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("salutation")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Salutation
 		{
 			get
@@ -9798,6 +10015,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the Standard Industrial Classification (SIC) code that indicates the lead's primary industry of business for use in marketing segmentation and demographic analysis.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sic")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string SIC
 		{
 			get
@@ -9915,6 +10133,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a subject or descriptive name, such as the expected order, company name, or marketing source list, to identify the lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("subject")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(300)]
 		public string Subject
 		{
 			get
@@ -9933,6 +10152,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Number of users or conversations followed the record
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("teamsfollowed")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> TeamsFollowed
 		{
 			get
@@ -9951,6 +10171,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the work phone number for the primary contact for the lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Telephone1
 		{
 			get
@@ -9969,6 +10190,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the home phone number for the primary contact for the lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Telephone2
 		{
 			get
@@ -9987,6 +10209,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type an alternate phone number for the primary contact for the lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Telephone3
 		{
 			get
@@ -10005,6 +10228,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Total time spent for emails (read and write) and meetings by me in relation to the lead record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timespentbymeonemailandmeetings")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TimeSpentByMeOnEmailAndMeetings
 		{
 			get
@@ -10017,6 +10241,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> TimeZoneRuleVersionNumber
 		{
 			get
@@ -10053,6 +10278,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TraversedPath
 		{
 			get
@@ -10071,6 +10297,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> UTCConversionTimeZoneCode
 		{
 			get
@@ -10101,6 +10328,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the website URL for the company associated with this lead.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("websiteurl")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string WebSiteUrl
 		{
 			get
@@ -10119,6 +10347,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phonetic spelling of the lead's company name, if the name is specified in Japanese, to make sure the name is pronounced correctly in phone calls with the prospect.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomicompanyname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string YomiCompanyName
 		{
 			get
@@ -10137,6 +10366,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phonetic spelling of the lead's first name, if the name is specified in Japanese, to make sure the name is pronounced correctly in phone calls with the prospect.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomifirstname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(150)]
 		public string YomiFirstName
 		{
 			get
@@ -10155,6 +10385,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Combines and shows the lead's Yomi first and last names so the full phonetic name can be displayed in views and reports.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomifullname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(450)]
 		public string YomiFullName
 		{
 			get
@@ -10167,6 +10398,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phonetic spelling of the lead's last name, if the name is specified in Japanese, to make sure the name is pronounced correctly in phone calls with the prospect.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomilastname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(150)]
 		public string YomiLastName
 		{
 			get
@@ -10185,6 +10417,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phonetic spelling of the lead's middle name, if the name is specified in Japanese, to make sure the name is pronounced correctly in phone calls with the prospect.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomimiddlename")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(150)]
 		public string YomiMiddleName
 		{
 			get
@@ -10697,6 +10930,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a number from 0 to 100 that represents the likelihood of closing the opportunity. This can aid the sales team in their efforts to convert the opportunity in a sale.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("closeprobability")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 100)]
 		public System.Nullable<int> CloseProbability
 		{
 			get
@@ -10991,6 +11225,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// The primary email address for the entity.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EmailAddress
 		{
 			get
@@ -11207,6 +11442,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Unique identifier of the data import or data migration that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> ImportSequenceNumber
 		{
 			get
@@ -11315,6 +11551,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a subject or descriptive name, such as the expected order or company name, for the opportunity.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(300)]
 		public string Name
 		{
 			get
@@ -11351,6 +11588,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows the duration in minutes for which the opportunity was on hold.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("onholdtime")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> OnHoldTime
 		{
 			get
@@ -12041,6 +12279,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows the current phase in the sales pipeline for the opportunity. This is updated by a workflow.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("stepname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string StepName
 		{
 			get
@@ -12059,6 +12298,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Number of users or conversations followed the record
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("teamsfollowed")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> TeamsFollowed
 		{
 			get
@@ -12095,6 +12335,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Total time spent for emails (read and write) and meetings by me in relation to the opportunity record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timespentbymeonemailandmeetings")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TimeSpentByMeOnEmailAndMeetings
 		{
 			get
@@ -12107,6 +12348,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> TimeZoneRuleVersionNumber
 		{
 			get
@@ -12323,6 +12565,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TraversedPath
 		{
 			get
@@ -12341,6 +12584,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> UTCConversionTimeZoneCode
 		{
 			get
@@ -12741,6 +12985,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the number of minutes spent on the phone call. The duration is used in reporting.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("actualdurationminutes")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 2147483647)]
 		public System.Nullable<int> ActualDurationMinutes
 		{
 			get
@@ -12795,6 +13040,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a category to identify the phone call type, such as lead gathering or customer follow-up, to tie the phone call to a business group or function.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("category")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Category
 		{
 			get
@@ -12931,6 +13177,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Unique identifier of the data import or data migration that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> ImportSequenceNumber
 		{
 			get
@@ -13069,6 +13316,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows how long, in minutes, that the record was on hold.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("onholdtime")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> OnHoldTime
 		{
 			get
@@ -13153,6 +13401,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phone number.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("phonenumber")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string PhoneNumber
 		{
 			get
@@ -13225,6 +13474,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Scheduled duration of the phone call activity, specified in minutes.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("scheduleddurationminutes")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 2147483647)]
 		public System.Nullable<int> ScheduledDurationMinutes
 		{
 			get
@@ -13408,6 +13658,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a subcategory to identify the phone call type and relate the activity to a specific product, sales region, business group, or other function.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("subcategory")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string Subcategory
 		{
 			get
@@ -13426,6 +13677,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a short description about the objective or primary topic of the phone call.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("subject")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string Subject
 		{
 			get
@@ -13462,6 +13714,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> TimeZoneRuleVersionNumber
 		{
 			get
@@ -13532,6 +13785,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TraversedPath
 		{
 			get
@@ -13550,6 +13804,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> UTCConversionTimeZoneCode
 		{
 			get
@@ -13861,6 +14116,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string BillTo_City
 		{
 			get
@@ -13891,6 +14147,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the primary contact name at the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_contactname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(150)]
 		public string BillTo_ContactName
 		{
 			get
@@ -13909,6 +14166,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the country or region for the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string BillTo_Country
 		{
 			get
@@ -13927,6 +14185,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number for the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string BillTo_Fax
 		{
 			get
@@ -13945,6 +14204,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first line of the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string BillTo_Line1
 		{
 			get
@@ -13963,6 +14223,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the second line of the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string BillTo_Line2
 		{
 			get
@@ -13981,6 +14242,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the third line of the billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string BillTo_Line3
 		{
 			get
@@ -13999,6 +14261,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a name for the customer's billing address, such as "Headquarters" or "Field office", to identify the address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string BillTo_Name
 		{
 			get
@@ -14017,6 +14280,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the ZIP Code or postal code for the billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string BillTo_PostalCode
 		{
 			get
@@ -14035,6 +14299,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the state or province for the billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string BillTo_StateOrProvince
 		{
 			get
@@ -14053,6 +14318,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phone number for the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_telephone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string BillTo_Telephone
 		{
 			get
@@ -14275,6 +14541,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// The primary email address for the entity.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EmailAddress
 		{
 			get
@@ -14371,6 +14638,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Unique identifier of the data import or data migration that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> ImportSequenceNumber
 		{
 			get
@@ -14443,6 +14711,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a descriptive name for the quote.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(300)]
 		public string Name
 		{
 			get
@@ -14461,6 +14730,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows the duration in minutes for which the quote was on hold.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("onholdtime")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> OnHoldTime
 		{
 			get
@@ -14674,6 +14944,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows the quote number for customer reference and searching capabilities. The number cannot be modified.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("quotenumber")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string QuoteNumber
 		{
 			get
@@ -14710,6 +14981,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows the version number of the quote for revision history tracking.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("revisionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 2147483647)]
 		public System.Nullable<int> RevisionNumber
 		{
 			get
@@ -14758,6 +15030,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string ShipTo_City
 		{
 			get
@@ -14788,6 +15061,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the primary contact name at the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_contactname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(150)]
 		public string ShipTo_ContactName
 		{
 			get
@@ -14806,6 +15080,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the country or region for the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string ShipTo_Country
 		{
 			get
@@ -14824,6 +15099,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number for the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string ShipTo_Fax
 		{
 			get
@@ -14860,6 +15136,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first line of the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string ShipTo_Line1
 		{
 			get
@@ -14878,6 +15155,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the second line of the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string ShipTo_Line2
 		{
 			get
@@ -14896,6 +15174,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the third line of the shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string ShipTo_Line3
 		{
 			get
@@ -14914,6 +15193,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a name for the customer's shipping address, such as "Headquarters" or "Field office",  to identify the address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string ShipTo_Name
 		{
 			get
@@ -14932,6 +15212,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the ZIP Code or postal code for the shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string ShipTo_PostalCode
 		{
 			get
@@ -14950,6 +15231,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the state or province for the shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string ShipTo_StateOrProvince
 		{
 			get
@@ -14968,6 +15250,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phone number for the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_telephone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string ShipTo_Telephone
 		{
 			get
@@ -15103,6 +15386,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> TimeZoneRuleVersionNumber
 		{
 			get
@@ -15319,6 +15603,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TraversedPath
 		{
 			get
@@ -15337,6 +15622,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> UTCConversionTimeZoneCode
 		{
 			get
@@ -15666,6 +15952,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string BillTo_City
 		{
 			get
@@ -15696,6 +15983,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the primary contact name at the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_contactname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(150)]
 		public string BillTo_ContactName
 		{
 			get
@@ -15714,6 +16002,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the country or region for the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string BillTo_Country
 		{
 			get
@@ -15732,6 +16021,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number for the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string BillTo_Fax
 		{
 			get
@@ -15750,6 +16040,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first line of the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string BillTo_Line1
 		{
 			get
@@ -15768,6 +16059,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the second line of the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string BillTo_Line2
 		{
 			get
@@ -15786,6 +16078,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the third line of the billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string BillTo_Line3
 		{
 			get
@@ -15804,6 +16097,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a name for the customer's billing address, such as "Headquarters" or "Field office", to identify the address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string BillTo_Name
 		{
 			get
@@ -15822,6 +16116,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the ZIP Code or postal code for the billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string BillTo_PostalCode
 		{
 			get
@@ -15840,6 +16135,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the state or province for the billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string BillTo_StateOrProvince
 		{
 			get
@@ -15858,6 +16154,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phone number for the customer's billing address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_telephone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string BillTo_Telephone
 		{
 			get
@@ -16044,6 +16341,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// The primary email address for the entity.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EmailAddress
 		{
 			get
@@ -16092,6 +16390,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string EntityImage_URL
 		{
 			get
@@ -16176,6 +16475,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Unique identifier of the data import or data migration that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> ImportSequenceNumber
 		{
 			get
@@ -16284,6 +16584,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a descriptive name for the order.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(300)]
 		public string Name
 		{
 			get
@@ -16302,6 +16603,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows the duration in minutes for which the order was on hold.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("onholdtime")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> OnHoldTime
 		{
 			get
@@ -16332,6 +16634,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows the order number for customer reference and to use in search. The number cannot be modified.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ordernumber")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string OrderNumber
 		{
 			get
@@ -16623,6 +16926,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the city for the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string ShipTo_City
 		{
 			get
@@ -16653,6 +16957,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the primary contact name at the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_contactname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(150)]
 		public string ShipTo_ContactName
 		{
 			get
@@ -16671,6 +16976,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the country or region for the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
 		public string ShipTo_Country
 		{
 			get
@@ -16689,6 +16995,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the fax number for the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string ShipTo_Fax
 		{
 			get
@@ -16725,6 +17032,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the first line of the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string ShipTo_Line1
 		{
 			get
@@ -16743,6 +17051,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the second line of the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string ShipTo_Line2
 		{
 			get
@@ -16761,6 +17070,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the third line of the shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
 		public string ShipTo_Line3
 		{
 			get
@@ -16779,6 +17089,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a name for the customer's shipping address, such as "Headquarters" or "Field office",  to identify the address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string ShipTo_Name
 		{
 			get
@@ -16797,6 +17108,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the ZIP Code or postal code for the shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string ShipTo_PostalCode
 		{
 			get
@@ -16815,6 +17127,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the state or province for the shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string ShipTo_StateOrProvince
 		{
 			get
@@ -16833,6 +17146,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the phone number for the customer's shipping address.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_telephone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string ShipTo_Telephone
 		{
 			get
@@ -16986,6 +17300,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type the code for the submitted status in the fulfillment or shipping center system.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("submitstatus")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 1000000000)]
 		public System.Nullable<int> SubmitStatus
 		{
 			get
@@ -17022,6 +17337,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> TimeZoneRuleVersionNumber
 		{
 			get
@@ -17238,6 +17554,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TraversedPath
 		{
 			get
@@ -17256,6 +17573,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> UTCConversionTimeZoneCode
 		{
 			get
@@ -17589,6 +17907,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// City name for address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string Address1_City
 		{
 			get
@@ -17619,6 +17938,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Country/region name in address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string Address1_Country
 		{
 			get
@@ -17637,6 +17957,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// County name for address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_county")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string Address1_County
 		{
 			get
@@ -17655,6 +17976,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Fax number for address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(64)]
 		public string Address1_Fax
 		{
 			get
@@ -17691,6 +18013,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// First line for entering address 1 information.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1024)]
 		public string Address1_Line1
 		{
 			get
@@ -17709,6 +18032,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Second line for entering address 1 information.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1024)]
 		public string Address1_Line2
 		{
 			get
@@ -17727,6 +18051,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Third line for entering address 1 information.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1024)]
 		public string Address1_Line3
 		{
 			get
@@ -17763,6 +18088,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Name to enter for address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Address1_Name
 		{
 			get
@@ -17781,6 +18107,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// ZIP Code or postal code for address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(40)]
 		public string Address1_PostalCode
 		{
 			get
@@ -17799,6 +18126,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Post office box number for address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_postofficebox")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(40)]
 		public string Address1_PostOfficeBox
 		{
 			get
@@ -17835,6 +18163,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// State or province for address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string Address1_StateOrProvince
 		{
 			get
@@ -17853,6 +18182,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// First telephone number associated with address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(64)]
 		public string Address1_Telephone1
 		{
 			get
@@ -17871,6 +18201,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Second telephone number associated with address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone2
 		{
 			get
@@ -17889,6 +18220,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Third telephone number associated with address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address1_Telephone3
 		{
 			get
@@ -17907,6 +18239,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// United Parcel Service (UPS) zone for address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_upszone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4)]
 		public string Address1_UPSZone
 		{
 			get
@@ -17925,6 +18258,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// UTC offset for address 1. This is the difference between local time and standard Coordinated Universal Time.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_utcoffset")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1500, 1500)]
 		public System.Nullable<int> Address1_UTCOffset
 		{
 			get
@@ -17979,6 +18313,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// City name for address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string Address2_City
 		{
 			get
@@ -18009,6 +18344,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Country/region name in address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string Address2_Country
 		{
 			get
@@ -18027,6 +18363,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// County name for address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_county")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string Address2_County
 		{
 			get
@@ -18045,6 +18382,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Fax number for address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Fax
 		{
 			get
@@ -18081,6 +18419,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// First line for entering address 2 information.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1024)]
 		public string Address2_Line1
 		{
 			get
@@ -18099,6 +18438,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Second line for entering address 2 information.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1024)]
 		public string Address2_Line2
 		{
 			get
@@ -18117,6 +18457,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Third line for entering address 2 information.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1024)]
 		public string Address2_Line3
 		{
 			get
@@ -18153,6 +18494,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Name to enter for address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Address2_Name
 		{
 			get
@@ -18171,6 +18513,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// ZIP Code or postal code for address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(40)]
 		public string Address2_PostalCode
 		{
 			get
@@ -18189,6 +18532,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Post office box number for address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_postofficebox")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(40)]
 		public string Address2_PostOfficeBox
 		{
 			get
@@ -18225,6 +18569,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// State or province for address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string Address2_StateOrProvince
 		{
 			get
@@ -18243,6 +18588,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// First telephone number associated with address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone1
 		{
 			get
@@ -18261,6 +18607,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Second telephone number associated with address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone2
 		{
 			get
@@ -18279,6 +18626,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Third telephone number associated with address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_telephone3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string Address2_Telephone3
 		{
 			get
@@ -18297,6 +18645,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// United Parcel Service (UPS) zone for address 2.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_upszone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(4)]
 		public string Address2_UPSZone
 		{
 			get
@@ -18315,6 +18664,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// UTC offset for address 2. This is the difference between local time and standard Coordinated Universal Time.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_utcoffset")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1500, 1500)]
 		public System.Nullable<int> Address2_UTCOffset
 		{
 			get
@@ -18351,6 +18701,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// The URI used as a unique logical identifier for the external app. This can be used to validate the application.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("applicationiduri")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1024)]
 		public string ApplicationIdUri
 		{
 			get
@@ -18489,6 +18840,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Type a default folder name for the user's OneDrive For Business location.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("defaultodbfoldername")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string DefaultOdbFolderName
 		{
 			get
@@ -18501,6 +18853,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Reason for disabling the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("disabledreason")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(500)]
 		public string DisabledReason
 		{
 			get
@@ -18531,6 +18884,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Active Directory domain of which the user is a member.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("domainname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1024)]
 		public string DomainName
 		{
 			get
@@ -18567,6 +18921,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Employee identifier for the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("employeeid")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string EmployeeId
 		{
 			get
@@ -18615,6 +18970,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string EntityImage_URL
 		{
 			get
@@ -18651,6 +19007,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// First name of the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("firstname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(256)]
 		public string FirstName
 		{
 			get
@@ -18669,6 +19026,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Full name of the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fullname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string FullName
 		{
 			get
@@ -18681,6 +19039,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Government identifier for the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("governmentid")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string GovernmentId
 		{
 			get
@@ -18699,6 +19058,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Home phone number for the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("homephone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string HomePhone
 		{
 			get
@@ -18717,6 +19077,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("identityid")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> IdentityId
 		{
 			get
@@ -18729,6 +19090,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Unique identifier of the data import or data migration that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> ImportSequenceNumber
 		{
 			get
@@ -18765,6 +19127,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Internal email address for the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("internalemailaddress")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string InternalEMailAddress
 		{
 			get
@@ -18885,6 +19248,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Job title of the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("jobtitle")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string JobTitle
 		{
 			get
@@ -18903,6 +19267,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Last name of the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lastname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(256)]
 		public string LastName
 		{
 			get
@@ -18921,6 +19286,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Middle name of the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("middlename")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string MiddleName
 		{
 			get
@@ -18939,6 +19305,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Mobile alert email address for the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("mobilealertemail")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string MobileAlertEMail
 		{
 			get
@@ -18975,6 +19342,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Mobile phone number for the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("mobilephone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(64)]
 		public string MobilePhone
 		{
 			get
@@ -19047,6 +19415,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Nickname of the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("nickname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string NickName
 		{
 			get
@@ -19131,6 +19500,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("passporthi")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 1000000000)]
 		public System.Nullable<int> PassportHi
 		{
 			get
@@ -19149,6 +19519,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("passportlo")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 1000000000)]
 		public System.Nullable<int> PassportLo
 		{
 			get
@@ -19167,6 +19538,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Personal email address of the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("personalemailaddress")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string PersonalEMailAddress
 		{
 			get
@@ -19185,6 +19557,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// URL for the Website on which a photo of the user is located.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("photourl")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string PhotoUrl
 		{
 			get
@@ -19311,6 +19684,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Salutation for correspondence with the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("salutation")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
 		public string Salutation
 		{
 			get
@@ -19347,6 +19721,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// SharePoint Work Email Address
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sharepointemailaddress")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1024)]
 		public string SharePointEmailAddress
 		{
 			get
@@ -19383,6 +19758,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Skill set of the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("skills")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string Skills
 		{
 			get
@@ -19476,6 +19852,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> TimeZoneRuleVersionNumber
 		{
 			get
@@ -19494,6 +19871,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Title of the user.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("title")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string Title
 		{
 			get
@@ -19530,6 +19908,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
 		public string TraversedPath
 		{
 			get
@@ -19548,6 +19927,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Shows the type of user license.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("userlicensetype")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
 		public System.Nullable<int> UserLicenseType
 		{
 			get
@@ -19566,6 +19946,7 @@ namespace Kipon.Solid.Plugin.Entities
 		///  User PUID User Identifiable Information
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("userpuid")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
 		public string UserPuid
 		{
 			get
@@ -19578,6 +19959,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
 		public System.Nullable<int> UTCConversionTimeZoneCode
 		{
 			get
@@ -19608,6 +19990,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Windows Live ID
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("windowsliveid")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1024)]
 		public string WindowsLiveID
 		{
 			get
@@ -19626,6 +20009,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// User's Yammer login email address
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yammeremailaddress")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string YammerEmailAddress
 		{
 			get
@@ -19644,6 +20028,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// User's Yammer ID
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yammeruserid")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(128)]
 		public string YammerUserId
 		{
 			get
@@ -19662,6 +20047,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Pronunciation of the first name of the user, written in phonetic hiragana or katakana characters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomifirstname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(64)]
 		public string YomiFirstName
 		{
 			get
@@ -19680,6 +20066,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Pronunciation of the full name of the user, written in phonetic hiragana or katakana characters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomifullname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
 		public string YomiFullName
 		{
 			get
@@ -19692,6 +20079,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Pronunciation of the last name of the user, written in phonetic hiragana or katakana characters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomilastname")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(64)]
 		public string YomiLastName
 		{
 			get
@@ -19710,6 +20098,7 @@ namespace Kipon.Solid.Plugin.Entities
 		/// Pronunciation of the middle name of the user, written in phonetic hiragana or katakana characters.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("yomimiddlename")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
 		public string YomiMiddleName
 		{
 			get

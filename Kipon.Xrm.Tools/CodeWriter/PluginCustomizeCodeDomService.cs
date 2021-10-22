@@ -104,21 +104,26 @@ namespace Kipon.Xrm.Tools.CodeWriter
             return context.CreateQuery<T>();
         }}
 
-        public IQueryable<T> GetQueryIgnoreCache()
-        {{
-            return new Kipon.Xrm.Implementations.NoCacheQueryable<T>(context.CreateQuery<T>(), context);
-        }}
-
         public void Delete(T entity)
         {{
             this._service.Delete(entity.LogicalName, entity.Id);
-            this.context.Detach(entity);
         }}
 
         public void Add(T entity)
         {{
             this._service.Create(entity);
-            this.context.Attach(entity);
+        }}
+
+        public void Update(T entity)
+        {{
+            this._service.Update(entity);
+        }}
+
+        public T GetById(Guid id)
+        {{
+            return (from q in this.GetQuery()
+                    where q.Id == id
+                    select q).Single();
         }}
 
         public void Attach(T entity)
@@ -129,35 +134,6 @@ namespace Kipon.Xrm.Tools.CodeWriter
         public void Detach(T entity)
         {{
             this.context.Detach(entity);
-        }}
-
-        public void Update(T entity)
-        {{
-            this._service.Update(entity);
-            if (!this.context.IsAttached(entity))
-            {{
-                this.context.Attach(entity);
-            }} else 
-            {{
-                var ch = (from c in this.context.GetAttachedEntities() 
-                          where c.LogicalName == entity.LogicalName && 
-                                c.Id == entity.Id 
-                          select c).Single();
-
-                foreach (var key in entity.Attributes.Keys)
-                {{
-                    // update the cache silent
-                    ch.Attributes.Remove(key);
-                    ch.Attributes.Add(key, entity[key]);
-                }}
-            }}
-        }}
-
-        public T GetById(Guid id)
-        {{
-            return (from q in this.GetQuery()
-                    where q.Id == id
-                    select q).Single();
         }}
     }}";
 
@@ -501,6 +477,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
             }
         }
 
+        private const string obsoleteName= "@obsolete";
         private void AddEntityConsts(CodeCompileUnit codeUnit, string ns, Dictionary<string, Model.Entity> entities, IOrganizationMetadata meta)
         {
             foreach (CodeNamespace n in codeUnit.Namespaces)
@@ -520,9 +497,61 @@ namespace Kipon.Xrm.Tools.CodeWriter
                             }
 
                             var typeEntityName = ((CodePrimitiveExpression)logicalNameAttribute.Arguments[0].Value).Value.ToString();
+
                             if (entities.Values.Where(r => r.LogicalName == typeEntityName).Any())
                             {
                                 var entity = new { Type = type, Metadata = meta.Entities.Where(r => r.LogicalName == typeEntityName).Single() };
+
+                                #region decorate entity properties
+                                foreach (CodeTypeMember member in type.Members)
+                                {
+                                    if (member is CodeMemberProperty prop)
+                                    {
+                                        var logicalAttributeName = prop.CustomAttributes.Cast<CodeAttributeDeclaration>()
+                                            .FirstOrDefault(a => a.Name == $"Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute");
+
+                                        if (logicalAttributeName == null)
+                                        {
+                                            continue;
+                                        }
+
+                                        var typeAttributeName = ((CodePrimitiveExpression)logicalAttributeName.Arguments[0].Value).Value.ToString();
+
+                                        var attr = entity.Metadata.Attributes.Where(r => r.LogicalName == typeAttributeName).SingleOrDefault();
+                                        if (attr != null)
+                                        {
+                                            var attrDesc = attr.Description?.UserLocalizedLabel?.Label;
+                                            if (!string.IsNullOrEmpty(attrDesc) && attrDesc.Contains(obsoleteName))
+                                            {
+                                                member.CustomAttributes.Insert(0, new CodeAttributeDeclaration("System.ObsoleteAttribute"));
+                                            }
+
+                                            if (attr is StringAttributeMetadata sMeta && sMeta.MaxLength != null && sMeta.MaxLength.Value > 0)
+                                            {
+                                                member.CustomAttributes.Insert(1, new CodeAttributeDeclaration("Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute", new CodeAttributeArgument(new CodePrimitiveExpression(sMeta.MaxLength.Value))));
+                                            }
+
+                                            if (attr is Microsoft.Xrm.Sdk.Metadata.IntegerAttributeMetadata iMeta && iMeta.MinValue != null && iMeta.MaxValue != null)
+                                            {
+                                                member.CustomAttributes.Insert(1, new CodeAttributeDeclaration(
+                                                    "Kipon.Xrm.Attributes.Metadata.WholenumberAttribute", 
+                                                    new CodeAttributeArgument(new CodePrimitiveExpression(iMeta.MinValue.Value)),
+                                                    new CodeAttributeArgument(new CodePrimitiveExpression(iMeta.MaxValue.Value))
+                                                    ));
+                                            }
+                                        }
+                                    }
+                                }
+                                #endregion
+
+
+
+                                var label = entity.Metadata.Description?.UserLocalizedLabel?.Label;
+
+                                if (!string.IsNullOrEmpty(label) && label.ToLower().Contains(obsoleteName))
+                                {
+                                    entity.Type.CustomAttributes.Insert(0, new CodeAttributeDeclaration("System.ObsoleteAttribute"));
+                                }
 
                                 if (entity.Metadata.PrimaryNameAttribute != null)
                                 {

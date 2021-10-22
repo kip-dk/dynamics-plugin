@@ -120,6 +120,8 @@
     <Compile Include="Xrm\Attributes\ImportingConstructorAttribute.cs" />
     <Compile Include="Xrm\Attributes\LogicalNameAttribute.cs" />
     <Compile Include="Xrm\Attributes\MergedimageAttribute.cs" />
+    <Compile Include="Xrm\Attributes\Metadata\MaxLengthAttribute.cs" />
+    <Compile Include="Xrm\Attributes\Metadata\WholenumberAttribute.cs" />
     <Compile Include="Xrm\Attributes\OutputAttribute.cs" />
     <Compile Include="Xrm\Attributes\PostimageAttribute.cs" />
     <Compile Include="Xrm\Attributes\PreimageAttribute.cs" />

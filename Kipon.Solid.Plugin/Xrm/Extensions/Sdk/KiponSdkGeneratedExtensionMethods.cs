@@ -568,6 +568,34 @@
             return null;
         }
 
+        public static T ValueOf<T>(this Microsoft.Xrm.Sdk.AttributeCollection attributes, string attrName)
+        {
+            attrName = attrName.ToLower();
+            if (attributes != null && attributes.ContainsKey(attrName))
+            {
+                var obj = attributes[attrName];
+                if (obj is T v)
+                {
+                    return v;
+                }
+            }
+            return default(T);
+        }
+
+        public static T ValueOf<T>(this Microsoft.Xrm.Sdk.AttributeCollection attributes, string attrName, T def)
+        {
+            attrName = attrName.ToLower();
+            if (attributes != null && attributes.ContainsKey(attrName))
+            {
+                var obj = attributes[attrName];
+                if (obj is T v)
+                {
+                    return v;
+                }
+            }
+            return def;
+        }
+
         private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)
         {
             var properties = entityType.GetCustomAttributes(Reflection.TypeCache.Types.TargetFilterAttribute, false);
