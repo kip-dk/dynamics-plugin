@@ -740,7 +740,7 @@
                 if (this._queryMethod == null)
                 {
                     var repository = this.RepositoryProperty;
-                    this._queryMethod = repository.PropertyType.GetMethod("GetQueryIgnoreCache", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                    this._queryMethod = repository.PropertyType.GetMethod("GetQuery", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
                     if (this.QueryMethod == null)
                     {
                         throw new Exceptions.UnresolvableTypeException(this.ToType);

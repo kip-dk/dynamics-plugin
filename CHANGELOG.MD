@@ -1,4 +1,7 @@
-## Last updated: 2021-10-22
+## Last updated: 2021-10-27
+
+### 1.0.7.1
+Injecting IQueryable&lt;&gt; directly into a service failed. in version 1.0.7.0 (the version is now unlisted). This has been fixed in version 1.0.7.1
 
 ### 1.0.7.0
 Generated IRepository impl. no longer add or remove things to the context cache on create/update/delete. The context cahce i now living its own life, and if you do not

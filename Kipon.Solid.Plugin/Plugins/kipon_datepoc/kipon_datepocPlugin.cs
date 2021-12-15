@@ -96,7 +96,7 @@ namespace Kipon.Solid.Plugin.Plugins.kipon_datepoc
 
             var counts = cache.GetAttachedEntities().Count();
 
-            if (dateQuery is Kipon.Xrm.Implementations.NoCacheQueryable<Entities.kipon_datepoc>)
+            if (dateQuery is IQueryable<Entities.kipon_datepoc>)
             {
                 /// queries injected directly to a service will 
 

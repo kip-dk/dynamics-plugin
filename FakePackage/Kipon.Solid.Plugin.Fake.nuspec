@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Solid.Plugin.Fake</id>
-    <version>1.0.7.0</version>
+    <version>1.0.7.1</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -10,7 +10,7 @@
     <iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Unit Test library for the Kipon.Solid.Plugin framework</description>
-    <releaseNotes>The solution no longer deals with the context cache implicitly.</releaseNotes>
+    <releaseNotes>Fix injection error on iqueryable</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020,2021</copyright>
     <tags>Dynamics 365 plugin C# SOLID</tags>
     <dependencies>

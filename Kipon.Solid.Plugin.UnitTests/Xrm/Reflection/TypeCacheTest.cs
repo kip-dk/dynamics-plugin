@@ -146,7 +146,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
             var typefor = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null);
             Assert.IsTrue(typefor.IsQuery);
             Assert.AreEqual(typefor.RepositoryProperty.PropertyType, typeof(Kipon.Xrm.IRepository<Entities.Contact>));
-            Assert.AreEqual("GetQueryIgnoreCache", typefor.QueryMethod.Name);
+            Assert.AreEqual("GetQuery", typefor.QueryMethod.Name);
         }
 
         public class QueryableParameterClass

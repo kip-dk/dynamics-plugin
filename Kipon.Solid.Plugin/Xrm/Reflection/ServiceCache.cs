@@ -182,8 +182,8 @@
                     if (type.IsQuery)
                     {
                         var uow = this.GetIUnitOfWork(type.RequireAdminService);
-                        var queryProperty = type.RepositoryProperty;
-                        var repository = queryProperty.GetValue(uow, new object[0]);
+                        var repositoryProperty = type.RepositoryProperty;
+                        var repository = repositoryProperty.GetValue(uow, new object[0]);
                         var queryMethod = type.QueryMethod;
                         return queryMethod.Invoke(repository, new object[0]);
                     }
