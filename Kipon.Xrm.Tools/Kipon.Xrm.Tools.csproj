@@ -134,10 +134,12 @@
     <Compile Include="Configs\Webresource.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Plugin.cs" />
+    <Compile Include="Models\PluginAssembly.cs" />
     <Compile Include="Models\Step.cs" />
     <Compile Include="Models\SystemForm.cs" />
     <Compile Include="Models\WebResourceMerge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceAPI\IAssemblyPluginModelService.cs" />
     <Compile Include="ServiceAPI\IMessageService.cs" />
     <Compile Include="ServiceAPI\IPluginAssemblyService.cs" />
     <Compile Include="ServiceAPI\IPluginDeploymentService.cs" />
@@ -145,6 +147,8 @@
     <Compile Include="ServiceAPI\ISdkMessageProcessingStepService.cs" />
     <Compile Include="ServiceAPI\ISolutionService.cs" />
     <Compile Include="ServiceAPI\ISystemFormService.cs" />
+    <Compile Include="Services\AssemblyPluginModelService.cs" />
+    <Compile Include="Services\CrmTransaction.cs" />
     <Compile Include="Services\SystemFormService.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\PluginAssemblyService.cs" />

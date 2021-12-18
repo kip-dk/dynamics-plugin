@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Kipon.Xrm.Tools.Entities;
+using Kipon.Xrm.Tools.ServiceAPI;
 
 namespace Kipon.Xrm.Tools.Services
 {
@@ -14,6 +15,8 @@ namespace Kipon.Xrm.Tools.Services
     {
         private Entities.IUnitOfWork uow;
         private ServiceAPI.IMessageService messageService;
+        private readonly IPluginTypeService typeService;
+        private readonly ISdkMessageProcessingStepService stepService;
 
         public System.Reflection.Assembly Assembly { get; private set; }
         private Entities.PluginAssembly pluginAssembly;
@@ -21,10 +24,16 @@ namespace Kipon.Xrm.Tools.Services
         private bool isNew = true;
 
         [ImportingConstructor]
-        public PluginAssemblyService(Entities.IUnitOfWork uow, ServiceAPI.IMessageService messageService)
+        public PluginAssemblyService(
+            Entities.IUnitOfWork uow, 
+            ServiceAPI.IMessageService messageService,
+            ServiceAPI.IPluginTypeService typeService,
+            ServiceAPI.ISdkMessageProcessingStepService stepService)
         {
             this.uow = uow;
             this.messageService = messageService;
+            this.typeService = typeService;
+            this.stepService = stepService;
         }
 
         public PluginAssembly FindOrCreate(string assemblyfilename)
@@ -82,6 +91,13 @@ namespace Kipon.Xrm.Tools.Services
             }
         }
 
+
+        public Entities.PluginAssembly GetPluginAssembly(string name)
+        {
+            return (from pa in uow.PluginAssemblies.GetQuery()
+                    where pa.Name == name
+                    select pa).SingleOrDefault();
+        }
 
         private string GetPublicKeyTokenFromAssembly()
         {

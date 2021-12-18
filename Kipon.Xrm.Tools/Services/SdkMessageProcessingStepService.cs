@@ -91,6 +91,59 @@ namespace Kipon.Xrm.Tools.Services
             return result.ToArray();
         }
 
+        public Entities.SdkMessageProcessingStep[] ForSolution(string name)
+        {
+            var solutionId = (from s in this.uow.Solutions.GetQuery()
+                              where s.UniqueName == name
+                              select s.SolutionId).SingleOrDefault();
+
+            if (solutionId == null)
+            {
+                throw new ArgumentException($"No solution found with uniquename { name }");
+            }
+
+            return (from s in uow.SdkMessageProcessingSteps.GetQuery()
+                    join c in uow.SolutionComponents.GetQuery() on s.SdkMessageProcessingStepId equals c.ObjectId
+                    where c.SolutionId.Id == solutionId
+                    select s).ToArray();
+        }
+
+        public Entities.SdkMessageProcessingStepImage[] ImagesForSolution(string name)
+        {
+            var solutionId = (from s in this.uow.Solutions.GetQuery()
+                              where s.UniqueName == name
+                              select s.SolutionId).SingleOrDefault();
+
+            if (solutionId == null)
+            {
+                throw new ArgumentException($"No solution found with uniquename { name }"); 
+            }
+
+            return (from i in uow.SdkMessageProcessingStepImages.GetQuery()
+                    join s in uow.SdkMessageProcessingSteps.GetQuery() on i.SdkMessageProcessingStepId.Id equals s.SdkMessageProcessingStepId
+                    join c in uow.SolutionComponents.GetQuery() on i.SdkMessageProcessingStepId.Id equals c.ObjectId
+                    select i).ToArray();
+        }
+
+        public Entities.SdkMessageProcessingStepImage[] ImagesForPluginAssembly(Guid id)
+        {
+            return (from i in uow.SdkMessageProcessingStepImages.GetQuery()
+                    join s in uow.SdkMessageProcessingSteps.GetQuery() on i.SdkMessageProcessingStepId.Id equals s.SdkMessageProcessingStepId
+                    join t in uow.PluginTypes.GetQuery() on s.EventHandler.Id equals t.PluginTypeId
+                    where t.PluginAssemblyId.Id == id
+                    select i).Distinct().ToArray();
+
+        }
+
+        public Entities.SdkMessageFilter[] FiltersForAssembly(Guid id)
+        {
+            return (from f in uow.SdkMessageFilters.GetQuery()
+                    join s in uow.SdkMessageProcessingSteps.GetQuery() on f.SdkMessageFilterId equals s.SdkMessageFilterId.Id
+                    join t in uow.PluginTypes.GetQuery() on s.EventHandler.Id equals t.PluginTypeId
+                    select f).Distinct().ToArray();
+        }
+
+
         private void Update(Models.Plugin plugin, Models.Step step, Entities.SdkMessageProcessingStep crmStep)
         {
             var updated = false;
@@ -254,7 +307,7 @@ namespace Kipon.Xrm.Tools.Services
         }
 
         private Dictionary<string, SdkMessageFilter> filters = new Dictionary<string, SdkMessageFilter>();
-        private Microsoft.Xrm.Sdk.EntityReference GetFilterFor(SdkMessage sdkMessage, string logicalname)
+        public Microsoft.Xrm.Sdk.EntityReference GetFilterFor(SdkMessage sdkMessage, string logicalname)
         {
             var key = $"{sdkMessage.SdkMessageId.Value.ToString()}.{logicalname}";
 
