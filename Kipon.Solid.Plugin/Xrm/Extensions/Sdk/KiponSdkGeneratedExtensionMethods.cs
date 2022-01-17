@@ -596,6 +596,59 @@
             return def;
         }
 
+        private static Dictionary<string, string> entityToPrimaryKey = new Dictionary<string, string>();
+
+        public static string PrimaryAttributeNameOf(this Microsoft.Xrm.Sdk.Entity entity)
+        {
+            lock (entityToPrimaryKey)
+            {
+                if (entityToPrimaryKey.TryGetValue(entity.LogicalName, out string v))
+                {
+                    return v;
+                }
+                var strong = entity.ToEarlyBoundEntity();
+                var prop = strong.GetType().GetProperty("Id");
+                var attr = (Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute)prop.GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute), false).Single();
+
+                entityToPrimaryKey.Add(entity.LogicalName, attr.LogicalName);
+                return attr.LogicalName;
+            }
+        }
+
+        public static bool IsOnlyPayload(this Microsoft.Xrm.Sdk.Entity entity, params string[] expectedAttributes)
+        {
+            expectedAttributes = expectedAttributes.Select(r => r.ToLower()).ToArray();
+
+            var entitykey = entity.PrimaryAttributeNameOf();
+            foreach (var key in entity.Attributes.Keys)
+            {
+                switch (key)
+                {
+                    case "createdon":
+                    case "createdby":
+                    case "createdonbehalfby":
+                    case "modifiedon":
+                    case "modifiedby":
+                    case "modifiedonbehalfby":
+                        continue;
+                    default:
+                        {
+                            if (key == entitykey)
+                            {
+                                continue;
+                            }
+
+                            if (expectedAttributes.Contains(key))
+                            {
+                                continue;
+                            }
+                            return false;
+                        }
+                }
+            }
+            return true;
+        }
+
         private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)
         {
             var properties = entityType.GetCustomAttributes(Reflection.TypeCache.Types.TargetFilterAttribute, false);

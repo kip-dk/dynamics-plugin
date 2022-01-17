@@ -113,6 +113,23 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.Sdk
             }
         }
 
+        [TestMethod]
+        public void IsOnlyPayloadTest()
+        {
+            var account = new Kipon.Solid.Plugin.Entities.Account
+            {
+                AccountId = Guid.NewGuid(),
+                Name = "Name",
+                Address1_City = "CPH",
+                ["createdby"] = new Microsoft.Xrm.Sdk.EntityReference(Entities.SystemUser.EntityLogicalName, Guid.NewGuid()),
+                ["createdon"] = System.DateTime.Now,
+                ["modifiedby"] = new Microsoft.Xrm.Sdk.EntityReference(Entities.SystemUser.EntityLogicalName, Guid.NewGuid()),
+                ["modifiedon"] = System.DateTime.Now
+            };
+            Assert.IsTrue(account.IsOnlyPayload(nameof(account.Name), nameof(account.Address1_City)));
+            Assert.IsFalse(account.IsOnlyPayload(nameof(account.Name)));
+        }
+
         public class MyParam
         {
             public string Name { get; set; }

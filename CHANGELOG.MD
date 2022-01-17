@@ -1,4 +1,7 @@
-## Last updated: 2021-10-27
+## Last updated: 2022-01-17
+### 1.0.7.2 new SDK extension method
+using Kipon.Xrm.Extensions.Sdk now add a entity extension method "IsOnlyPayload". This method will return true if all the attributes in the payload is represented in the list of named attributes, otherwise false.
+The methods ignores systemfields like modifiedon and modifiedby and the primary key of the entity.
 
 ### 1.0.7.1
 Injecting IQueryable&lt;&gt; directly into a service failed. in version 1.0.7.0 (the version is now unlisted). This has been fixed in version 1.0.7.1
@@ -12,7 +15,7 @@ This makes it easier to cleanup code when attributes or entities are removed fro
 
 Experimental decoration of properties with entity property metadata are generated. Kipon Xrm generate metadata is hosted in the namespace Kipon.Xrm.Attributes.Metadata. 
 This is to  access to hardcoded metadata information about the entity, without first having to fetch it through the metadata service..
-(The naming will be keept as is - defacto api), and more metadata will bee added later, including methods to easy access these information without the need to write reflection based code you self.
+(The naming will be keept as is - defacto api), and more metadata will bee added later, including methods to easy access these information without the need to write reflection based code your self.
 
 ### 1.0.6.6
 Extension method in the Sdk extension method to easy extract typesafe values from Microsoft.Xrm.Sdk.AttributeCollection. This is especially convinient when createting event interfaces
