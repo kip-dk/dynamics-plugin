@@ -106,6 +106,7 @@
     <Compile Include="Plugins\kipon_datepoc\kipon_datepocPlugin.cs" />
     <Compile Include="Plugins\Lead\LeadPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
+    <Compile Include="Plugins\Relationship\RelationshipPlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
     <Compile Include="ServiceAPI\IContactService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
@@ -114,9 +115,11 @@
     <Compile Include="Service\SpecialAccountService.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Xrm\Actions\AbstractActionRequest.cs" />
+    <Compile Include="Xrm\Actions\IAssociateRequest.cs" />
     <Compile Include="Xrm\ActionTarget.cs" />
     <Compile Include="Xrm\Attributes\AdminAttribute.cs" />
     <Compile Include="Xrm\Attributes\ExportAttribute.cs" />
+    <Compile Include="Xrm\Attributes\IfAttribute.cs" />
     <Compile Include="Xrm\Attributes\ImportingConstructorAttribute.cs" />
     <Compile Include="Xrm\Attributes\LogicalNameAttribute.cs" />
     <Compile Include="Xrm\Attributes\MergedimageAttribute.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="Xrm\Attributes\OutputAttribute.cs" />
     <Compile Include="Xrm\Attributes\PostimageAttribute.cs" />
     <Compile Include="Xrm\Attributes\PreimageAttribute.cs" />
+    <Compile Include="Xrm\Attributes\RelationshipAttribute.cs" />
     <Compile Include="Xrm\Attributes\RequiredAttribute.cs" />
     <Compile Include="Xrm\Attributes\SortAttribute.cs" />
     <Compile Include="Entities\Accounts\Account.cs" />
@@ -138,7 +142,11 @@
     <Compile Include="Xrm\Extensions\IQueryable\QueryableMethods.cs" />
     <Compile Include="Xrm\Extensions\QueryExpression\QueryExpressionMethods.cs" />
     <Compile Include="Xrm\Extensions\TypeConverters\TypeConvertersMethods.cs" />
+    <Compile Include="Xrm\IMethodCondition.cs" />
+    <Compile Include="Xrm\Implementations\AssociateRequest.cs" />
     <Compile Include="Xrm\Implementations\EnumeratorWrapper.cs" />
+    <Compile Include="Xrm\Implementations\RelationshipMethodCondition.cs" />
+    <Compile Include="Xrm\Reflection\MethodConditionEvaluater.cs" />
     <Compile Include="Xrm\ServiceAPI\IEntityCache.cs" />
     <Compile Include="Xrm\Implementations\NoCacheQueryable.cs" />
     <Compile Include="Xrm\IPluginContext.cs" />

@@ -152,6 +152,12 @@
                     return resolvedTypes[key];
                 }
 
+                if (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.Relationship))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, Name = parameter.Name, ToType = type };
+                    return resolvedTypes[key];
+                }
+
                 if (parameter.Name.ToLower() == "datasource" && (parameter.ParameterType == typeof(Microsoft.Xrm.Sdk.Entity) || parameter.ParameterType.BaseType == typeof(Microsoft.Xrm.Sdk.Entity)))
                 {
                     resolvedTypes[key] = new TypeCache { FromType = type, Name = parameter.Name, ToType = type };

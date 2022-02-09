@@ -304,6 +304,8 @@
                 {
                     case "RemoveMember": return true;
                     case "QualifyLead": return true;
+                    case "Associate": return true;
+                    case "Disassociate": return true;
                 }
 
                 if (!message.StartsWith("_") && message.Contains("_")) return true;
@@ -421,9 +423,15 @@
                 {
                     result.Sort = 1;
                 }
+
+                var ifAttr = method.GetCustomAttributes(Types.IfAttribute, true).SingleOrDefault();
+                if (ifAttr is Attributes.IfAttribute ia)
+                {
+                    result.IfAttribute = ia;
+                }
+
                 return result;
             }
-
         }
 
         private PluginMethod()
@@ -454,8 +462,8 @@
         public int Sort { get; set; }
         public string Name { get; private set; }
         public TypeCache[] Parameters { get; private set; }
-
         public Dictionary<System.Reflection.PropertyInfo, Output> OutputProperties;
+        public Attributes.IfAttribute IfAttribute { get; private set; }
 
         #region target filter attributes
         private bool? _filterAllProperties;

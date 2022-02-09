@@ -9,7 +9,9 @@
         public static readonly string[] MESSAGE_WITHOUT_PRIMARY_ENTITY = new string[]
         {
             "AddMember",
-            "RemoveMember"
+            "RemoveMember",
+            "Associate",
+            "Disassociate"
         };
 
 
@@ -54,6 +56,8 @@
             this.LogicalNameAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.LogicalNameAttribute)}"];
             this.SortAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.SortAttribute)}"];
             this.OutputAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.OutputAttribute)}"];
+
+            this.IfAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.IfAttribute)}"];
 
             this.AbstractActionRequest = allTypes[$"{NAMESPACE}Actions.{nameof(_instance.AbstractActionRequest)}"];
 
@@ -112,6 +116,8 @@
         public Type VirtualEntityPlugin { get; private set; }
 
         public Type IPluginContext { get; private set; }
+
+        public Type IfAttribute { get; private set; }
 
         public Type EntityTypeFor(string logicalname)
         {

@@ -2156,6 +2156,7 @@ namespace Kipon.Xrm.Extensions.Sdk
 
         public static bool IsOnlyPayload(this Microsoft.Xrm.Sdk.Entity entity, params string[] expectedAttributes)
         {
+            var result = false;
             expectedAttributes = expectedAttributes.Select(r => r.ToLower()).ToArray();
 
             var entitykey = entity.PrimaryAttributeNameOf();
@@ -2179,13 +2180,14 @@ namespace Kipon.Xrm.Extensions.Sdk
 
                             if (expectedAttributes.Contains(key))
                             {
+                                result = true;
                                 continue;
                             }
                             return false;
                         }
                 }
             }
-            return true;
+            return result;
         }
 
         private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)

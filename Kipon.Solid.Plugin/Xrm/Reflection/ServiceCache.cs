@@ -222,6 +222,16 @@
                         throw new Exceptions.UnresolveableParameterException(type.FromType, type.Name);
                     }
 
+                    if (type.FromType == typeof(Microsoft.Xrm.Sdk.Relationship))
+                    {
+                        if (pluginExecutionContext.InputParameters.Contains("Relationship"))
+                        {
+                            return (Microsoft.Xrm.Sdk.Relationship)pluginExecutionContext.InputParameters["Relationship"];
+                        }
+
+                        throw new InvalidPluginExecutionException("Relationship is requested as input parameter but there is no such information in the payload");
+                    }
+
                     return this.CreateServiceInstance(type);
                 }
             }

@@ -617,10 +617,16 @@
 
         public static bool IsOnlyPayload(this Microsoft.Xrm.Sdk.Entity entity, params string[] expectedAttributes)
         {
+            return entity.Attributes.IsOnlyPayload(entity.LogicalName, expectedAttributes);
+        }
+
+        public static bool IsOnlyPayload(this Microsoft.Xrm.Sdk.AttributeCollection attrs, string entitylogicalname, params string[] expectedAttributes)
+        {
+            var result = false;
             expectedAttributes = expectedAttributes.Select(r => r.ToLower()).ToArray();
 
-            var entitykey = entity.PrimaryAttributeNameOf();
-            foreach (var key in entity.Attributes.Keys)
+            var entitykey = new Microsoft.Xrm.Sdk.Entity { LogicalName = entitylogicalname }.PrimaryAttributeNameOf();
+            foreach (var key in attrs.Keys)
             {
                 switch (key)
                 {
@@ -640,13 +646,14 @@
 
                             if (expectedAttributes.Contains(key))
                             {
+                                result = true;
                                 continue;
                             }
                             return false;
                         }
                 }
             }
-            return true;
+            return result;
         }
 
         private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)

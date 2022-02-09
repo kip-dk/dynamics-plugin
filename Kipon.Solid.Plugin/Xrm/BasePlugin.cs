@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.7.2";
+        public const string Version = "1.0.7.3";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -63,6 +63,17 @@
                 {
                     foreach (var method in methods)
                     {
+                        #region evaluate if needed - based on If attributes
+                        if (method.IfAttribute != null)
+                        {
+                            var con = Reflection.MethodConditionEvaluater.Evaluate(method.IfAttribute, context);
+                            if (!con)
+                            {
+                                continue;
+                            }
+                        }
+                        #endregion
+
                         var nextlog = $"{method.Name}(";
                         #region find out if method is relevant, looking a target fields
                         if (message == Attributes.StepAttribute.MessageEnum.Update.ToString() && !method.FilterAllProperties)

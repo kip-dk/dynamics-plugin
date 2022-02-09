@@ -131,7 +131,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                                     values.Add(new Model.OptionSetValue
                                     {
                                         Name = optionsetValue.Attribute("name").Value,
-                                        Value = int.Parse(optionsetValue.Value)
+                                        Value = int.Parse(optionsetValue.Value.Replace(".", ""))
                                     });
                                 }
                                 next.Values = values.ToArray();
@@ -194,7 +194,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                             values.Add(new Model.OptionSetValue
                             {
                                 Name = optionsetValue.Attribute("name").Value,
-                                Value = int.Parse(optionsetValue.Value)
+                                Value = int.Parse(optionsetValue.Value.Replace(".",""))
                             });
                         }
                         next.Values = values.ToArray();

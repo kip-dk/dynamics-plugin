@@ -1,4 +1,37 @@
-## Last updated: 2022-01-17
+## Last updated: 2022-02-09
+### 1.0.7.3 Support for plugin listen for Associate and Disassociate
+
+#### plugin development
+
+Support for capture and react on create/delete of M:M relation, known as Associate and Disassociate method has been added.
+
+To get the payload of the Associate/Disassociate event and its type, inject a request of type Kipon.Xrm.Actions.IAssociateRequest  to your plugin method. You should not add the
+Associate or Disassociate message name to the filter.xml action sections. Everything has been prepared in this version and it might generate conflicting types.
+
+[If(typeof(classtype))] attribute has been introduced to allow you to impl. a simple filter for the plugin method. This type of filter allow you to do early "ignore me if" implementations
+in cases where filterattribute and logicalname for the entity does not do the job.
+
+this can significatnly simplify the the code you write in the plugin, because the preconditions for even running the code can be implemented separately.
+
+The Associate message is a perfect example, because this event will be triggered for all relationships, regardless of types, so it is nice to be able to do early filtering,
+so service and more are only created if the call is relevant. The classtype need to be a class, with an empty constructor, implementing the Kipon.Xrm.IMethodCondition interface.
+
+Be aware, that only once instance of each condition evaluator will be created, and the bool Execute(...) parameter is not guaranteed to be thread safe, so no local variables, or properties
+(just like a plugin) in such an implementation.
+
+The platform even provide a specialized attribute extending the IfAttribute, called Kipon.Xrm.Attributes.Relationship("nameofrelationshiptolookfor"). This attributes is actually
+an extension of the IfAttribute and is relevant for Associate, Disassociate plugins only. By adding this attribute you can limit the method to only be called if the schemaname
+of the relation is mathing the value parsed.
+
+#### filter.xml
+Both entity specific optionset and global optionset now allow you to set the value of an option set include the dots (.). The below optionset value definition is now valid  
+
+```xml
+&lt;optionset&gt;
+	&lt:value name=""&gt;100.000.000&lt;/value&gt;
+&lt;/optionset&gt;
+```
+
 ### 1.0.7.2 new SDK extension method
 using Kipon.Xrm.Extensions.Sdk now add a entity extension method "IsOnlyPayload". This method will return true if all the attributes in the payload is represented in the list of named attributes, otherwise false.
 The methods ignores systemfields like modifiedon and modifiedby and the primary key of the entity.
