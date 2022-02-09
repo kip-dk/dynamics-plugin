@@ -27,9 +27,9 @@ of the relation is mathing the value parsed.
 Both entity specific optionset and global optionset now allow you to set the value of an option set include the dots (.). The below optionset value definition is now valid  
 
 ```xml
-&lt;optionset&gt;
-	&lt:value name=""&gt;100.000.000&lt;/value&gt;
-&lt;/optionset&gt;
+<optionset>
+	<value name="The100millvalue">100.000.000</value>
+</optionset>
 ```
 
 ### 1.0.7.2 new SDK extension method
