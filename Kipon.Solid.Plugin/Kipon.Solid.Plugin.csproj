@@ -107,6 +107,7 @@
     <Compile Include="Plugins\Lead\LeadPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
     <Compile Include="Plugins\Relationship\RelationshipPlugin.cs" />
+    <Compile Include="Plugins\Template\TemplatePlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
     <Compile Include="ServiceAPI\IContactService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Xrm\Extensions\IQueryable\QueryableMethods.cs" />
     <Compile Include="Xrm\Extensions\QueryExpression\QueryExpressionMethods.cs" />
     <Compile Include="Xrm\Extensions\TypeConverters\TypeConvertersMethods.cs" />
+    <Compile Include="Xrm\Fake\Repository.cs" />
     <Compile Include="Xrm\IMethodCondition.cs" />
     <Compile Include="Xrm\Implementations\AssociateRequest.cs" />
     <Compile Include="Xrm\Implementations\EnumeratorWrapper.cs" />

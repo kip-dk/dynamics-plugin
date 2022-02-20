@@ -69,6 +69,7 @@
     <Compile Include="Repository\PluginExecutionFakeContext.cs" />
     <Compile Include="Repository\Query\EntityContainer.cs" />
     <Compile Include="Repository\Query\FakeQueryable.cs" />
+    <Compile Include="Repository\Query\FakeRepository.cs" />
     <Compile Include="Repository\Query\QueryResolver.cs" />
     <Compile Include="Repository\Query\QueryResult.cs" />
     <Compile Include="Repository\Query\QueryResultContainer.cs" />

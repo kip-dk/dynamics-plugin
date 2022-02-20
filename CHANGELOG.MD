@@ -1,6 +1,6 @@
 ## Last updated: 2022-02-20
 
-### 1.0.7.4 Unitest post create fixed
+### 1.0.7.7 Unitest post create fixed
 This is a bugfix for the unit test library only. If you create a plugin test method OnPost, and the plugin did not have a OnPostAsync listener, the unit test failed if
 you added the OnPost listener. This has been fixed. Due to the version policy of this library (plugin lib, plugin test lib and plugin tools are following same version) all
 librarites are released with new version even though changes only impact the fake library.

@@ -20,6 +20,7 @@
     <entity servicename="Phonecalls" logicalname="phonecall"></entity>
     <entity servicename="Leads" logicalname="lead"></entity>
     <entity servicename="Datepocs" logicalname="kipon_datepoc"></entity>
+    <entity servicename="Templates" logicalname="template"></entity>
   </entities>
   <optionsets>
     <optionset id="budget" name="BudgetEnum">
