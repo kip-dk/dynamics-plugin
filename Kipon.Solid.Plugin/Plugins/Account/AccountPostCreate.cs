@@ -8,8 +8,9 @@ namespace Kipon.Solid.Plugin.Plugins.Account
 {
     public class AccountPostCreate : Kipon.Xrm.BasePlugin
     {
-        public void OnPostCreate(Kipon.Xrm.IPluginContext context,Entities.Account target)
+        public void OnPostCreate(Entities.Account target)
         {
+
         }
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="Mocks\PluginExecutionContext.cs" />
     <Compile Include="Plugins\Account\AccountMergedImageInterfaceWithTargetAttrTest.cs" />
     <Compile Include="Plugins\Account\AccountMergeImageUpdateTest.cs" />
+    <Compile Include="Plugins\Account\AccountPostCreateTest.cs" />
     <Compile Include="Plugins\Account\SpecialAccountPluginTest.cs" />
     <Compile Include="Plugins\Account\AccountPostUpdateTest.cs" />
     <Compile Include="Plugins\Account\AccountWithConfigPluginTest.cs" />

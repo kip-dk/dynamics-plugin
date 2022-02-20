@@ -373,7 +373,7 @@ namespace Kipon.Xrm.Fake.Repository
                 this.ExecuteStep(target, 40, "Create", true, () =>
                 {
                     ((Repository.IEntityShadow)this).Commit();
-                }, OnPost);
+                }, OnPostAsync);
 
                 return target.Id;
             } catch (Exception)
