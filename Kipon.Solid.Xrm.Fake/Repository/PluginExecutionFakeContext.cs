@@ -366,10 +366,12 @@ namespace Kipon.Xrm.Fake.Repository
                     ((Repository.IEntityShadow)this).Create(target);
                     ((Repository.IEntityShadow)this).Commit();
                 }, this.OnPre);
+
                 this.ExecuteStep(target, 40, "Create", false, () =>
                 {
                     ((Repository.IEntityShadow)this).Commit();
                 }, OnPost);
+
                 this.ExecuteStep(target, 40, "Create", true, () =>
                 {
                     ((Repository.IEntityShadow)this).Commit();
@@ -524,7 +526,7 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 if (onDone != null)
                 {
-                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage);
+                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage, isAsync);
                 } else
                 {
                     finalize?.Invoke();
@@ -583,7 +585,7 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 if (onDone != null)
                 {
-                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage);
+                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage, isAsync);
                 }
                 else
                 {
@@ -615,7 +617,7 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 if (onDone != null)
                 {
-                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage);
+                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage, isAsync);
                 }
                 else
                 {
