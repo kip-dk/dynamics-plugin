@@ -526,7 +526,7 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 if (onDone != null)
                 {
-                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage, isAsync);
+                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, target.LogicalName, stage, isAsync);
                 } else
                 {
                     finalize?.Invoke();
@@ -585,7 +585,7 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 if (onDone != null)
                 {
-                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage, isAsync);
+                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, target.LogicalName, stage, isAsync);
                 }
                 else
                 {
@@ -617,7 +617,7 @@ namespace Kipon.Xrm.Fake.Repository
             {
                 if (onDone != null)
                 {
-                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, stage, isAsync);
+                    throw new Exceptions.UnexpectedEventListenerException(plugin.GetType(), message, primaryentityname, stage, isAsync);
                 }
                 else
                 {

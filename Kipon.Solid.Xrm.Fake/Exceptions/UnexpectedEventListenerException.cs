@@ -8,7 +8,7 @@ namespace Kipon.Xrm.Fake.Exceptions
 {
     public class UnexpectedEventListenerException : BaseException
     {
-        public UnexpectedEventListenerException(Type plugin, string message, int stage, bool isAsync) : base($"{plugin.FullName} does not listen for message {message} in stage {stage} {(isAsync?"Async":"")}")
+        public UnexpectedEventListenerException(Type plugin, string message, string logicalname, int stage, bool isAsync) : base($"{plugin.FullName} does not listen for message [{message}], logicalname [{ logicalname }] in stage [{stage}] [{(isAsync?"Async":"")}]")
         {
         }
     }
