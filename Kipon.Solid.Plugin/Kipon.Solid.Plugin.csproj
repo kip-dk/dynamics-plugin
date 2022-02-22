@@ -91,6 +91,7 @@
     <Compile Include="Plugins\Account\AccountCreatePlugin.cs" />
     <Compile Include="Plugins\Account\AccountMergedImageInterfaceWithTargetAttr.cs" />
     <Compile Include="Plugins\Account\AccountMergeImageUpdate.cs" />
+    <Compile Include="Plugins\Account\AccountNameNotNull.cs" />
     <Compile Include="Plugins\Account\AccountPlugin.cs" />
     <Compile Include="Plugins\Account\AccountPostCreate.cs" />
     <Compile Include="Plugins\Account\AccountRetrieveMultiplePostAsync.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Xrm\Attributes\ImportingConstructorAttribute.cs" />
     <Compile Include="Xrm\Attributes\LogicalNameAttribute.cs" />
     <Compile Include="Xrm\Attributes\MergedimageAttribute.cs" />
+    <Compile Include="Xrm\Attributes\Filter\NotNullAttribute.cs" />
     <Compile Include="Xrm\Attributes\Metadata\MaxLengthAttribute.cs" />
     <Compile Include="Xrm\Attributes\Metadata\WholenumberAttribute.cs" />
     <Compile Include="Xrm\Attributes\OutputAttribute.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="Xrm\IMethodCondition.cs" />
     <Compile Include="Xrm\Implementations\AssociateRequest.cs" />
     <Compile Include="Xrm\Implementations\EnumeratorWrapper.cs" />
+    <Compile Include="Xrm\Implementations\NotNullFilter.cs" />
     <Compile Include="Xrm\Implementations\RelationshipMethodCondition.cs" />
     <Compile Include="Xrm\Reflection\MethodConditionEvaluater.cs" />
     <Compile Include="Xrm\ServiceAPI\IEntityCache.cs" />

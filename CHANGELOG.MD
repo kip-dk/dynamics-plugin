@@ -1,5 +1,9 @@
 ## Last updated: 2022-02-20
 
+### 1.0.7.8 NotNull attribute for plugin methods
+You can not decorate your plugin method with a NotNull(attributes ..) attribute. Then you plugin method will only be called if at least one of the
+attributes is not null within the target entity payload.
+
 ### 1.0.7.7 Unitest post create fixed
 This is a bugfix for the unit test library only. If you create a plugin test method OnPost, and the plugin did not have a OnPostAsync listener, the unit test failed if
 you added the OnPost listener. This has been fixed. Due to the version policy of this library (plugin lib, plugin test lib and plugin tools are following same version) all
