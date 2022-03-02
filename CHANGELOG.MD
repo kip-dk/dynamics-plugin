@@ -1,4 +1,8 @@
-## Last updated: 2022-02-20
+## Last updated: 2022-03-02
+
+### 1.0.7.9 Support for mergedimage interfaces as parameter for delete message
+You can now use merged images interfaces as paramters for delete operation. What you will get is actually the preimage, becaus no attributes can change on the entity as part of the
+delete operation. This is for convinience only so you do not need to create a dedicated preimage inteface in the situation where you need to use the same image for create/update and delete operations.
 
 ### 1.0.7.8 NotNull attribute for plugin methods
 You can not decorate your plugin method with a NotNull(attributes ..) attribute. Then you plugin method will only be called if at least one of the

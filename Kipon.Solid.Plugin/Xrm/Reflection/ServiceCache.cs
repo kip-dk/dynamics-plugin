@@ -132,10 +132,21 @@
 
                     if (type.IsMergedimage)
                     {
-                        var target = (Microsoft.Xrm.Sdk.Entity)pluginExecutionContext.InputParameters["Target"];
                         var merged = new Microsoft.Xrm.Sdk.Entity();
-                        merged.Id = target.Id;
-                        merged.LogicalName = target.LogicalName;
+
+                        var target = pluginExecutionContext.InputParameters["Target"] as Microsoft.Xrm.Sdk.Entity;
+
+                        if (target != null)
+                        {
+                            merged.Id = target.Id;
+                            merged.LogicalName = target.LogicalName;
+                        }
+                        else
+                        {
+                            var er = pluginExecutionContext.InputParameters["Target"] as Microsoft.Xrm.Sdk.EntityReference;
+                            merged.Id = er.Id;
+                            merged.LogicalName = er.LogicalName;
+                        }
 
                         if (pluginExecutionContext.MessageName == "Create")
                         {
@@ -150,9 +161,12 @@
                                 merged[attr] = pre[attr];
                             }
 
-                            foreach (var attr in target.Attributes.Keys)
+                            if (target != null)
                             {
-                                merged[attr] = target[attr];
+                                foreach (var attr in target.Attributes.Keys)
+                                {
+                                    merged[attr] = target[attr];
+                                }
                             }
                         }
 
