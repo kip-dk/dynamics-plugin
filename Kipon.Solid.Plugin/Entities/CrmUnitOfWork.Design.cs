@@ -18,8 +18,8 @@ namespace Kipon.Solid.Plugin.Entities
 	[Kipon.Xrm.Attributes.Export(typeof(Kipon.Xrm.IUnitOfWork))]
 	public sealed partial class CrmUnitOfWork: IUnitOfWork, IDisposable, Kipon.Xrm.IService
 	{
-		private SolidContextService context;
-		private IOrganizationService _service;
+		private readonly SolidContextService context;
+		private readonly IOrganizationService _service;
 		public CrmUnitOfWork(IOrganizationService orgService)
 		{
 			this._service = orgService;

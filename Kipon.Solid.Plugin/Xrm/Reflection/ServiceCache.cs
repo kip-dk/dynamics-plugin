@@ -13,8 +13,8 @@
 
         private Guid systemuserid;
 
-        private IPluginExecutionContext pluginExecutionContext;
-        private IOrganizationServiceFactory organizationServiceFactory;
+        private readonly IPluginExecutionContext pluginExecutionContext;
+        private readonly IOrganizationServiceFactory organizationServiceFactory;
 
         public ServiceCache(IPluginExecutionContext pluginExecutionContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService, IPluginContext pluginContext, string config, string secureConfig)
         {
