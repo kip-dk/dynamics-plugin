@@ -1,4 +1,15 @@
-## Last updated: 2022-03-02
+## Last updated: 2022-03-27
+
+### 1.0.8.0
+Updated SDK to newest version, and added enum type convert on Kipon.Xrm.Extensions ValueOf<>.
+
+The reason for minor update is the fact that crmsvcutil from Microsoft now by default generated enums for all option-set-values. While this might be a good idear, 
+it is not back-ward compatible with
+code that uses OptionSetValue, and because the Kipon.Solid.plugin framework has a very explicit approach for creating enum properties through filter.xml, code has been added to 
+"reverse" that decision when using the Kipon.Solid.Plugin framework. As a consequence, optionset vill still be generated as OptionSetValue and OptionSetValueCollection if not defined
+it the filter.xml explicitly. The result ofcause is that the framework does not take advantage of the Microsoft svcutil standard impl. but at least code are back-ward compliant.
+
+We might take steps to adjust our enum programming model to be aligned with the standard function some time in the future.
 
 ### 1.0.7.9 Support for mergedimage interfaces as parameter for delete message
 You can now use merged images interfaces as paramters for delete operation. What you will get is actually the preimage, becaus no attributes can change on the entity as part of the

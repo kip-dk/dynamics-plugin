@@ -108,6 +108,7 @@
     <Compile Include="Entities\Accounts\IPhonenumberChanged.cs" />
     <Compile Include="Entities\Accounts\IUseTargetAttributes.cs" />
     <Compile Include="Entities\AdminCrmUnitOfWork.cs" />
+    <Compile Include="Entities\componentstate.cs" />
     <Compile Include="Entities\Contacts\Contact.cs" />
     <Compile Include="Entities\Contacts\IPhonenumberChanged.cs" />
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />

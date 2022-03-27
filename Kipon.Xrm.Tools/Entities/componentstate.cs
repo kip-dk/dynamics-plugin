@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Xrm.Sdk
+namespace Kipon.Xrm.Tools.Entities
 {
-    public class OptionSetValueCollection
+    public enum componentstate
     {
     }
 }

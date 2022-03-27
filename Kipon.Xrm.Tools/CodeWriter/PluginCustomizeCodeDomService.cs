@@ -507,12 +507,20 @@ namespace Kipon.Xrm.Tools.CodeWriter
                                 {
                                     if (member is CodeMemberProperty prop)
                                     {
+
                                         var logicalAttributeName = prop.CustomAttributes.Cast<CodeAttributeDeclaration>()
                                             .FirstOrDefault(a => a.Name == $"Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute");
 
                                         if (logicalAttributeName == null)
                                         {
                                             continue;
+                                        }
+
+                                        prop.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+
+                                        if (prop.Name == "Id") 
+                                        {
+                                            prop.Attributes = MemberAttributes.Public| MemberAttributes.Override;
                                         }
 
                                         var typeAttributeName = ((CodePrimitiveExpression)logicalAttributeName.Arguments[0].Value).Value.ToString();

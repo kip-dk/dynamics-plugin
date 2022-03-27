@@ -130,6 +130,49 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.Sdk
             Assert.IsFalse(account.IsOnlyPayload(nameof(account.Name)));
         }
 
+        [TestMethod]
+        public void OptionSetToEnumTest()
+        {
+            var entity = new Microsoft.Xrm.Sdk.Entity();
+            entity["enumvalue"] = new Microsoft.Xrm.Sdk.OptionSetValue(1);
+            Assert.AreEqual(TestEnum.V1, entity.Attributes.ValueOf<TestEnum?>("enumvalue"));
+
+            TestEnum? value = entity.Attributes.ValueOf<TestEnum?>("notinthere");
+
+            Assert.IsNull(value);
+
+        }
+
+        [TestMethod]
+        public void OptionSetCollectionToArrayTest()
+        {
+            var entity = new Microsoft.Xrm.Sdk.Entity();
+
+            var col = new Microsoft.Xrm.Sdk.OptionSetValueCollection();
+            col.Add(new Microsoft.Xrm.Sdk.OptionSetValue(1));
+            col.Add(new Microsoft.Xrm.Sdk.OptionSetValue(2));
+
+            entity["enumvaluecol"] = col;
+
+            var enumcol = entity.Attributes.ValueOf<TestEnum[]>("enumvaluecol");
+
+            Assert.AreEqual(TestEnum.V1, enumcol[0]);
+            Assert.AreEqual(TestEnum.V2, enumcol[1]);
+
+            TestEnum[] notin = entity.Attributes.ValueOf<TestEnum[]>("notinthere");
+
+            Assert.IsNull(notin);
+
+        }
+
+        public enum TestEnum
+        {
+            V1 = 1,
+            V2 = 2,
+            V3 = 3
+        }
+
+
         public class MyParam
         {
             public string Name { get; set; }

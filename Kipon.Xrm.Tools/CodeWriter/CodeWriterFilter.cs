@@ -27,6 +27,9 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         public static bool SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES = false;
 
+        public static Dictionary<string, List<string>> OPTIONSETFIELDS = new Dictionary<string, List<string>>();
+        public static Dictionary<string, List<string>> MULTIOPTIONSETFIELDS = new Dictionary<string, List<string>>();
+
         //list of entity names to generate classes for.
         private Dictionary<string, Model.Entity> _validEntities = new Dictionary<string, Model.Entity>();
         private bool initialized = false;
@@ -320,11 +323,29 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                         ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
                         return false;
-                    } else
-                    {
-                        return _defaultService.GenerateAttribute(attributeMetadata, services);
-                    }
+                    } 
                 }
+            }
+
+            if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata)
+            {
+                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                AddMultiOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
+                return false;
+            }
+
+            if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata)
+            {
+                if (attributeMetadata.LogicalName.ToLower() == "statecode")
+                {
+                    ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                    return true;
+
+                }
+
+                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                AddOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
+                return false;
             }
 
             ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
@@ -349,6 +370,34 @@ namespace Kipon.Xrm.Tools.CodeWriter
         public bool GenerateServiceContext(IServiceProvider services)
         {
             return _defaultService.GenerateServiceContext(services);
+        }
+
+        private static void AddOptionSetField(string entitylogicalname, string attrlogicalname)
+        {
+            if (OPTIONSETFIELDS.TryGetValue(entitylogicalname, out List<string> fields))
+            {
+                fields.Add(attrlogicalname);
+            }
+            else
+            {
+                var list = new List<string>();
+                list.Add(attrlogicalname);
+                OPTIONSETFIELDS.Add(entitylogicalname, list);
+            }
+        }
+
+        private static void AddMultiOptionSetField(string entitylogicalname, string attrlogicalname)
+        {
+            if (MULTIOPTIONSETFIELDS.TryGetValue(entitylogicalname, out List<string> fields))
+            {
+                fields.Add(attrlogicalname);
+            }
+            else
+            {
+                var list = new List<string>();
+                list.Add(attrlogicalname);
+                MULTIOPTIONSETFIELDS.Add(entitylogicalname, list);
+            }
         }
     }
 }

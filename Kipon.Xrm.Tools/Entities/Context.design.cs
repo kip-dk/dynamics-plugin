@@ -15,11 +15,62 @@ namespace Kipon.Xrm.Tools.Entities
 	
 	
 	/// <summary>
+	/// Authentication Type for the Web sources like AzureWebApp, for example 0=BasicAuth
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum pluginassembly_authtype
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		BasicAuth = 0,
+	}
+	
+	/// <summary>
+	/// Information about how the plugin assembly is to be isolated at execution time; None / Sandboxed / External.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum pluginassembly_isolationmode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		None = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Sandbox = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		External = 3,
+	}
+	
+	/// <summary>
+	/// Location of the assembly, for example 0=database, 1=on-disk, 2=Normal, 3=AzureWebApp.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum pluginassembly_sourcetype
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Database = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Disk = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Normal = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		AzureWebApp = 3,
+	}
+	
+	/// <summary>
 	/// Assembly that contains one or more plug-in types.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("pluginassembly")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class PluginAssembly : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -56,36 +107,6 @@ namespace Kipon.Xrm.Tools.Entities
 			if ((this.PropertyChanging != null))
 			{
 				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
-			}
-		}
-		
-		/// <summary>
-		/// Specifies mode of authentication with web sources like WebApp
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("authtype")]
-		public Microsoft.Xrm.Sdk.OptionSetValue AuthType
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("authtype");
-			}
-			set
-			{
-				this.OnPropertyChanging("AuthType");
-				this.SetAttributeValue("authtype", value);
-				this.OnPropertyChanged("AuthType");
-			}
-		}
-		
-		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
 			}
 		}
 		
@@ -257,27 +278,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// Information about how the plugin assembly is to be isolated at execution time; None / Sandboxed.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isolationmode")]
-		public Microsoft.Xrm.Sdk.OptionSetValue IsolationMode
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("isolationmode");
-			}
-			set
-			{
-				this.OnPropertyChanging("IsolationMode");
-				this.SetAttributeValue("isolationmode", value);
-				this.OnPropertyChanged("IsolationMode");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ispasswordset")]
 		public System.Nullable<bool> IsPasswordSet
 		{
@@ -525,24 +525,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Location of the assembly, for example 0=database, 1=on-disk.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sourcetype")]
-		public Microsoft.Xrm.Sdk.OptionSetValue SourceType
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("sourcetype");
-			}
-			set
-			{
-				this.OnPropertyChanging("SourceType");
-				this.SetAttributeValue("sourcetype", value);
-				this.OnPropertyChanged("SourceType");
-			}
-		}
-		
-		/// <summary>
 		/// Web Url
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("url")]
@@ -596,9 +578,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
 		public System.Nullable<long> VersionNumber
 		{
@@ -632,7 +611,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("plugintype")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class PluginType : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -681,18 +660,6 @@ namespace Kipon.Xrm.Tools.Entities
 			get
 			{
 				return this.GetAttributeValue<string>("assemblyname");
-			}
-		}
-		
-		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
 			}
 		}
 		
@@ -804,9 +771,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
 		public System.Nullable<bool> IsManaged
 		{
@@ -1053,9 +1017,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
 		public System.Nullable<long> VersionNumber
 		{
@@ -1140,11 +1101,59 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	/// <summary>
+	/// Type of address for address 1, such as billing, shipping, or primary address.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum publisher_address1_addresstypecode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Method of shipment for address 1.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum publisher_address1_shippingmethodcode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Type of address for address 2. such as billing, shipping, or primary address.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum publisher_address2_addresstypecode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
+	/// Method of shipment for address 2.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum publisher_address2_shippingmethodcode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		DefaultValue = 1,
+	}
+	
+	/// <summary>
 	/// A publisher of a CRM solution.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("publisher")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class Publisher : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -1199,24 +1208,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("Address1_AddressId");
 				this.SetAttributeValue("address1_addressid", value);
 				this.OnPropertyChanged("Address1_AddressId");
-			}
-		}
-		
-		/// <summary>
-		/// Type of address for address 1, such as billing, shipping, or primary address.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_addresstypecode")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Address1_AddressTypeCode
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("address1_addresstypecode");
-			}
-			set
-			{
-				this.OnPropertyChanging("Address1_AddressTypeCode");
-				this.SetAttributeValue("address1_addresstypecode", value);
-				this.OnPropertyChanged("Address1_AddressTypeCode");
 			}
 		}
 		
@@ -1437,24 +1428,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Method of shipment for address 1.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_shippingmethodcode")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Address1_ShippingMethodCode
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("address1_shippingmethodcode");
-			}
-			set
-			{
-				this.OnPropertyChanging("Address1_ShippingMethodCode");
-				this.SetAttributeValue("address1_shippingmethodcode", value);
-				this.OnPropertyChanged("Address1_ShippingMethodCode");
-			}
-		}
-		
-		/// <summary>
 		/// State or province for address 1.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address1_stateorprovince")]
@@ -1577,24 +1550,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("Address2_AddressId");
 				this.SetAttributeValue("address2_addressid", value);
 				this.OnPropertyChanged("Address2_AddressId");
-			}
-		}
-		
-		/// <summary>
-		/// Type of address for address 2. such as billing, shipping, or primary address.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_addresstypecode")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Address2_AddressTypeCode
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("address2_addresstypecode");
-			}
-			set
-			{
-				this.OnPropertyChanging("Address2_AddressTypeCode");
-				this.SetAttributeValue("address2_addresstypecode", value);
-				this.OnPropertyChanged("Address2_AddressTypeCode");
 			}
 		}
 		
@@ -1811,24 +1766,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("Address2_PostOfficeBox");
 				this.SetAttributeValue("address2_postofficebox", value);
 				this.OnPropertyChanged("Address2_PostOfficeBox");
-			}
-		}
-		
-		/// <summary>
-		/// Method of shipment for address 2.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("address2_shippingmethodcode")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Address2_ShippingMethodCode
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("address2_shippingmethodcode");
-			}
-			set
-			{
-				this.OnPropertyChanging("Address2_ShippingMethodCode");
-				this.SetAttributeValue("address2_shippingmethodcode", value);
-				this.OnPropertyChanged("Address2_ShippingMethodCode");
 			}
 		}
 		
@@ -2066,9 +2003,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_timestamp")]
 		public System.Nullable<long> EntityImage_Timestamp
 		{
@@ -2078,9 +2012,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
 		public string EntityImage_URL
 		{
@@ -2279,9 +2210,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
 		public System.Nullable<long> VersionNumber
 		{
@@ -2315,7 +2243,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessage")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class SdkMessage : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -2406,18 +2334,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("CategoryName");
 				this.SetAttributeValue("categoryname", value);
 				this.OnPropertyChanged("CategoryName");
-			}
-		}
-		
-		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
 			}
 		}
 		
@@ -2838,7 +2754,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessagefilter")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class SdkMessageFilter : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -2893,18 +2809,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("Availability");
 				this.SetAttributeValue("availability", value);
 				this.OnPropertyChanged("Availability");
-			}
-		}
-		
-		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
 			}
 		}
 		
@@ -3217,9 +3121,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
 		public System.Nullable<long> VersionNumber
 		{
@@ -3279,9 +3180,93 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 	}
 	
+	/// <summary>
+	/// Identifies if a plug-in should be executed from a parent pipeline, a child pipeline, or both.
+	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
-	public enum SdkMessageProcessingStepState
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum sdkmessageprocessingstep_invocationsource
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Internal = -1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Parent = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Child = 1,
+	}
+	
+	/// <summary>
+	/// Run-time mode of execution, for example, synchronous or asynchronous.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum sdkmessageprocessingstep_mode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Synchronous = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Asynchronous = 1,
+	}
+	
+	/// <summary>
+	/// Stage in the execution pipeline that the SDK message processing step is in.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum sdkmessageprocessingstep_stage
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		InitialPreoperation_Forinternaluseonly = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Prevalidation = 10,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		InternalPreoperationBeforeExternalPlugins_Forinternaluseonly = 15,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Preoperation = 20,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		InternalPreoperationAfterExternalPlugins_Forinternaluseonly = 25,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		MainOperation_Forinternaluseonly = 30,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		InternalPostoperationBeforeExternalPlugins_Forinternaluseonly = 35,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Postoperation = 40,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		InternalPostoperationAfterExternalPlugins_Forinternaluseonly = 45,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Postoperation_Deprecated = 50,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		FinalPostoperation_Forinternaluseonly = 55,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		PreCommitstagefiredbeforetransactioncommit_Forinternaluseonly = 80,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		PostCommitstagefiredaftertransactioncommit_Forinternaluseonly = 90,
+	}
+	
+	/// <summary>
+	/// Status of the SDK message processing step.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum sdkmessageprocessingstep_statecode
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -3292,11 +3277,44 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	/// <summary>
+	/// Reason for the status of the SDK message processing step.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum sdkmessageprocessingstep_statuscode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Enabled = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Disabled = 2,
+	}
+	
+	/// <summary>
+	/// Deployment that the SDK message processing step should be executed on; server, client, or both.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum sdkmessageprocessingstep_supporteddeployment
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		ServerOnly = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		MicrosoftDynamics365ClientforOutlookOnly = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Both = 2,
+	}
+	
+	/// <summary>
 	/// Stage in the execution pipeline that a plug-in is to execute.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessageprocessingstep")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class SdkMessageProcessingStep : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -3369,18 +3387,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("CanUseReadOnlyConnection");
 				this.SetAttributeValue("canusereadonlyconnection", value);
 				this.OnPropertyChanged("CanUseReadOnlyConnection");
-			}
-		}
-		
-		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
 			}
 		}
 		
@@ -3559,25 +3565,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Identifies if a plug-in should be executed from a parent pipeline, a child pipeline, or both.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("invocationsource")]
-		[System.ObsoleteAttribute()]
-		public Microsoft.Xrm.Sdk.OptionSetValue InvocationSource
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("invocationsource");
-			}
-			set
-			{
-				this.OnPropertyChanging("InvocationSource");
-				this.SetAttributeValue("invocationsource", value);
-				this.OnPropertyChanged("InvocationSource");
-			}
-		}
-		
-		/// <summary>
 		/// Information that specifies whether this component can be customized.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("iscustomizable")]
@@ -3622,24 +3609,6 @@ namespace Kipon.Xrm.Tools.Entities
 			get
 			{
 				return this.GetAttributeValue<System.Nullable<bool>>("ismanaged");
-			}
-		}
-		
-		/// <summary>
-		/// Run-time mode of execution, for example, synchronous or asynchronous.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("mode")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Mode
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("mode");
-			}
-			set
-			{
-				this.OnPropertyChanging("Mode");
-				this.SetAttributeValue("mode", value);
-				this.OnPropertyChanged("Mode");
 			}
 		}
 		
@@ -3876,52 +3845,19 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Stage in the execution pipeline that the SDK message processing step is in.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("stage")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Stage
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("stage");
-			}
-			set
-			{
-				this.OnPropertyChanging("Stage");
-				this.SetAttributeValue("stage", value);
-				this.OnPropertyChanged("Stage");
-			}
-		}
-		
-		/// <summary>
 		/// Status of the SDK message processing step.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<Kipon.Xrm.Tools.Entities.SdkMessageProcessingStepState> StateCode
+		public virtual sdkmessageprocessingstep_statecode? StateCode
 		{
 			get
 			{
-				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
-				if ((optionSet != null))
-				{
-					return ((Kipon.Xrm.Tools.Entities.SdkMessageProcessingStepState)(System.Enum.ToObject(typeof(Kipon.Xrm.Tools.Entities.SdkMessageProcessingStepState), optionSet.Value)));
-				}
-				else
-				{
-					return null;
-				}
+				return ((sdkmessageprocessingstep_statecode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
 			}
 			set
 			{
 				this.OnPropertyChanging("StateCode");
-				if ((value == null))
-				{
-					this.SetAttributeValue("statecode", null);
-				}
-				else
-				{
-					this.SetAttributeValue("statecode", new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
-				}
+				this.SetAttributeValue("statecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 				this.OnPropertyChanged("StateCode");
 			}
 		}
@@ -3930,35 +3866,17 @@ namespace Kipon.Xrm.Tools.Entities
 		/// Reason for the status of the SDK message processing step.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
-		public Microsoft.Xrm.Sdk.OptionSetValue StatusCode
+		public virtual sdkmessageprocessingstep_statuscode? StatusCode
 		{
 			get
 			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statuscode");
+				return ((sdkmessageprocessingstep_statuscode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
 			}
 			set
 			{
 				this.OnPropertyChanging("StatusCode");
-				this.SetAttributeValue("statuscode", value);
+				this.SetAttributeValue("statuscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 				this.OnPropertyChanged("StatusCode");
-			}
-		}
-		
-		/// <summary>
-		/// Deployment that the SDK message processing step should be executed on; server, client, or both.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("supporteddeployment")]
-		public Microsoft.Xrm.Sdk.OptionSetValue SupportedDeployment
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("supporteddeployment");
-			}
-			set
-			{
-				this.OnPropertyChanging("SupportedDeployment");
-				this.SetAttributeValue("supporteddeployment", value);
-				this.OnPropertyChanged("SupportedDeployment");
 			}
 		}
 		
@@ -4070,11 +3988,29 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	/// <summary>
+	/// Type of image requested.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum sdkmessageprocessingstepimage_imagetype
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		PreImage = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		PostImage = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Both = 2,
+	}
+	
+	/// <summary>
 	/// Copy of an entity's attributes before or after the core system operation.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessageprocessingstepimage")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class SdkMessageProcessingStepImage : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -4129,18 +4065,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("Attributes1");
 				this.SetAttributeValue("attributes", value);
 				this.OnPropertyChanged("Attributes1");
-			}
-		}
-		
-		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
 			}
 		}
 		
@@ -4229,24 +4153,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Type of image requested.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("imagetype")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ImageType
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("imagetype");
-			}
-			set
-			{
-				this.OnPropertyChanging("ImageType");
-				this.SetAttributeValue("imagetype", value);
-				this.OnPropertyChanged("ImageType");
-			}
-		}
-		
-		/// <summary>
 		/// Version in which the form is introduced.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("introducedversion")]
@@ -4282,9 +4188,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
 		public System.Nullable<bool> IsManaged
 		{
@@ -4522,11 +4425,29 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	/// <summary>
+	/// All possible types of solution
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum solution_solutiontype
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		None = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Snapshot = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Internal = 2,
+	}
+	
+	/// <summary>
 	/// A solution which contains CRM customizations.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("solution")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class Solution : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -4764,9 +4685,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("pinpointassetid")]
 		public string PinpointAssetId
 		{
@@ -4888,24 +4806,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Solution Type
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("solutiontype")]
-		public Microsoft.Xrm.Sdk.OptionSetValue SolutionType
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("solutiontype");
-			}
-			set
-			{
-				this.OnPropertyChanging("SolutionType");
-				this.SetAttributeValue("solutiontype", value);
-				this.OnPropertyChanged("SolutionType");
-			}
-		}
-		
-		/// <summary>
 		/// The unique name of this solution
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("uniquename")]
@@ -4953,9 +4853,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
 		public System.Nullable<long> VersionNumber
 		{
@@ -5054,11 +4951,29 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	/// <summary>
+	/// Indicates the include behavior of the root component.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum solutioncomponent_rootcomponentbehavior
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		IncludeSubcomponents = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Donotincludesubcomponents = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		IncludeAsShellOnly = 2,
+	}
+	
+	/// <summary>
 	/// A component of a CRM solution.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("solutioncomponent")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class SolutionComponent : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -5095,18 +5010,6 @@ namespace Kipon.Xrm.Tools.Entities
 			if ((this.PropertyChanging != null))
 			{
 				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
-			}
-		}
-		
-		/// <summary>
-		/// The object type code of the component.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componenttype")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ComponentType
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componenttype");
 			}
 		}
 		
@@ -5207,18 +5110,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Indicates the include behavior of the root component.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rootcomponentbehavior")]
-		public Microsoft.Xrm.Sdk.OptionSetValue RootComponentBehavior
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("rootcomponentbehavior");
-			}
-		}
-		
-		/// <summary>
 		/// The parent ID of the subcomponent, which will be a root
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rootsolutioncomponentid")]
@@ -5267,9 +5158,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
 		public System.Nullable<long> VersionNumber
 		{
@@ -5325,11 +5213,104 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	/// <summary>
+	/// Indicates the form state that is Active\Inactive.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum systemform_formactivationstate
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Inactive = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Active = 1,
+	}
+	
+	/// <summary>
+	/// Indicates the form layout is refreshed.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum systemform_formpresentation
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		ClassicForm = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		AirForm = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		ConvertedICForm = 2,
+	}
+	
+	/// <summary>
+	/// Identifies the form type.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum systemform_type
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Dashboard = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		AppointmentBook = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Main = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		MiniCampaignBO = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Preview = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		MobileExpress = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		QuickViewForm = 6,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		QuickCreate = 7,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Dialog = 8,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		TaskFlowForm = 9,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		InteractionCentricDashboard = 10,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Card = 11,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		MainInteractiveexperience = 12,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Other = 100,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		MainBackup = 101,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		AppointmentBookBackup = 102,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		PowerBIDashboard = 103,
+	}
+	
+	/// <summary>
 	/// Organization-owned entity customizations including form layout and dashboards.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("systemform")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class SystemForm : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -5406,18 +5387,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
-			}
-		}
-		
-		/// <summary>
 		/// Description of the form or dashboard.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("description")]
@@ -5432,24 +5401,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("Description");
 				this.SetAttributeValue("description", value);
 				this.OnPropertyChanged("Description");
-			}
-		}
-		
-		/// <summary>
-		/// Specifies the state of the form.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formactivationstate")]
-		public Microsoft.Xrm.Sdk.OptionSetValue FormActivationState
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("formactivationstate");
-			}
-			set
-			{
-				this.OnPropertyChanging("FormActivationState");
-				this.SetAttributeValue("formactivationstate", value);
-				this.OnPropertyChanged("FormActivationState");
 			}
 		}
 		
@@ -5519,24 +5470,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("FormJson");
 				this.SetAttributeValue("formjson", value);
 				this.OnPropertyChanged("FormJson");
-			}
-		}
-		
-		/// <summary>
-		/// Specifies whether this form is in the updated UI layout in Microsoft Dynamics CRM 2015 or Microsoft Dynamics CRM Online 2015 Update.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formpresentation")]
-		public Microsoft.Xrm.Sdk.OptionSetValue FormPresentation
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("formpresentation");
-			}
-			set
-			{
-				this.OnPropertyChanging("FormPresentation");
-				this.SetAttributeValue("formpresentation", value);
-				this.OnPropertyChanged("FormPresentation");
 			}
 		}
 		
@@ -5648,9 +5581,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
 		public System.Nullable<bool> IsManaged
 		{
@@ -5738,9 +5668,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("publishedon")]
 		public System.Nullable<System.DateTime> PublishedOn
 		{
@@ -5759,24 +5686,6 @@ namespace Kipon.Xrm.Tools.Entities
 			get
 			{
 				return this.GetAttributeValue<System.Nullable<System.Guid>>("solutionid");
-			}
-		}
-		
-		/// <summary>
-		/// Type of the form, for example, Dashboard or Preview.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("type")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Type
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("type");
-			}
-			set
-			{
-				this.OnPropertyChanging("Type");
-				this.SetAttributeValue("type", value);
-				this.OnPropertyChanged("Type");
 			}
 		}
 		
@@ -5867,11 +5776,56 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	/// <summary>
+	/// Drop-down list for selecting the type of the web resource.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum webresource_webresourcetype
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Webpage_HTML = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		StyleSheet_CSS = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Script_JScript = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Data_XML = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		PNGformat = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		JPGformat = 6,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		GIFformat = 7,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Silverlight_XAP = 8,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		StyleSheet_XSL = 9,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		ICOformat = 10,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Vectorformat_SVG = 11,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		String_RESX = 12,
+	}
+	
+	/// <summary>
 	/// Data equivalent to files used in Web development. Web resources provide client-side components that are used to provide custom user interface elements.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("webresource")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class WebResource : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -5926,18 +5880,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("CanBeDeleted");
 				this.SetAttributeValue("canbedeleted", value);
 				this.OnPropertyChanged("CanBeDeleted");
-			}
-		}
-		
-		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
 			}
 		}
 		
@@ -6157,9 +6099,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
 		public System.Nullable<bool> IsManaged
 		{
@@ -6295,9 +6234,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
 		public System.Nullable<long> VersionNumber
 		{
@@ -6359,24 +6295,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Drop-down list for selecting the type of the web resource.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("webresourcetype")]
-		public Microsoft.Xrm.Sdk.OptionSetValue WebResourceType
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("webresourcetype");
-			}
-			set
-			{
-				this.OnPropertyChanging("WebResourceType");
-				this.SetAttributeValue("webresourcetype", value);
-				this.OnPropertyChanged("WebResourceType");
-			}
-		}
-		
-		/// <summary>
 		/// 1:N solution_configuration_webresource
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("solution_configuration_webresource")]
@@ -6395,9 +6313,105 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 	}
 	
+	/// <summary>
+	/// Business Process Type.
+	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
-	public enum WorkflowState
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum workflow_businessprocesstype
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		BusinessFlow = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		TaskFlow = 1,
+	}
+	
+	/// <summary>
+	/// Category of the process.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum workflow_category
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Workflow = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Dialog = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		BusinessRule = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Action = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		BusinessProcessFlow = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		ModernFlow = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		DesktopFlow = 6,
+	}
+	
+	/// <summary>
+	/// Mode of the process.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum workflow_mode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Background = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Realtime = 1,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum processtrigger_scope
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Form = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Entity = 2,
+	}
+	
+	/// <summary>
+	/// Workflow scope.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum workflow_scope
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		User = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		BusinessUnit = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		ParentChildBusinessUnits = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Organization = 4,
+	}
+	
+	/// <summary>
+	/// Status of the workflow.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum workflow_statecode
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -6408,11 +6422,62 @@ namespace Kipon.Xrm.Tools.Entities
 	}
 	
 	/// <summary>
+	/// Additional information about status of the workflow.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum workflow_statuscode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Draft = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Activated = 2,
+	}
+	
+	/// <summary>
+	/// Workflow type.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum workflow_type
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Definition = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Activation = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Template = 3,
+	}
+	
+	/// <summary>
+	/// Type of the Desktop Flow process.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public enum workflow_uiflowtype
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Windowsrecorder_V1 = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		SeleniumIDE = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		PowerAutomateDesktop = 2,
+	}
+	
+	/// <summary>
 	/// Set of logical rules that define the steps necessary to automate a specific business process, task, or set of actions to be performed.
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("workflow")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class Workflow : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -6483,42 +6548,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Business Process Type.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("businessprocesstype")]
-		public Microsoft.Xrm.Sdk.OptionSetValue BusinessProcessType
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("businessprocesstype");
-			}
-			set
-			{
-				this.OnPropertyChanging("BusinessProcessType");
-				this.SetAttributeValue("businessprocesstype", value);
-				this.OnPropertyChanged("BusinessProcessType");
-			}
-		}
-		
-		/// <summary>
-		/// Category of the process.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("category")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Category
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("category");
-			}
-			set
-			{
-				this.OnPropertyChanging("Category");
-				this.SetAttributeValue("category", value);
-				this.OnPropertyChanged("Category");
-			}
-		}
-		
-		/// <summary>
 		/// Business logic converted into client data
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("clientdata")]
@@ -6533,18 +6562,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("ClientData");
 				this.SetAttributeValue("clientdata", value);
 				this.OnPropertyChanged("ClientData");
-			}
-		}
-		
-		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
 			}
 		}
 		
@@ -6585,42 +6602,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Stage of the process when triggered on Create.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createstage")]
-		public Microsoft.Xrm.Sdk.OptionSetValue CreateStage
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("createstage");
-			}
-			set
-			{
-				this.OnPropertyChanging("CreateStage");
-				this.SetAttributeValue("createstage", value);
-				this.OnPropertyChanged("CreateStage");
-			}
-		}
-		
-		/// <summary>
-		/// Stage of the process when triggered on Delete.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("deletestage")]
-		public Microsoft.Xrm.Sdk.OptionSetValue DeleteStage
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("deletestage");
-			}
-			set
-			{
-				this.OnPropertyChanging("DeleteStage");
-				this.SetAttributeValue("deletestage", value);
-				this.OnPropertyChanged("DeleteStage");
-			}
-		}
-		
-		/// <summary>
 		/// Description of the process.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("description")]
@@ -6656,9 +6637,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_timestamp")]
 		public System.Nullable<long> EntityImage_Timestamp
 		{
@@ -6668,9 +6646,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
 		public string EntityImage_URL
 		{
@@ -6839,24 +6814,6 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("LanguageCode");
 				this.SetAttributeValue("languagecode", value);
 				this.OnPropertyChanged("LanguageCode");
-			}
-		}
-		
-		/// <summary>
-		/// Shows the mode of the process.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("mode")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Mode
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("mode");
-			}
-			set
-			{
-				this.OnPropertyChanging("Mode");
-				this.SetAttributeValue("mode", value);
-				this.OnPropertyChanged("Mode");
 			}
 		}
 		
@@ -7095,24 +7052,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Scope of the process trigger.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("processtriggerscope")]
-		public Microsoft.Xrm.Sdk.OptionSetValue ProcessTriggerScope
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("processtriggerscope");
-			}
-			set
-			{
-				this.OnPropertyChanging("ProcessTriggerScope");
-				this.SetAttributeValue("processtriggerscope", value);
-				this.OnPropertyChanged("ProcessTriggerScope");
-			}
-		}
-		
-		/// <summary>
 		/// Indicates the rank for order of execution for the synchronous workflow.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rank")]
@@ -7149,42 +7088,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Specifies the system user account under which a workflow executes.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("runas")]
-		public Microsoft.Xrm.Sdk.OptionSetValue RunAs
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("runas");
-			}
-			set
-			{
-				this.OnPropertyChanging("RunAs");
-				this.SetAttributeValue("runas", value);
-				this.OnPropertyChanged("RunAs");
-			}
-		}
-		
-		/// <summary>
-		/// Scope of the process.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("scope")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Scope
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("scope");
-			}
-			set
-			{
-				this.OnPropertyChanging("Scope");
-				this.SetAttributeValue("scope", value);
-				this.OnPropertyChanged("Scope");
-			}
-		}
-		
-		/// <summary>
 		/// Unique identifier of the SDK Message associated with this workflow.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageid")]
@@ -7212,31 +7115,16 @@ namespace Kipon.Xrm.Tools.Entities
 		/// Status of the process.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<Kipon.Xrm.Tools.Entities.WorkflowState> StateCode
+		public virtual workflow_statecode? StateCode
 		{
 			get
 			{
-				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
-				if ((optionSet != null))
-				{
-					return ((Kipon.Xrm.Tools.Entities.WorkflowState)(System.Enum.ToObject(typeof(Kipon.Xrm.Tools.Entities.WorkflowState), optionSet.Value)));
-				}
-				else
-				{
-					return null;
-				}
+				return ((workflow_statecode?)(EntityOptionSetEnum.GetEnum(this, "statecode")));
 			}
 			set
 			{
 				this.OnPropertyChanging("StateCode");
-				if ((value == null))
-				{
-					this.SetAttributeValue("statecode", null);
-				}
-				else
-				{
-					this.SetAttributeValue("statecode", new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
-				}
+				this.SetAttributeValue("statecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 				this.OnPropertyChanged("StateCode");
 			}
 		}
@@ -7245,16 +7133,16 @@ namespace Kipon.Xrm.Tools.Entities
 		/// Additional information about status of the process.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
-		public Microsoft.Xrm.Sdk.OptionSetValue StatusCode
+		public virtual workflow_statuscode? StatusCode
 		{
 			get
 			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statuscode");
+				return ((workflow_statuscode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
 			}
 			set
 			{
 				this.OnPropertyChanging("StatusCode");
-				this.SetAttributeValue("statuscode", value);
+				this.SetAttributeValue("statuscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 				this.OnPropertyChanged("StatusCode");
 			}
 		}
@@ -7350,24 +7238,6 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
-		/// Type of the process.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("type")]
-		public Microsoft.Xrm.Sdk.OptionSetValue Type
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("type");
-			}
-			set
-			{
-				this.OnPropertyChanging("Type");
-				this.SetAttributeValue("type", value);
-				this.OnPropertyChanged("Type");
-			}
-		}
-		
-		/// <summary>
 		/// For internal use only.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("uidata")]
@@ -7376,24 +7246,6 @@ namespace Kipon.Xrm.Tools.Entities
 			get
 			{
 				return this.GetAttributeValue<string>("uidata");
-			}
-		}
-		
-		/// <summary>
-		/// Type of the Desktop Flow process.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("uiflowtype")]
-		public Microsoft.Xrm.Sdk.OptionSetValue UIFlowType
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("uiflowtype");
-			}
-			set
-			{
-				this.OnPropertyChanging("UIFlowType");
-				this.SetAttributeValue("uiflowtype", value);
-				this.OnPropertyChanged("UIFlowType");
 			}
 		}
 		
@@ -7415,27 +7267,6 @@ namespace Kipon.Xrm.Tools.Entities
 			}
 		}
 		
-		/// <summary>
-		/// Select the stage a process will be triggered on update.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("updatestage")]
-		public Microsoft.Xrm.Sdk.OptionSetValue UpdateStage
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("updatestage");
-			}
-			set
-			{
-				this.OnPropertyChanging("UpdateStage");
-				this.SetAttributeValue("updatestage", value);
-				this.OnPropertyChanged("UpdateStage");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
 		public System.Nullable<long> VersionNumber
 		{
@@ -7580,7 +7411,7 @@ namespace Kipon.Xrm.Tools.Entities
 	/// <summary>
 	/// Represents a source of entities bound to a CRM service. It tracks and manages changes made to the retrieved entities.
 	/// </summary>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.82")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
 	public partial class ContextService : Microsoft.Xrm.Sdk.Client.OrganizationServiceContext
 	{
 		
@@ -7722,6 +7553,48 @@ namespace Kipon.Xrm.Tools.Entities
 			{
 				return this.CreateQuery<Kipon.Xrm.Tools.Entities.Workflow>();
 			}
+		}
+	}
+	
+	internal sealed class EntityOptionSetEnum
+	{
+		
+		public static System.Nullable<int> GetEnum(Microsoft.Xrm.Sdk.Entity entity, string attributeLogicalName)
+		{
+			if (entity.Attributes.ContainsKey(attributeLogicalName))
+			{
+				Microsoft.Xrm.Sdk.OptionSetValue value = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(attributeLogicalName);
+				if (value != null)
+				{
+					return value.Value;
+				}
+			}
+			return null;
+		}
+		
+		public static System.Collections.Generic.IEnumerable<T> GetMultiEnum<T>(Microsoft.Xrm.Sdk.Entity entity, string attributeLogicalName)
+		
+		{
+			Microsoft.Xrm.Sdk.OptionSetValueCollection value = entity.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValueCollection>(attributeLogicalName);
+			System.Collections.Generic.List<T> list = new System.Collections.Generic.List<T>();
+			if (value == null)
+			{
+				return list;
+			}
+			list.AddRange(System.Linq.Enumerable.Select(value, v => (T)(object)v.Value));
+			return list;
+		}
+		
+		public static Microsoft.Xrm.Sdk.OptionSetValueCollection GetMultiEnum<T>(Microsoft.Xrm.Sdk.Entity entity, string attributeLogicalName, System.Collections.Generic.IEnumerable<T> values)
+		
+		{
+			if (values == null)
+			{
+				return null;
+			}
+			Microsoft.Xrm.Sdk.OptionSetValueCollection collection = new Microsoft.Xrm.Sdk.OptionSetValueCollection();
+			collection.AddRange(System.Linq.Enumerable.Select(values, v => new Microsoft.Xrm.Sdk.OptionSetValue((int)(object)v)));
+			return collection;
 		}
 	}
 }

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Solid.Plugin.Fake</id>
-    <version>1.0.7.9</version>
+    <version>1.0.8.0</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -10,12 +10,12 @@
     <iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Unit Test library for the Kipon.Solid.Plugin framework</description>
-    <releaseNotes>support for mergedimage on delete operation</releaseNotes>
+    <releaseNotes>Updated to newest SDK and support of enum in ctx.ValueOf/lt;&gt; Kipon.Solid.Plugin.SDK extensions</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020,2021,2022</copyright>
     <tags>Dynamics 365 plugin C# SOLID</tags>
     <dependencies>
-      <dependency id="Microsoft.CrmSdk.CoreAssemblies" version="9.0.2.26" />
-      <dependency id="Microsoft.CrmSdk.CoreTools" version="9.1.0.79" />
+      <dependency id="Microsoft.CrmSdk.CoreAssemblies" version="9.0.2.42" />
+      <dependency id="Microsoft.CrmSdk.CoreTools" version="9.1.0.108" />
     </dependencies>
   </metadata>
 </package>

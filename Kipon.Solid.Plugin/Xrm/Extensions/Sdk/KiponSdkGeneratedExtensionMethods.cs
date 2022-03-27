@@ -436,24 +436,7 @@
                             return default(T);
                         }
 
-                        if (typeof(T).IsAssignableFrom(v.GetType()))
-                        {
-                            return (T)v;
-                        }
-
-                        if (propertyType.IsEnum && v is Microsoft.Xrm.Sdk.OptionSetValue osv)
-                        {
-                            foreach (T obj in Enum.GetValues(propertyType))
-                            {
-                                Enum test = Enum.Parse(propertyType, obj.ToString()) as Enum;
-                                int x = Convert.ToInt32(test);
-                                if (x == osv.Value)
-                                {
-                                    return (T)(object)test;
-                                }
-                            }
-                            throw new InvalidPluginExecutionException($"On entity { pi.LogicalName } value { osv.Value } has not been mapped to Enum value of { propertyType.Name }");
-                        }
+                        return v.ToTValueType<T>();
                     }
                 }
             }
@@ -571,28 +554,38 @@
         public static T ValueOf<T>(this Microsoft.Xrm.Sdk.AttributeCollection attributes, string attrName)
         {
             attrName = attrName.ToLower();
+
             if (attributes != null && attributes.ContainsKey(attrName))
             {
                 var obj = attributes[attrName];
-                if (obj is T v)
+
+                if (obj == null)
                 {
-                    return v;
+                    return default(T);
                 }
+
+                return obj.ToTValueType<T>();
             }
+
             return default(T);
         }
 
         public static T ValueOf<T>(this Microsoft.Xrm.Sdk.AttributeCollection attributes, string attrName, T def)
         {
             attrName = attrName.ToLower();
+
             if (attributes != null && attributes.ContainsKey(attrName))
             {
                 var obj = attributes[attrName];
-                if (obj is T v)
+
+                if (obj == null)
                 {
-                    return v;
+                    return def;
                 }
+
+                return obj.ToTValueType<T>();
             }
+
             return def;
         }
 
@@ -654,6 +647,54 @@
                 }
             }
             return result;
+        }
+
+        public static T ToTValueType<T>(this object value)
+        {
+            if (value is T t)
+            {
+                return t;
+            }
+
+            var type = typeof(T);
+            var nullType = Nullable.GetUnderlyingType(type);
+            if (nullType != null)
+            {
+                type = nullType;
+            }
+
+            if (type.IsAssignableFrom(value.GetType()))
+            {
+                return (T)value;
+            }
+
+            {
+                if (type.IsEnum && value is Microsoft.Xrm.Sdk.OptionSetValue os)
+                {
+                    return (T)Enum.Parse(type, os.Value.ToString());
+                }
+            }
+
+            if (value is Microsoft.Xrm.Sdk.OptionSetValueCollection oss)
+            {
+                if (type.IsArray)
+                {
+                    var arrayType = type.GetElementType();
+
+                    if (arrayType.IsEnum)
+                    {
+                        var array = Array.CreateInstance(arrayType, oss.Count);
+                        var ix = 0;
+                        foreach (var v in oss)
+                        {
+                            array.SetValue(Enum.Parse(arrayType, v.Value.ToString()), ix);
+                            ix++;
+                        }
+                        return (T)(object)array;
+                    }
+                }
+            }
+            throw new InvalidPluginExecutionException($"Unable to convert value of type { value.GetType().FullName } to { typeof(T).FullName }");
         }
 
         private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)

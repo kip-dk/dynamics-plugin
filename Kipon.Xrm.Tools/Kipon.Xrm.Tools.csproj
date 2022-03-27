@@ -145,6 +145,8 @@
     <Compile Include="Configs\Form.cs" />
     <Compile Include="Configs\FormList.cs" />
     <Compile Include="Deploy\Plugins.cs" />
+    <Compile Include="Entities\componentstate.cs" />
+    <Compile Include="Entities\componenttype.cs" />
     <Compile Include="Entities\Context.design.cs" />
     <Compile Include="Entities\CrmRepository.cs" />
     <Compile Include="Entities\CrmUnitOfWork.cs" />
@@ -154,6 +156,8 @@
     <Compile Include="Entities\IUnitOfWork.Design.cs" />
     <Compile Include="Entities\WebResource.cs" />
     <Compile Include="Entities\WebResourceTypeEnum.cs" />
+    <Compile Include="Entities\workflow_runas.cs" />
+    <Compile Include="Entities\workflow_stage.cs" />
     <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\ConfigurationException.cs" />
     <Compile Include="Extensions\Strings\StringsExtensions.cs" />

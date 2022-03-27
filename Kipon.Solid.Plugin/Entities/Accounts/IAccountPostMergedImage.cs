@@ -10,7 +10,6 @@ namespace Kipon.Solid.Plugin.Entities
     public partial class Account :
         Account.IAccountPostMergedImage
     {
-
         bool Account.IAccountPostMergedImage.AccountNumberChanged => this.TargetAttributes.ContainsKey("xxx");
 
         public interface IAccountPostMergedImage : IAccountMergedimage
