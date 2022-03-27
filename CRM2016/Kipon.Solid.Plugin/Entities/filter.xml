@@ -1,0 +1,29 @@
+﻿<filter supress-mapped-standard-optionset-properties="true">
+  <entities>
+    <entity servicename="Accounts" logicalname="account">
+      <optionset logicalname="preferredcontactmethodcode" name="PreferredContactMethodCode">
+        <value name="Any">1</value>
+        <value name="Email">2</value>
+        <value name="Phone">3</value>
+        <value name="Fax">4</value>
+        <value name="Mail">5</value>
+      </optionset>
+    </entity>
+    <entity servicename="Contacts" logicalname="contact"></entity>
+    <entity servicename="Opportunities" logicalname="opportunity"></entity>
+    <entity servicename="Quotes" logicalname="quote"></entity>
+    <entity servicename="Salesorders" logicalname="salesorder"></entity>
+    <entity servicename="Systemusers" logicalname="systemuser"></entity>
+    <entity servicename="Phonecalls" logicalname="phonecall"></entity>
+    <entity servicename="Leads" logicalname="lead"></entity>
+    <entity servicename="Datepocs" logicalname="kipon_datepoc"></entity>
+    <entity servicename="Templates" logicalname="template"></entity>
+  </entities>
+  <optionsets>
+  </optionsets>
+  <actions>
+    <action name="AccountCountContacts">kipon_AccountCountContacts</action>
+    <action name="Anunboundedaction">kipon_Anunboundedaction</action>
+    <action name="QualityLead">QualifyLead</action>
+  </actions>
+</filter>

@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{86054B90-8D77-4F05-8638-9C3C4FF11E49}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Kipon.Xrm.Tools</RootNamespace>
+    <AssemblyName>Kipon.Xrm.Tools</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrmSvcUtil, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Kipon.Solid.Plugin\bin\coretools\CrmSvcUtil.exe</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.identitymodel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.7.0.0\lib\net35\microsoft.identitymodel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Xrm.Sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk.Deployment, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.Deployment.8.2.0.2\lib\net452\Microsoft.Xrm.Sdk.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk.Workflow, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.Workflow.8.2.0.2\lib\net452\Microsoft.Xrm.Sdk.Workflow.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Tooling.Connector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.CoreAssembly.8.2.0.5\lib\net452\Microsoft.Xrm.Tooling.Connector.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Workflow.Runtime" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeCopy\CopyXrmCode.cs" />
+    <Compile Include="CodeWriter\PlainTxtCodeWriterFilter.cs" />
+    <Compile Include="CodeWriter\CodeWriterFilter.cs" />
+    <Compile Include="CodeWriter\Model\Action.cs" />
+    <Compile Include="CodeWriter\Model\Entity.cs" />
+    <Compile Include="CodeWriter\Model\OptionSet.cs" />
+    <Compile Include="CodeWriter\Model\OptionSetValue.cs" />
+    <Compile Include="CodeWriter\Model\Property.cs" />
+    <Compile Include="CodeWriter\SharedCustomizeCodeDomService.cs" />
+    <Compile Include="CodeWriter\ToolsCustomizeCodeDomService.cs" />
+    <Compile Include="CodeWriter\PluginCustomizeCodeDomService.cs" />
+    <Compile Include="CodeWriter\Typescript\AbstractBlock.cs" />
+    <Compile Include="CodeWriter\Typescript\Interface.cs" />
+    <Compile Include="CodeWriter\Typescript\Module.cs" />
+    <Compile Include="CodeWriter\Typescript\Namespace.cs" />
+    <Compile Include="CodeWriter\Typescript\Writer.cs" />
+    <Compile Include="Configs\Deploy.cs" />
+    <Compile Include="Configs\DeployList.cs" />
+    <Compile Include="Configs\Form.cs" />
+    <Compile Include="Configs\FormList.cs" />
+    <Compile Include="Deploy\Plugins.cs" />
+    <Compile Include="Entities\componentstate.cs" />
+    <Compile Include="Entities\componenttype.cs" />
+    <Compile Include="Entities\Context.design.cs" />
+    <Compile Include="Entities\CrmRepository.cs" />
+    <Compile Include="Entities\CrmUnitOfWork.cs" />
+    <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
+    <Compile Include="Entities\IRepository.cs" />
+    <Compile Include="Entities\IUnitOfWork.cs" />
+    <Compile Include="Entities\IUnitOfWork.Design.cs" />
+    <Compile Include="Entities\WebResource.cs" />
+    <Compile Include="Entities\WebResourceTypeEnum.cs" />
+    <Compile Include="Entities\workflow_runas.cs" />
+    <Compile Include="Entities\workflow_stage.cs" />
+    <Compile Include="Exceptions\BaseException.cs" />
+    <Compile Include="Exceptions\ConfigurationException.cs" />
+    <Compile Include="Extensions\Strings\StringsExtensions.cs" />
+    <Compile Include="Models\Activity.cs" />
+    <Compile Include="Configs\Webresource.cs" />
+    <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\Plugin.cs" />
+    <Compile Include="Models\PluginAssembly.cs" />
+    <Compile Include="Models\Step.cs" />
+    <Compile Include="Models\SystemForm.cs" />
+    <Compile Include="Models\WebResourceMerge.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceAPI\IAssemblyPluginModelService.cs" />
+    <Compile Include="ServiceAPI\IMessageService.cs" />
+    <Compile Include="ServiceAPI\IPluginAssemblyService.cs" />
+    <Compile Include="ServiceAPI\IPluginDeploymentService.cs" />
+    <Compile Include="ServiceAPI\IPluginTypeService.cs" />
+    <Compile Include="ServiceAPI\ISdkMessageProcessingStepService.cs" />
+    <Compile Include="ServiceAPI\ISolutionService.cs" />
+    <Compile Include="ServiceAPI\ISystemFormService.cs" />
+    <Compile Include="Services\AssemblyPluginModelService.cs" />
+    <Compile Include="Services\CrmTransaction.cs" />
+    <Compile Include="Services\SystemFormService.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\PluginAssemblyService.cs" />
+    <Compile Include="Services\PluginDeploymentService.cs" />
+    <Compile Include="Services\PluginTypeService.cs" />
+    <Compile Include="Services\SdkMessageProcessingStepService.cs" />
+    <Compile Include="Services\SolutionService.cs" />
+    <Compile Include="Version.cs" />
+    <Compile Include="XrmOrganization\ConnectionString.cs" />
+    <Compile Include="XrmOrganization\OAuthOrganizationService.cs" />
+    <Compile Include="XrmOrganization\OrganizationService.cs" />
+    <Compile Include="XrmOrganization\TokenHelper.cs" />
+    <Compile Include="Xrm\Kipon.Xrm.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\coretools\CrmSvcUtil.exe" />
+    <Content Include="bin\coretools\CrmSvcUtil.xml" />
+    <Content Include="bin\coretools\Microsoft.Crm.Sdk.Proxy.dll" />
+    <Content Include="bin\coretools\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+    <Content Include="bin\coretools\Microsoft.Xrm.Sdk.Deployment.dll" />
+    <Content Include="bin\coretools\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\coretools\Microsoft.Xrm.Tooling.Connector.dll" />
+    <Content Include="bin\coretools\Microsoft.Xrm.Tooling.CrmConnectControl.dll" />
+    <Content Include="bin\coretools\Other Redistributable.txt" />
+    <Content Include="bin\coretools\SolutionPackager.exe" />
+    <Content Include="bin\Debug\Kipon.Xrm.Tools.dll" />
+    <Content Include="bin\Debug\Kipon.Xrm.Tools.pdb" />
+    <Content Include="bin\Debug\Microsoft.Crm.Sdk.Proxy.dll" />
+    <Content Include="bin\Debug\Microsoft.Crm.Sdk.Proxy.xml" />
+    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.xml" />
+    <Content Include="Entities\filter.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="bin\coretools\CrmSvcUtil.exe.config" />
+    <None Include="bin\coretools\LicenseTerms.docx" />
+    <None Include="Entities\generate.cmd" />
+    <None Include="packages.config" />
+    <None Include="Xrm\generate.cmd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
