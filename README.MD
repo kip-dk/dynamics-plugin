@@ -8,12 +8,12 @@ developing plugin for Dynamics 365 Customer Engagement platform.
 If you are using the older version of CRM, Dynamics CRM 2016, a version of the Kipon Solid Plugin framework has been put in place. Following nuget package are now available:
 
 #### For Dynamics 365 CE, onprem and online - nuget packages
-Kipon.Solid.Plugin  (plugin library)
-Kipon.Solid.Plugin.Fake  (Unit test library)
+* Kipon.Solid.Plugin  (plugin library)
+* Kipon.Solid.Plugin.Fake  (Unit test library)
 
 #### For Dynamics CRM 2016 - nyget packages
-Kipon.Solid.Plugin.CRM2016  (plugin library)
-Kipon.Solid.Plugin.Fake.CRM2016  (Unit test library)
+* Kipon.Solid.Plugin.CRM2016  (plugin library)
+* Kipon.Solid.Plugin.Fake.CRM2016  (Unit test library)
 
 The 2016 version does not support virtual entities and multichoice optionsets, but that is due to the limitation of the underlying platform.
 

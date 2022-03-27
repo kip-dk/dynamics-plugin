@@ -7,12 +7,12 @@ not able to migrated to version 9.0 or 9.1, the Kipon.Solid.Plugin framework now
 The main difference is the binding of the standard SDK libraries. The CRM 2016 version has its own nuget packages:
 
 #### For Dynamics 365 CE, onprem and online - nuget packages
-Kipon.Solid.Plugin  (plugin library)
-Kipon.Solid.Plugin.Fake  (Unit test library)
+* Kipon.Solid.Plugin  (plugin library)
+* Kipon.Solid.Plugin.Fake  (Unit test library)
 
 #### For Dynamics CRM 2016 - nyget packages
-Kipon.Solid.Plugin.CRM2016  (plugin library)
-Kipon.Solid.Plugin.Fake.CRM2016  (Unit test library)
+* Kipon.Solid.Plugin.CRM2016  (plugin library)
+* Kipon.Solid.Plugin.Fake.CRM2016  (Unit test library)
 
 The 2016 version does not support virtual entities and multichoice optionsets, but that is due to the limitation of the underlying platform.
 
