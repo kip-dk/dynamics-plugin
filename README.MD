@@ -21,6 +21,8 @@ Otherwise there should be no differences, and you can follow the normal document
 
 BE AWARE: when building plugins for Dynamics CRM 2016 you should stick to .NET version 4.5.2 - regardless of what this articles tells you otherwise.
 
+Please also see the changelog page for details on managing wrong references to version 9.0.0.0 og the Microsoft.Xrm.Sdk assemblies.
+
 ### The official Kipon.Solid documentation site
 
 [Open the Kipon Solid plugin documentation site](https://kipon.dk/solidplugin)

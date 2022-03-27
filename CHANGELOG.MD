@@ -1,5 +1,99 @@
 ## Last updated: 2022-03-27
 
+### 1.0.8.0 - support for Dynamics CRM 2016 Onprem
+The 1.0.8.0 version is introducing a two track support line for building plugins for the Dynamics platform. If you are stocked on a Dynamics CRM 2016 and for whatever reason are
+not able to migrated to version 9.0 or 9.1, the Kipon.Solid.Plugin framework now support you with a special version of the framework.
+
+The main difference is the binding of the standard SDK libraries. The CRM 2016 version has its own nuget packages:
+
+#### For Dynamics 365 CE, onprem and online - nuget packages
+Kipon.Solid.Plugin  (plugin library)
+Kipon.Solid.Plugin.Fake  (Unit test library)
+
+#### For Dynamics CRM 2016 - nyget packages
+Kipon.Solid.Plugin.CRM2016  (plugin library)
+Kipon.Solid.Plugin.Fake.CRM2016  (Unit test library)
+
+The 2016 version does not support virtual entities and multichoice optionsets, but that is due to the limitation of the underlying platform.
+
+Otherwise there should be no differences, and you can follow the normal documentation of the framework.
+
+BE AWARE: when building plugins for Dynamics CRM 2016 you should stick to .NET version 4.5.2 - regardless of what this articles tells you otherwise.
+
+If you are running on a development box that does have version 9 of any SDK installed, you might need to do some dirty trick in the crmsvcutil configuration file.
+
+Navigate to the bin\coretools folder of you project and open the file: CrmSvcUtil.exe.config
+
+Find the assembly binding section, and adjust it to match below. What is happening here is, that any request of the framework for version 9 of the std SDK will be downgraded to th version 8, matching the library 
+this version of the tool has been build against.:
+
+```xml
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Crm.Sdk"
+                           publicKeyToken="31bf3856ad364e35"
+                           culture="neutral" />
+        <bindingRedirect oldVersion="4.0.0.0-9.0.0.0"
+                          newVersion="8.0.0.0"/>
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Xrm.Sdk"
+                           publicKeyToken="31bf3856ad364e35"
+                           culture="neutral" />
+        <bindingRedirect oldVersion="4.0.0.0-9.0.0.0"
+                          newVersion="8.0.0.0"/>
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Xrm.Sdk.Workflow"
+                           publicKeyToken="31bf3856ad364e35"
+                           culture="neutral" />
+        <bindingRedirect oldVersion="4.0.0.0-9.0.0.0"
+                          newVersion="8.0.0.0"/>
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Crm.Sdk.Proxy"
+                           publicKeyToken="31bf3856ad364e35"
+                           culture="neutral" />
+        <bindingRedirect oldVersion="4.0.0.0-9.0.0.0"
+                          newVersion="8.0.0.0"/>
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Xrm.Sdk.Deployment"
+                           publicKeyToken="31bf3856ad364e35"
+                           culture="neutral" />
+        <bindingRedirect oldVersion="4.0.0.0-9.0.0.0"
+                          newVersion="8.0.0.0"/>
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Crm.Workflow"
+                           publicKeyToken="31bf3856ad364e35"
+                           culture="neutral" />
+        <bindingRedirect oldVersion="4.0.0.0-9.0.0.0"
+                          newVersion="8.0.0.0"/>
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Crm"
+                           publicKeyToken="31bf3856ad364e35"
+                           culture="neutral" />
+        <bindingRedirect oldVersion="4.0.0.0-9.0.0.0"
+                          newVersion="8.0.0.0"/>
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Xrm.Tooling.Connector" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
+        <bindingRedirect oldVersion="1.0.0.0-99.0.0.0" newVersion="2.2.0.0"/>
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Xrm.Tooling.CrmConnectControl" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
+        <bindingRedirect oldVersion="1.0.0.0-99.0.0.0" newVersion="2.2.0.0"/>
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Xrm.Tooling.Ui.Styles" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
+        <bindingRedirect oldVersion="1.0.0.0-99.0.0.0" newVersion="3.0.0.0"/>
+      </dependentAssembly>
+    </assemblyBinding>
+
+```
+
 ### 1.0.8.0
 Updated SDK to newest version, and added enum type convert on Kipon.Xrm.Extensions ValueOf<>.
 
