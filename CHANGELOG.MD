@@ -101,7 +101,7 @@ The reason for minor update is the fact that crmsvcutil from Microsoft now by de
 it is not back-ward compatible with
 code that uses OptionSetValue, and because the Kipon.Solid.plugin framework has a very explicit approach for creating enum properties through filter.xml, code has been added to 
 "reverse" that decision when using the Kipon.Solid.Plugin framework. As a consequence, optionset vill still be generated as OptionSetValue and OptionSetValueCollection if not defined
-it the filter.xml explicitly. The result ofcause is that the framework does not take advantage of the Microsoft svcutil standard impl. but at least code are back-ward compliant.
+in the filter.xml explicitly. The result ofcause is that the framework does not take advantage of the Microsoft svcutil standard impl. but at least code are back-ward compliant.
 
 We might take steps to adjust our enum programming model to be aligned with the standard function some time in the future.
 
