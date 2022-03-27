@@ -3,6 +3,24 @@
 This is the second version of the Kipon plugin template. It is a 100%  rewrite and it aims to make is possible to be 100% SOLID when
 developing plugin for Dynamics 365 Customer Engagement platform.
 
+### Added support for Dynamics CRM 2016
+
+If you are using the older version of CRM, Dynamics CRM 2016, a version of the Kipon Solid Plugin framework has been put in place. Following nuget package are now available:
+
+#### For Dynamics 365 CE, onprem and online - nuget packages
+Kipon.Solid.Plugin  (plugin library)
+Kipon.Solid.Plugin.Fake  (Unit test library)
+
+#### For Dynamics CRM 2016 - nyget packages
+Kipon.Solid.Plugin.CRM2016  (plugin library)
+Kipon.Solid.Plugin.Fake.CRM2016  (Unit test library)
+
+The 2016 version does not support virtual entities and multichoice optionsets, but that is due to the limitation of the underlying platform.
+
+Otherwise there should be no differences, and you can follow the normal documentation of the framework.
+
+BE AWARE: when building plugins for Dynamics CRM 2016 you should stick to .NET version 4.5.2 - regardless of what this articles tells you otherwise.
+
 ### The official Kipon.Solid documentation site
 
 [Open the Kipon Solid plugin documentation site](https://kipon.dk/solidplugin)

@@ -1,0 +1,2 @@
+﻿@echo off
+..\bin\coretools\CrmSvcUtil.exe /url:http://server/instance/XRMServices/2011/Organization.svc /username:replace /password:replace /domain:replace /out:Context.design.cs /ServiceContextName:SolidContextService /namespace:Replace.Plugin.Entities /codewriterfilter:Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter,Kipon.Xrm.Tools /codecustomization:Kipon.Xrm.Tools.CodeWriter.PluginCustomizeCodeDomService,Kipon.Xrm.Tools /generateActions /l:CS

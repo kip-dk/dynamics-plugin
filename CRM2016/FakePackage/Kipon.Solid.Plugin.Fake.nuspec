@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Kipon.Solid.Plugin.Fake.CRM2016</id>
+    <version>1.0.8.0</version>
+    <authors>Kjeld Ingemann Poulsen</authors>
+    <owners>Kipon ApS</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://kipon.dk/solidplugin</projectUrl>
+    <iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Unit Test library for the Kipon.Solid.Plugin framework for Dynamics CRM 2016</description>
+    <releaseNotes>This is a specialized version of the Kipon Solid plugin framework to support Dynamics CRM 2016. </releaseNotes>
+    <copyright>Copyright Kipon ApS 2019,2020,2021,2022</copyright>
+    <tags>Dynamics CRM 2016 plugin C# SOLID</tags>
+    <dependencies>
+      <dependency id="Microsoft.CrmSdk.CoreAssemblies" version="8.2.0.2" />
+      <dependency id="Microsoft.CrmSdk.CoreTools" version="8.2.0.5" />
+    </dependencies>
+  </metadata>
+</package>

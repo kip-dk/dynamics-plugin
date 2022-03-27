@@ -75,6 +75,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakePackage", "FakePackage"
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CRM20216", "CRM20216", "{CE226B38-C575-4674-943E-44AF7C9FCE6E}"
+	ProjectSection(SolutionItems) = preProject
+		CRM2016\generate-fake-package.cmd = CRM2016\generate-fake-package.cmd
+		CRM2016\generate-package.cmd = CRM2016\generate-package.cmd
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Tools", "CRM2016\Kipon.Xrm.Tools\Kipon.Xrm.Tools.csproj", "{86054B90-8D77-4F05-8638-9C3C4FF11E49}"
 EndProject
@@ -83,6 +87,29 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Cmd", "CRM2016\Kipon.Xrm.Cmd\Kipon.Xrm.Cmd.csproj", "{D2D85535-5E78-496B-8F94-7A618A4D5340}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Solid.Plugin", "CRM2016\Kipon.Solid.Plugin\Kipon.Solid.Plugin.csproj", "{C89B1B97-7A15-4BFF-8C38-0A5E6966534C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Package", "Package", "{EE3DDD06-71B3-42F4-94FA-A5D0936C89BE}"
+	ProjectSection(SolutionItems) = preProject
+		CRM2016\Package\Kipon.Solid.Plugin.nuspec = CRM2016\Package\Kipon.Solid.Plugin.nuspec
+		CRM2016\Package\readme.txt = CRM2016\Package\readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakePackage", "FakePackage", "{09EABE16-3973-4174-8211-34E3DBDB6AD0}"
+	ProjectSection(SolutionItems) = preProject
+		CRM2016\FakePackage\Kipon.Solid.Plugin.Fake.nuspec = CRM2016\FakePackage\Kipon.Solid.Plugin.Fake.nuspec
+		CRM2016\FakePackage\readme.txt = CRM2016\FakePackage\readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{D553D10D-B691-49F0-9991-7754006C284F}"
+	ProjectSection(SolutionItems) = preProject
+		CRM2016\Package\content\deploy.cmd.template = CRM2016\Package\content\deploy.cmd.template
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{80D12D36-C296-418E-96E4-B057CE668584}"
+	ProjectSection(SolutionItems) = preProject
+		CRM2016\Package\content\Entities\filter.xml.template = CRM2016\Package\content\Entities\filter.xml.template
+		CRM2016\Package\content\Entities\generate.cmd.template = CRM2016\Package\content\Entities\generate.cmd.template
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +172,10 @@ Global
 		{F4F0B981-E3BF-4D09-BA68-8E43D07624E3} = {CE226B38-C575-4674-943E-44AF7C9FCE6E}
 		{D2D85535-5E78-496B-8F94-7A618A4D5340} = {CE226B38-C575-4674-943E-44AF7C9FCE6E}
 		{C89B1B97-7A15-4BFF-8C38-0A5E6966534C} = {CE226B38-C575-4674-943E-44AF7C9FCE6E}
+		{EE3DDD06-71B3-42F4-94FA-A5D0936C89BE} = {CE226B38-C575-4674-943E-44AF7C9FCE6E}
+		{09EABE16-3973-4174-8211-34E3DBDB6AD0} = {CE226B38-C575-4674-943E-44AF7C9FCE6E}
+		{D553D10D-B691-49F0-9991-7754006C284F} = {EE3DDD06-71B3-42F4-94FA-A5D0936C89BE}
+		{80D12D36-C296-418E-96E4-B057CE668584} = {D553D10D-B691-49F0-9991-7754006C284F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C512F021-FD52-4DEA-8137-EA27986B2E7D}
