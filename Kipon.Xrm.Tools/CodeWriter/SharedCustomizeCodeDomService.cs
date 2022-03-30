@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Crm.Services.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,13 @@ namespace Kipon.Xrm.Tools.CodeWriter
 {
     internal class SharedCustomizeCodeDomService
     {
-        private System.IO.StreamWriter writer;
-        internal SharedCustomizeCodeDomService(System.IO.StreamWriter writer)
+        private readonly System.IO.StreamWriter writer;
+        private readonly IMetadataProviderService meta;
+
+        internal SharedCustomizeCodeDomService(System.IO.StreamWriter writer, IMetadataProviderService meta)
         {
             this.writer = writer;
+            this.meta = meta;
         }
 
         internal void GlobalOptionSets(IEnumerable<Model.OptionSet> optionsets)
@@ -38,6 +42,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         internal void EntityOptionsetProperties(Dictionary<string, Model.Entity> entities, Dictionary<string, Model.OptionSet> globalOptionSets, Dictionary<string,string> attrSchemaNameMap, bool standardSuppressed)
         {
+            var metadata = this.meta.LoadMetadata();
             foreach (var logicalname in entities.Keys)
             {
                 var entity = entities[logicalname];
@@ -225,6 +230,63 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         }
                     }
                     #endregion
+
+                    #region generate std-statecode enum
+                    var entMeta = metadata.Entities.Where(r => r.LogicalName.ToLower() == logicalname.ToLower()).Single();
+
+                    var stateAtt = (Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata)entMeta.Attributes.Where(r => r.LogicalName.ToLower() == "statecode").SingleOrDefault();
+
+
+                    if (stateAtt != null)
+                    {
+                        writer.WriteLine("\t\t[System.Runtime.Serialization.DataContractAttribute()]");
+                        writer.WriteLine($"\t\t[System.CodeDom.Compiler.GeneratedCodeAttribute(\"Kipon.Solid.Plugin\", \"{ Version.No }\")]");
+                        writer.WriteLine($"\t\tpublic enum { logicalname }State");
+                        writer.WriteLine("\t\t{");
+
+                        foreach (var v in stateAtt.OptionSet.Options)
+                        {
+                            writer.WriteLine($"\t\t\t[System.Runtime.Serialization.EnumMemberAttribute()]");
+                            writer.WriteLine($"\t\t\t{ v.Label.UserLocalizedLabel.Label } = { v.Value.Value },");
+                        }
+                        writer.WriteLine("\t\t}");
+                        #endregion
+
+                        #region generate std-statecode property
+                        writer.WriteLine("\t\t[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(\"statecode\")]");
+                        writer.WriteLine($"\t\tpublic { logicalname }State? { stateAtt.SchemaName }");
+                        writer.WriteLine("\t\t{");
+
+                        writer.WriteLine("\t\t\tget");
+                        writer.WriteLine("\t\t\t{");
+                        writer.WriteLine("\t\t\t\tMicrosoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(\"statecode\");");
+                        writer.WriteLine("\t\t\t\tif ((optionSet != null))");
+                        writer.WriteLine("\t\t\t\t{");
+                        writer.WriteLine($"\t\t\t\t\treturn (({ logicalname }State)(System.Enum.ToObject(typeof({ logicalname }State), optionSet.Value)));");
+                        writer.WriteLine("\t\t\t\t}");
+                        writer.WriteLine($"\t\t\t\telse");
+                        writer.WriteLine("\t\t\t\t{");
+                        writer.WriteLine("\t\t\t\t\treturn null;");
+                        writer.WriteLine("\t\t\t\t}");
+                        writer.WriteLine("\t\t\t}");
+
+                        writer.WriteLine("\t\t\tset");
+                        writer.WriteLine("\t\t\t{");
+                        writer.WriteLine($"\t\t\t\tthis.OnPropertyChanging(\"{ stateAtt.SchemaName }\");");
+                        writer.WriteLine("\t\t\t\tif ((value == null))");
+                        writer.WriteLine("\t\t\t\t{");
+                        writer.WriteLine("\t\t\t\t\tthis.SetAttributeValue(\"statecode\", null);");
+                        writer.WriteLine("\t\t\t\t}");
+                        writer.WriteLine("\t\t\t\telse");
+                        writer.WriteLine("\t\t\t\t{");
+                        writer.WriteLine("\t\t\t\t\tthis.SetAttributeValue(\"statecode\", new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));");
+                        writer.WriteLine("\t\t\t\t}");
+                        writer.WriteLine($"\t\t\t\tthis.OnPropertyChanged(\"{ stateAtt.SchemaName }\");");
+                        writer.WriteLine("\t\t\t}");
+                        writer.WriteLine("\t\t}");
+                        #endregion
+                    }
+
 
                     writer.WriteLine("\t}");
                 }

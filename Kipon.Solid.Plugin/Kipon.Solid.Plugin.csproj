@@ -114,6 +114,7 @@
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
     <Compile Include="Entities\kipon_datepocs\IDateChanged.cs" />
     <Compile Include="Entities\Phonecalls\IPhonenumberChanged.cs" />
+    <Compile Include="Model\AccountModel.cs" />
     <Compile Include="Model\INamed.cs" />
     <Compile Include="Model\IPhonenumberChanged.cs" />
     <Compile Include="Model\IProspect.cs" />

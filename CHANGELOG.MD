@@ -1,6 +1,21 @@
-## Last updated: 2022-03-27
+## Last updated: 2022-03-30
+
+### 1.0.8.1 Fixed handling statecode, statuscode and optionset values in a backward compatible way with the kipon.solid.plugin framework
+
+Kipon Solid Plugin now generates statecode and statuscode enums, optionset en a bacward compatible way.  The newest version of the crmsvcutil tool took some pretty drastic decission on
+how to name and generate properties for state, status code and other optionsetvalues, that would require you to rewrite a lot a trivial code depending on kipon.solid style enums. 
+
+With version 1.0.8.1 you can continue to work as in earlier version of the kipon solid tool.
+
+We will soon provide an opt-in option, that enable you to switch to the std-way of doing in the Microsoft tool.
+
 
 ### 1.0.8.0 - support for Dynamics CRM 2016 Onprem
+
+DO NOT INSTALL version 1.0.8.0 for Dynamics 365 CE (For CRM2016 the version is fine) if you are using the kipon optionset model. 
+Microsoft crsvcutil tool will mess with the naming and placement of the optionsets.
+
+
 The 1.0.8.0 version is introducing a two track support line for building plugins for the Dynamics platform. If you are stocked on a Dynamics CRM 2016 and for whatever reason are
 not able to migrated to version 9.0 or 9.1, the Kipon.Solid.Plugin framework now support you with a special version of the framework.
 

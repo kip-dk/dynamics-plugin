@@ -1,5 +1,11 @@
 ### Kipon Dynamics 365 SOLID plugin template
 
+IF YOU USE THE KIPON WAY OF HANDLING OPTIONSET .. DO NOT INSTALL VERSION 1.8.0. STATE ENUMS WILL BE RENAMED AND STATUSCODE OPTIONSET WILL BE GENERATED AS STRONGLY TYPED
+OPTIONSET, EVEN THOUGH THEY ARE NOT MAPPED IN THE FILTER XML.
+
+WE WILL SOON PROVIDE A BACKWARD COMPATIBLE VERSION THAT FULLY SUPPORT THE KIPON WAY OF NAMING AND HANDLING OPTIONSETS, INCLUDING STATECODE.
+
+
 This is the second version of the Kipon plugin template. It is a 100%  rewrite and it aims to make is possible to be 100% SOLID when
 developing plugin for Dynamics 365 Customer Engagement platform.
 
@@ -41,7 +47,7 @@ Please also see the changelog page for details on managing wrong references to v
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.8.0
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.8.1
 ```
 
 3) Rename the following files included in your project, and adjust according to your need

@@ -327,6 +327,20 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 }
             }
 
+            if (attributeMetadata.LogicalName.ToLower() == "statecode")
+            {
+                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                return false;
+            }
+
+            if (attributeMetadata.LogicalName.ToLower() == "statuscode")
+            {
+                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                AddOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
+                return false;
+            }
+
+
             if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata)
             {
                 ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
@@ -336,12 +350,6 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
             if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata)
             {
-                if (attributeMetadata.LogicalName.ToLower() == "statecode")
-                {
-                    ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
-                    return true;
-
-                }
 
                 ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
                 AddOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
@@ -354,12 +362,14 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         public bool GenerateOption(OptionMetadata optionMetadata, IServiceProvider services)
         {
-            return _defaultService.GenerateOption(optionMetadata, services);
+            return false;
+            // return _defaultService.GenerateOption(optionMetadata, services);
         }
 
         public bool GenerateOptionSet(OptionSetMetadataBase optionSetMetadata, IServiceProvider services)
         {
-            return _defaultService.GenerateOptionSet(optionSetMetadata, services);
+            return false;
+            // return _defaultService.GenerateOptionSet(optionSetMetadata, services);
         }
 
         public bool GenerateRelationship(RelationshipMetadataBase relationshipMetadata, EntityMetadata otherEntityMetadata, IServiceProvider services)
