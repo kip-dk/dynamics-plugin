@@ -1,10 +1,19 @@
 ### Kipon Dynamics 365 SOLID plugin template
 
+### 1.0.8.1
+Issues with statecode, statuscode and optionsset generated in totally new way has been fixed in version 1.0.8.1
+
+The changed behavior did not impact the CRM 2016 version, because the root cause was new behavior in crmsvcutil from Microsoft. Therefore the CRM2016 version stays on 1.0.8.0
+
+### For version 1.0.8.0 
 IF YOU USE THE KIPON WAY OF HANDLING OPTIONSET .. DO NOT INSTALL VERSION 1.8.0. STATE ENUMS WILL BE RENAMED AND STATUSCODE OPTIONSET WILL BE GENERATED AS STRONGLY TYPED
 OPTIONSET, EVEN THOUGH THEY ARE NOT MAPPED IN THE FILTER XML.
 
 WE WILL SOON PROVIDE A BACKWARD COMPATIBLE VERSION THAT FULLY SUPPORT THE KIPON WAY OF NAMING AND HANDLING OPTIONSETS, INCLUDING STATECODE.
 
+
+
+##About Kiopn Solid Plugin framework
 
 This is the second version of the Kipon plugin template. It is a 100%  rewrite and it aims to make is possible to be 100% SOLID when
 developing plugin for Dynamics 365 Customer Engagement platform.
