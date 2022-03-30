@@ -1,11 +1,16 @@
 ## Last updated: 2022-03-30
 
+### 1.0.8.2 statecode and naming
+Statecode was generated as an entity innter class enum. This was not complient with former version. Issue fixed.
+Statecode values was generated with invalid chars if present in default localized value,  fixed.
+
+With version 1.0.8.2 you can continue to work as in earlier version of the kipon solid tool.
+
+
 ### 1.0.8.1 Fixed handling statecode, statuscode and optionset values in a backward compatible way with the kipon.solid.plugin framework
 
 Kipon Solid Plugin now generates statecode and statuscode enums, optionset en a bacward compatible way.  The newest version of the crmsvcutil tool took some pretty drastic decission on
 how to name and generate properties for state, status code and other optionsetvalues, that would require you to rewrite a lot a trivial code depending on kipon.solid style enums. 
-
-With version 1.0.8.1 you can continue to work as in earlier version of the kipon solid tool.
 
 We will soon provide an opt-in option, that enable you to switch to the std-way of doing in the Microsoft tool.
 

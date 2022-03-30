@@ -16,6 +16,7 @@
     </entity>
     <entity servicename="Quotes" logicalname="quote"></entity>
     <entity servicename="Salesorders" logicalname="salesorder"></entity>
+    <entity servicename="Invoices" logicalname="invoice"></entity>
     <entity servicename="Systemusers" logicalname="systemuser"></entity>
     <entity servicename="Phonecalls" logicalname="phonecall"></entity>
     <entity servicename="Leads" logicalname="lead"></entity>

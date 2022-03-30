@@ -2433,6 +2433,24 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// 1:N invoice_customer_accounts
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("invoice_customer_accounts")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Invoice> invoice_customer_accounts
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("invoice_customer_accounts", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("invoice_customer_accounts");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("invoice_customer_accounts", null, value);
+				this.OnPropertyChanged("invoice_customer_accounts");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N lead_customer_accounts
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lead_customer_accounts")]
@@ -5868,6 +5886,24 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// 1:N invoice_customer_contacts
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("invoice_customer_contacts")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Invoice> invoice_customer_contacts
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("invoice_customer_contacts", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("invoice_customer_contacts");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("invoice_customer_contacts", null, value);
+				this.OnPropertyChanged("invoice_customer_contacts");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N lead_customer_contacts
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lead_customer_contacts")]
@@ -5972,6 +6008,24 @@ namespace Kipon.Solid.Plugin.Entities
 				this.OnPropertyChanging("quote_customer_contacts");
 				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Quote>("quote_customer_contacts", null, value);
 				this.OnPropertyChanged("quote_customer_contacts");
+			}
+		}
+		
+		/// <summary>
+		/// N:N contactinvoices_association
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("contactinvoices_association")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Invoice> contactinvoices_association
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("contactinvoices_association", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("contactinvoices_association");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("contactinvoices_association", null, value);
+				this.OnPropertyChanged("contactinvoices_association");
 			}
 		}
 		
@@ -6180,6 +6234,1625 @@ namespace Kipon.Solid.Plugin.Entities
 				this.OnPropertyChanging("system_user_contacts");
 				this.SetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("system_user_contacts", null, value);
 				this.OnPropertyChanged("system_user_contacts");
+			}
+		}
+	}
+	
+	/// <summary>
+	/// Order that has been billed.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("invoice")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.111")]
+	public partial class Invoice : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public Invoice() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "invoice";
+		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "Invoice";
+		
+		public const string PrimaryIdAttribute = "invoiceid";
+		
+		public const string PrimaryNameAttribute = "name";
+		
+		public const string EntityLogicalCollectionName = "invoices";
+		
+		public const string EntitySetName = "invoices";
+		
+		public const int EntityTypeCode = 1090;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the account with which the invoice is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("accountid")]
+		public Microsoft.Xrm.Sdk.EntityReference AccountId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("accountid");
+			}
+		}
+		
+		/// <summary>
+		/// Type the city for the customer's billing address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
+		public string BillTo_City
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_city");
+			}
+			set
+			{
+				this.OnPropertyChanging("BillTo_City");
+				this.SetAttributeValue("billto_city", value);
+				this.OnPropertyChanged("BillTo_City");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the complete Bill To address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_composite")]
+		public string BillTo_Composite
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_composite");
+			}
+		}
+		
+		/// <summary>
+		/// Type the country or region for the customer's billing address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
+		public string BillTo_Country
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_country");
+			}
+			set
+			{
+				this.OnPropertyChanging("BillTo_Country");
+				this.SetAttributeValue("billto_country", value);
+				this.OnPropertyChanged("BillTo_Country");
+			}
+		}
+		
+		/// <summary>
+		/// Type the fax number for the customer's billing address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
+		public string BillTo_Fax
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_fax");
+			}
+			set
+			{
+				this.OnPropertyChanging("BillTo_Fax");
+				this.SetAttributeValue("billto_fax", value);
+				this.OnPropertyChanged("BillTo_Fax");
+			}
+		}
+		
+		/// <summary>
+		/// Type the first line of the customer's billing address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
+		public string BillTo_Line1
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_line1");
+			}
+			set
+			{
+				this.OnPropertyChanging("BillTo_Line1");
+				this.SetAttributeValue("billto_line1", value);
+				this.OnPropertyChanged("BillTo_Line1");
+			}
+		}
+		
+		/// <summary>
+		/// Type the second line of the customer's billing address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
+		public string BillTo_Line2
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_line2");
+			}
+			set
+			{
+				this.OnPropertyChanging("BillTo_Line2");
+				this.SetAttributeValue("billto_line2", value);
+				this.OnPropertyChanged("BillTo_Line2");
+			}
+		}
+		
+		/// <summary>
+		/// Type the third line of the billing address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
+		public string BillTo_Line3
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_line3");
+			}
+			set
+			{
+				this.OnPropertyChanging("BillTo_Line3");
+				this.SetAttributeValue("billto_line3", value);
+				this.OnPropertyChanged("BillTo_Line3");
+			}
+		}
+		
+		/// <summary>
+		/// Type a name for the customer's billing address, such as "Headquarters" or "Field office", to identify the address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
+		public string BillTo_Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_name");
+			}
+			set
+			{
+				this.OnPropertyChanging("BillTo_Name");
+				this.SetAttributeValue("billto_name", value);
+				this.OnPropertyChanged("BillTo_Name");
+			}
+		}
+		
+		/// <summary>
+		/// Type the ZIP Code or postal code for the billing address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
+		public string BillTo_PostalCode
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_postalcode");
+			}
+			set
+			{
+				this.OnPropertyChanging("BillTo_PostalCode");
+				this.SetAttributeValue("billto_postalcode", value);
+				this.OnPropertyChanged("BillTo_PostalCode");
+			}
+		}
+		
+		/// <summary>
+		/// Type the state or province for the billing address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
+		public string BillTo_StateOrProvince
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_stateorprovince");
+			}
+			set
+			{
+				this.OnPropertyChanging("BillTo_StateOrProvince");
+				this.SetAttributeValue("billto_stateorprovince", value);
+				this.OnPropertyChanged("BillTo_StateOrProvince");
+			}
+		}
+		
+		/// <summary>
+		/// Type the phone number for the customer's billing address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("billto_telephone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
+		public string BillTo_Telephone
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("billto_telephone");
+			}
+			set
+			{
+				this.OnPropertyChanging("BillTo_Telephone");
+				this.SetAttributeValue("billto_telephone", value);
+				this.OnPropertyChanged("BillTo_Telephone");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the contact associated with the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("contactid")]
+		public Microsoft.Xrm.Sdk.EntityReference ContactId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("contactid");
+			}
+		}
+		
+		/// <summary>
+		/// lk_invoicebase_createdby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the date and time when the record was created. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// lk_invoice_createdonbehalfby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// invoice_customer_contacts
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customerid")]
+		public Microsoft.Xrm.Sdk.EntityReference CustomerId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("customerid");
+			}
+			set
+			{
+				this.OnPropertyChanging("CustomerId");
+				this.SetAttributeValue("customerid", value);
+				this.OnPropertyChanged("CustomerId");
+			}
+		}
+		
+		/// <summary>
+		/// Enter the date when the products included in the invoice were delivered.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("datedelivered")]
+		public System.Nullable<System.DateTime> DateDelivered
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("datedelivered");
+			}
+			set
+			{
+				this.OnPropertyChanging("DateDelivered");
+				this.SetAttributeValue("datedelivered", value);
+				this.OnPropertyChanged("DateDelivered");
+			}
+		}
+		
+		/// <summary>
+		/// Type additional information to describe the invoice, such as shipping details or product substitutions.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("description")]
+		public string Description
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("description");
+			}
+			set
+			{
+				this.OnPropertyChanging("Description");
+				this.SetAttributeValue("description", value);
+				this.OnPropertyChanged("Description");
+			}
+		}
+		
+		/// <summary>
+		/// Type the discount amount for the invoice if the customer is eligible for special savings.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("discountamount")]
+		public Microsoft.Xrm.Sdk.Money DiscountAmount
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("discountamount");
+			}
+			set
+			{
+				this.OnPropertyChanging("DiscountAmount");
+				this.SetAttributeValue("discountamount", value);
+				this.OnPropertyChanged("DiscountAmount");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the Invoice Discount field converted to the system's default base currency for reporting purposes. The calculation uses the exchange rate specified in the Currencies area.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("discountamount_base")]
+		public Microsoft.Xrm.Sdk.Money DiscountAmount_Base
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("discountamount_base");
+			}
+		}
+		
+		/// <summary>
+		/// Type the discount rate that should be applied to the Detail Amount field, for use in calculating the Pre-Freight Amount and Total Amount values for the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("discountpercentage")]
+		public System.Nullable<decimal> DiscountPercentage
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<decimal>>("discountpercentage");
+			}
+			set
+			{
+				this.OnPropertyChanging("DiscountPercentage");
+				this.SetAttributeValue("discountpercentage", value);
+				this.OnPropertyChanged("DiscountPercentage");
+			}
+		}
+		
+		/// <summary>
+		/// Enter the date by which the invoice should be paid by the customer.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("duedate")]
+		public System.Nullable<System.DateTime> DueDate
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("duedate");
+			}
+			set
+			{
+				this.OnPropertyChanging("DueDate");
+				this.SetAttributeValue("duedate", value);
+				this.OnPropertyChanged("DueDate");
+			}
+		}
+		
+		/// <summary>
+		/// The primary email address for the entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("emailaddress")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
+		public string EmailAddress
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("emailaddress");
+			}
+			set
+			{
+				this.OnPropertyChanging("EmailAddress");
+				this.SetAttributeValue("emailaddress", value);
+				this.OnPropertyChanged("EmailAddress");
+			}
+		}
+		
+		/// <summary>
+		/// The default image for the entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage")]
+		public byte[] EntityImage
+		{
+			get
+			{
+				return this.GetAttributeValue<byte[]>("entityimage");
+			}
+			set
+			{
+				this.OnPropertyChanging("EntityImage");
+				this.SetAttributeValue("entityimage", value);
+				this.OnPropertyChanged("EntityImage");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_timestamp")]
+		public System.Nullable<long> EntityImage_Timestamp
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("entityimage_timestamp");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimage_url")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
+		public string EntityImage_URL
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("entityimage_url");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("entityimageid")]
+		public System.Nullable<System.Guid> EntityImageId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("entityimageid");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the conversion rate of the record's currency. The exchange rate is used to convert all money fields in the record from the local currency to the system's default currency.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("exchangerate")]
+		public System.Nullable<decimal> ExchangeRate
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<decimal>>("exchangerate");
+			}
+		}
+		
+		/// <summary>
+		/// Type the cost of freight or shipping for the products included in the invoice for use in calculating the total amount due.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("freightamount")]
+		public Microsoft.Xrm.Sdk.Money FreightAmount
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("freightamount");
+			}
+			set
+			{
+				this.OnPropertyChanging("FreightAmount");
+				this.SetAttributeValue("freightamount", value);
+				this.OnPropertyChanged("FreightAmount");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the Freight Amount field converted to the system's default base currency for reporting purposes. The calculation uses the exchange rate specified in the Currencies area.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("freightamount_base")]
+		public Microsoft.Xrm.Sdk.Money FreightAmount_Base
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("freightamount_base");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the data import or data migration that created this record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
+		public System.Nullable<int> ImportSequenceNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("importsequencenumber");
+			}
+			set
+			{
+				this.OnPropertyChanging("ImportSequenceNumber");
+				this.SetAttributeValue("importsequencenumber", value);
+				this.OnPropertyChanged("ImportSequenceNumber");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("invoiceid")]
+		public System.Nullable<System.Guid> InvoiceId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("invoiceid");
+			}
+			set
+			{
+				this.OnPropertyChanging("InvoiceId");
+				this.SetAttributeValue("invoiceid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("InvoiceId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("invoiceid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.InvoiceId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Shows the identifying number or code of the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("invoicenumber")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
+		public string InvoiceNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("invoicenumber");
+			}
+			set
+			{
+				this.OnPropertyChanging("InvoiceNumber");
+				this.SetAttributeValue("invoicenumber", value);
+				this.OnPropertyChanged("InvoiceNumber");
+			}
+		}
+		
+		/// <summary>
+		/// Select whether prices specified on the invoice are locked from any further updates.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ispricelocked")]
+		public System.Nullable<bool> IsPriceLocked
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("ispricelocked");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsPriceLocked");
+				this.SetAttributeValue("ispricelocked", value);
+				this.OnPropertyChanged("IsPriceLocked");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for invoicestatus associated with Invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ko_invoicestatusid")]
+		public Microsoft.Xrm.Sdk.EntityReference ko_invoicestatusid
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ko_invoicestatusid");
+			}
+			set
+			{
+				this.OnPropertyChanging("ko_invoicestatusid");
+				this.SetAttributeValue("ko_invoicestatusid", value);
+				this.OnPropertyChanged("ko_invoicestatusid");
+			}
+		}
+		
+		/// <summary>
+		/// Enter the date and time when the invoice was last submitted to an accounting or ERP system for processing.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lastbackofficesubmit")]
+		public System.Nullable<System.DateTime> LastBackofficeSubmit
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lastbackofficesubmit");
+			}
+			set
+			{
+				this.OnPropertyChanging("LastBackofficeSubmit");
+				this.SetAttributeValue("lastbackofficesubmit", value);
+				this.OnPropertyChanged("LastBackofficeSubmit");
+			}
+		}
+		
+		/// <summary>
+		/// Contains the date time stamp of the last on hold time.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("lastonholdtime")]
+		public System.Nullable<System.DateTime> LastOnHoldTime
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("lastonholdtime");
+			}
+			set
+			{
+				this.OnPropertyChanging("LastOnHoldTime");
+				this.SetAttributeValue("lastonholdtime", value);
+				this.OnPropertyChanged("LastOnHoldTime");
+			}
+		}
+		
+		/// <summary>
+		/// lk_invoicebase_modifiedby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the date and time when the record was last updated. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// lk_invoice_modifiedonbehalfby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Type a descriptive name for the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(300)]
+		public string Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("name");
+			}
+			set
+			{
+				this.OnPropertyChanging("Name");
+				this.SetAttributeValue("name", value);
+				this.OnPropertyChanged("Name");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the duration in minutes for which the invoice was on hold.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("onholdtime")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
+		public System.Nullable<int> OnHoldTime
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("onholdtime");
+			}
+		}
+		
+		/// <summary>
+		/// opportunity_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("opportunityid")]
+		public Microsoft.Xrm.Sdk.EntityReference OpportunityId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("opportunityid");
+			}
+			set
+			{
+				this.OnPropertyChanging("OpportunityId");
+				this.SetAttributeValue("opportunityid", value);
+				this.OnPropertyChanged("OpportunityId");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time that the record was migrated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overriddencreatedon")]
+		public System.Nullable<System.DateTime> OverriddenCreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overriddencreatedon");
+			}
+			set
+			{
+				this.OnPropertyChanging("OverriddenCreatedOn");
+				this.SetAttributeValue("overriddencreatedon", value);
+				this.OnPropertyChanged("OverriddenCreatedOn");
+			}
+		}
+		
+		/// <summary>
+		/// owner_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ownerid")]
+		public Microsoft.Xrm.Sdk.EntityReference OwnerId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ownerid");
+			}
+			set
+			{
+				this.OnPropertyChanging("OwnerId");
+				this.SetAttributeValue("ownerid", value);
+				this.OnPropertyChanged("OwnerId");
+			}
+		}
+		
+		/// <summary>
+		/// business_unit_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunit")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningBusinessUnit
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
+			}
+		}
+		
+		/// <summary>
+		/// team_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningteam")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningTeam
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
+			}
+		}
+		
+		/// <summary>
+		/// system_user_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owninguser")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningUser
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
+			}
+		}
+		
+		/// <summary>
+		/// price_level_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("pricelevelid")]
+		public Microsoft.Xrm.Sdk.EntityReference PriceLevelId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("pricelevelid");
+			}
+			set
+			{
+				this.OnPropertyChanging("PriceLevelId");
+				this.SetAttributeValue("pricelevelid", value);
+				this.OnPropertyChanged("PriceLevelId");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the ID of the process.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("processid")]
+		public System.Nullable<System.Guid> ProcessId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("processid");
+			}
+			set
+			{
+				this.OnPropertyChanging("ProcessId");
+				this.SetAttributeValue("processid", value);
+				this.OnPropertyChanged("ProcessId");
+			}
+		}
+		
+		/// <summary>
+		/// order_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("salesorderid")]
+		public Microsoft.Xrm.Sdk.EntityReference SalesOrderId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("salesorderid");
+			}
+			set
+			{
+				this.OnPropertyChanging("SalesOrderId");
+				this.SetAttributeValue("salesorderid", value);
+				this.OnPropertyChanged("SalesOrderId");
+			}
+		}
+		
+		/// <summary>
+		/// Type the city for the customer's shipping address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_city")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
+		public string ShipTo_City
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_city");
+			}
+			set
+			{
+				this.OnPropertyChanging("ShipTo_City");
+				this.SetAttributeValue("shipto_city", value);
+				this.OnPropertyChanged("ShipTo_City");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the complete Ship To address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_composite")]
+		public string ShipTo_Composite
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_composite");
+			}
+		}
+		
+		/// <summary>
+		/// Type the country or region for the customer's shipping address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_country")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(80)]
+		public string ShipTo_Country
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_country");
+			}
+			set
+			{
+				this.OnPropertyChanging("ShipTo_Country");
+				this.SetAttributeValue("shipto_country", value);
+				this.OnPropertyChanged("ShipTo_Country");
+			}
+		}
+		
+		/// <summary>
+		/// Type the fax number for the customer's shipping address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_fax")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
+		public string ShipTo_Fax
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_fax");
+			}
+			set
+			{
+				this.OnPropertyChanging("ShipTo_Fax");
+				this.SetAttributeValue("shipto_fax", value);
+				this.OnPropertyChanged("ShipTo_Fax");
+			}
+		}
+		
+		/// <summary>
+		/// Type the first line of the customer's shipping address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_line1")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
+		public string ShipTo_Line1
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_line1");
+			}
+			set
+			{
+				this.OnPropertyChanging("ShipTo_Line1");
+				this.SetAttributeValue("shipto_line1", value);
+				this.OnPropertyChanged("ShipTo_Line1");
+			}
+		}
+		
+		/// <summary>
+		/// Type the second line of the customer's shipping address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_line2")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
+		public string ShipTo_Line2
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_line2");
+			}
+			set
+			{
+				this.OnPropertyChanging("ShipTo_Line2");
+				this.SetAttributeValue("shipto_line2", value);
+				this.OnPropertyChanged("ShipTo_Line2");
+			}
+		}
+		
+		/// <summary>
+		/// Type the third line of the shipping address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_line3")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(250)]
+		public string ShipTo_Line3
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_line3");
+			}
+			set
+			{
+				this.OnPropertyChanging("ShipTo_Line3");
+				this.SetAttributeValue("shipto_line3", value);
+				this.OnPropertyChanged("ShipTo_Line3");
+			}
+		}
+		
+		/// <summary>
+		/// Type a name for the customer's shipping address, such as "Headquarters" or "Field office",  to identify the address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(200)]
+		public string ShipTo_Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_name");
+			}
+			set
+			{
+				this.OnPropertyChanging("ShipTo_Name");
+				this.SetAttributeValue("shipto_name", value);
+				this.OnPropertyChanged("ShipTo_Name");
+			}
+		}
+		
+		/// <summary>
+		/// Type the ZIP Code or postal code for the shipping address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_postalcode")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(20)]
+		public string ShipTo_PostalCode
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_postalcode");
+			}
+			set
+			{
+				this.OnPropertyChanging("ShipTo_PostalCode");
+				this.SetAttributeValue("shipto_postalcode", value);
+				this.OnPropertyChanged("ShipTo_PostalCode");
+			}
+		}
+		
+		/// <summary>
+		/// Type the state or province for the shipping address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_stateorprovince")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
+		public string ShipTo_StateOrProvince
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_stateorprovince");
+			}
+			set
+			{
+				this.OnPropertyChanging("ShipTo_StateOrProvince");
+				this.SetAttributeValue("shipto_stateorprovince", value);
+				this.OnPropertyChanged("ShipTo_StateOrProvince");
+			}
+		}
+		
+		/// <summary>
+		/// Type the phone number for the customer's shipping address.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("shipto_telephone")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(50)]
+		public string ShipTo_Telephone
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("shipto_telephone");
+			}
+			set
+			{
+				this.OnPropertyChanging("ShipTo_Telephone");
+				this.SetAttributeValue("shipto_telephone", value);
+				this.OnPropertyChanged("ShipTo_Telephone");
+			}
+		}
+		
+		/// <summary>
+		/// manualsla_invoice
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("slaid")]
+		public Microsoft.Xrm.Sdk.EntityReference SLAId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("slaid");
+			}
+			set
+			{
+				this.OnPropertyChanging("SLAId");
+				this.SetAttributeValue("slaid", value);
+				this.OnPropertyChanged("SLAId");
+			}
+		}
+		
+		/// <summary>
+		/// sla_invoice
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("slainvokedid")]
+		public Microsoft.Xrm.Sdk.EntityReference SLAInvokedId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("slainvokedid");
+			}
+		}
+		
+		/// <summary>
+		/// processstage_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("stageid")]
+		public System.Nullable<System.Guid> StageId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("stageid");
+			}
+			set
+			{
+				this.OnPropertyChanging("StageId");
+				this.SetAttributeValue("stageid", value);
+				this.OnPropertyChanged("StageId");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
+		public System.Nullable<int> TimeZoneRuleVersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("timezoneruleversionnumber");
+			}
+			set
+			{
+				this.OnPropertyChanging("TimeZoneRuleVersionNumber");
+				this.SetAttributeValue("timezoneruleversionnumber", value);
+				this.OnPropertyChanged("TimeZoneRuleVersionNumber");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the total amount due, calculated as the sum of the products, discount, freight, and taxes for the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totalamount")]
+		public Microsoft.Xrm.Sdk.Money TotalAmount
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totalamount");
+			}
+			set
+			{
+				this.OnPropertyChanging("TotalAmount");
+				this.SetAttributeValue("totalamount", value);
+				this.OnPropertyChanged("TotalAmount");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the Total Amount field converted to the system's default base currency for reporting purposes. The calculation uses the exchange rate specified in the Currencies area.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totalamount_base")]
+		public Microsoft.Xrm.Sdk.Money TotalAmount_Base
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totalamount_base");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the total product amount due, minus any discounts. This value is added to freight and tax amounts in the calculation for the total amount due for the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totalamountlessfreight")]
+		public Microsoft.Xrm.Sdk.Money TotalAmountLessFreight
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totalamountlessfreight");
+			}
+			set
+			{
+				this.OnPropertyChanging("TotalAmountLessFreight");
+				this.SetAttributeValue("totalamountlessfreight", value);
+				this.OnPropertyChanged("TotalAmountLessFreight");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the Pre-Freight Amount field converted to the system's default base currency for reporting purposes. The calculation uses the exchange rate specified in the Currencies area.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totalamountlessfreight_base")]
+		public Microsoft.Xrm.Sdk.Money TotalAmountLessFreight_Base
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totalamountlessfreight_base");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the total discount amount, based on the discount price and rate entered on the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totaldiscountamount")]
+		public Microsoft.Xrm.Sdk.Money TotalDiscountAmount
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totaldiscountamount");
+			}
+			set
+			{
+				this.OnPropertyChanging("TotalDiscountAmount");
+				this.SetAttributeValue("totaldiscountamount", value);
+				this.OnPropertyChanged("TotalDiscountAmount");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the Total Discount Amount field converted to the system's default base currency for reporting purposes. The calculation uses the exchange rate specified in the Currencies area.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totaldiscountamount_base")]
+		public Microsoft.Xrm.Sdk.Money TotalDiscountAmount_Base
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totaldiscountamount_base");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the sum of all existing and write-in products included on the invoice, based on the specified price list and quantities.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totallineitemamount")]
+		public Microsoft.Xrm.Sdk.Money TotalLineItemAmount
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totallineitemamount");
+			}
+			set
+			{
+				this.OnPropertyChanging("TotalLineItemAmount");
+				this.SetAttributeValue("totallineitemamount", value);
+				this.OnPropertyChanged("TotalLineItemAmount");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the Detail Amount field converted to the system's default base currency. The calculation uses the exchange rate specified in the Currencies area.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totallineitemamount_base")]
+		public Microsoft.Xrm.Sdk.Money TotalLineItemAmount_Base
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totallineitemamount_base");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the Manual Discount amounts specified on all products included in the invoice. This value is reflected in the Detail Amount field on the invoice and is added to any discount amount or rate specified on the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totallineitemdiscountamount")]
+		public Microsoft.Xrm.Sdk.Money TotalLineItemDiscountAmount
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totallineitemdiscountamount");
+			}
+			set
+			{
+				this.OnPropertyChanging("TotalLineItemDiscountAmount");
+				this.SetAttributeValue("totallineitemdiscountamount", value);
+				this.OnPropertyChanged("TotalLineItemDiscountAmount");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the total of the Manual Discount amounts specified on all products included in the invoice. This value is reflected in the Detail Amount field on the invoice and is added to any discount amount or rate specified on the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totallineitemdiscountamount_base")]
+		public Microsoft.Xrm.Sdk.Money TotalLineItemDiscountAmount_Base
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totallineitemdiscountamount_base");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the total of the Tax amounts specified on all products included in the invoice, included in the Total Amount due calculation for the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totaltax")]
+		public Microsoft.Xrm.Sdk.Money TotalTax
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totaltax");
+			}
+			set
+			{
+				this.OnPropertyChanging("TotalTax");
+				this.SetAttributeValue("totaltax", value);
+				this.OnPropertyChanged("TotalTax");
+			}
+		}
+		
+		/// <summary>
+		/// Shows the Total Tax field converted to the system's default base currency for reporting purposes. The calculation uses the exchange rate specified in the Currencies area.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("totaltax_base")]
+		public Microsoft.Xrm.Sdk.Money TotalTax_Base
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>("totaltax_base");
+			}
+		}
+		
+		/// <summary>
+		/// transactioncurrency_invoice
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("transactioncurrencyid")]
+		public Microsoft.Xrm.Sdk.EntityReference TransactionCurrencyId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("transactioncurrencyid");
+			}
+			set
+			{
+				this.OnPropertyChanging("TransactionCurrencyId");
+				this.SetAttributeValue("transactioncurrencyid", value);
+				this.OnPropertyChanged("TransactionCurrencyId");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("traversedpath")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1250)]
+		public string TraversedPath
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("traversedpath");
+			}
+			set
+			{
+				this.OnPropertyChanging("TraversedPath");
+				this.SetAttributeValue("traversedpath", value);
+				this.OnPropertyChanged("TraversedPath");
+			}
+		}
+		
+		/// <summary>
+		/// Time zone code that was in use when the record was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
+		public System.Nullable<int> UTCConversionTimeZoneCode
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("utcconversiontimezonecode");
+			}
+			set
+			{
+				this.OnPropertyChanging("UTCConversionTimeZoneCode");
+				this.SetAttributeValue("utcconversiontimezonecode", value);
+				this.OnPropertyChanged("UTCConversionTimeZoneCode");
+			}
+		}
+		
+		/// <summary>
+		/// Version number of the invoice.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// Select whether the products included in the invoice should be shipped to the specified address or held until the customer calls with further pick up or delivery instructions.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("willcall")]
+		public System.Nullable<bool> WillCall
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("willcall");
+			}
+			set
+			{
+				this.OnPropertyChanging("WillCall");
+				this.SetAttributeValue("willcall", value);
+				this.OnPropertyChanged("WillCall");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N Invoice_Phonecalls
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("Invoice_Phonecalls")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.PhoneCall> Invoice_Phonecalls
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.PhoneCall>("Invoice_Phonecalls", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("Invoice_Phonecalls");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.PhoneCall>("Invoice_Phonecalls", null, value);
+				this.OnPropertyChanged("Invoice_Phonecalls");
+			}
+		}
+		
+		/// <summary>
+		/// N:N contactinvoices_association
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("contactinvoices_association")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Contact> contactinvoices_association
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Contact>("contactinvoices_association", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("contactinvoices_association");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Contact>("contactinvoices_association", null, value);
+				this.OnPropertyChanged("contactinvoices_association");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 invoice_customer_accounts
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customerid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("invoice_customer_accounts")]
+		public Kipon.Solid.Plugin.Entities.Account invoice_customer_accounts
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.Account>("invoice_customer_accounts", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("invoice_customer_accounts");
+				this.SetRelatedEntity<Kipon.Solid.Plugin.Entities.Account>("invoice_customer_accounts", null, value);
+				this.OnPropertyChanged("invoice_customer_accounts");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 invoice_customer_contacts
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customerid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("invoice_customer_contacts")]
+		public Kipon.Solid.Plugin.Entities.Contact invoice_customer_contacts
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.Contact>("invoice_customer_contacts", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("invoice_customer_contacts");
+				this.SetRelatedEntity<Kipon.Solid.Plugin.Entities.Contact>("invoice_customer_contacts", null, value);
+				this.OnPropertyChanged("invoice_customer_contacts");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 lk_invoice_createdonbehalfby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_invoice_createdonbehalfby")]
+		public Kipon.Solid.Plugin.Entities.SystemUser lk_invoice_createdonbehalfby
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("lk_invoice_createdonbehalfby", null);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 lk_invoice_modifiedonbehalfby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_invoice_modifiedonbehalfby")]
+		public Kipon.Solid.Plugin.Entities.SystemUser lk_invoice_modifiedonbehalfby
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("lk_invoice_modifiedonbehalfby", null);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 lk_invoicebase_createdby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_invoicebase_createdby")]
+		public Kipon.Solid.Plugin.Entities.SystemUser lk_invoicebase_createdby
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("lk_invoicebase_createdby", null);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 lk_invoicebase_modifiedby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_invoicebase_modifiedby")]
+		public Kipon.Solid.Plugin.Entities.SystemUser lk_invoicebase_modifiedby
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("lk_invoicebase_modifiedby", null);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 opportunity_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("opportunityid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("opportunity_invoices")]
+		public Kipon.Solid.Plugin.Entities.Opportunity opportunity_invoices
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.Opportunity>("opportunity_invoices", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("opportunity_invoices");
+				this.SetRelatedEntity<Kipon.Solid.Plugin.Entities.Opportunity>("opportunity_invoices", null, value);
+				this.OnPropertyChanged("opportunity_invoices");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 order_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("salesorderid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("order_invoices")]
+		public Kipon.Solid.Plugin.Entities.SalesOrder order_invoices
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SalesOrder>("order_invoices", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("order_invoices");
+				this.SetRelatedEntity<Kipon.Solid.Plugin.Entities.SalesOrder>("order_invoices", null, value);
+				this.OnPropertyChanged("order_invoices");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 system_user_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owninguser")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("system_user_invoices")]
+		public Kipon.Solid.Plugin.Entities.SystemUser system_user_invoices
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("system_user_invoices", null);
 			}
 		}
 	}
@@ -11004,6 +12677,24 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// 1:N opportunity_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("opportunity_invoices")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Invoice> opportunity_invoices
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("opportunity_invoices", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("opportunity_invoices");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("opportunity_invoices", null, value);
+				this.OnPropertyChanged("opportunity_invoices");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N Opportunity_Phonecalls
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("Opportunity_Phonecalls")]
@@ -12156,6 +13847,25 @@ namespace Kipon.Solid.Plugin.Entities
 				this.OnPropertyChanging("Contact_Phonecalls");
 				this.SetRelatedEntity<Kipon.Solid.Plugin.Entities.Contact>("Contact_Phonecalls", null, value);
 				this.OnPropertyChanged("Contact_Phonecalls");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 Invoice_Phonecalls
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("regardingobjectid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("Invoice_Phonecalls")]
+		public Kipon.Solid.Plugin.Entities.Invoice Invoice_Phonecalls
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.Invoice>("Invoice_Phonecalls", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("Invoice_Phonecalls");
+				this.SetRelatedEntity<Kipon.Solid.Plugin.Entities.Invoice>("Invoice_Phonecalls", null, value);
+				this.OnPropertyChanged("Invoice_Phonecalls");
 			}
 		}
 		
@@ -15528,6 +17238,24 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// 1:N order_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("order_invoices")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Invoice> order_invoices
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("order_invoices", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("order_invoices");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("order_invoices", null, value);
+				this.OnPropertyChanged("order_invoices");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N SalesOrder_Phonecalls
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("SalesOrder_Phonecalls")]
@@ -17963,6 +19691,78 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// 1:N lk_invoice_createdonbehalfby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_invoice_createdonbehalfby")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Invoice> lk_invoice_createdonbehalfby
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("lk_invoice_createdonbehalfby", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("lk_invoice_createdonbehalfby");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("lk_invoice_createdonbehalfby", null, value);
+				this.OnPropertyChanged("lk_invoice_createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N lk_invoice_modifiedonbehalfby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_invoice_modifiedonbehalfby")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Invoice> lk_invoice_modifiedonbehalfby
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("lk_invoice_modifiedonbehalfby", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("lk_invoice_modifiedonbehalfby");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("lk_invoice_modifiedonbehalfby", null, value);
+				this.OnPropertyChanged("lk_invoice_modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N lk_invoicebase_createdby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_invoicebase_createdby")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Invoice> lk_invoicebase_createdby
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("lk_invoicebase_createdby", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("lk_invoicebase_createdby");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("lk_invoicebase_createdby", null, value);
+				this.OnPropertyChanged("lk_invoicebase_createdby");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N lk_invoicebase_modifiedby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_invoicebase_modifiedby")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Invoice> lk_invoicebase_modifiedby
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("lk_invoicebase_modifiedby", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("lk_invoicebase_modifiedby");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("lk_invoicebase_modifiedby", null, value);
+				this.OnPropertyChanged("lk_invoicebase_modifiedby");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N lk_kipon_datepoc_createdby
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_kipon_datepoc_createdby")]
@@ -18607,6 +20407,24 @@ namespace Kipon.Solid.Plugin.Entities
 				this.OnPropertyChanging("system_user_email_templates");
 				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Template>("system_user_email_templates", null, value);
 				this.OnPropertyChanged("system_user_email_templates");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N system_user_invoices
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("system_user_invoices")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.Invoice> system_user_invoices
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("system_user_invoices", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("system_user_invoices");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.Invoice>("system_user_invoices", null, value);
+				this.OnPropertyChanged("system_user_invoices");
 			}
 		}
 		
@@ -19585,6 +21403,17 @@ namespace Kipon.Solid.Plugin.Entities
 			get
 			{
 				return this.CreateQuery<Kipon.Solid.Plugin.Entities.Contact>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Solid.Plugin.Entities.Invoice"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Solid.Plugin.Entities.Invoice> InvoiceSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Solid.Plugin.Entities.Invoice>();
 			}
 		}
 		

@@ -8,6 +8,6 @@ namespace Kipon.Solid.Plugin.Model
 {
     public class AccountModel
     {
-        Entities.Account.AccountState? AccountState { get; }
+        Entities.AccountState? AccountState { get; }
     }
 }

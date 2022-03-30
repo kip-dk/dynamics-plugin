@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kipon.Xrm.Tools.Extensions.Strings;
 
 namespace Kipon.Xrm.Tools.CodeWriter
 {
@@ -50,8 +51,30 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 var hasOpt = Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter.OPTIONSETFIELDS.ContainsKey(logicalname.ToLower());
                 var hasMul = Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter.MULTIOPTIONSETFIELDS.ContainsKey(logicalname.ToLower());
 
-                if (hasOpt || hasMul || (entity.Optionsets != null && entity.Optionsets.Length > 0))
+                var entMeta = metadata.Entities.Where(r => r.LogicalName.ToLower() == logicalname.ToLower()).Single();
+                var stateAtt = (Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata)entMeta.Attributes.Where(r => r.LogicalName.ToLower() == "statecode").SingleOrDefault();
+
+
+                if (hasOpt || hasMul || stateAtt != null || (entity.Optionsets != null && entity.Optionsets.Length > 0))
                 {
+                    if (stateAtt != null)
+                    {
+                        #region generate std-statecode enum
+                        writer.WriteLine("\t[System.Runtime.Serialization.DataContractAttribute()]");
+                        writer.WriteLine($"\t[System.CodeDom.Compiler.GeneratedCodeAttribute(\"Kipon.Solid.Plugin\", \"{ Version.No }\")]");
+                        writer.WriteLine($"\tpublic enum { logicalname }State");
+                        writer.WriteLine("\t{");
+
+                        foreach (var v in stateAtt.OptionSet.Options)
+                        {
+                            writer.WriteLine($"\t\t[System.Runtime.Serialization.EnumMemberAttribute()]");
+                            writer.WriteLine($"\t\t{ v.Label.UserLocalizedLabel.Label.ToCSharpName() } = { v.Value.Value },");
+                        }
+                        writer.WriteLine("\t}");
+                        #endregion
+
+                    }
+
                     writer.WriteLine($"\tpublic partial class {logicalname}");
                     writer.WriteLine("\t{");
 
@@ -231,27 +254,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
                     }
                     #endregion
 
-                    #region generate std-statecode enum
-                    var entMeta = metadata.Entities.Where(r => r.LogicalName.ToLower() == logicalname.ToLower()).Single();
-
-                    var stateAtt = (Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata)entMeta.Attributes.Where(r => r.LogicalName.ToLower() == "statecode").SingleOrDefault();
-
-
                     if (stateAtt != null)
                     {
-                        writer.WriteLine("\t\t[System.Runtime.Serialization.DataContractAttribute()]");
-                        writer.WriteLine($"\t\t[System.CodeDom.Compiler.GeneratedCodeAttribute(\"Kipon.Solid.Plugin\", \"{ Version.No }\")]");
-                        writer.WriteLine($"\t\tpublic enum { logicalname }State");
-                        writer.WriteLine("\t\t{");
-
-                        foreach (var v in stateAtt.OptionSet.Options)
-                        {
-                            writer.WriteLine($"\t\t\t[System.Runtime.Serialization.EnumMemberAttribute()]");
-                            writer.WriteLine($"\t\t\t{ v.Label.UserLocalizedLabel.Label } = { v.Value.Value },");
-                        }
-                        writer.WriteLine("\t\t}");
-                        #endregion
-
                         #region generate std-statecode property
                         writer.WriteLine("\t\t[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(\"statecode\")]");
                         writer.WriteLine($"\t\tpublic { logicalname }State? { stateAtt.SchemaName }");

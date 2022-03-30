@@ -77,5 +77,35 @@ namespace Kipon.Xrm.Tools.Extensions.Strings
             return Entities.WebResourceTypeEnum.Unknown;
         }
 
+        public static readonly string REPLACE = "!\"#¤%&/()=?{[]}|'";
+
+        public static string ToCSharpName(this string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+
+            var result = string.Empty;
+            var first = true;
+            foreach (var ch in value)
+            {
+                if (first && !char.IsLetter(ch) && ch != '_')
+                {
+                    result += "_";
+                }
+
+                first = false;
+
+                if (Char.IsLetterOrDigit(ch))
+                {
+                    result += ch;
+                } else
+                {
+                    result += "_";
+                }
+            }
+            return result;
+        }
     }
 }
