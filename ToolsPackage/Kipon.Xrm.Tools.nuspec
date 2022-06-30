@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Xrm.Tools</id>
-    <version>1.0.8.2</version>
+    <version>1.0.9.0</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -10,7 +10,7 @@
     <iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Kipon.Xrm.Tools - tool to generate and deploy Dynamics 365 CE items</description>
-    <releaseNotes>Statecode generated in entities folder and names are C# compatible</releaseNotes>
+    <releaseNotes>Prevent caching in queries</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020,2021,2022</copyright>
     <tags>Dynamics 365 CE plugin C# SOLID webresource typescript DefinitelyTyped @types/xrm</tags>
       <dependencies>

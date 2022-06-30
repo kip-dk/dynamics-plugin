@@ -147,11 +147,11 @@ namespace Kipon.Xrm.Fake.Repository
                     }
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotEndWith:
                     {
-                        return !value.EndsWith(expression.Values);
+                        throw new NotSupportedException();
                     }
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.EndsWith:
                     {
-                        return value.EndsWith(expression.Values);
+                        throw new NotSupportedException();
                     }
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal:
                     {

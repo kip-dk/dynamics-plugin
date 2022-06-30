@@ -134,11 +134,5 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Kipon.Xrm.Tools\Kipon.Xrm.Tools.csproj">
-      <Project>{86054b90-8d77-4f05-8638-9c3c4ff11e49}</Project>
-      <Name>Kipon.Xrm.Tools</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

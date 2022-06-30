@@ -1,7 +1,10 @@
 ### Kipon Dynamics 365 SOLID plugin template
 
+### 1.0.9.0
+Prevent caching in queries
+
 ### 1.0.8.2
-Issues with statecode, statuscode and optionsset generated in totally new way has been fixed in version 1.0.8.2
+Issues with statecode, statuscode and optionsset generated in totally new way has been fixed in version this version.
 
 The changed behavior did not impact the CRM 2016 version, because the root cause was new behavior in crmsvcutil from Microsoft. Therefore the CRM2016 version stays on 1.0.8.0
 
@@ -56,7 +59,7 @@ Please also see the changelog page for details on managing wrong references to v
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.8.2
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.9.0
 ```
 
 3) Rename the following files included in your project, and adjust according to your need

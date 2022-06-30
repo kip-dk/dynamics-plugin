@@ -136,6 +136,7 @@
     <Compile Include="Xrm\ActionTarget.cs" />
     <Compile Include="Xrm\Attributes\AdminAttribute.cs" />
     <Compile Include="Xrm\Attributes\ExportAttribute.cs" />
+    <Compile Include="Xrm\Attributes\Filter\ChildOfAttribute.cs" />
     <Compile Include="Xrm\Attributes\IfAttribute.cs" />
     <Compile Include="Xrm\Attributes\ImportingConstructorAttribute.cs" />
     <Compile Include="Xrm\Attributes\LogicalNameAttribute.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Xrm\IMethodCondition.cs" />
     <Compile Include="Xrm\Implementations\AssociateRequest.cs" />
     <Compile Include="Xrm\Implementations\EnumeratorWrapper.cs" />
+    <Compile Include="Xrm\Implementations\ChildOfFilter.cs" />
     <Compile Include="Xrm\Implementations\NotNullFilter.cs" />
     <Compile Include="Xrm\Implementations\RelationshipMethodCondition.cs" />
     <Compile Include="Xrm\Reflection\MethodConditionEvaluater.cs" />

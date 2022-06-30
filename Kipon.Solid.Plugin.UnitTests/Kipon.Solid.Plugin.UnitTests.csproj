@@ -109,6 +109,7 @@
     <Compile Include="Plugins\Account\SpecialAccountPluginTest.cs" />
     <Compile Include="Plugins\Account\AccountPostUpdateTest.cs" />
     <Compile Include="Plugins\Account\AccountWithConfigPluginTest.cs" />
+    <Compile Include="Plugins\Account\TargetAsPreValueTest.cs" />
     <Compile Include="Plugins\Contact\ContactDeletePluginTest.cs" />
     <Compile Include="Plugins\Generic\ProspectPluginTest.cs" />
     <Compile Include="Plugins\kipon_datepoc\PostUpdateTest.cs" />

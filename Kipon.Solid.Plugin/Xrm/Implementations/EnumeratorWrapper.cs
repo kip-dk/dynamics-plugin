@@ -13,9 +13,6 @@ namespace Kipon.Xrm.Implementations
         private readonly IEnumerator<T> root;
         private readonly ServiceAPI.IEntityCache cache;
 
-        private Microsoft.Xrm.Sdk.Entity[] cached;
-        private bool emptied = false;
-
         public EnumeratorWrapper(IEnumerator<T> root, ServiceAPI.IEntityCache cache)
         {
             this.root = root;
@@ -28,25 +25,12 @@ namespace Kipon.Xrm.Implementations
 
         public void Dispose()
         {
+            root.Dispose();
         }
 
         public bool MoveNext()
         {
-            this.Empty();
-
-            var next = root.MoveNext();
-
-            if (next == false)
-            {
-                if (cached != null && cached != null)
-                {
-                    foreach (var c in cached)
-                    {
-                        cache.Attach(c);
-                    }
-                }
-            }
-            return next;
+            return root.MoveNext();
         }
 
         public void Reset()
@@ -59,21 +43,6 @@ namespace Kipon.Xrm.Implementations
             var result = root.Current;
             cache.Detach(result);
             return result;
-        }
-
-        private void Empty()
-        {
-            if (!emptied)
-            {
-                var t = new T();
-
-                this.cached = cache.GetAttachedEntities().Where(c => c.LogicalName == t.LogicalName).ToArray();
-                foreach (var c in cached)
-                {
-                    cache.Detach(c);
-                }
-                this.emptied = true;
-            }
         }
     }
 }

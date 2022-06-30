@@ -130,6 +130,7 @@
     <Compile Include="Plugins\Account\AccountWithConfigPlugin.cs" />
     <Compile Include="Plugins\Account\AccoutPostUpdate.cs" />
     <Compile Include="Plugins\Account\SpecialAccountPlugin.cs" />
+    <Compile Include="Plugins\Account\TargetAsPreValue.cs" />
     <Compile Include="Plugins\Account\UseTargetAttributesPlugin.cs" />
     <Compile Include="Plugins\AnunboundedactionPlugin.cs" />
     <Compile Include="Plugins\Contact\ContactDeletePlugin.cs" />

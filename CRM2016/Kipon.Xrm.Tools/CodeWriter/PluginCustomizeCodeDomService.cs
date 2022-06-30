@@ -349,6 +349,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                 writer.WriteLine("\t\t\tpublic static int ToEntityTypeCode(this string value) { return entityLogicalNameToTypeCodeIndex[value]; }");
                 writer.WriteLine("\t\t\tpublic static string ToEntityLogicalName(this int value) { return typecodeToEntityLogicalNameIndex[value]; }");
+                writer.WriteLine("\t\t\tpublic static bool IsEntityLogicalName(this string value) { return value != null && entityLogicalNameToTypeCodeIndex.ContainsKey(value.ToLower()); }");
 
                 /* CL */
                 writer.WriteLine("\t}");

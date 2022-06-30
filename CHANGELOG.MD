@@ -1,4 +1,9 @@
-## Last updated: 2022-03-30
+## Last updated: 2022-06-30
+
+### 1.0.9.0
+Start from version 9.0, GetQuery() from IRepository will return a non caching queryable. This means that object fetch through the CrmContext will be detached before returned to the client.
+This choice is due to the design of the kipon xrm framwork, where unit-of-work (that is under the hood sing a crmsvcutil crmcontext) is shared between different methods in same step, and it can
+be impossible to predict if another step has fetch a limited set of properties from an entity, resulting in getting the same object from the cache instead of a new query on same entity.
 
 ### 1.0.8.2 statecode and naming
 Statecode was generated as an entity innter class enum. This was not complient with former version. Issue fixed.

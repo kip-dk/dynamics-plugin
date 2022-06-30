@@ -101,7 +101,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         public IQueryable<T> GetQuery()
         {{
-            return context.CreateQuery<T>();
+            var q = context.CreateQuery<T>();
+            return new Kipon.Xrm.Implementations.NoCacheQueryable<T>(q, this.context);
         }}
 
         public void Delete(T entity)
