@@ -19,9 +19,20 @@ namespace Kipon.Xrm.Implementations
             this.cache = cache;
         }
 
-        public T Current => GetCurrent();
+        public T Current {
+            get
+            {
+                return GetCurrent();
+            }
+        }
 
-        object IEnumerator.Current => GetCurrent();
+        object IEnumerator.Current 
+        {
+            get
+            {
+                return GetCurrent();
+            }
+        }
 
         public void Dispose()
         {

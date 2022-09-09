@@ -1,5 +1,9 @@
 ### Kipon Dynamics 365 SOLID plugin template
 
+### 1.0.9.1
+The context was still caching :-(. Now it is cleared og initial GetQuery() call for the entity, so effectively cache should be cleared now. We are working
+to see if we can find a better solution.
+
 ### 1.0.9.0
 Prevent caching in queries
 
@@ -59,7 +63,7 @@ Please also see the changelog page for details on managing wrong references to v
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.9.0
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.9.1
 ```
 
 3) Rename the following files included in your project, and adjust according to your need

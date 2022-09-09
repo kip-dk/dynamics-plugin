@@ -1,4 +1,9 @@
-## Last updated: 2022-06-30
+## Last updated: 2022-09-08
+
+### 1.0.9.1
+The context was still caching :-(. Now it is cleared og initial GetQuery() call for the entity, so effectively cache should be cleared now. We are working
+to see if we can find a better solution.
+
 
 ### 1.0.9.0
 Start from version 9.0, GetQuery() from IRepository will return a non caching queryable. This means that object fetch through the CrmContext will be detached before returned to the client.

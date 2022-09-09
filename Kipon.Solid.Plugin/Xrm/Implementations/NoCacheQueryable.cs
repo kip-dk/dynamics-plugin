@@ -21,11 +21,30 @@ namespace Kipon.Xrm.Implementations
             this.cache = cache;
         }
 
-        public Expression Expression => this.rootQuery.Expression;
+        public Expression Expression 
+        {
+            get
+            {
+                return this.rootQuery.Expression;
+            }
+        }
 
-        public Type ElementType => this.rootQuery.ElementType;
+        public Type ElementType 
+        {
+            get
+            {
+                return this.rootQuery.ElementType;
+            }
+        }
 
-        public IQueryProvider Provider => this.rootQuery.Provider;
+        public IQueryProvider Provider
+        {
+            get
+            {
+                this.ClearCache();
+                return rootQuery.Provider;
+            }
+        }
 
         public IEnumerator<T> GetEnumerator()
         {
@@ -44,6 +63,22 @@ namespace Kipon.Xrm.Implementations
                 rootEnum = new EnumeratorWrapper<T>(rootQuery.GetEnumerator(), this.cache);
             }
             return rootEnum;
+        }
+
+        private void ClearCache()
+        {
+            var ents = this.cache.GetAttachedEntities().ToArray();
+            if (ents.Length > 0)
+            {
+                var logicalName = new T().LogicalName;
+                foreach (var c in ents)
+                {
+                    if (c.LogicalName == logicalName)
+                    {
+                        this.cache.Detach(c);
+                    }
+                }
+            }
         }
     }
 }
