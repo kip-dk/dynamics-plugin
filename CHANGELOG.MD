@@ -1,5 +1,9 @@
 ## Last updated: 2022-09-08
 
+### 1.0.9.2
+added Filter classes for plugin step filtering [ChildOf] and [NotChildOf]. The names should indicate the purpose, and the short description is that is allow you to filter
+at step based on if it is called as a child process of another message.
+
 ### 1.0.9.1
 The context was still caching :-(. Now it is cleared og initial GetQuery() call for the entity, so effectively cache should be cleared now. We are working
 to see if we can find a better solution.

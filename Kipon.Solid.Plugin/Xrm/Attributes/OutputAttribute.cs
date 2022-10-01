@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Property indicating that the underlying IOrganizationService must be run with system priviliges
+    /// Property used to decorate action out parameters with needed information to push the data into the dynamics 365 ce outputparameters on the context
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public class OutputAttribute : Attribute

@@ -1,32 +1,11 @@
-### Kipon Dynamics 365 SOLID plugin template
-
-### 1.0.9.1
-The context was still caching :-(. Now it is cleared og initial GetQuery() call for the entity, so effectively cache should be cleared now. We are working
-to see if we can find a better solution.
-
-### 1.0.9.0
-Prevent caching in queries
-
-### 1.0.8.2
-Issues with statecode, statuscode and optionsset generated in totally new way has been fixed in version this version.
-
-The changed behavior did not impact the CRM 2016 version, because the root cause was new behavior in crmsvcutil from Microsoft. Therefore the CRM2016 version stays on 1.0.8.0
-
-### For version 1.0.8.0 
-IF YOU USE THE KIPON WAY OF HANDLING OPTIONSET .. DO NOT INSTALL VERSION 1.8.0. STATE ENUMS WILL BE RENAMED AND STATUSCODE OPTIONSET WILL BE GENERATED AS STRONGLY TYPED
-OPTIONSET, EVEN THOUGH THEY ARE NOT MAPPED IN THE FILTER XML.
-
-WE WILL SOON PROVIDE A BACKWARD COMPATIBLE VERSION THAT FULLY SUPPORT THE KIPON WAY OF NAMING AND HANDLING OPTIONSETS, INCLUDING STATECODE.
-
+### Kipon Dynamics 365 SOLID plugin template 
 
 
 ##About Kiopn Solid Plugin framework
+This is a framework for building Dynamics 365 CE plugin libraries, following the guidance that SOLID software princips is given.
 
-This is the second version of the Kipon plugin template. It is a 100%  rewrite and it aims to make is possible to be 100% SOLID when
-developing plugin for Dynamics 365 Customer Engagement platform.
 
 ### Added support for Dynamics CRM 2016
-
 If you are using the older version of CRM, Dynamics CRM 2016, a version of the Kipon Solid Plugin framework has been put in place. Following nuget package are now available:
 
 #### For Dynamics 365 CE, onprem and online - nuget packages
@@ -45,6 +24,11 @@ BE AWARE: when building plugins for Dynamics CRM 2016 you should stick to .NET v
 
 Please also see the changelog page for details on managing wrong references to version 9.0.0.0 og the Microsoft.Xrm.Sdk assemblies.
 
+The 2016 version has been put in place to allow late movers to join the party of building plugins based on SOLID princips. The version
+will not be patch up with new features, however it is still a very powerfull starting point and 100% compatible with the newest version of the Kipon solid plugin framework.
+
+We are only adding on the top. To take advantage of the full framework we encourage you to upgrade your dynamics 365 solution to at least veresion 9.1.
+
 ### The official Kipon.Solid documentation site
 
 [Open the Kipon Solid plugin documentation site](https://kipon.dk/solidplugin)
@@ -54,16 +38,16 @@ Please also see the changelog page for details on managing wrong references to v
 * A base plugin (Kipon.Xrm.BasePlugin) that allow you to write event oriented plugins that get needed things auto injected
 * Architecture for building plugins using a service api architecture, including a dependency injection framework. 
 * Architecture for building plugins based on "unit of work" pattern. IUnitOfWork interface is included in the code, and crmscvutil is extended to generate repository implementations for all included entities.
-* Template and tool for generating early bound entities based on Dynamics 365 Metadata
-* Tool to deploy the assembly and related steps to your Dyanmics 365 development instance, and adding these to your solution.
+* Template and tool for generating early bound entities based on Dynamics 365 CE Metadata
+* Tool to deploy the assembly and related steps to your Dyanmics 365 CE development instance, and adding these to your solution.
 
 ### Installation
-1) Create a C#.NET Framework library, at version 4.6.2. (.NET Core is not yet supported for dynamics 365 plugin development)
+1) Create a C#.NET Framework library, at version 4.6.2. (.NET Core is not yet supported for dynamics 365 CE plugin development)
 
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.9.1
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.9.2
 ```
 
 3) Rename the following files included in your project, and adjust according to your need
