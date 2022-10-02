@@ -56,6 +56,8 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.Sdk
 
             Assert.AreEqual(parent, ctx.PreValueOf<Microsoft.Xrm.Sdk.EntityReference>(nameof(Kipon.Solid.Plugin.Entities.Account.ParentAccountId)));
 
+            Assert.AreEqual(1, ctx.PreValueOf<Microsoft.Xrm.Sdk.OptionSetValue>("accountcategorycode").Value);
+
             account.Attributes.Remove("accountcategorycode");
             enumValue = ctx.PreValueOf<Kipon.Solid.Plugin.Entities.Account.AnEnum?>(nameof(Kipon.Solid.Plugin.Entities.Account.AnEnumValue));
             Assert.IsNull(enumValue);
@@ -77,6 +79,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.Sdk
 
                 Assert.AreEqual(string.Format(Kipon.Xrm.Extensions.Sdk.KiponSdkGeneratedExtensionMethods.MISSING_DECORATION_ATTRIBUTE_MESSAGE, "account", nameof(Kipon.Solid.Plugin.Entities.Account.NoDecorationProperty)), ex.Message);
             }
+
         }
 
         [TestMethod]

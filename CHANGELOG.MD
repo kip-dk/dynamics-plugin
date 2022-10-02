@@ -1,4 +1,8 @@
-## Last updated: 2022-09-08
+## Last updated: 2022-01-10
+
+### 1.0.9.3
+SDK Extension method PreValueOf is now able to resolve the pre value directly on the attribute logical name, and does not need to go through stronly typed properties
+to resolve the value.
 
 ### 1.0.9.2
 added Filter classes for plugin step filtering [ChildOf] and [NotChildOf]. The names should indicate the purpose, and the short description is that is allow you to filter

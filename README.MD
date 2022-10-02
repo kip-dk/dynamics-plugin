@@ -47,7 +47,7 @@ We are only adding on the top. To take advantage of the full framework we encour
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.9.2
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.9.3
 ```
 
 3) Rename the following files included in your project, and adjust according to your need

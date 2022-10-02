@@ -384,7 +384,7 @@
         /// <param name="ctx">The Dynamics 365 execution context</param>
         /// <param name="entitypropertyname">The property name on the strongly typed entity of the flow</param>
         /// <returns></returns>
-        [System.Diagnostics.DebuggerNonUserCode()]
+        // [System.Diagnostics.DebuggerNonUserCode()]
 
         public static T PreValueOf<T>(this IPluginExecutionContext ctx, string entitypropertyname)
         {
@@ -394,13 +394,39 @@
             string attributeName = null;
             if (ctx.PreEntityImages != null)
             {
+                var lower = entitypropertyname.ToLower();
+
                 foreach (var pi in ctx.PreEntityImages.Values)
                 {
+                    if (pi.Attributes.ContainsKey(lower))
+                    {
+                        var v = pi[lower];
+                        if (v == null)
+                        {
+                            return default(T);
+                        }
+                        return v.ToTValueType<T>();
+                    }
+
                     if (prop == null)
                     {
                         var e = pi.ToEarlyBoundEntity();
+                        var t = e.GetType();
 
-                        prop = e.GetType().GetProperty(entitypropertyname);
+                        prop = t.GetProperty(entitypropertyname);
+
+                        if (prop == null)
+                        {
+                            foreach (var p in t.GetProperties(System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Instance))
+                            {
+                                var c = (Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute)p.GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute), false).FirstOrDefault();
+                                if (c != null && c.LogicalName == entitypropertyname)
+                                {
+                                    prop = p;
+                                    break;
+                                }
+                            }
+                        }
 
                         if (prop == null)
                         {
