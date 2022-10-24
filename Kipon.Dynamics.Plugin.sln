@@ -74,6 +74,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakePackage", "FakePackage"
 		FakePackage\Kipon.Solid.Plugin.Fake.nuspec = FakePackage\Kipon.Solid.Plugin.Fake.nuspec
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Online", "Online", "{27776B7C-69BF-4714-B04F-74CDD189AD03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
