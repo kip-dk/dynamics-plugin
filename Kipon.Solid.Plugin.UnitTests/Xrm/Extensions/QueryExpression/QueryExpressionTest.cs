@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Kipon.Xrm.Extensions.QueryExpression;
+using Kipon.Xrm.Extensions.TypeConverters;
 
 namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.QueryExpression
 {

@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using TypeConverters;
 
     public static class QueryExpressionMethods
     {
@@ -89,41 +90,6 @@
                 }
             }
             return null;
-        }
-
-        [System.Diagnostics.DebuggerNonUserCode()]
-
-        public static T ConvertValueTo<T>(this object o, out bool resolved)
-        {
-            resolved = true;
-            if (o == null) return default(T);
-
-            if (o is T t) return t;
-
-            {
-                if (o is Microsoft.Xrm.Sdk.EntityReference er && typeof(T) == typeof(Guid))
-                {
-                    return (T)(object)er.Id;
-                }
-            }
-
-            {
-                if (o is Microsoft.Xrm.Sdk.OptionSetValue er && typeof(T) == typeof(int))
-                {
-                    return (T)(object)er.Value;
-                }
-            }
-
-            {
-                if (o is Microsoft.Xrm.Sdk.Money er && typeof(T) == typeof(decimal))
-                {
-                    return (T)(object)er.Value;
-                }
-            }
-
-
-            resolved = false;
-            return default(T);
         }
     }
 }
