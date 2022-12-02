@@ -168,6 +168,21 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.Sdk
 
         }
 
+        [TestMethod]
+        public void ReplaceEntityReferenceEmptyGuidWithNullTest()
+        {
+            var contact = new Entities.Contact
+            {
+                ParentCustomerId = new Microsoft.Xrm.Sdk.EntityReference(Entities.Account.EntityLogicalName, Guid.Empty)
+            };
+
+            Assert.IsNotNull(contact.ParentCustomerId);
+            contact.ReplaceEmptyReferenceWithNull(null);
+
+            Assert.IsNull(contact.ParentCustomerId);
+            Assert.IsTrue(contact.Attributes.ContainsKey(nameof(contact.ParentCustomerId).ToLower()));
+        }
+
         public enum TestEnum
         {
             V1 = 1,

@@ -11,7 +11,7 @@ using Kipon.Xrm.Extensions.Sdk;
 
 namespace Kipon.Solid.Plugin.Entities
 {
-    public partial class Account : Model.IProspect, Model.INamed
+    public partial class Account : Model.IProspect, Model.INamed, IReplaceEntityReferenceEmptyGuidWithNull
     {
         [Microsoft.Xrm.Sdk.AttributeLogicalName("saldo")]
         public Microsoft.Xrm.Sdk.Money Saldo { get; set; }
@@ -42,6 +42,13 @@ namespace Kipon.Solid.Plugin.Entities
 
         public string NoDecorationProperty { get; set; }
 
+        private static readonly string[] EMPTYGUIDSFIELDS = new string[]
+        {
+            nameof(ParentAccountId).ToLower(),
+            nameof(PrimaryContactId).ToLower(),
+        };
+
+        string[] IReplaceEntityReferenceEmptyGuidWithNull.ForAttributes => EMPTYGUIDSFIELDS;
 
         public enum AnEnum
         {

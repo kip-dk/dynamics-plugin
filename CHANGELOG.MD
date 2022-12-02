@@ -1,5 +1,12 @@
 ## Last updated: 2022-01-10
 
+### 1.0.0.4 
+Extension method in SDK namespace to replace all EntityReference empty guid with null. This is convinient when working with Web api based clients, that need to clear
+entityreference in same update operation as other fields. By setting the id to empty guid, and impl. a plugin that replaces empty guid with null in the update operation, this becomes possible.
+
+You can even implenet Kipon.Xrm.IReplaceEntityReferenceEmptyGuidWithNull on your strongly typed entity, then any target entity in validateupdate and validatepre state will automatically 
+be "washed" before the target entity hits your plugin step method.
+
 ### 1.0.9.3
 SDK Extension method PreValueOf is now able to resolve the pre value directly on the attribute logical name, and does not need to go through stronly typed properties
 to resolve the value.
