@@ -723,6 +723,22 @@
             throw new InvalidPluginExecutionException($"Unable to convert value of type { value.GetType().FullName } to { typeof(T).FullName }");
         }
 
+        public static void ReplaceEmptyReferenceWithNull(this Microsoft.Xrm.Sdk.Entity target, params string[] attributes)
+        {
+            foreach (var value in target.Attributes.ToArray())
+            {
+                if (attributes != null && attributes.Length > 0 && !attributes.Contains(value.Key))
+                {
+                    continue;
+                }
+
+                if (value.Value is Microsoft.Xrm.Sdk.EntityReference r && r.Id == Guid.Empty)
+                {
+                    target.Attributes[value.Key] = null;
+                }
+            }
+        }
+
         private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)
         {
             var properties = entityType.GetCustomAttributes(Reflection.TypeCache.Types.TargetFilterAttribute, false);

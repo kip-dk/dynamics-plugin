@@ -3,7 +3,7 @@ namespace Kipon.Xrm.Attributes.Filter
 {
     public class NotChildOfAttribute : IfAttribute
     {
-        public NotChildOfAttribute(string message, string entityLogicalName, string referenceAttributeName = null) : base(typeof(Implementations.NotChildOfFilter))
+        public NotChildOfAttribute(string message, string entityLogicalName = null, string referenceAttributeName = null) : base(typeof(Implementations.NotChildOfFilter))
         {
             Message = message;
             EntityLogicalName = entityLogicalName;

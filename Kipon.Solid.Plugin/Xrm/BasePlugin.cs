@@ -212,6 +212,12 @@
                                 targetMirror = new PropertyMirror((Microsoft.Xrm.Sdk.Entity)mergedimage);
                                 target.PropertyChanged += targetMirror.MirrorpropertyChanged;
                             }
+
+                            if (target != null && target is IReplaceEntityReferenceEmptyGuidWithNull ce)
+                            {
+                                var entity = (Microsoft.Xrm.Sdk.Entity)target;
+                                Xrm.Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ReplaceEmptyReferenceWithNull(entity, ce.ForAttributes);
+                            }
                         }
                         #endregion
 

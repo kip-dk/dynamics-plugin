@@ -182,6 +182,7 @@
     <Compile Include="Xrm\Extensions\QueryExpression\QueryExpressionMethods.cs" />
     <Compile Include="Xrm\Extensions\TypeConverters\TypeConvertersMethods.cs" />
     <Compile Include="Xrm\Fake\Repository.cs" />
+    <Compile Include="Xrm\IReplaceEntityReferenceEmptyGuidWithNull.cs" />
     <Compile Include="Xrm\IMethodCondition.cs" />
     <Compile Include="Xrm\Implementations\AssociateRequest.cs" />
     <Compile Include="Xrm\Implementations\NotChildOfFilter.cs" />
