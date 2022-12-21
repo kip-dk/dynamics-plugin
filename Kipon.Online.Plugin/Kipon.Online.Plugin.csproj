@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3012177D-11DB-4B19-BD5F-54EE9D5E3526}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Kipon.Online.Plugin</RootNamespace>
+    <AssemblyName>Kipon.Online.Plugin</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.42\lib\net462\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.42\lib\net462\Microsoft.Xrm.Sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Text.Encodings.Web, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.5.0.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.5.0.2\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Accounts\Account.cs" />
+    <Compile Include="Entities\Accounts\IAccountMergedImageWithTargetAttributes.cs" />
+    <Compile Include="Entities\Accounts\IAccountNameAndSettersOnly.cs" />
+    <Compile Include="Entities\Accounts\IAccountNameChanged.cs" />
+    <Compile Include="Entities\Accounts\IAccountPostAccountNumber.cs" />
+    <Compile Include="Entities\Accounts\IAccountPostMergedImage.cs" />
+    <Compile Include="Entities\Accounts\IAccountPreName.cs" />
+    <Compile Include="Entities\Accounts\ICreditLimitChanged.cs" />
+    <Compile Include="Entities\Accounts\IForgotToImplement.cs" />
+    <Compile Include="Entities\Accounts\IMergedImageForDeleteTest.cs" />
+    <Compile Include="Entities\Accounts\IPhonenumberChanged.cs" />
+    <Compile Include="Entities\Accounts\IUseTargetAttributes.cs" />
+    <Compile Include="Entities\AdminCrmUnitOfWork.cs" />
+    <Compile Include="Entities\componentstate.cs" />
+    <Compile Include="Entities\Contacts\Contact.cs" />
+    <Compile Include="Entities\Contacts\IPhonenumberChanged.cs" />
+    <Compile Include="Entities\Context.design.cs" />
+    <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
+    <Compile Include="Entities\kipon_datepocs\IDateChanged.cs" />
+    <Compile Include="Entities\Phonecalls\IPhonenumberChanged.cs" />
+    <Compile Include="Model\AccountModel.cs" />
+    <Compile Include="Model\INamed.cs" />
+    <Compile Include="Model\IPhonenumberChanged.cs" />
+    <Compile Include="Model\IProspect.cs" />
+    <Compile Include="Plugins\Account\AccountAction.cs" />
+    <Compile Include="Plugins\Account\AccountCreatePlugin.cs" />
+    <Compile Include="Plugins\Account\AccountDeleteWithMergedImage.cs" />
+    <Compile Include="Plugins\Account\AccountMergedImageInterfaceWithTargetAttr.cs" />
+    <Compile Include="Plugins\Account\AccountMergeImageUpdate.cs" />
+    <Compile Include="Plugins\Account\AccountNameNotNull.cs" />
+    <Compile Include="Plugins\Account\AccountPlugin.cs" />
+    <Compile Include="Plugins\Account\AccountPostCreate.cs" />
+    <Compile Include="Plugins\Account\AccountRetrieveMultiplePostAsync.cs" />
+    <Compile Include="Plugins\Account\AccountWithConfigPlugin.cs" />
+    <Compile Include="Plugins\Account\AccoutPostUpdate.cs" />
+    <Compile Include="Plugins\Account\SpecialAccountPlugin.cs" />
+    <Compile Include="Plugins\Account\TargetAsPreValue.cs" />
+    <Compile Include="Plugins\Account\UseTargetAttributesPlugin.cs" />
+    <Compile Include="Plugins\AnunboundedactionPlugin.cs" />
+    <Compile Include="Plugins\Contact\ContactDeletePlugin.cs" />
+    <Compile Include="Plugins\Contact\ContactPlugin.cs" />
+    <Compile Include="Plugins\Generic\PhonenumberWashPlugin.cs" />
+    <Compile Include="Plugins\Generic\ProspectPlugin.cs" />
+    <Compile Include="Plugins\kipon_datepoc\kipon_datepocPlugin.cs" />
+    <Compile Include="Plugins\kipon_multitest\kipon_multitestPlugin.cs" />
+    <Compile Include="Plugins\Lead\LeadPlugin.cs" />
+    <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
+    <Compile Include="Plugins\Relationship\RelationshipPlugin.cs" />
+    <Compile Include="Plugins\Template\TemplatePlugin.cs" />
+    <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceAPI\IAccountService.cs" />
+    <Compile Include="ServiceAPI\IContactService.cs" />
+    <Compile Include="ServiceAPI\INotImplementedService.cs" />
+    <Compile Include="ServiceAPI\ISpecialAccountService.cs" />
+    <Compile Include="Service\AccountService.cs" />
+    <Compile Include="Service\ContactService.cs" />
+    <Compile Include="Service\SpecialAccountService.cs" />
+    <Compile Include="Setting.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Entities\generate.cmd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entities\filter.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Online\Kipon.Xrm\Kipon.Xrm.csproj">
+      <Project>{e1b9d006-5601-4304-8535-21dca2285147}</Project>
+      <Name>Kipon.Xrm</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
