@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Plugins.Lead
+namespace Kipon.Online.Plugin.Plugins.Lead
 {
     public class LeadPlugin : Kipon.Xrm.BasePlugin
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Plugins.Account
+namespace Kipon.Online.Plugin.Plugins.Account
 {
     public class AccountMergeImageUpdate : Kipon.Xrm.BasePlugin
     {

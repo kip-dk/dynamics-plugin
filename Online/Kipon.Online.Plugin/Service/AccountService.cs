@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Kipon.Solid.Plugin.Entities;
-using Kipon.Solid.Plugin.ServiceAPI;
+using Kipon.Online.Plugin.Entities;
+using Kipon.Online.Plugin.ServiceAPI;
 using Kipon.Xrm.Extensions.Strings;
 using Microsoft.Xrm.Sdk;
 
-namespace Kipon.Solid.Plugin.Service
+namespace Kipon.Online.Plugin.Service
 {
     public class AccountService : ServiceAPI.IAccountService
     {

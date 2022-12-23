@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Kipon.Xrm.Attributes;
 using Kipon.Xrm.Extensions.Sdk;
 
-namespace Kipon.Solid.Plugin.Entities
+namespace Kipon.Online.Plugin.Entities
 {
     public partial class Account: Account.IAccountMergedImageWithTargetAttributes
     {

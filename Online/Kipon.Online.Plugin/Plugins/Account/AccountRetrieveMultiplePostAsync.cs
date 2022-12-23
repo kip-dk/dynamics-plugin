@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Kipon.Xrm.Attributes;
 
-namespace Kipon.Solid.Plugin.Plugins.Account
+namespace Kipon.Online.Plugin.Plugins.Account
 {
     public class AccountRetrieveMultiplePostAsync : Kipon.Xrm.BasePlugin
     {

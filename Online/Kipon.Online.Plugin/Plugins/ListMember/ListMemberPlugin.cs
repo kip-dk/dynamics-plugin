@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Plugins.ListMember
+namespace Kipon.Online.Plugin.Plugins.ListMember
 {
     public class ListMemberPlugin : Kipon.Xrm.BasePlugin
     {

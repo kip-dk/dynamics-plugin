@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Entities
+namespace Kipon.Online.Plugin.Entities
 {
     public partial class Contact : Contact.INameChanged, Contact.IPreName, Model.IProspect, Model.INamed, Kipon.Xrm.IReplaceEntityReferenceEmptyGuidWithNull
     {

@@ -1,11 +1,11 @@
-﻿using Kipon.Solid.Plugin.Entities;
+﻿using Kipon.Online.Plugin.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Service
+namespace Kipon.Online.Plugin.Service
 {
     public class ContactService : ServiceAPI.IContactService
     {

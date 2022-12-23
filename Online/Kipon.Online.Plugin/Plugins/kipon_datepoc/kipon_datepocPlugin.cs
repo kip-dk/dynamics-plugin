@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Plugins.kipon_datepoc
+namespace Kipon.Online.Plugin.Plugins.kipon_datepoc
 {
     public class kipon_datepocPlugin : Kipon.Xrm.BasePlugin
     {

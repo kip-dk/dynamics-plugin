@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Plugins.kipon_multitest
+namespace Kipon.Online.Plugin.Plugins.kipon_multitest
 {
     public class kipon_multitestPlugin : Kipon.Xrm.BasePlugin
     {

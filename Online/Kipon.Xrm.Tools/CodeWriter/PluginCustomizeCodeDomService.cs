@@ -326,9 +326,9 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 writer.WriteLine("}");
 
                 #region xrm extension methods
-                /*    */ writer.WriteLine($"namespace { ns.Replace("Entities","") }.Framework.Implementations");
+                /*    */ writer.WriteLine($"namespace { ns.Replace("Entities", "Framework") }.Implementations");
                 /* NS */ writer.WriteLine("{");
-                /*    */ writer.WriteLine("\tpublic class DefaultStaticInitializer : Kipon.Xrm.ServiceAPI.IStaticInitializer");
+                /*    */ writer.WriteLine("\tpublic sealed class DefaultStaticInitializer : Kipon.Xrm.ServiceAPI.IStaticInitializer");
                 /* CL */ writer.WriteLine("\t{");
 
                 /*    */ writer.WriteLine("\t\tvoid Kipon.Xrm.ServiceAPI.IStaticInitializer.Initialize()");

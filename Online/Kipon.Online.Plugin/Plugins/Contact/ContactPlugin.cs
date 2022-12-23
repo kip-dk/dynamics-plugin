@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Plugins.Contact
+namespace Kipon.Online.Plugin.Plugins.Contact
 {
     public class ContactPlugin : Kipon.Xrm.BasePlugin
     {

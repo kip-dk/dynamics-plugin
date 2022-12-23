@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Entities
+namespace Kipon.Online.Plugin.Entities
 {
     public partial class AdminCrmUnitOfWork
     {

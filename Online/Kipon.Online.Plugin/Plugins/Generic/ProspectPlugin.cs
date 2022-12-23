@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Kipon.Xrm.Attributes;
 
-namespace Kipon.Solid.Plugin.Plugins.Generic
+namespace Kipon.Online.Plugin.Plugins.Generic
 {
     public class ProspectPlugin : Kipon.Xrm.BasePlugin
     {

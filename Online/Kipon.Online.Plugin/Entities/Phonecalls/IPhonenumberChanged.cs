@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Entities
+namespace Kipon.Online.Plugin.Entities
 {
     [TargetFilter(typeof(Model.IPhonenumberChanged), nameof(PhoneCall.PhoneNumber))]
     public partial class PhoneCall : Model.IPhonenumberChanged

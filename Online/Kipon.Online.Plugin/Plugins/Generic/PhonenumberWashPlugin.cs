@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Solid.Plugin.Plugins.Generic
+namespace Kipon.Online.Plugin.Plugins.Generic
 {
     public class PhonenumberWashPlugin : Kipon.Xrm.BasePlugin
     {
