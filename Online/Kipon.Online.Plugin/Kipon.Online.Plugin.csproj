@@ -148,6 +148,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Entities\generate.cmd" />
+    <None Include="Kipon.Online.Plugin.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

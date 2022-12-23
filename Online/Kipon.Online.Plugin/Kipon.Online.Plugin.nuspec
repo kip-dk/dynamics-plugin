@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<id>Kipon.Online.Plugin</id>
+		<version>1.0.0.0</version>
+		<title>Kipon.Online.Plugin - test package for Kipon.Solid.Plugin framework</title>
+		<authors>Kjeld Ingemann Poulsen</authors>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">MIT</license>
+		<projectUrl>https://kipon.dk/solidplugin</projectUrl>
+		<iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
+		<description>Test Plugin Library - based on nuget based deployment model to Dynamics 365 CE</description>
+		<releaseNotes>Alfa version</releaseNotes>
+		<copyright>Copyright Kipon ApS 2019,2020,2021,2022</copyright>
+		<tags>Dynamics 365 plugin C# SOLID</tags>
+	</metadata>
+	<files>
+		<file src="bin\release\Kipon.Xrm.dll" target="lib/net462" />
+	</files>
+</package>
