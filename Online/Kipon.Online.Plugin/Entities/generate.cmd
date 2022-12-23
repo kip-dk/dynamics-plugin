@@ -1,3 +1,0 @@
-﻿@echo off
-copy ..\..\Kipon.Xrm.Tools\bin\debug\Kipon.Xrm.* ..\..\Kipon.Xrm.Tools\bin\coretools
-..\..\Kipon.Xrm.Tools\bin\coretools\CrmSvcUtil.exe "/connectionstring:AuthType=ClientSecret; url=https://kipon-plugin.crm4.dynamics.com; ClientId=e9d84925-56fb-4b39-814b-5d44bed7332e; ClientSecret=WGW8Q~AIhn5WSB_StqNSs8eiuMk~XVG-G~InQc7N" /out:Context.design.cs /ServiceContextName:SolidContextService /namespace:Kipon.Online.Plugin.Entities /codewriterfilter:Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter,Kipon.Xrm.Tools /codecustomization:Kipon.Xrm.Tools.CodeWriter.PluginCustomizeCodeDomService,Kipon.Xrm.Tools /generateActions /debug
