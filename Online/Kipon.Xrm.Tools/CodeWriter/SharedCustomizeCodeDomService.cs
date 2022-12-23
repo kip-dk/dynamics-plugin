@@ -101,6 +101,12 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                             #region generate property
                             writer.WriteLine($"\t\t[Microsoft.Xrm.Sdk.AttributeLogicalName(\"{optionset.Logicalname}\")]");
+
+                            if (optionset.Id != null && !globalOptionSets.ContainsKey(optionset.Id))
+                            {
+                                throw new Exception($"Global optionset with id: { optionset.Id } has not been defined.");
+                            }
+
                             var type = optionset.Id == null ? $"{optionset.Name}Enum" : globalOptionSets[optionset.Id].Name;
                             var key = $"{entity.LogicalName}.{optionset.Logicalname}";
 

@@ -12,7 +12,7 @@ namespace Kipon.Online.Plugin.Plugins.kipon_multitest
         public void OnPreCreate(Entities.kipon_multitest target, Kipon.Xrm.IRepository<Entities.kipon_multitest> repo)
         {
             var queryWithoutName = (from r in repo.GetQuery()
-                                 where r.kipon_name == "ROOT"
+                                 where r.kipon_Name == "ROOT"
                                  select r.kipon_multitestId).Single();
 
             var queryWithName = (from r in repo.GetQuery()
@@ -20,7 +20,7 @@ namespace Kipon.Online.Plugin.Plugins.kipon_multitest
                                  select new
                                  {
                                      Id = r.kipon_multitestId.Value,
-                                     Name = r.kipon_name
+                                     Name = r.kipon_Name
                                  }).Single();
 
             if (string.IsNullOrEmpty(queryWithName.Name))
@@ -28,7 +28,7 @@ namespace Kipon.Online.Plugin.Plugins.kipon_multitest
                 throw new InvalidPluginExecutionException("name did not have a value");
             }
 
-            target.kipon_name = $"{ queryWithoutName.Value.ToString() } did have a name: { queryWithName.Name }";
+            target.kipon_Name = $"{ queryWithoutName.Value.ToString() } did have a name: { queryWithName.Name }";
 
         }
     }

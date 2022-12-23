@@ -8,7 +8,7 @@
         <value name="Fax">4</value>
         <value name="Mail">5</value>
       </optionset>
-      <optionset id="budget" logicalname="new_multiselectbudget" name="MultiSelectBudget"/>
+      <!--<optionset id="budget" logicalname="new_multiselectbudget" name="MultiSelectBudget"/>-->
     </entity>
     <entity servicename="Contacts" logicalname="contact"></entity>
     <entity servicename="Opportunities" logicalname="opportunity">

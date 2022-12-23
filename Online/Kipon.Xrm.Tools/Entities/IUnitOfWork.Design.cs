@@ -8,6 +8,7 @@ namespace Kipon.Xrm.Tools.Entities
 		#region entity repositories
 		IRepository<PluginAssembly> PluginAssemblies { get; }
 		IRepository<PluginType> PluginTypes { get; }
+		IRepository<PluginPackage> PluginPackages { get; }
 		IRepository<SdkMessageProcessingStep> SdkMessageProcessingSteps { get; }
 		IRepository<Publisher> Publishers { get; }
 		IRepository<Solution> Solutions { get; }

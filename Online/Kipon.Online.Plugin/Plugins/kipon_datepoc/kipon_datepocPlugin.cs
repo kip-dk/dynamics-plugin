@@ -16,10 +16,10 @@ namespace Kipon.Online.Plugin.Plugins.kipon_datepoc
         {
             target.kipon_no = (from r in repository.GetQuery() select r.kipon_datepocId.Value).ToArray().Count() + 1;
 
-            if (target.kipon_name == "test")
+            if (target.kipon_Name == "test")
             {
                 var testDate = System.DateTime.Now;
-                target.kipon_name = $"{ label }{ testDate.ToString("yyyy-MM-dd HH:mm:ss") } / {target.CreatedOn?.ToString("yyyy-MM-dd HH:mm:ss")}";
+                target.kipon_Name = $"{ label }{ testDate.ToString("yyyy-MM-dd HH:mm:ss") } / {target.CreatedOn?.ToString("yyyy-MM-dd HH:mm:ss")}";
                 target.kipon_timezonefreedateonly = testDate;
                 target.kipon_timezonefreedatetime = testDate;
                 target.kipon_dateonly = testDate;
@@ -35,7 +35,7 @@ namespace Kipon.Online.Plugin.Plugins.kipon_datepoc
             if (target.kipon_wastest == true)
             {
                 var sb = new StringBuilder();
-                sb.AppendLine(target.kipon_name);
+                sb.AppendLine(target.kipon_Name);
                 sb.AppendLine($"timezonefreedateonly      : {target.kipon_timezonefreedateonly?.ToString("yyyy-MM-dd HH:mm:ss")}");
                 sb.AppendLine($"kipon_timezonefreedatetime: {target.kipon_timezonefreedatetime?.ToString("yyyy-MM-dd HH:mm:ss")}");
                 sb.AppendLine($"kipon_dateonly            : {target.kipon_dateonly?.ToString("yyyy-MM-dd HH:mm:ss")}");
@@ -71,7 +71,7 @@ namespace Kipon.Online.Plugin.Plugins.kipon_datepoc
             // Cached query, that only fetch a few fields
             var gb = (from d in uow.Datepocs.GetQuery()
                       where d.kipon_dateonly < System.DateTime.Today.AddYears(10)
-                        && d.kipon_name != null
+                        && d.kipon_Name != null
                       select new
                       {
                           Id = d.kipon_datepocId.Value,
@@ -87,11 +87,11 @@ namespace Kipon.Online.Plugin.Plugins.kipon_datepoc
             /// This is due to that fact that we are puttning the elements into the context cache in above query
             var names = (from g in uow.Datepocs.GetQuery()
                          where g.kipon_dateonly < System.DateTime.Today.AddYears(3)
-                           && g.kipon_name != null
+                           && g.kipon_Name != null
                          select new
                          {
                              Id = g.kipon_datepocId.Value,
-                             Name = g.kipon_name
+                             Name = g.kipon_Name
                          }).ToArray();
 
             var counts = cache.GetAttachedEntities().Count();
@@ -103,11 +103,11 @@ namespace Kipon.Online.Plugin.Plugins.kipon_datepoc
                 var older = (from d in dateQuery
                                where d.kipon_datepocId != mergedimage.Id
                                  && d.kipon_dateonly < mergedimage.kipon_dateonly
-                                 && d.kipon_name != null
+                                 && d.kipon_Name != null
                                select new
                                {
                                    Id = d.kipon_datepocId.Value,
-                                   Name = d.kipon_name
+                                   Name = d.kipon_Name
                                }).ToArray();
 
                 if (older.Where(r => string.IsNullOrEmpty(r.Name)).Any())
@@ -135,7 +135,7 @@ namespace Kipon.Online.Plugin.Plugins.kipon_datepoc
         {
             if (mergedimage.kipon_dateonly != null && mergedimage.kipon_dateonly.Value == new DateTime(1964, 1, 20))
             {
-                if (mergedimage.kipon_name != "Kjeld I. Poulsen")
+                if (mergedimage.kipon_Name != "Kjeld I. Poulsen")
                 {
                     throw new InvalidPluginExecutionException("Name is not as expected");
                 }

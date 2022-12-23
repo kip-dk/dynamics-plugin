@@ -14,7 +14,7 @@ namespace Kipon.Online.Plugin.Entities
             [TargetFilter]
             DateTime? kipon_dateonly { get; }
 
-            string kipon_name { get; }
+            string kipon_Name { get; }
 
             string kipon_testresult { set; }
         }

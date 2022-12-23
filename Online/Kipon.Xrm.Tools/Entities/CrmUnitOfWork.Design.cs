@@ -29,6 +29,18 @@ namespace Kipon.Xrm.Tools.Entities
 				return _plugintypes;
 			}
 		}
+		private IRepository<PluginPackage> _pluginpackages; 
+		public IRepository<PluginPackage> PluginPackages
+		{
+			get
+			{
+				if (_pluginpackages == null)
+					{
+						_pluginpackages = new CrmRepository<PluginPackage>(this.context);
+					}
+				return _pluginpackages;
+			}
+		}
 		private IRepository<SdkMessageProcessingStep> _sdkmessageprocessingsteps; 
 		public IRepository<SdkMessageProcessingStep> SdkMessageProcessingSteps
 		{
@@ -208,6 +220,69 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("ComponentState");
 					this.SetAttributeValue("componentstate", value);
 				this.OnPropertyChanged("ComponentState");
+			}
+		}
+	}
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("Kipon.Solid.Plugin", "1.0.9.4")]
+	public enum PluginPackageState
+	{
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Active = 0,
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Inactive = 1,
+	}
+	public partial class PluginPackage
+	{
+		[Microsoft.Xrm.Sdk.AttributeLogicalName("componentstate")]
+		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
+		{
+			get => this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
+			set
+			{
+				this.OnPropertyChanging("ComponentState");
+					this.SetAttributeValue("componentstate", value);
+				this.OnPropertyChanged("ComponentState");
+			}
+		}
+		[Microsoft.Xrm.Sdk.AttributeLogicalName("statuscode")]
+		public Microsoft.Xrm.Sdk.OptionSetValue statuscode
+		{
+			get => this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statuscode");
+			set
+			{
+				this.OnPropertyChanging("statuscode");
+					this.SetAttributeValue("statuscode", value);
+				this.OnPropertyChanged("statuscode");
+			}
+		}
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
+		public PluginPackageState? statecode
+		{
+			get
+			{
+				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
+				if ((optionSet != null))
+				{
+					return ((PluginPackageState)(System.Enum.ToObject(typeof(PluginPackageState), optionSet.Value)));
+				}
+				else
+				{
+					return null;
+				}
+			}
+			set
+			{
+				this.OnPropertyChanging("statecode");
+				if ((value == null))
+				{
+					this.SetAttributeValue("statecode", null);
+				}
+				else
+				{
+					this.SetAttributeValue("statecode", new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+				}
+				this.OnPropertyChanged("statecode");
 			}
 		}
 	}
@@ -537,6 +612,8 @@ namespace Kipon.Xrm.Tools.Entities
 		Draft = 0,
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Activated = 1,
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Suspended = 2,
 	}
 	public partial class Workflow
 	{
