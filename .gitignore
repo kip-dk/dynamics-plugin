@@ -259,3 +259,9 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+# kipon generator files
+
+Online/Kipon.Online.Plugin/Entities/generate.cmd
+Online/Kipon.Xrm.Tools/Entities/generate.cmd
+
