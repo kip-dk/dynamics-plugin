@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using Kipon.Xrm.ServiceAPI;
 using Microsoft.Xrm.Sdk;
 namespace Kipon.Xrm
 {
@@ -2542,11 +2543,11 @@ namespace Kipon.Solid.Plugin.Entities
 }
 
 #warning change generated namespace
-namespace Kipon.Online.Plugin.Extensions.Sdk
+namespace Kipon.Online.Plugin.Framework.Implementations
 {
 	public class DefaultStaticInitializer : Kipon.Xrm.ServiceAPI.IStaticInitializer
 	{
-		public void Initialize()
+		void Kipon.Xrm.ServiceAPI.IStaticInitializer.Initialize()
 		{
 #warning add to code generate
 			var entittypes = Kipon.Xrm.Extensions.Sdk.KiponSdkGeneratedExtensionMethods.entittypes;
@@ -2558,7 +2559,8 @@ namespace Kipon.Online.Plugin.Extensions.Sdk
 
 			Kipon.Xrm.Services.NamingService.Add("entitydataprovider", "entitydataproviderid", "name");
 		}
-	}
+
+    }
 }
 namespace Kipon.Solid.Plugin.Actions
 {

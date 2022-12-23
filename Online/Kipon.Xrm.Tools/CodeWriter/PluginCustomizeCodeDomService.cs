@@ -326,16 +326,18 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 writer.WriteLine("}");
 
                 #region xrm extension methods
-                /*    */ writer.WriteLine("namespace Kipon.Xrm.Extensions.Sdk");
+                /*    */ writer.WriteLine($"namespace { ns.Replace("Entities","") }.Framework.Implementations");
                 /* NS */ writer.WriteLine("{");
-                /*    */ writer.WriteLine("\tpublic static partial class KiponSdkGeneratedExtensionMethods");
+                /*    */ writer.WriteLine("\tpublic class DefaultStaticInitializer : Kipon.Xrm.ServiceAPI.IStaticInitializer");
                 /* CL */ writer.WriteLine("\t{");
 
-                /*    */ writer.WriteLine("\t\tprivate static System.Collections.Generic.Dictionary<string, int> entityLogicalNameToTypeCodeIndex = new System.Collections.Generic.Dictionary<string, int>();");
-                /*    */ writer.WriteLine("\t\tprivate static System.Collections.Generic.Dictionary<int, string> typecodeToEntityLogicalNameIndex = new System.Collections.Generic.Dictionary<int, string>();");
-
-                /*    */ writer.WriteLine("\t\tstatic KiponSdkGeneratedExtensionMethods()");
+                /*    */ writer.WriteLine("\t\tvoid Kipon.Xrm.ServiceAPI.IStaticInitializer.Initialize()");
                 /* SC */ writer.WriteLine("\t\t{");
+
+                writer.WriteLine("\t\t\tvar entittypes = Kipon.Xrm.Extensions.Sdk.KiponSdkGeneratedExtensionMethods.entittypes;");
+                writer.WriteLine("\t\t\tvar entityLogicalNameToTypeCodeIndex = Kipon.Xrm.Extensions.Sdk.KiponSdkGeneratedExtensionMethods.entityLogicalNameToTypeCodeIndex;");
+                writer.WriteLine("\t\t\tvar typecodeToEntityLogicalNameIndex = Kipon.Xrm.Extensions.Sdk.KiponSdkGeneratedExtensionMethods.typecodeToEntityLogicalNameIndex;");
+
                 foreach (var logicalname in entities.Keys)
                 {
                     writer.WriteLine($"\t\t\tentittypes[{ns}.{logicalname}.EntityLogicalName] = typeof({ns}.{logicalname});");
@@ -348,30 +350,16 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 }
 
 
-                /* SC */ writer.WriteLine("\t\t}");
-
-                writer.WriteLine("\t\t\tpublic static int ToEntityTypeCode(this string value) { return entityLogicalNameToTypeCodeIndex[value]; }");
-                writer.WriteLine("\t\t\tpublic static string ToEntityLogicalName(this int value) { return typecodeToEntityLogicalNameIndex[value]; }");
-
-                /* CL */
-                writer.WriteLine("\t}");
-
-                /* CL */ writer.WriteLine("\tpublic partial class NamingService");
-                /* CL */ writer.WriteLine("\t{");
-
-                /* ST */ writer.WriteLine("\t\tstatic NamingService()");
-                /*    */ writer.WriteLine("\t\t{");
                 foreach (var ent in meta.Entities)
                 {
                     if (!string.IsNullOrEmpty(ent.PrimaryIdAttribute) && !string.IsNullOrEmpty(ent.PrimaryNameAttribute))
                     {
-                        writer.WriteLine($"\t\t\tAdd(\"{ent.LogicalName}\",\"{ent.PrimaryIdAttribute}\",\"{ent.PrimaryNameAttribute}\");");
+                        writer.WriteLine($"\t\t\tKipon.Xrm.Services.NamingService.Add(\"{ent.LogicalName}\",\"{ent.PrimaryIdAttribute}\",\"{ent.PrimaryNameAttribute}\");");
                     }
                 }
-                /*    */ writer.WriteLine("\t\t}");
 
+                /* SC */ writer.WriteLine("\t\t}");
                 /* CL */ writer.WriteLine("\t}");
-
                 /* NS */ writer.WriteLine("}");
                 #endregion
 
