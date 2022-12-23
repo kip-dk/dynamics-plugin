@@ -156,6 +156,7 @@
     <Compile Include="Reflection\Types.cs" />
     <Compile Include="ServiceAPI\IEntityCache.cs" />
     <Compile Include="ServiceAPI\INamingService.cs" />
+    <Compile Include="ServiceAPI\IStaticInitializer.cs" />
     <Compile Include="Services\NamingService.cs" />
     <Compile Include="Services\PluginContext.cs" />
     <Compile Include="Target.cs" />

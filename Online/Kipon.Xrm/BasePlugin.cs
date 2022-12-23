@@ -20,6 +20,7 @@
         #region constructors
         public BasePlugin() : base()
         {
+            this.Initialize();
         }
 
         public BasePlugin(string unSecure, string secure) : this()
@@ -371,6 +372,38 @@
                     }
                 }
             } 
+        }
+        #endregion
+
+
+        #region initializer
+        private static System.Collections.Generic.Dictionary<string, Kipon.Xrm.ServiceAPI.IStaticInitializer[]> initializers = new System.Collections.Generic.Dictionary<string, ServiceAPI.IStaticInitializer[]>();
+        private void Initialize()
+        {
+            var assm = System.Reflection.Assembly.GetExecutingAssembly();
+            if (initializers.ContainsKey(assm.FullName))
+            {
+                return;
+            }
+
+            lock (initializers)
+            {
+                if (initializers.ContainsKey(assm.FullName))
+                {
+                    return;
+                }
+
+                var result = new System.Collections.Generic.List<ServiceAPI.IStaticInitializer>();
+                foreach (var type in assm.GetTypes())
+                {
+                    if (type is Kipon.Xrm.ServiceAPI.IStaticInitializer sc)
+                    {
+                        result.Add(sc);
+                        sc.Initialize();
+                    }
+                }
+                initializers[assm.FullName] = result.ToArray();
+            }
         }
         #endregion
     }

@@ -3,7 +3,7 @@
     using Microsoft.Xrm.Sdk;
     using System;
     using System.Collections.Generic;
-    public class ServiceCache: System.IDisposable
+    public class ServiceCache : System.IDisposable
     {
         private readonly Dictionary<string, object> services = new Dictionary<string, object>();
         private readonly object locks = new object();

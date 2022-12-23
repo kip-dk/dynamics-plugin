@@ -742,6 +742,9 @@
             }
         }
 
+        public static int ToEntityTypeCode(this string value) { return entityLogicalNameToTypeCodeIndex[value]; }
+        public static string ToEntityLogicalName(this int value) { return typecodeToEntityLogicalNameIndex[value]; }
+
         private static TargetFilterAttribute GetTargetFilterAttribute(this Type entityType, Type interfaceType)
         {
             var properties = entityType.GetCustomAttributes(Reflection.TypeCache.Types.TargetFilterAttribute, false);
