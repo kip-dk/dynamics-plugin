@@ -26,6 +26,13 @@ namespace Kipon.Xrm.Tools.Services
             this.messageService = messageService;
         }
 
+        public Entities.Solution Get(string unieuqName)
+        {
+            return (from s in uow.Solutions.GetQuery()
+                    where s.UniqueName == unieuqName
+                    select s).SingleOrDefault();
+        }
+
         public void AddMissingPluginAssembly(PluginAssembly assm)
         {
             this.Initialize();

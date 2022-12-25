@@ -93,6 +93,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\AccountActionTest.cs" />
     <Compile Include="Tests\AnunboundedactionTest.cs" />
+    <Compile Include="Tests\ConfigTest.cs" />
     <Compile Include="Tools\CodeCopy.cs" />
     <Compile Include="Tools\Deploy.cs" />
     <Compile Include="Tools\ExportAssmSteps.cs" />
@@ -102,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="kipon-tools.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -265,3 +265,4 @@ __pycache__/
 Online/Kipon.Online.Plugin/Entities/generate.cmd
 Online/Kipon.Xrm.Tools/Entities/generate.cmd
 
+/Online/Kipon.Xrm.Cmd/kipon-tools.json

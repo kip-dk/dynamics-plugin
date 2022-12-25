@@ -65,6 +65,11 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                         }
                     }
 
+                    if (string.IsNullOrEmpty(_value) && Models.Config.Instance != null && !string.IsNullOrEmpty(Models.Config.Instance.ConnectionString))
+                    {
+                        _value = Models.Config.Instance.ConnectionString;
+                    }
+
                     if (string.IsNullOrWhiteSpace(_value))
                     {
                         _value = ConfigurationManager.ConnectionStrings["CRM"]?.ConnectionString;

@@ -107,5 +107,16 @@ namespace Kipon.Xrm.Tools.Extensions.Strings
             }
             return result;
         }
+
+        public static string CommandlineValue(this string name)
+        {
+            var n = $"/{ name }:";
+            var v = System.Environment.GetCommandLineArgs().Where(r => r.StartsWith(n)).SingleOrDefault();
+            if (!string.IsNullOrEmpty(v))
+            {
+                return v.Substring(n.Length);
+            }
+            return null;
+        }
     }
 }
