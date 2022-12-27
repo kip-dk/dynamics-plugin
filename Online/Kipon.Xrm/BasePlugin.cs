@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public abstract class BasePlugin : IPlugin
     {
-        public const string Version = "2.0.0.0beta";
+        public const string Version = "2.0.0.1";
         internal static Reflection.PluginMethod.Cache PluginMethodCache { get; private set; }
         private static readonly System.Collections.Generic.Dictionary<Type, Config> configs = new System.Collections.Generic.Dictionary<Type, Config>();
 
@@ -41,8 +41,6 @@
 
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
 
-            tracingService.Trace("Kipon.Xrm 1");
-
             var userId = context.UserId;
             var message = context.MessageName;
             var stage = context.Stage;
@@ -56,16 +54,10 @@
                 config = c;
             }
 
-            tracingService.Trace("Kipon.Xrm 2"); 
-
             IPluginContext pluginContext = new Services.PluginContext(config?.Unsecure, config?.Secure, context, type, userId);
-
-            tracingService.Trace("Kipon.Xrm 2.1");
 
             using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext, config?.Unsecure, config?.Secure))
             {
-                tracingService.Trace("Kipon.Xrm 3");
-
                 var entityName = context.PrimaryEntityName;
 
                 if (entityName == "none" || Reflection.Types.MESSAGE_WITHOUT_PRIMARY_ENTITY.Contains(message))
@@ -78,13 +70,8 @@
                 var logs = new System.Collections.Generic.List<string>();
                 try
                 {
-                    tracingService.Trace("Kipon.Xrm 4");
-
                     foreach (var method in methods)
                     {
-                        tracingService.Trace($"Kipon.Xrm 4: { method.Name }");
-
-
                         #region evaluate if needed - based on If attributes
                         if (method.IfAttribute != null)
                         {
@@ -249,9 +236,7 @@
                         try
                         {
                             logs.Add($"before: {nextlog}");
-                            tracingService.Trace("Kipon.Xrm 5");
                             var result = method.Invoke(this, args);
-                            tracingService.Trace("Kipon.Xrm 6");
                             logs.Add($"after: {nextlog}");
 
                             if (result != null && method.OutputProperties != null && method.OutputProperties.Count > 0)
@@ -295,6 +280,11 @@
                                 }
                             }
                         }
+                        catch (Kipon.Xrm.Exceptions.BaseException be)
+                        {
+                            inError = true;
+                            throw new InvalidPluginExecutionException($"{be.GetType().FullName}: {be.Message}", be);
+                        }
                         catch (Microsoft.Xrm.Sdk.InvalidPluginExecutionException)
                         {
                             inError = true;
@@ -318,12 +308,6 @@
                         catch (Exception be)
                         {
                             inError = true;
-                            if (be.GetType().BaseType?.FullName == "Kipon.Xrm.Exceptions.BaseException")
-                            {
-                                // it is not a unit test, its the real thing, so we map the exception to a supported exception to allow message to parse all the way to the client
-                                throw new InvalidPluginExecutionException($"{be.GetType().FullName}: {be.Message}", be);
-                            }
-
                             throw new InvalidPluginExecutionException(be.Message, be);
                         }
                         finally
