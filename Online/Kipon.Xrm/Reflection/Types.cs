@@ -75,6 +75,18 @@
             this.VirtualEntityPlugin = typeof(Kipon.Xrm.VirtualEntityPlugin);
 
             this.IPluginContext = typeof(Kipon.Xrm.IPluginContext);
+
+            var initializer = typeof(Kipon.Xrm.ServiceAPI.IStaticInitializer);
+            var allTypes = assembly.GetTypes();
+
+            foreach (var type in allTypes)
+            {
+                if (type.Implements(initializer))
+                {
+                    var init = (Kipon.Xrm.ServiceAPI.IStaticInitializer)Activator.CreateInstance(type);
+                    init.Initialize();
+                }
+            }
         }
 
         public Type TargetAttribute { get; private set; }
