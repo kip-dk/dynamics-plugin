@@ -6,10 +6,8 @@
     public abstract class BasePlugin : IPlugin
     {
         public const string Version = "2.0.0.0beta";
-        public string UnsecureConfig { get; private set; }
-        public string SecureConfig { get; private set; }
-
         internal static Reflection.PluginMethod.Cache PluginMethodCache { get; private set; }
+        private static readonly System.Collections.Generic.Dictionary<Type, Config> configs = new System.Collections.Generic.Dictionary<Type, Config>();
 
         #region constructors
         public BasePlugin() : base()
@@ -25,20 +23,26 @@
 
         public BasePlugin(string unSecure, string secure) : this()
         {
-            this.UnsecureConfig = unSecure;
-            this.SecureConfig = secure;
+            if (!string.IsNullOrEmpty(unSecure) || !string.IsNullOrEmpty(secure))
+            {
+                configs[this.GetType()] = new Config { Secure = secure, Unsecure = unSecure };
+            }
         }
         #endregion
 
         #region iplugin impl
         public void Execute(IServiceProvider serviceProvider)
         {
+
             var context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             var serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
 
             var toolOrgService = serviceFactory.CreateOrganizationService(null);
 
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+
+            tracingService.Trace("Kipon.Xrm 1");
+
             var userId = context.UserId;
             var message = context.MessageName;
             var stage = context.Stage;
@@ -46,10 +50,22 @@
 
             var type = message.Contains("_") ? CrmEventType.CustomPlugin : (CrmEventType)Enum.Parse(typeof(CrmEventType), context.MessageName);
 
-            IPluginContext pluginContext = new Services.PluginContext(this.UnsecureConfig, this.SecureConfig, context, type, userId);
-
-            using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext, this.UnsecureConfig, this.SecureConfig))
+            Config config = null;
+            if (configs.TryGetValue(this.GetType(), out Config c))
             {
+                config = c;
+            }
+
+            tracingService.Trace("Kipon.Xrm 2"); 
+
+            IPluginContext pluginContext = new Services.PluginContext(config?.Unsecure, config?.Secure, context, type, userId);
+
+            tracingService.Trace("Kipon.Xrm 2.1");
+
+            using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext, config?.Unsecure, config?.Secure))
+            {
+                tracingService.Trace("Kipon.Xrm 3");
+
                 var entityName = context.PrimaryEntityName;
 
                 if (entityName == "none" || Reflection.Types.MESSAGE_WITHOUT_PRIMARY_ENTITY.Contains(message))
@@ -62,8 +78,13 @@
                 var logs = new System.Collections.Generic.List<string>();
                 try
                 {
+                    tracingService.Trace("Kipon.Xrm 4");
+
                     foreach (var method in methods)
                     {
+                        tracingService.Trace($"Kipon.Xrm 4: { method.Name }");
+
+
                         #region evaluate if needed - based on If attributes
                         if (method.IfAttribute != null)
                         {
@@ -107,14 +128,14 @@
                                 {
                                     if (p.Name != null)
                                     {
-                                        if (p.Name.ToLower() == nameof(this.UnsecureConfig).ToLower())
+                                        if (p.Name.ToLower() == "unsecureconfig")
                                         {
-                                            args[ix] = this.UnsecureConfig;
+                                            args[ix] = config?.Unsecure;
                                         }
                                         else
-                                        if (p.Name.ToLower() == nameof(this.SecureConfig).ToLower())
+                                        if (p.Name.ToLower() == "secureconfig")
                                         {
-                                            args[ix] = this.SecureConfig;
+                                            args[ix] = config?.Secure;
                                         }
                                         else
                                         {
@@ -228,7 +249,9 @@
                         try
                         {
                             logs.Add($"before: {nextlog}");
+                            tracingService.Trace("Kipon.Xrm 5");
                             var result = method.Invoke(this, args);
+                            tracingService.Trace("Kipon.Xrm 6");
                             logs.Add($"after: {nextlog}");
 
                             if (result != null && method.OutputProperties != null && method.OutputProperties.Count > 0)
@@ -404,6 +427,14 @@
                 }
                 initializers[assm.FullName] = result.ToArray();
             }
+        }
+        #endregion
+
+        #region classes
+        internal class Config
+        {
+            internal string Secure { get; set; }
+            internal string Unsecure { get; set; }
         }
         #endregion
     }

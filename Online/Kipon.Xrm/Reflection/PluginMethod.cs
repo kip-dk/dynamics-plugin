@@ -23,9 +23,7 @@
                 nameof(BasePlugin.GetType),
                 nameof(BasePlugin.PluginMethodCache),
                 nameof(BasePlugin.ReferenceEquals),
-                nameof(BasePlugin.SecureConfig),
-                nameof(BasePlugin.ToString),
-                nameof(BasePlugin.UnsecureConfig)
+                nameof(BasePlugin.ToString)
             };
 
             public Cache(System.Reflection.Assembly assm)

@@ -69,12 +69,12 @@
                         return this.pluginExecutionContext.PrimaryEntityName;
                     }
 
-                    if (type.FromType == typeof(string) && type.Name != null && type.Name.ToLower() == nameof(BasePlugin.UnsecureConfig).ToLower()) 
+                    if (type.FromType == typeof(string) && type.Name != null && type.Name.ToLower() =="unsecureconfig") 
                     {
                         return this.UnsecureConfig;
                     }
 
-                    if (type.FromType == typeof(string) && type.Name != null && type.Name.ToLower() == nameof(BasePlugin.SecureConfig).ToLower())
+                    if (type.FromType == typeof(string) && type.Name != null && type.Name.ToLower() == "secureconfig")
                     {
                         return this.SecureConfig;
                     }
@@ -309,14 +309,14 @@
                 var ix = 0;
                 foreach (var argType in argTypes)
                 {
-                    if (argType.FromType == typeof(string) && argType.Name != null && argType.Name.ToLower() == nameof(BasePlugin.UnsecureConfig).ToLower())
+                    if (argType.FromType == typeof(string) && argType.Name != null && argType.Name.ToLower() == "unsecureconfig")
                     {
                         args[ix] = this.UnsecureConfig;
                         ix++;
                         continue;
                     }
 
-                    if (argType.FromType == typeof(string) && argType.Name != null && argType.Name.ToLower() == nameof(BasePlugin.SecureConfig).ToLower())
+                    if (argType.FromType == typeof(string) && argType.Name != null && argType.Name.ToLower() == "secureConfig")
                     {
                         args[ix] = this.SecureConfig;
                         ix++;

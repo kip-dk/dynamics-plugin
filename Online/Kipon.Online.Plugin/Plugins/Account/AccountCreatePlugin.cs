@@ -10,8 +10,9 @@ namespace Kipon.Online.Plugin.Plugins.Account
     public class AccountCreatePlugin : Kipon.Xrm.BasePlugin
     {
         [Sort(1)]
-        public void OnValidateCreate(Entities.Account target, Entities.IUnitOfWork uow)
+        public void OnValidateCreate(Entities.Account target, Microsoft.Xrm.Sdk.ITracingService traceService)
         {
+            traceService.Trace("t1");
             if (Setting.IsUnitTest)
             {
                 if (target != null && target.CreditLimit == null)
@@ -19,18 +20,21 @@ namespace Kipon.Online.Plugin.Plugins.Account
                     target.CreditLimit = new Microsoft.Xrm.Sdk.Money(100M);
                 }
             }
+            traceService.Trace("t2");
         }
 
         [Sort(2)]
-        public void OnValidateCreate(Entities.Account.IAccountNameChanged account)
+        public void OnValidateCreate(Entities.Account.IAccountNameChanged target, Microsoft.Xrm.Sdk.ITracingService traceService)
         {
+            traceService.Trace("t3");
             if (Setting.IsUnitTest)
             {
-                if (account.Name != null && account.Name.StartsWith("kurt"))
+                if (target.Name != null && target.Name.StartsWith("kurt"))
                 {
-                    account.Name = "Jens";
+                    target.Name = "Jens";
                 }
             }
+            traceService.Trace("t4");
         }
     }
 }

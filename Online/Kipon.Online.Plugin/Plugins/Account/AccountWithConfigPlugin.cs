@@ -23,12 +23,12 @@ namespace Kipon.Online.Plugin.Plugins.Account
         {
             if (EXPECT_SECURE != secureConfig)
             {
-                throw new Exception("nope, we did not get the correct secure string");
+                throw new Exception($"nope, we did not get the correct secure string: [{ secureConfig }]");
             }
 
             if (unsecureConfig != EXPECT_UNSECURE)
             {
-                throw new Exception("nope, we did not get the correct unsecure string");
+                throw new Exception($"nope, we did not get the correct unsecure string: [{ secureConfig }]");
             }
         }
     }
