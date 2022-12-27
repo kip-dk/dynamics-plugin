@@ -3,24 +3,23 @@
     using System;
     using System.Linq;
     using Microsoft.Xrm.Sdk;
-    using Microsoft.Xrm.Sdk.Extensions;
 
     public abstract class VirtualEntityPlugin : Microsoft.Xrm.Sdk.IPlugin
     {
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
-        internal static readonly Reflection.PluginMethod.Cache PluginMethodCache;
+        internal static Reflection.PluginMethod.Cache PluginMethodCache { get; private set; }
 
-        static VirtualEntityPlugin()
-        {
-            PluginMethodCache = new Reflection.PluginMethod.Cache(typeof(BasePlugin).Assembly);
-            Reflection.Types.Instance.SetAssembly(typeof(BasePlugin).Assembly);
-        }
 
         #region constructors
         public VirtualEntityPlugin() : base()
         {
+            if (PluginMethodCache == null)
+            {
+                PluginMethodCache = new Reflection.PluginMethod.Cache(this.GetType().Assembly);
+                Reflection.Types.Instance.SetAssembly(this.GetType().Assembly);
+            }
         }
 
         public VirtualEntityPlugin(string unSecure, string secure) : this()
@@ -40,9 +39,9 @@
             var userId = context.UserId;
             var message = context.MessageName;
 
-            if (message != "Retrieve" && message != "RetrieveMultiple")
+            if (message != "Retrieve" && message != "RetrieveMultiple" && message != "Create" && message != "Update" && message != "Delete")
             {
-                throw new InvalidPluginExecutionException($"Unsupported message in VirtualEntityPlugin { message }. Only Retrieve and RetrieveMultiple is supported");
+                throw new InvalidPluginExecutionException($"Unsupported message in VirtualEntityPlugin { message }. Only Create, Update, Delete, Retrieve and RetrieveMultiple are supported");
             }
 
             var type = (CrmEventType)Enum.Parse(typeof(CrmEventType), context.MessageName);
