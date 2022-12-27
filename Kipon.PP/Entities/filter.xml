@@ -1,9 +1,0 @@
-﻿<filter supress-mapped-standard-optionset-properties="true">
-  <entities>
-    <entity servicename="Pluginpackages" logicalname="pluginpackage"></entity>
-  </entities>
-  <optionsets>
-  </optionsets>
-  <actions>
-  </actions>
-</filter>
