@@ -12,5 +12,6 @@ namespace Kipon.Xrm.Tools.ServiceAPI
         Entities.PluginAssembly FindOrCreate(string assemblyfilename);
         void UploadAssembly();
         Entities.PluginAssembly GetPluginAssembly(string name);
+        Entities.PluginAssembly[] ForPackage(Guid pluginPackageId);
     }
 }

@@ -82,6 +82,8 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -165,7 +167,9 @@
     <Compile Include="Extensions\Strings\StringsExtensions.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Config.cs" />
+    <Compile Include="Models\DLLCode.cs" />
     <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\NugetSpec.cs" />
     <Compile Include="Models\Plugin.cs" />
     <Compile Include="Models\PluginAssembly.cs" />
     <Compile Include="Models\Step.cs" />
@@ -175,22 +179,28 @@
     <Compile Include="ServiceAPI\IAssemblyPluginModelService.cs" />
     <Compile Include="ServiceAPI\IFileService.cs" />
     <Compile Include="ServiceAPI\IMessageService.cs" />
+    <Compile Include="ServiceAPI\INugetService.cs" />
     <Compile Include="ServiceAPI\IPluginAssemblyService.cs" />
     <Compile Include="ServiceAPI\IPluginDeploymentService.cs" />
     <Compile Include="ServiceAPI\IPluginPackagesService.cs" />
     <Compile Include="ServiceAPI\IPluginTypeService.cs" />
+    <Compile Include="ServiceAPI\IPublishereService.cs" />
     <Compile Include="ServiceAPI\ISdkMessageProcessingStepService.cs" />
+    <Compile Include="ServiceAPI\ISolutionComponentsService.cs" />
     <Compile Include="ServiceAPI\ISolutionService.cs" />
     <Compile Include="ServiceAPI\ISystemFormService.cs" />
     <Compile Include="Services\AssemblyPluginModelService.cs" />
     <Compile Include="Services\CrmTransaction.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\NugetService.cs" />
     <Compile Include="Services\PluginAssemblyService.cs" />
     <Compile Include="Services\PluginDeploymentService.cs" />
     <Compile Include="Services\PluginPackagesService.cs" />
     <Compile Include="Services\PluginTypeService.cs" />
+    <Compile Include="Services\PublishereService.cs" />
     <Compile Include="Services\SdkMessageProcessingStepService.cs" />
+    <Compile Include="Services\SolutionComponentsService.cs" />
     <Compile Include="Services\SolutionService.cs" />
     <Compile Include="Services\SystemFormService.cs" />
     <Compile Include="Version.cs" />

@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using Microsoft.Xrm.Sdk;
-    public class BasePlugin : IPlugin
+    public abstract class BasePlugin : IPlugin
     {
         public const string Version = "2.0.0.0beta";
         public string UnsecureConfig { get; private set; }

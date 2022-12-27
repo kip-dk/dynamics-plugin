@@ -9,7 +9,9 @@ namespace Kipon.Xrm.Tools.ServiceAPI
     public interface IPluginTypeService
     {
         Entities.PluginType[] ForPluginAssembly(Guid pluginAssemblyId);
-        void JoinAndCleanup(Entities.PluginType[] currents, Models.Plugin[] tobee);
-        void CreateAnJoinMissing(Guid pluginassemblyId, Models.Plugin[] tobee);
+        void JoinAndCleanup(Entities.PluginType[] currents, Models.Plugin[] tobees);
+        void CreateAndJoinMissing(Guid pluginassemblyId, Models.Plugin[] tobees);
+        void FindAndJoinMissing(Guid pluginassemblyId, Models.Plugin[] tobees);
+
     }
 }

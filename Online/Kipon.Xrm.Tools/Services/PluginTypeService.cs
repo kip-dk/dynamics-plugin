@@ -46,7 +46,7 @@ namespace Kipon.Xrm.Tools.Services
             this.uow.ClearContext();
         }
 
-        public void CreateAnJoinMissing(Guid pluginassemblyId, Models.Plugin[] tobees)
+        public void CreateAndJoinMissing(Guid pluginassemblyId, Models.Plugin[] tobees)
         {
             foreach (var tobee in tobees)
             {
@@ -58,10 +58,29 @@ namespace Kipon.Xrm.Tools.Services
                         PluginAssemblyId = new Microsoft.Xrm.Sdk.EntityReference(Entities.PluginAssembly.EntityLogicalName, pluginassemblyId),
                         FriendlyName = tobee.Type.FullName,
                         Name = tobee.Type.FullName,
-                        TypeName = tobee.Type.FullName
+                        TypeName = tobee.Type.FullName,
                     };
                     uow.Create(next);
                     tobee.CurrentCrmInstance = next;
+                }
+            }
+        }
+
+        public void FindAndJoinMissing(Guid pluginassemblyId, Models.Plugin[] tobees)
+        {
+            foreach (var tobee in tobees)
+            {
+                if (tobee.CurrentCrmInstance == null)
+                {
+                    tobee.CurrentCrmInstance = (from pt in uow.PluginTypes.GetQuery()
+                                                where pt.PluginAssemblyId.Id == pluginassemblyId
+                                                  && pt.Name == tobee.Type.FullName
+                                                select pt).SingleOrDefault();
+
+                    if (tobee.CurrentCrmInstance == null)
+                    {
+                        throw new Exception($"Plugin Type with name: { tobee.Type.FullName } was not found. That is unexpected.");
+                    }
                 }
             }
         }

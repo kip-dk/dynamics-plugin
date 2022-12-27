@@ -29,17 +29,45 @@ namespace Kipon.Xrm.Tools.Services
                     select p).SingleOrDefault();
         }
 
-        public Guid Create(string name, string nugetpackagefilename, byte[] nugetpackage)
+        public Guid Create(string display, string name, string version, byte[] nugetpackage)
         {
+            if (string.IsNullOrEmpty(display))
+            {
+                display = name;
+            }
+
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException($"You must provide a unique name for the plugin package to be created");
+            }
+
             var clean = new Entities.PluginPackage
             {
                 PluginPackageId = Guid.NewGuid(),
-                UniqueName = name
+                UniqueName = name,
+                Content = System.Convert.ToBase64String(nugetpackage),
+                Version = version,
+                Name = display,
             };
             uow.Create(clean);
 
-            this.fileService.Upload(nugetpackagefilename, nugetpackage, new Microsoft.Xrm.Sdk.EntityReference(Entities.PluginPackage.EntityLogicalName, clean.PluginPackageId.Value), nameof(clean.FileId).ToLower());
             return clean.PluginPackageId.Value;
+        }
+
+        public void Update(Guid pluginPackageId, string version, byte[] nugetpackage)
+        {
+            var clean = new Entities.PluginPackage
+            {
+                PluginPackageId = pluginPackageId,
+                Content = System.Convert.ToBase64String(nugetpackage),
+                Version = version,
+            };
+            uow.Update(clean);
+        }
+
+        public void Delete(Guid packageId)
+        {
+            uow.Delete(new Entities.PluginPackage { PluginPackageId = packageId });
         }
     }
 }

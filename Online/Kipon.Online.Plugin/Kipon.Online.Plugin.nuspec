@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>Kipon.Online.Plugin</id>
-		<version>1.0.0.0</version>
+		<version>1.0.0</version>
 		<title>Kipon.Online.Plugin - test package for Kipon.Solid.Plugin framework</title>
 		<authors>Kjeld Ingemann Poulsen</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -15,6 +15,7 @@
 		<tags>Dynamics 365 plugin C# SOLID</tags>
 	</metadata>
 	<files>
-		<file src="bin\release\Kipon.Xrm.dll" target="lib/net462" />
+		<file src="bin\debug\Kipon.Xrm.dll" target="lib/net462" />
+		<file src="bin\debug\Kipon.Online.Plugin.dll" target="lib/net462" />
 	</files>
 </package>

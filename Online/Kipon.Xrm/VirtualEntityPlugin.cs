@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Extensions;
 
-    public class VirtualEntityPlugin : Microsoft.Xrm.Sdk.IPlugin
+    public abstract class VirtualEntityPlugin : Microsoft.Xrm.Sdk.IPlugin
     {
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }

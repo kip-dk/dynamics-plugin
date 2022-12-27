@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kipon.Xrm.Tools.ServiceAPI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -10,11 +11,15 @@ namespace Kipon.Xrm.Tools.Deploy
     [Export]
     public class Plugins
     {
-        private ServiceAPI.IPluginDeploymentService pluginDeployService;
-        private ServiceAPI.IPluginAssemblyService pluginAssmService;
-        private ServiceAPI.IPluginTypeService pluginTypeService;
-        private ServiceAPI.ISdkMessageProcessingStepService sdkMessageProcessingStepService;
-        private ServiceAPI.ISolutionService solutionService;
+        private readonly ServiceAPI.IPluginDeploymentService pluginDeployService;
+        private readonly ServiceAPI.IPluginAssemblyService pluginAssmService;
+        private readonly ServiceAPI.IPluginTypeService pluginTypeService;
+        private readonly ServiceAPI.ISdkMessageProcessingStepService sdkMessageProcessingStepService;
+        private readonly ServiceAPI.ISolutionService solutionService;
+        private readonly IPublishereService pubService;
+        private readonly IPluginPackagesService pacService;
+        private readonly INugetService nugetService;
+        private readonly Kipon.Xrm.Tools.Models.Config config;
 
         [ImportingConstructor]
         public Plugins(
@@ -22,7 +27,10 @@ namespace Kipon.Xrm.Tools.Deploy
             ServiceAPI.IPluginAssemblyService pluginAssmService,
             ServiceAPI.IPluginTypeService pluginTypeService,
             ServiceAPI.ISdkMessageProcessingStepService sdkMessageProcessingStepService,
-            ServiceAPI.ISolutionService solutionService
+            ServiceAPI.ISolutionService solutionService,
+            ServiceAPI.IPublishereService pubService,
+            ServiceAPI.IPluginPackagesService pacService,
+            ServiceAPI.INugetService nugetService
             )
         {
             this.pluginDeployService = pluginDeployService;
@@ -30,9 +38,118 @@ namespace Kipon.Xrm.Tools.Deploy
             this.pluginTypeService = pluginTypeService;
             this.sdkMessageProcessingStepService = sdkMessageProcessingStepService;
             this.solutionService = solutionService;
+            this.pubService = pubService;
+            this.pacService = pacService;
+            this.nugetService = nugetService;
+            this.config = Kipon.Xrm.Tools.Models.Config.Instance;
         }
 
-        public void Run(string pluginAssemblyFileName)
+        public void Run()
+        {
+            if (this.Validate())
+            {
+                var prefix = this.pubService.ComponentPrefix;
+                var nuget = this.nugetService.GetSpec();
+
+                var pluginPackageName = $"{ pubService.ComponentPrefix }_{ nuget.Metadata.Id }";
+
+                var pluginPackage = this.pacService.GetPluginPackage(pluginPackageName);
+
+                var wasCreate = false;
+                if (pluginPackage == null)
+                {
+                    var pid = pacService.Create(this.config.Plugin.Name, pluginPackageName, nuget.Metadata.Version, System.IO.File.ReadAllBytes(this.config.Plugin.Package));
+                    Console.WriteLine("PluginPackage was uploaded");
+
+                    this.solutionService.AddMissingPluginPackage(new Xrm.Tools.Entities.PluginPackage { PluginPackageId = pid });
+                    Console.WriteLine("New PluginPackage was added to solution");
+
+                    pluginPackage = this.pacService.GetPluginPackage(pluginPackageName);
+                    wasCreate = true;
+                }
+
+                var pluginAssemblies = this.pluginAssmService.ForPackage(pluginPackage.PluginPackageId.Value);
+                if (pluginAssemblies.Length > 1)
+                {
+                    if (wasCreate)
+                    {
+                        this.pacService.Delete(pluginPackage.PluginPackageId.Value);
+                    }
+
+                    throw new Exception($"The framework only support one plugin assembly for now. Multi plugin support in same package will be added in the future. (2022-12-27)");
+                }
+
+                if (pluginAssemblies.Length == 0 && wasCreate)
+                {
+                    throw new Exception($"The package uploaded did not create any PluginAssemblies");
+                }
+
+                var dlls = nugetService.GetLibNet64();
+                var plugindll = dlls.Where(r => r.Shortname == pluginAssemblies[0].Name).SingleOrDefault();
+
+                if (plugindll == null)
+                {
+                    if (wasCreate)
+                    {
+                        this.pacService.Delete(pluginPackage.PluginPackageId.Value);
+                    }
+                    throw new Exception($"The nuget package did not contain the expected plugin code for library: { pluginAssemblies[0].Name }");
+                }
+
+                System.Reflection.Assembly pluginAssm = null;
+
+                foreach (var dll in dlls)
+                {
+                    var code = System.Reflection.Assembly.Load(dll.Code);
+                    if (dll.Shortname == pluginAssemblies[0].Name)
+                    {
+                        pluginAssm = code;
+                    }
+                }
+
+                if (pluginAssm == null)
+                {
+                    if (wasCreate)
+                    {
+                        this.pacService.Delete(pluginPackage.PluginPackageId.Value);
+                    }
+                    throw new Exception($"Plugin assembly was not loaded, it is not possible to determin needed steps to be created: { pluginAssemblies[0].Name }");
+                }
+
+                // Then we find out the steps we needs according to the loaded assembly
+                var upcommingPlugins = pluginDeployService.ForAssembly(pluginAssm);
+
+                // Then we find the plugin types we already have
+                var existingplugins = pluginTypeService.ForPluginAssembly(pluginAssemblies[0].PluginAssemblyId.Value);
+
+                // Then we cleanup plugin types in CRM that are no longer needed.
+                pluginTypeService.JoinAndCleanup(existingplugins, upcommingPlugins);
+
+                // Then we find the steps we already have (after cleanup on plugins that no longer exists in the assembly)
+                var steps = sdkMessageProcessingStepService.ForPluginAssembly(pluginAssemblies[0].PluginAssemblyId.Value);
+
+                // Then we cleanup steps that are no longer needed
+                steps = sdkMessageProcessingStepService.Cleanup(steps, upcommingPlugins);
+
+                if (!wasCreate)
+                {
+                    pacService.Update(pluginPackage.PluginPackageId.Value, nuget.Metadata.Version, System.IO.File.ReadAllBytes(this.config.Plugin.Package));
+                }
+
+                // now map existing plugin types with existing upcomming, and create new plugintypes on the fly and map to upcomming if applicable
+                pluginTypeService.FindAndJoinMissing(pluginAssemblies[0].PluginAssemblyId.Value, upcommingPlugins);
+
+                // Create/Update steps according to upcommingPlugins defacto code, and return the brutto list of steps we have after the create/update
+                steps = sdkMessageProcessingStepService.CreateOrUpdateSteps(steps, upcommingPlugins);
+
+                // update solution with components
+                this.solutionService.AddMissingPluginAssembly(pluginAssemblies[0]);
+                this.solutionService.AddMissingPluginSteps(steps);
+            }
+        }
+
+
+        private void RunOLD(string pluginAssemblyFileName)
         {
             // First we see if we have the plugin already, if not we update the assembly
             var pluginAssembly = pluginAssmService.FindOrCreate(pluginAssemblyFileName);
@@ -67,7 +184,7 @@ namespace Kipon.Xrm.Tools.Deploy
             pluginAssmService.UploadAssembly();
 
             // now map existing plugin types with existing upcomming, and create new plugintypes on the fly and map to upcomming if applicable
-            pluginTypeService.CreateAnJoinMissing(pluginAssembly.PluginAssemblyId.Value, upcommingPlugins);
+            pluginTypeService.CreateAndJoinMissing(pluginAssembly.PluginAssemblyId.Value, upcommingPlugins);
 
             // Create/Update steps according to upcommingPlugins defacto code, and return the brutto list of steps we have after the create/update
             steps = sdkMessageProcessingStepService.CreateOrUpdateSteps(steps, upcommingPlugins);
@@ -75,6 +192,23 @@ namespace Kipon.Xrm.Tools.Deploy
             // update solution with components
             this.solutionService.AddMissingPluginAssembly(pluginAssembly);
             this.solutionService.AddMissingPluginSteps(steps);
+        }
+
+        private bool Validate()
+        {
+            if (this.config == null)
+            {
+                Console.WriteLine($"Please provide config file to be used on the command line on form /config:filename");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(this.config.Solution))
+            {
+                Console.WriteLine($"Please provide solution to be used in the config file");
+                return false;
+            }
+
+            return this.config.validatePluginConfiguration();
         }
     }
 }

@@ -99,6 +99,13 @@ namespace Kipon.Xrm.Tools.Services
                     select pa).SingleOrDefault();
         }
 
+        public Entities.PluginAssembly[] ForPackage(Guid pluginPackageId)
+        {
+            return (from pa in uow.PluginAssemblies.GetQuery()
+                    where pa.PackageId.Id == pluginPackageId
+                    select pa).ToArray();
+        }
+
         private string GetPublicKeyTokenFromAssembly()
         {
             var bytes = this.Assembly.GetName().GetPublicKeyToken();

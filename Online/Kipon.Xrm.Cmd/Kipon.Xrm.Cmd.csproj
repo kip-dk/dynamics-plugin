@@ -93,7 +93,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\AccountActionTest.cs" />
     <Compile Include="Tests\AnunboundedactionTest.cs" />
+    <Compile Include="Tests\B64DecodeTest.cs" />
     <Compile Include="Tests\ConfigTest.cs" />
+    <Compile Include="Tests\GetPluginPackageTest.cs" />
+    <Compile Include="Tests\ListSolutionComponentsTest.cs" />
+    <Compile Include="Tests\NugetLibTest.cs" />
+    <Compile Include="Tests\UploadePluginPackageTest.cs" />
     <Compile Include="Tools\CodeCopy.cs" />
     <Compile Include="Tools\Deploy.cs" />
     <Compile Include="Tools\ExportAssmSteps.cs" />

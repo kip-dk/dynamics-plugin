@@ -9,7 +9,8 @@ namespace Kipon.Xrm.Tools.ServiceAPI
     public interface IPluginPackagesService
     {
         Entities.PluginPackage GetPluginPackage(string name);
-
-        Guid Create(string name, string nugetpackagefilename ,byte[] nugetpackage);
+        Guid Create(string displayName, string uniqueName, string version, byte[] nugetpackage);
+        void Update(Guid pluginPackageId, string version, byte[] nugetpackage);
+        void Delete(Guid packageId);
     }
 }

@@ -20,16 +20,9 @@ namespace Kipon.Xrm.Cmd.Tools
 
         public Task ExecuteAsync(string[] args)
         {
-            if (args == null || args.Length == 0)
-            {
-                Console.WriteLine("Please provide path to assembly as first parameter.");
-                Console.ReadLine();
-                return Task.CompletedTask;
-            }
-
             Console.WriteLine("Starting deployment tool..." );
 
-            this.pluginDeployer.Run(args[0]);
+            this.pluginDeployer.Run();
             return Task.CompletedTask;
         }
     }

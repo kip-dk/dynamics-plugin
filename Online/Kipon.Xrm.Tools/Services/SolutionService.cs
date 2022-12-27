@@ -33,6 +33,15 @@ namespace Kipon.Xrm.Tools.Services
                     select s).SingleOrDefault();
         }
 
+        public void AddMissingPluginPackage(Entities.PluginPackage package)
+        {
+            this.Initialize();
+            if (this.solution != null)
+            {
+                this.AddSolutionComponent(package.PluginPackageId.Value, 10113, false);
+            } 
+        }
+
         public void AddMissingPluginAssembly(PluginAssembly assm)
         {
             this.Initialize();
@@ -83,6 +92,7 @@ namespace Kipon.Xrm.Tools.Services
                     SolutionUniqueName = this.solution.UniqueName
                 };
                 uow.Execute(req);
+                Console.WriteLine($"Added { id } of type { componentType } to solution: { this.solution.UniqueName }");
             }
         }
 
@@ -91,30 +101,29 @@ namespace Kipon.Xrm.Tools.Services
             if (!initialized)
             {
                 var args = System.Environment.GetCommandLineArgs();
-                if (args == null || args.Length == 0)
+
+                var solutionName = (from a in args where a.ToLower().StartsWith("/solution:") select a).SingleOrDefault()?.Substring(10);
+
+                if (solutionName == null && Kipon.Xrm.Tools.Models.Config.Instance != null)
                 {
-                    Console.WriteLine(NO_SOLUTION_MESSAGE);
-                    initialized = true;
+                    solutionName = Kipon.Xrm.Tools.Models.Config.Instance.Solution;
                 }
 
-                var solution = (from a in args where a.ToLower().StartsWith("/solution:") select a).SingleOrDefault();
-                if (solution == null)
+                if (solutionName == null)
                 {
                     Console.WriteLine(NO_SOLUTION_MESSAGE);
                     initialized = true;
                     return;
                 }
 
-                var name = solution.Substring(10);
-
                 this.solution = (from s in uow.Solutions.GetQuery()
-                                 where s.UniqueName == name ||
-                                   s.FriendlyName == name
+                                 where s.UniqueName == solutionName ||
+                                   s.FriendlyName == solutionName
                                  select s).SingleOrDefault();
 
-                if (solution == null)
+                if (this.solution == null)
                 {
-                    Console.WriteLine($"Solution with name {name} was not found. Components will not be attached to a solution.");
+                    Console.WriteLine($"Solution with name {solutionName} was not found. Components will not be attached to a solution.");
                 }
 
                 initialized = true;
