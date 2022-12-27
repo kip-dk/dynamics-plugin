@@ -9,17 +9,17 @@
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
-        internal static readonly Reflection.PluginMethod.Cache PluginMethodCache;
-
-        static BasePlugin()
-        {
-            PluginMethodCache = new Reflection.PluginMethod.Cache(typeof(BasePlugin).Assembly);
-            Reflection.Types.Instance.SetAssembly(typeof(BasePlugin).Assembly);
-        }
+        internal static Reflection.PluginMethod.Cache PluginMethodCache { get; private set; }
 
         #region constructors
         public BasePlugin() : base()
         {
+            if (PluginMethodCache == null)
+            {
+                PluginMethodCache = new Reflection.PluginMethod.Cache(this.GetType().Assembly);
+                Reflection.Types.Instance.SetAssembly(this.GetType().Assembly);
+            }
+
             this.Initialize();
         }
 

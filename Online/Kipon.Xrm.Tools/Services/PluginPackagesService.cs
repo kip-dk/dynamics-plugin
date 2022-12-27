@@ -47,7 +47,7 @@ namespace Kipon.Xrm.Tools.Services
                 UniqueName = name,
                 Content = System.Convert.ToBase64String(nugetpackage),
                 Version = version,
-                Name = display,
+                Name = name
             };
             uow.Create(clean);
 

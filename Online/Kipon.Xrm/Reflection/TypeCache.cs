@@ -536,10 +536,29 @@
         {
         }
 
+
+        private static Type[] _allTypes;
+        private static Type[] AllTypes
+        {
+            get
+            {
+                if (_allTypes == null)
+                {
+                    var result = new List<Type>();
+
+                    result.AddRange(typeof(TypeCache).Assembly.GetTypes());
+                    result.AddRange(Types.Assembly.GetTypes());
+                    _allTypes = result.ToArray();
+                }
+                return _allTypes;
+            }
+        }
+
         #region private static helpers
         private static Type GetInterfaceImplementation(Type type)
         {
-            var allTypes = Types.Assembly.GetTypes();
+            var allTypes = AllTypes;
+
             var candidates = new List<Type>();
 
             foreach (var t in allTypes)

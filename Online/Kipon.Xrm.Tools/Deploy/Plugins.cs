@@ -58,7 +58,7 @@ namespace Kipon.Xrm.Tools.Deploy
                 var wasCreate = false;
                 if (pluginPackage == null)
                 {
-                    var pid = pacService.Create(this.config.Plugin.Name, pluginPackageName, nuget.Metadata.Version, System.IO.File.ReadAllBytes(this.config.Plugin.Package));
+                    var pid = pacService.Create(this.config.Plugin.Name, pluginPackageName, nuget.Metadata.Version, System.IO.File.ReadAllBytes(this.config.Plugin.Package.Replace("$version",nuget.Metadata.Version)));
                     Console.WriteLine("PluginPackage was uploaded");
 
                     this.solutionService.AddMissingPluginPackage(new Xrm.Tools.Entities.PluginPackage { PluginPackageId = pid });
@@ -133,7 +133,7 @@ namespace Kipon.Xrm.Tools.Deploy
 
                 if (!wasCreate)
                 {
-                    pacService.Update(pluginPackage.PluginPackageId.Value, nuget.Metadata.Version, System.IO.File.ReadAllBytes(this.config.Plugin.Package));
+                    pacService.Update(pluginPackage.PluginPackageId.Value, nuget.Metadata.Version, System.IO.File.ReadAllBytes(this.config.Plugin.Package.Replace("$version", nuget.Metadata.Version)));
                 }
 
                 // now map existing plugin types with existing upcomming, and create new plugintypes on the fly and map to upcomming if applicable
@@ -143,7 +143,6 @@ namespace Kipon.Xrm.Tools.Deploy
                 steps = sdkMessageProcessingStepService.CreateOrUpdateSteps(steps, upcommingPlugins);
 
                 // update solution with components
-                this.solutionService.AddMissingPluginAssembly(pluginAssemblies[0]);
                 this.solutionService.AddMissingPluginSteps(steps);
             }
         }

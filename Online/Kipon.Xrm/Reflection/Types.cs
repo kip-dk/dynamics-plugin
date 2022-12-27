@@ -14,8 +14,6 @@
             "Disassociate"
         };
 
-
-        private const string NAMESPACE = "Kipon" + "." + "Xrm" + ".";
         private Dictionary<string, Type> entityTypes = new Dictionary<string, Type>();
 
         private static Types _instance;
@@ -29,7 +27,6 @@
         {
         }
 
-
         public static Types Instance
         {
             get
@@ -41,44 +38,43 @@
         public void SetAssembly(System.Reflection.Assembly assembly)
         {
             this.Assembly = assembly;
-            var allTypes = assembly.GetTypes().ToDictionary(r => r.FullName);
 
-            this.TargetAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.TargetAttribute)}"];
-            this.TargetFilterAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.TargetFilterAttribute)}"];
-            this.PreimageAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.PreimageAttribute)}"];
-            this.MergedimageAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.MergedimageAttribute)}"];
-            this.PostimageAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.PostimageAttribute)}"];
-            this.AdminAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.AdminAttribute)}"];
-            this.ExportAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.ExportAttribute)}"];
-            this.ImportingConstructorAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.ImportingConstructorAttribute)}"];
-            this.RequiredAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.RequiredAttribute)}"];
-            this.StepAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.StepAttribute)}"];
-            this.LogicalNameAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.LogicalNameAttribute)}"];
-            this.SortAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.SortAttribute)}"];
-            this.OutputAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.OutputAttribute)}"];
+            this.TargetAttribute = typeof(Kipon.Xrm.Attributes.TargetAttribute);
+            this.TargetFilterAttribute = typeof(Kipon.Xrm.Attributes.TargetFilterAttribute);
+            this.PreimageAttribute = typeof(Kipon.Xrm.Attributes.PreimageAttribute);
+            this.MergedimageAttribute = typeof(Kipon.Xrm.Attributes.MergedimageAttribute);
+            this.PostimageAttribute = typeof(Kipon.Xrm.Attributes.PostimageAttribute);
+            this.AdminAttribute = typeof(Kipon.Xrm.Attributes.AdminAttribute);
+            this.ExportAttribute = typeof(Kipon.Xrm.Attributes.ExportAttribute);
+            this.ImportingConstructorAttribute = typeof(Kipon.Xrm.Attributes.ImportingConstructorAttribute);
+            this.RequiredAttribute = typeof(Kipon.Xrm.Attributes.RequiredAttribute);
+            this.StepAttribute = typeof(Kipon.Xrm.Attributes.StepAttribute);
+            this.LogicalNameAttribute = typeof(Kipon.Xrm.Attributes.LogicalNameAttribute);
+            this.SortAttribute = typeof(Kipon.Xrm.Attributes.SortAttribute);
+            this.OutputAttribute = typeof(Kipon.Xrm.Attributes.OutputAttribute);
 
-            this.IfAttribute = allTypes[$"{NAMESPACE}Attributes.{nameof(_instance.IfAttribute)}"];
+            this.IfAttribute = typeof(Kipon.Xrm.Attributes.IfAttribute);
 
-            this.AbstractActionRequest = allTypes[$"{NAMESPACE}Actions.{nameof(_instance.AbstractActionRequest)}"];
+            this.AbstractActionRequest = typeof(Kipon.Xrm.Actions.AbstractActionRequest);
 
-            this.ITarget = allTypes[$"{NAMESPACE}{nameof(_instance.ITarget)}"];
-            this.Target = allTypes[$"{NAMESPACE}{nameof(_instance.Target)}`1"];
-            this.TargetReference = allTypes[$"{NAMESPACE}{nameof(_instance.TargetReference)}`1"];
-            this.Preimage = allTypes[$"{NAMESPACE}{nameof(_instance.Preimage)}`1"];
-            this.Mergedimage = allTypes[$"{NAMESPACE}{nameof(_instance.Mergedimage)}`1"];
-            this.Postimage = allTypes[$"{NAMESPACE}{nameof(_instance.Postimage)}`1"];
-            this.ActionTarget = allTypes[$"{NAMESPACE}{nameof(_instance.ActionTarget)}`1"];
+            this.ITarget = typeof(Kipon.Xrm.ITarget);
+            this.Target = typeof(Kipon.Xrm.Target<>);
+            this.TargetReference = typeof(Kipon.Xrm.TargetReference<>);
+            this.Preimage = typeof(Kipon.Xrm.Preimage<>);
+            this.Mergedimage = typeof(Kipon.Xrm.Mergedimage<>);
+            this.Postimage = typeof(Kipon.Xrm.Postimage<>);
+            this.ActionTarget = typeof(Kipon.Xrm.ActionTarget<>);
 
-            this.IUnitOfWork = allTypes[$"{NAMESPACE}{nameof(_instance.IUnitOfWork)}"];
-            this.IAdminUnitOfWork = allTypes[$"{NAMESPACE}{nameof(_instance.IAdminUnitOfWork)}"];
-            this.IEntityCache = allTypes[$"{NAMESPACE}ServiceAPI.{nameof(_instance.IEntityCache)}"];
+            this.IUnitOfWork = typeof(Kipon.Xrm.IUnitOfWork);
+            this.IAdminUnitOfWork = typeof(Kipon.Xrm.IAdminUnitOfWork);
+            this.IEntityCache = typeof(Kipon.Xrm.ServiceAPI.IEntityCache);
 
-            this.IRepository = allTypes[$"{NAMESPACE}{nameof(_instance.IRepository)}`1"];
+            this.IRepository = typeof(Kipon.Xrm.IRepository<>);
 
-            this.BasePlugin = allTypes[$"{NAMESPACE}{nameof(_instance.BasePlugin)}"];
-            this.VirtualEntityPlugin = allTypes[$"{NAMESPACE}{nameof(_instance.VirtualEntityPlugin)}"];
+            this.BasePlugin = typeof(Kipon.Xrm.BasePlugin);
+            this.VirtualEntityPlugin = typeof(Kipon.Xrm.VirtualEntityPlugin);
 
-            this.IPluginContext = allTypes[$"{NAMESPACE}{nameof(_instance.IPluginContext)}"];
+            this.IPluginContext = typeof(Kipon.Xrm.IPluginContext);
         }
 
         public Type TargetAttribute { get; private set; }
