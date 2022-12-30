@@ -94,6 +94,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
+    <Compile Include="Plugins\Account\AccountDeleteWithMergedImageTest.cs" />
+    <Compile Include="Plugins\Account\AccountMergedImageInterfaceWithTargetAttrTest.cs" />
+    <Compile Include="Plugins\Account\AccountMergeImageUpdateTest.cs" />
+    <Compile Include="Plugins\Account\AccountNameNotNullTest.cs" />
+    <Compile Include="Plugins\Account\AccountPostCreateTest.cs" />
+    <Compile Include="Plugins\Account\AccountPostUpdateTest.cs" />
+    <Compile Include="Plugins\Account\AccountWithConfigPluginTest.cs" />
+    <Compile Include="Plugins\Account\SpecialAccountPluginTest.cs" />
+    <Compile Include="Plugins\Account\TargetAsPreValueTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xrm\Extensions\Strings\StringMethodsTest.cs" />
     <Compile Include="Xrm\Extensions\TypeConverters\TypeConvertersMethodsTest.cs" />
