@@ -290,6 +290,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
                             {
                                 throw new Exception($"action must have a logicalname, row: { row }, Name: { action.Name }");
                             }
+
+                            ACTIONS.Add(action);
                         }
 
                         this.RegistreActions(meta);

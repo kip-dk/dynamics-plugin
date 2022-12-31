@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+	<metadata>
+		<id>Kipon.Solid.Plugin</id>
+		<version>2.0.0.5-beta</version>
+		<authors>Kjeld Ingemann Poulsen</authors>
+		<owners>Kipon ApS</owners>
+		<licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+		<projectUrl>https://kipon.dk/solidplugin</projectUrl>
+		<iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<description>Create Dynamics 365 CE (Online only) plugins according to SOLID software princips. This package provide the basic infrastructur for building plugins with services and inject these into the Dynamics 365 CE plugin pipeline.</description>
+		<releaseNotes>Kipon.Solid.Plugin version uses the new pluginpackage deploy model, and code are distributed as DLL, NOT raw source code. This release only supports Dynamics 365 CE online versions.</releaseNotes>
+		<copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023</copyright>
+		<tags>Dynamics 365 CE plugin C# SOLID Dataverse</tags>
+		<dependencies>
+			<dependency id="Microsoft.CrmSdk.CoreAssemblies" version="9.0.2.46" />
+			<dependency id="Microsoft.CrmSdk.CoreTools" version="9.1.0.115" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\release\Kipon.Xrm.dll" target="lib/net462" />
+		<file src="..\Kipon.Xrm.Cmd\bin\Release\Kipon.Xrm.Cmd.exe" target="bin/coretools/Kipon.Xrm.Cmd.exe" />
+		<file src="..\Kipon.Xrm.Cmd\bin\Release\Kipon.Xrm.Cmd.exe" target="bin/coretools/ko.exe" />
+		<file src="..\Kipon.Xrm.Cmd\bin\Release\Kipon.Xrm.Tools.dll" target="bin/coretools/Kipon.Xrm.Tools.dll" />
+	</files>
+</package>
