@@ -178,11 +178,11 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 writer.WriteLine("using Microsoft.Xrm.Sdk;");
 
                 #region version
-                writer.WriteLine($"namespace {xrmNS}");
+                writer.WriteLine($"namespace { ns }");
                 writer.WriteLine("{");
-                writer.WriteLine("\tpublic sealed class Version");
+                writer.WriteLine("\tpublic sealed class KiponXrmToolsVersion: Kipon.Xrm.ServiceAPI.IVersion");
                 writer.WriteLine("\t{");
-                writer.WriteLine($"\t\tpublic const string No = \"{ Kipon.Xrm.Tools.Version.No }\";");
+                writer.WriteLine($"\t\tstring Kipon.Xrm.ServiceAPI.IVersion.No => \"{ Kipon.Xrm.Tools.Version.No }\";");
                 writer.WriteLine("\t}");
                 writer.WriteLine("}");
                 #endregion

@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public abstract class BasePlugin : IPlugin
     {
-        public const string Version = "2.0.0.1";
+        public const string Version = "2.0.0.5";
         internal static Reflection.PluginMethod.Cache PluginMethodCache { get; private set; }
         private static readonly System.Collections.Generic.Dictionary<Type, Config> configs = new System.Collections.Generic.Dictionary<Type, Config>();
 
