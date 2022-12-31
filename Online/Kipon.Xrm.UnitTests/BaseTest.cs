@@ -13,6 +13,7 @@ namespace Kipon.Xrm.UnitTests
         {
             var types = Kipon.Xrm.Reflection.Types.Instance;
             types.SetAssembly(typeof(Kipon.Online.Plugin.Entities.IUnitOfWork).Assembly);
+            Kipon.Online.Plugin.Setting.IsUnitTest = true;
         }
     }
 }
