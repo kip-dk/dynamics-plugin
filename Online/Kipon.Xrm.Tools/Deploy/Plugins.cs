@@ -116,6 +116,19 @@ namespace Kipon.Xrm.Tools.Deploy
                     throw new Exception($"Plugin assembly was not loaded, it is not possible to determin needed steps to be created: { pluginAssemblies[0].Name }");
                 }
 
+                foreach (var type in pluginAssm.GetTypes())
+                {
+                    if (typeof(Kipon.Xrm.ServiceAPI.IVersion).IsAssignableFrom(type))
+                    {
+                        var version = (Kipon.Xrm.ServiceAPI.IVersion)Activator.CreateInstance(type);
+                        if (version.No != Kipon.Xrm.Tools.Version.No)
+                        {
+                            throw new Exception($"Tools are version: { Kipon.Xrm.Tools.Version.No } but entities has been generated with version: { version.No }. You must regenerate entities before deploying code.");
+                        }
+                        break;
+                    }
+                }
+
                 // Then we find out the steps we needs according to the loaded assembly
                 var upcommingPlugins = pluginDeployService.ForAssembly(pluginAssm);
 

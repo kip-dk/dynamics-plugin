@@ -102,6 +102,7 @@ namespace Kipon.Xrm.Tools.Services
 
             this.types = Kipon.Xrm.Reflection.Types.Instance;
             types.SetAssembly(assembly);
+
             this.pluginMethodCache = new Kipon.Xrm.Reflection.PluginMethod.Cache(assembly);
 
             var plugins = assembly.GetTypes().Where(r => r.BaseType == types.BasePlugin).ToArray();

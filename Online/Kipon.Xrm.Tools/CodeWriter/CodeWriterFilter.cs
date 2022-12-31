@@ -63,208 +63,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
             var metaService = services.GetService(typeof(Microsoft.Crm.Services.Utility.IMetadataProviderService)) as Microsoft.Crm.Services.Utility.IMetadataProviderService;
             var meta = metaService.LoadMetadata();
 
-            XElement xml = XElement.Load("filter.xml");
-
-            var supress = xml.Attribute("supress-mapped-standard-optionset-properties");
-            if (supress != null && supress.Value.ToLower() == "true")
-            {
-                SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES = true;
-            }
-
-            #region parse entity definitions
-            {
-                XElement entitiesElement = xml.Element("entities");
-
-                var row = 0;
-                foreach (XElement entityElement in entitiesElement.Elements("entity"))
-                {
-                    row++;
-                    var uowName = entityElement.Attribute("servicename");
-                    if (uowName == null)
-                    {
-                        throw new Exception($"No servicename on entity number {row}");
-                    }
-
-                    var logicalname = entityElement.Attribute("logicalname");
-                    if (logicalname == null)
-                    {
-                        throw new Exception($"No logical name on entity number {row} : {uowName.Value}");
-                    }
-
-                    string primaryfield = null;
-                    {
-                        var pf = entityElement.Attribute("primaryfield");
-                        if (pf != null)
-                        {
-                            primaryfield = pf.Value;
-                        }
-                    }
-
-                    string primaryfieldvaluetemplate = null;
-                    {
-                        var pfv = entityElement.Attribute("primaryfieldvaluetemplate");
-                        if (pfv != null)
-                        {
-                            primaryfieldvaluetemplate = pfv.Value;
-                        }
-                    }
-
-                    List<Model.OptionSet> optionsets = new List<Model.OptionSet>();
-                    if (optionsets != null)
-                    {
-                        foreach (XElement optionset in entityElement.Elements("optionset"))
-                        {
-                            var optionsetLogicalname = optionset.Attribute("logicalname");
-                            var optionsetName = optionset.Attribute("name");
-                            var optionsetId = optionset.Attribute("id");
-                            var optionsetMulti = optionset.Attribute("multi");
-                            var next = new Model.OptionSet
-                            {
-                                Id = optionsetId?.Value,
-                                Name = optionsetName.Value,
-                                Logicalname = optionsetLogicalname.Value,
-                                Multi = optionsetMulti != null && optionsetMulti.Value.ToLower() == "true"
-                            };
-
-                            if (next.Id == null)
-                            {
-                                var values = new List<Model.OptionSetValue>();
-                                foreach (XElement optionsetValue in optionset.Elements("value"))
-                                {
-                                    values.Add(new Model.OptionSetValue
-                                    {
-                                        Name = optionsetValue.Attribute("name").Value,
-                                        Value = int.Parse(optionsetValue.Value.Replace(".", ""))
-                                    });
-                                }
-                                next.Values = values.ToArray();
-                                if (next.Values.Length == 0)
-                                {
-                                    throw new Exception($"Local optionset on {logicalname.Value} {next.Name} does not define any values");
-                                }
-                            }
-                            optionsets.Add(next);
-                        }
-                    }
-
-                    var entity = new Model.Entity
-                    {
-                        LogicalName = logicalname.Value,
-                        ServiceName = uowName.Value,
-                        Primaryfield = primaryfield,
-                        PrimaryfieldValuetemplate = primaryfieldvaluetemplate,
-                        Optionsets = optionsets.ToArray()
-                    };
-
-                    _validEntities.Add(entity.LogicalName, entity);
-                }
-            }
-            #endregion
-
-            #region parse global optionsets
-            {
-                XElement optionsetsElement = xml.Element("optionsets");
-                var row = 0;
-                if (optionsetsElement != null)
-                {
-                    foreach (XElement optionset in optionsetsElement.Elements("optionset"))
-                    {
-                        var optionsetName = optionset.Attribute("name");
-                        if (optionsetName == null)
-                        {
-                            throw new Exception($"Global optionset definition {row} does not have a name");
-                        }
-                        var optionsetId = optionset.Attribute("id");
-                        if (optionsetId == null)
-                        {
-                            throw new Exception($"Global optionset definition {row} does not have an id");
-                        }
-
-                        if (GLOBAL_OPTIONSET_INDEX.ContainsKey(optionsetId.Value))
-                        {
-                            throw new Exception($"Global optionset definition {row} id is not unique");
-                        }
-
-                        var next = new Model.OptionSet
-                        {
-                            Id = optionsetId.Value,
-                            Name = optionsetName.Value
-                        };
-
-                        var values = new List<Model.OptionSetValue>();
-                        foreach (XElement optionsetValue in optionset.Elements("value"))
-                        {
-                            values.Add(new Model.OptionSetValue
-                            {
-                                Name = optionsetValue.Attribute("name").Value,
-                                Value = int.Parse(optionsetValue.Value.Replace(".",""))
-                            });
-                        }
-                        next.Values = values.ToArray();
-                        if (next.Values.Length == 0)
-                        {
-                            throw new Exception($"Global optionset {row} does not define any values");
-                        }
-                        GLOBAL_OPTIONSET_INDEX.Add(next.Id, next);
-                    }
-                }
-            }
-            #endregion
-
-            #region parse actions
-            {
-                XElement actionElements = xml.Element("actions");
-                if (actionElements != null)
-                {
-                    foreach (XElement action in actionElements.Elements("action"))
-                    {
-                        var name = action.Attribute("name");
-                        if (name == null || string.IsNullOrEmpty(name.Value))
-                        {
-                            throw new Exception("actions must have a name attribute");
-                        }
-                        var logicalName = action.Value;
-                        if (string.IsNullOrEmpty(logicalName))
-                        {
-                            throw new Exception("action logical name must be set inside the action tag");
-                        }
-                        var nextaction = new Model.Action { Name = name.Value, LogicalName = logicalName };
-                        ACTIONS.Add(nextaction);
-                    }
-                }
-
-                if (ACTIONS.Count > 0)
-                {
-
-                    foreach (var action in ACTIONS)
-                    {
-                        var sdkMessage = meta.Messages.MessageCollection.Values.Where(r => r.Name == action.LogicalName).Single();
-
-                        string entityLogicalName = null;
-                        var isActivity = false;
-                        if (sdkMessage.SdkMessageFilters != null && sdkMessage.SdkMessageFilters.Values.Count == 1)
-                        {
-                            var code = sdkMessage.SdkMessageFilters.Values.First().PrimaryObjectTypeCode;
-                            if (code > 0)
-                            {
-                                // even unbound entities has a filter with the primparyobjecttypecode equals 0
-                                var ent = meta.Entities.Where(r => r.ObjectTypeCode == code).Single();
-                                entityLogicalName = ent.LogicalName;
-                                isActivity = ent.IsActivity ?? false;
-                            }
-                        }
-
-                        var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage, entityLogicalName, isActivity);
-                        ACTIVITIES.Add(action.LogicalName, na);
-
-                        if (!string.IsNullOrEmpty(entityLogicalName))
-                        {
-                            LOGICALNAME2SCHEMANAME[action.LogicalName] = entityLogicalName;
-                        }
-                    }
-                }
-            }
-            #endregion
+            ReadConfiguration(meta);
 
             initialized = true;
         }
@@ -407,6 +206,328 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 var list = new List<string>();
                 list.Add(attrlogicalname);
                 MULTIOPTIONSETFIELDS.Add(entitylogicalname, list);
+            }
+        }
+
+        private void ReadConfiguration(IOrganizationMetadata meta)
+        {
+            if (System.IO.File.Exists("filter.json"))
+            {
+                var ser = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(Model.Filter));
+                using (var fs = new System.IO.FileStream("filter.json", System.IO.FileMode.Open))
+                {
+                    var filter = (Model.Filter)ser.ReadObject(fs);
+                    SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES = filter.SupressMappedStandardOptionsetProperties;
+
+                    #region parse entity definitions
+                    {
+                        var row = 0;
+                        foreach (var entity in filter.Entities)
+                        {
+                            if (string.IsNullOrEmpty(entity.ServiceName))
+                            {
+                                throw new Exception($"No servicename on entity number {row}, { entity.LogicalName }");
+                            }
+
+                            if (string.IsNullOrEmpty(entity.LogicalName))
+                            {
+                                throw new Exception($"No logical name on entity number {row}.");
+                            }
+
+                            if (entity.Optionsets != null && entity.Optionsets.Length > 0)
+                            {
+                                var localWithoutValues = entity.Optionsets.Where(r => string.IsNullOrEmpty(r.Id) && (r.Values == null || r.Values.Length == 0)).ToArray();
+                                if (localWithoutValues.Length > 0)
+                                {
+                                    throw new Exception($"Local optionset without values are not allowed: { entity.LogicalName }, { localWithoutValues.First().Name }");
+                                }
+                            }
+                            _validEntities.Add(entity.LogicalName.ToLower(), entity);
+                        }
+                    }
+                    #endregion
+
+                    #region parse global optionsets
+                    if (filter.Optionsets != null && filter.Optionsets.Length > 0)
+                    {
+                        var row = 0;
+                        foreach (var optionset in filter.Optionsets)
+                        {
+                            row++;
+                            if (string.IsNullOrEmpty(optionset.Name))
+                            {
+                                throw new Exception($"Global optionset definition {row} does not have a name");
+                            }
+
+                            if (string.IsNullOrEmpty(optionset.Id))
+                            {
+                                throw new Exception($"Global optionset definition {row} does not have an id");
+                            }
+
+                            if (GLOBAL_OPTIONSET_INDEX.ContainsKey(optionset.Id))
+                            {
+                                throw new Exception($"Global optionset definition {row} id is not unique");
+                            }
+
+                            GLOBAL_OPTIONSET_INDEX.Add(optionset.Id, optionset);
+                        }
+                    }
+                    #endregion
+
+                    #region parse actions
+                    if (filter.Actions != null && filter.Actions.Length > 0)
+                    {
+                        var row = 0;
+                        foreach (var action in filter.Actions)
+                        {
+                            row++;
+                            if (string.IsNullOrEmpty(action.Name))
+                            {
+                                throw new Exception($"actions must have a name attribute, row: { row }");
+                            }
+
+                            if (string.IsNullOrEmpty(action.LogicalName))
+                            {
+                                throw new Exception($"action must have a logicalname, row: { row }, Name: { action.Name }");
+                            }
+                        }
+
+                        this.RegistreActions(meta);
+                    }
+                    #endregion
+                }
+                return;
+            }
+
+            /// Below legacy code to support simple and seamless approach to migrate from filter.xml til filter.json
+
+            XElement xml = XElement.Load("filter.xml");
+
+            var supress = xml.Attribute("supress-mapped-standard-optionset-properties");
+            if (supress != null && supress.Value.ToLower() == "true")
+            {
+                SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES = true;
+            }
+
+            #region parse entity definitions
+            {
+                XElement entitiesElement = xml.Element("entities");
+
+                var row = 0;
+                foreach (XElement entityElement in entitiesElement.Elements("entity"))
+                {
+                    row++;
+                    var uowName = entityElement.Attribute("servicename");
+                    if (uowName == null)
+                    {
+                        throw new Exception($"No servicename on entity number {row}");
+                    }
+
+                    var logicalname = entityElement.Attribute("logicalname");
+                    if (logicalname == null)
+                    {
+                        throw new Exception($"No logical name on entity number {row} : {uowName.Value}");
+                    }
+
+                    string primaryfield = null;
+                    {
+                        var pf = entityElement.Attribute("primaryfield");
+                        if (pf != null)
+                        {
+                            primaryfield = pf.Value;
+                        }
+                    }
+
+                    string primaryfieldvaluetemplate = null;
+                    {
+                        var pfv = entityElement.Attribute("primaryfieldvaluetemplate");
+                        if (pfv != null)
+                        {
+                            primaryfieldvaluetemplate = pfv.Value;
+                        }
+                    }
+
+                    List<Model.OptionSet> optionsets = new List<Model.OptionSet>();
+                    if (optionsets != null)
+                    {
+                        foreach (XElement optionset in entityElement.Elements("optionset"))
+                        {
+                            var optionsetLogicalname = optionset.Attribute("logicalname");
+                            var optionsetName = optionset.Attribute("name");
+                            var optionsetId = optionset.Attribute("id");
+                            var optionsetMulti = optionset.Attribute("multi");
+                            var next = new Model.OptionSet
+                            {
+                                Id = optionsetId?.Value,
+                                Name = optionsetName.Value,
+                                Logicalname = optionsetLogicalname.Value,
+                                Multi = optionsetMulti != null && optionsetMulti.Value.ToLower() == "true"
+                            };
+
+                            if (next.Id == null)
+                            {
+                                var values = new List<Model.OptionSetValue>();
+                                foreach (XElement optionsetValue in optionset.Elements("value"))
+                                {
+                                    values.Add(new Model.OptionSetValue
+                                    {
+                                        Name = optionsetValue.Attribute("name").Value,
+                                        ValueString = optionsetValue.Value
+                                    });
+                                }
+                                next.Values = values.ToArray();
+                                if (next.Values.Length == 0)
+                                {
+                                    throw new Exception($"Local optionset on {logicalname.Value} {next.Name} does not define any values");
+                                }
+                            }
+                            optionsets.Add(next);
+                        }
+                    }
+
+                    var entity = new Model.Entity
+                    {
+                        LogicalName = logicalname.Value,
+                        ServiceName = uowName.Value,
+                        Primaryfield = primaryfield,
+                        PrimaryfieldValuetemplate = primaryfieldvaluetemplate,
+                        Optionsets = optionsets.ToArray()
+                    };
+
+                    _validEntities.Add(entity.LogicalName, entity);
+                }
+            }
+            #endregion
+
+            #region parse global optionsets
+            {
+                XElement optionsetsElement = xml.Element("optionsets");
+                var row = 0;
+                if (optionsetsElement != null)
+                {
+                    foreach (XElement optionset in optionsetsElement.Elements("optionset"))
+                    {
+                        var optionsetName = optionset.Attribute("name");
+                        if (optionsetName == null)
+                        {
+                            throw new Exception($"Global optionset definition {row} does not have a name");
+                        }
+                        var optionsetId = optionset.Attribute("id");
+                        if (optionsetId == null)
+                        {
+                            throw new Exception($"Global optionset definition {row} does not have an id");
+                        }
+
+                        if (GLOBAL_OPTIONSET_INDEX.ContainsKey(optionsetId.Value))
+                        {
+                            throw new Exception($"Global optionset definition {row} id is not unique");
+                        }
+
+                        var next = new Model.OptionSet
+                        {
+                            Id = optionsetId.Value,
+                            Name = optionsetName.Value
+                        };
+
+                        var values = new List<Model.OptionSetValue>();
+                        foreach (XElement optionsetValue in optionset.Elements("value"))
+                        {
+                            values.Add(new Model.OptionSetValue
+                            {
+                                Name = optionsetValue.Attribute("name").Value,
+                                ValueString = optionsetValue.Value
+                            });
+                        }
+                        next.Values = values.ToArray();
+                        if (next.Values.Length == 0)
+                        {
+                            throw new Exception($"Global optionset {row} does not define any values");
+                        }
+                        GLOBAL_OPTIONSET_INDEX.Add(next.Id, next);
+                    }
+                }
+            }
+            #endregion
+
+            #region parse actions
+            {
+                XElement actionElements = xml.Element("actions");
+                if (actionElements != null)
+                {
+                    foreach (XElement action in actionElements.Elements("action"))
+                    {
+                        var name = action.Attribute("name");
+                        if (name == null || string.IsNullOrEmpty(name.Value))
+                        {
+                            throw new Exception("actions must have a name attribute");
+                        }
+                        var logicalName = action.Value;
+                        if (string.IsNullOrEmpty(logicalName))
+                        {
+                            throw new Exception("action logical name must be set inside the action tag");
+                        }
+                        var nextaction = new Model.Action { Name = name.Value, LogicalName = logicalName };
+                        ACTIONS.Add(nextaction);
+                    }
+                }
+                RegistreActions(meta);
+            }
+            #endregion
+
+            #region save current config as filter.json
+            {
+                var saveas = new Model.Filter
+                {
+                    SupressMappedStandardOptionsetProperties = SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES,
+                    Actions = ACTIONS?.ToArray(),
+                    Optionsets = GLOBAL_OPTIONSET_INDEX?.Values.ToArray(),
+                    Entities = _validEntities?.Values.ToArray()
+                };
+
+                var ser = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(Model.Filter));
+                using (var fs = new System.IO.FileStream("filter.json", System.IO.FileMode.Create))
+                {
+                    ser.WriteObject(fs, saveas);
+                    Console.WriteLine("********************************************************************************************************************");
+                    Console.WriteLine("* filter.xml has been migrated to filter.json. You must continue maintain the settings, using the new json format. *");
+                    Console.WriteLine("********************************************************************************************************************");
+                    Console.WriteLine("Press ENTER to continue");
+                    Console.ReadLine();
+                }
+            }
+            #endregion
+        }
+
+        private void RegistreActions(IOrganizationMetadata meta)
+        {
+            if (ACTIONS.Count > 0)
+            {
+                foreach (var action in ACTIONS)
+                {
+                    var sdkMessage = meta.Messages.MessageCollection.Values.Where(r => r.Name == action.LogicalName).Single();
+
+                    string entityLogicalName = null;
+                    var isActivity = false;
+                    if (sdkMessage.SdkMessageFilters != null && sdkMessage.SdkMessageFilters.Values.Count == 1)
+                    {
+                        var code = sdkMessage.SdkMessageFilters.Values.First().PrimaryObjectTypeCode;
+                        if (code > 0)
+                        {
+                            // even unbound entities has a filter with the primparyobjecttypecode equals 0
+                            var ent = meta.Entities.Where(r => r.ObjectTypeCode == code).Single();
+                            entityLogicalName = ent.LogicalName;
+                            isActivity = ent.IsActivity ?? false;
+                        }
+                    }
+
+                    var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage, entityLogicalName, isActivity);
+                    ACTIVITIES.Add(action.LogicalName, na);
+
+                    if (!string.IsNullOrEmpty(entityLogicalName))
+                    {
+                        LOGICALNAME2SCHEMANAME[action.LogicalName] = entityLogicalName;
+                    }
+                }
             }
         }
     }

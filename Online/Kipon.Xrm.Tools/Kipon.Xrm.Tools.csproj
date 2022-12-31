@@ -130,6 +130,7 @@
     <Compile Include="CodeWriter\CodeWriterFilter.cs" />
     <Compile Include="CodeWriter\Model\Action.cs" />
     <Compile Include="CodeWriter\Model\Entity.cs" />
+    <Compile Include="CodeWriter\Model\Filter.cs" />
     <Compile Include="CodeWriter\Model\OptionSet.cs" />
     <Compile Include="CodeWriter\Model\OptionSetValue.cs" />
     <Compile Include="CodeWriter\Model\Property.cs" />
