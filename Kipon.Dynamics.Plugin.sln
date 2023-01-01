@@ -88,6 +88,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.Fake", "Online\Ki
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.Xrm.UnitTests", "Online\Kipon.Xrm.UnitTests\Kipon.Xrm.UnitTests.csproj", "{338CA884-582E-4330-8FA9-18BA29843921}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{0AA8DCF1-E516-4F23-A62C-1B6E544FF771}"
+	ProjectSection(SolutionItems) = preProject
+		Online\SolutionItems\deploy.cmd = Online\SolutionItems\deploy.cmd
+		Online\SolutionItems\filter.json = Online\SolutionItems\filter.json
+		Online\SolutionItems\generate.cmd = Online\SolutionItems\generate.cmd
+		Online\SolutionItems\kipon-tools.json = Online\SolutionItems\kipon-tools.json
+		Online\SolutionItems\pack.cmd = Online\SolutionItems\pack.cmd
+		Online\SolutionItems\readme.md = Online\SolutionItems\readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +169,7 @@ Global
 		{70142FF3-289E-4ECD-BC3A-1487ECF4A07E} = {27776B7C-69BF-4714-B04F-74CDD189AD03}
 		{43A06959-57DF-4B1A-8C5C-E9DC92444BDC} = {27776B7C-69BF-4714-B04F-74CDD189AD03}
 		{338CA884-582E-4330-8FA9-18BA29843921} = {27776B7C-69BF-4714-B04F-74CDD189AD03}
+		{0AA8DCF1-E516-4F23-A62C-1B6E544FF771} = {27776B7C-69BF-4714-B04F-74CDD189AD03}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C512F021-FD52-4DEA-8137-EA27986B2E7D}

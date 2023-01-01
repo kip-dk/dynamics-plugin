@@ -1,0 +1,132 @@
+{
+  "supress-mapped-standard-optionset-properties": true,
+  "entities": [
+    {
+      "logicalname": "account",
+      "servicename": "Accounts",
+      "Optionsets": [
+        {
+          "id": null,
+          "logicalname": "preferredcontactmethodcode",
+          "multi": false,
+          "name": "PreferredContactMethodCode",
+          "values": [
+            {
+              "name": "Any",
+              "value": "1"
+            },
+            {
+              "name": "Email",
+              "value": "2"
+            },
+            {
+              "name": "Phone",
+              "value": "3"
+            },
+            {
+              "name": "Fax",
+              "value": "4"
+            },
+            {
+              "name": "Mail",
+              "value": "5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "logicalname": "contact",
+      "servicename": "Contacts"
+    },
+    {
+      "logicalname": "opportunity",
+      "servicename": "Opportunities",
+      "Optionsets": [
+        {
+          "id": "budget",
+          "logicalname": "budgetstatus",
+          "multi": false,
+          "name": "Budgetstatus",
+          "values": null
+        }
+      ]
+    },
+    {
+      "logicalname": "quote",
+      "servicename": "Quotes"
+    },
+    {
+      "logicalname": "salesorder",
+      "servicename": "Salesorders"
+    },
+    {
+      "logicalname": "invoice",
+      "servicename": "Invoices"
+    },
+    {
+      "logicalname": "systemuser",
+      "servicename": "Systemusers"
+    },
+    {
+      "logicalname": "phonecall",
+      "servicename": "Phonecalls"
+    },
+    {
+      "logicalname": "lead",
+      "servicename": "Leads"
+    },
+    {
+      "logicalname": "kipon_datepoc",
+      "servicename": "Datepocs"
+    },
+    {
+      "logicalname": "kipon_multitest",
+      "servicename": "Multitests"
+    },
+    {
+      "logicalname": "template",
+      "servicename": "Templates"
+    }
+  ],
+  "optionsets": [
+    {
+      "id": "budget",
+      "logicalname": null,
+      "multi": false,
+      "name": "BudgetEnum",
+      "values": [
+        {
+          "name": "NoCommittedBudget",
+          "value": "0"
+        },
+        {
+          "name": "MAyBuy",
+          "value": "1"
+        },
+        {
+          "name": "CanBuy",
+          "value": "2"
+        },
+        {
+          "name": "WillBuy",
+          "value": "3"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "logicalname": "kipon_AccountCountContacts",
+      "name": "AccountCountContacts"
+    },
+    {
+      "logicalname": "kipon_Anunboundedaction",
+      "name": "Anunboundedaction"
+    },
+    {
+      "logicalname": "QualifyLead",
+      "name": "QualityLead"
+    }
+  ]
+}

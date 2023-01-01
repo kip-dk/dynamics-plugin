@@ -1,0 +1,9 @@
+{
+  "connectionString": "AuthType=ClientSecret; url=https://[?].crm[?].dynamics.com; ClientId=[?]; ClientSecret=[?]; Tenentid=[?]",
+  "solution": "[unique solution name]",
+  "plugin": {
+    "name":  "[Solution name]",
+    "spec": "[full name and path of nuget spec file]",
+    "package": "[full name and path of nuget package, use $version to replace version name with version from spec in used filename]"
+  }
+}
