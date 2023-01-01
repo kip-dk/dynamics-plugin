@@ -40,53 +40,8 @@
       "servicename": "Contacts"
     },
     {
-      "logicalname": "opportunity",
-      "servicename": "Opportunities",
-      "Optionsets": [
-        {
-          "id": "budget",
-          "logicalname": "budgetstatus",
-          "multi": false,
-          "name": "Budgetstatus",
-          "values": null
-        }
-      ]
-    },
-    {
-      "logicalname": "quote",
-      "servicename": "Quotes"
-    },
-    {
-      "logicalname": "salesorder",
-      "servicename": "Salesorders"
-    },
-    {
-      "logicalname": "invoice",
-      "servicename": "Invoices"
-    },
-    {
-      "logicalname": "systemuser",
-      "servicename": "Systemusers"
-    },
-    {
-      "logicalname": "phonecall",
-      "servicename": "Phonecalls"
-    },
-    {
       "logicalname": "lead",
       "servicename": "Leads"
-    },
-    {
-      "logicalname": "kipon_datepoc",
-      "servicename": "Datepocs"
-    },
-    {
-      "logicalname": "kipon_multitest",
-      "servicename": "Multitests"
-    },
-    {
-      "logicalname": "template",
-      "servicename": "Templates"
     }
   ],
   "optionsets": [
@@ -116,14 +71,6 @@
     }
   ],
   "actions": [
-    {
-      "logicalname": "kipon_AccountCountContacts",
-      "name": "AccountCountContacts"
-    },
-    {
-      "logicalname": "kipon_Anunboundedaction",
-      "name": "Anunboundedaction"
-    },
     {
       "logicalname": "QualifyLead",
       "name": "QualityLead"
