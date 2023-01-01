@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>Kipon.Solid.Plugin</id>
-		<version>2.0.0.8-beta</version>
+		<version>2.0.0.9-beta</version>
 		<authors>Kjeld Ingemann Poulsen</authors>
 		<owners>Kipon ApS</owners>
 		<licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -10,7 +10,7 @@
 		<iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>Create Dynamics 365 CE (Online only) plugins according to SOLID software princips. This package provide the basic infrastructur for building plugins with services and inject these into the Dynamics 365 CE plugin pipeline.</description>
-		<releaseNotes>Kipon.Solid.Plugin version uses the new pluginpackage deploy model, and code are distributed as DLL, NOT raw source code. This release only supports Dynamics 365 CE online versions.</releaseNotes>
+		<releaseNotes>Kipon.Solid.Plugin version uses the new pluginpackage deploy model of Dynamics 365 CE, and code are distributed as DLL, NOT raw source code. This release only supports Dynamics 365 CE online versions.</releaseNotes>
 		<copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023</copyright>
 		<tags>Dynamics 365 CE plugin C# SOLID Dataverse</tags>
 		<readme>docs\README.md</readme>

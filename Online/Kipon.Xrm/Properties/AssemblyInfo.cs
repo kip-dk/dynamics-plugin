@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Kipon.Xrm")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Library for building plugins for Dynamics 265 CE Online according to SOLID software princips")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Kipon ApS")]
 [assembly: AssemblyProduct("Kipon.Xrm")]
 [assembly: AssemblyCopyright("Copyright ©  2022, 2023")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.5")]
-[assembly: AssemblyFileVersion("2.0.0.5")]
+[assembly: AssemblyVersion("2.0.0.9")]
+[assembly: AssemblyFileVersion("2.0.0.9")]
