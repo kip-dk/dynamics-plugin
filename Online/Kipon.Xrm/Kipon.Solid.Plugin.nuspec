@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>Kipon.Solid.Plugin</id>
-		<version>2.0.0.5-beta</version>
+		<version>2.0.0.6-beta</version>
 		<authors>Kjeld Ingemann Poulsen</authors>
 		<owners>Kipon ApS</owners>
 		<licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -20,8 +20,8 @@
 	</metadata>
 	<files>
 		<file src="bin\release\Kipon.Xrm.dll" target="lib/net462" />
-		<file src="..\Kipon.Xrm.Cmd\bin\Release\Kipon.Xrm.Cmd.exe" target="bin/coretools/Kipon.Xrm.Cmd.exe" />
-		<file src="..\Kipon.Xrm.Cmd\bin\Release\Kipon.Xrm.Cmd.exe" target="bin/coretools/ko.exe" />
-		<file src="..\Kipon.Xrm.Cmd\bin\Release\Kipon.Xrm.Tools.dll" target="bin/coretools/Kipon.Xrm.Tools.dll" />
+		<file src="..\Kipon.Xrm.Cmd\bin\Release\Kipon.Xrm.Cmd.exe" target="content/bin/coretools/Kipon.Xrm.Cmd.exe" />
+		<file src="..\Kipon.Xrm.Cmd\bin\Release\Kipon.Xrm.Cmd.exe" target="content/bin/coretools/ko.exe" />
+		<file src="..\Kipon.Xrm.Cmd\bin\Release\Kipon.Xrm.Tools.dll" target="content/bin/coretools/Kipon.Xrm.Tools.dll" />
 	</files>
 </package>
