@@ -95,7 +95,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		Online\SolutionItems\generate.cmd = Online\SolutionItems\generate.cmd
 		Online\SolutionItems\kipon-tools.json = Online\SolutionItems\kipon-tools.json
 		Online\SolutionItems\pack.cmd = Online\SolutionItems\pack.cmd
-		Online\SolutionItems\readme.md = Online\SolutionItems\readme.md
+		Online\SolutionItems\README.md = Online\SolutionItems\README.md
 	EndProjectSection
 EndProject
 Global
