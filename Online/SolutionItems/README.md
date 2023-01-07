@@ -10,7 +10,7 @@ The primary purpose of version 2.n is to support the new PluginPackage deploymen
 We have seen statment from Microsoft expecting general availability on Marts 2023, but the value is being changed. Please se below linke for details in the Microsoft annoncenemt:
 
 [Dynamics 365 CE PluginPackage deployment](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/dependent-assembly-plugins)
-[Microsoft release statements](https://learn.microsoft.com/en-us/power-platform-release-plan/2022wave1/data-platform/planned-features)
+[Microsoft release statements](https://learn.microsoft.com/en-us/power-platform-release-plan/2022wave2/data-platform/planned-features)
 
 
 #### Kipon.Solid.Plugin 2.n: It's a BETA.
@@ -31,10 +31,12 @@ The version 2.n is being distributed as a DLL (Kipon.Xrm.dll) rather than the ra
 
 Before deployment, you need to setup build of a nuget package, because code are deployed to Dynamics 365 CE through a Nuget package, containing all the needed assemblies.
 
-We will soon publish a full installation instruction on the official website of the framework on: 
+We have created an installation instruction for this version of Kipon.Solid.Plugin.
 
-[Kipon Solid Plugin Website](https://kipon.dk/solidplugin)
+You can find it here:
+
+[Kipon Solid Plugin Website](https://kipon.dk/solidplugin/installversion2)
 
 Stay tuned.
-Jan 1. 2023
+Jan 7. 2023
 
