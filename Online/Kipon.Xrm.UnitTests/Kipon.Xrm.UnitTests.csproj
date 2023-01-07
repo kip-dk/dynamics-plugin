@@ -108,6 +108,13 @@
     <Compile Include="Plugins\Account\AccountWithConfigPluginTest.cs" />
     <Compile Include="Plugins\Account\SpecialAccountPluginTest.cs" />
     <Compile Include="Plugins\Account\TargetAsPreValueTest.cs" />
+    <Compile Include="Plugins\Account\UsingNameServicePluginTest.cs" />
+    <Compile Include="Plugins\Contact\ContactDeletePluginTest.cs" />
+    <Compile Include="Plugins\Generic\ProspectPluginTest.cs" />
+    <Compile Include="Plugins\kipon_datepoc\PostUpdateTest.cs" />
+    <Compile Include="Plugins\ListMember\ListMemberPluginTest.cs" />
+    <Compile Include="Plugins\SpecialService\SpecialServicePluginTest.cs" />
+    <Compile Include="Plugins\Template\TemplatePluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xrm\Extensions\Strings\StringMethodsTest.cs" />
     <Compile Include="Xrm\Extensions\TypeConverters\TypeConvertersMethodsTest.cs" />

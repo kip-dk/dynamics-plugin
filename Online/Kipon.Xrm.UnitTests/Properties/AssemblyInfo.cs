@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Kipon.Xrm.UnitTests")]
-[assembly: AssemblyCopyright("Copyright ©  2022")]
+[assembly: AssemblyCopyright("Copyright ©  2022, 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -16,5 +16,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("338ca884-582e-4330-8fa9-18ba29843921")]
 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.5")]
-[assembly: AssemblyFileVersion("2.0.0.5")]
+[assembly: AssemblyVersion("2.0.0.10")]
+[assembly: AssemblyFileVersion("2.0.0.10")]

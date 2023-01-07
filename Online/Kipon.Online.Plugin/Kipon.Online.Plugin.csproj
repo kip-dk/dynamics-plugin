@@ -123,6 +123,7 @@
     <Compile Include="Plugins\Account\SpecialAccountPlugin.cs" />
     <Compile Include="Plugins\Account\TargetAsPreValue.cs" />
     <Compile Include="Plugins\Account\UseTargetAttributesPlugin.cs" />
+    <Compile Include="Plugins\Account\UsingNameServicePlugin.cs" />
     <Compile Include="Plugins\AnunboundedactionPlugin.cs" />
     <Compile Include="Plugins\Contact\ContactDeletePlugin.cs" />
     <Compile Include="Plugins\Contact\ContactPlugin.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Plugins\Lead\LeadPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
     <Compile Include="Plugins\Relationship\RelationshipPlugin.cs" />
+    <Compile Include="Plugins\SpecialService\SpecialServicePlugin.cs" />
     <Compile Include="Plugins\Template\TemplatePlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -140,9 +142,11 @@
     <Compile Include="ServiceAPI\IContactService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="ServiceAPI\ISpecialAccountService.cs" />
+    <Compile Include="ServiceAPI\ISpecialAdminService.cs" />
     <Compile Include="Service\AccountService.cs" />
     <Compile Include="Service\ContactService.cs" />
     <Compile Include="Service\SpecialAccountService.cs" />
+    <Compile Include="Service\SpecialAdminService.cs" />
     <Compile Include="Setting.cs" />
   </ItemGroup>
   <ItemGroup>

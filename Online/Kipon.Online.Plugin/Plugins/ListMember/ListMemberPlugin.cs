@@ -13,14 +13,17 @@ namespace Kipon.Online.Plugin.Plugins.ListMember
 
         public void OnPreRemoveMember(Guid listId, Guid entityId)
         {
-            if (listId != LISTID)
+            if (Setting.IsUnitTest)
             {
-                throw new Exception("Expected another lidtId guid for this list");
-            }
+                if (listId != LISTID)
+                {
+                    throw new Exception("Expected another lidtId guid for this list");
+                }
 
-            if (entityId != ENTITYID)
-            {
-                throw new Exception("Expected another entityId guid for this list");
+                if (entityId != ENTITYID)
+                {
+                    throw new Exception("Expected another entityId guid for this list");
+                }
             }
         }
     }

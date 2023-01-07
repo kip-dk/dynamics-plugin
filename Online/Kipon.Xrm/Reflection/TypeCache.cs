@@ -468,16 +468,18 @@
                         isActionReference = true;
                     }
 
-                    var result = new TypeCache { FromType = type, ToType = r1, Constructor = GetConstructor(r1), LogicalName = logialName, IsActionReference = isActionReference };
+                    var result = new TypeCache 
+                    { 
+                        FromType = type, 
+                        ToType = r1, 
+                        Constructor = GetConstructor(r1), 
+                        LogicalName = logialName, 
+                        IsActionReference = isActionReference,
+                        RequireAdminService = parameter.GetCustomAttributes(Types.AdminAttribute, false).Any()
+                    };
 
                     resolvedTypes[key] = result;
                     return result;
-                }
-                #endregion
-
-                #region find relevant abstract extension
-                if (type.IsAbstract)
-                {
                 }
                 #endregion
 
@@ -691,6 +693,24 @@
         public bool IsEntityCache { get; private set; }
         public bool RequireAdminService { get; private set; }
         public bool AllProperties { get; private set; }
+
+        public bool IsAdminUnitOfwork
+        {
+            get
+            {
+                return this.FromType.Implements(Types.IAdminUnitOfWork) ||
+                    (this.FromType.Implements(Types.IUnitOfWork) && this.RequireAdminService);
+            }
+        }
+
+        public bool IsUnitOfWork
+        {
+            get
+            {
+                return this.FromType.Implements(Types.IUnitOfWork) && !this.RequireAdminService;
+            }
+        }
+
         public CommonProperty[] FilteredProperties { get; private set; }
 
         private CommonProperty[] _targetFilterProperties;
@@ -792,6 +812,12 @@
                         this._ik = Types.IAdminUnitOfWork.FullName;
                         this.RequireAdminService = true;
                     }
+                    else if (this.FromType.Implements(Types.IUnitOfWork) && this.RequireAdminService)
+                    {
+                        this._ik = Types.IAdminUnitOfWork.FullName;
+                        this.RequireAdminService = true;
+                    }
+                    else if (this.FromType.Implements(Types.IUnitOfWork)) this._ik = Types.IUnitOfWork.FullName;
                     else if (this.FromType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
                     {
                         if (this.RequireAdminService)
@@ -811,8 +837,6 @@
                         }
                         return this.ToType.FullName;
                     }
-                    else if (this.FromType.Implements(Types.IAdminUnitOfWork)) this._ik = Types.IAdminUnitOfWork.FullName;
-                    else if (this.FromType.Implements(Types.IUnitOfWork)) this._ik = Types.IUnitOfWork.FullName;
                     else if (this.FromType == typeof(Guid)) return $"GUID:{this.Name}";
                     else if (this.ToType != null) this._ik = this.ToType.FullName;
                     else this._ik = this.FromType.FullName;

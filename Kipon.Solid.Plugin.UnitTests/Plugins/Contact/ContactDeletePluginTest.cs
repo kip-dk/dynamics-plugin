@@ -19,7 +19,15 @@ namespace Kipon.Solid.Plugin.UnitTests.Plugins.Contact
                 contact["fullname"] = "solid test";
                 ctx.AddEntity(contact);
 
+                var called = false;
+                ctx.OnPre = delegate
+                {
+                    called = true;
+                };
+
                 ctx.Delete(new Microsoft.Xrm.Sdk.EntityReference(Entities.Contact.EntityLogicalName, contact.ContactId.Value));
+
+                Assert.IsTrue(called);
             }
 
         }

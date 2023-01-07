@@ -176,6 +176,7 @@
     <None Include="app.config" />
     <None Include="Kipon.Solid.Plugin.nuspec" />
     <None Include="Kipon.Solid.Plugin.snk" />
+    <None Include="pack.cmd" />
     <None Include="packages.config" />
     <None Include="README.MD" />
   </ItemGroup>
