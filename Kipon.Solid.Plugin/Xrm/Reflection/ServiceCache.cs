@@ -193,6 +193,16 @@
                         return this.GetOrganizationService(type.RequireAdminService);
                     }
 
+                    if (type.IsAdminUnitOfWork)
+                    {
+                        return this.GetIUnitOfWork(true);
+                    }
+
+                    if (type.IsUnitOfWork)
+                    {
+                        return this.GetIUnitOfWork(false);
+                    }
+
                     if (type.IsQuery)
                     {
                         var uow = this.GetIUnitOfWork(type.RequireAdminService);

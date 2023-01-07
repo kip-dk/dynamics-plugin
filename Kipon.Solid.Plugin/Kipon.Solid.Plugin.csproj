@@ -147,11 +147,13 @@
     <Compile Include="Plugins\Lead\LeadPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
     <Compile Include="Plugins\Relationship\RelationshipPlugin.cs" />
+    <Compile Include="Plugins\SpecialService\SpecialServicePlugin.cs" />
     <Compile Include="Plugins\Template\TemplatePlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
     <Compile Include="ServiceAPI\IContactService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="ServiceAPI\ISpecialAccountService.cs" />
+    <Compile Include="ServiceAPI\ISpecialAdminService.cs" />
     <Compile Include="Service\ContactService.cs" />
     <Compile Include="Service\SpecialAccountService.cs" />
     <Compile Include="Setting.cs" />
@@ -232,6 +234,7 @@
     <Compile Include="Xrm\Reflection\Types.cs" />
     <Compile Include="Xrm\ServiceAPI\INamingService.cs" />
     <Compile Include="Xrm\Services\NamingService.cs" />
+    <Compile Include="Service\SpecialAdminService.cs" />
     <Compile Include="Xrm\VirtualEntityPlugin.cs" />
     <Compile Include="Xrm\Services\PluginContext.cs" />
     <Compile Include="Xrm\Target.cs" />

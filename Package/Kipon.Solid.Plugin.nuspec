@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>Kipon.Solid.Plugin</id>
-		<version>1.0.9.4</version>
+		<version>1.0.9.5</version>
 		<authors>Kjeld Ingemann Poulsen</authors>
 		<owners>Kipon ApS</owners>
 		<licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -10,7 +10,7 @@
 		<iconUrl>http://www.kipon.dk/layouts/kjeld/cow.png</iconUrl>
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>Create Dynamics 365 plugins according to SOLID software princips. This package provide the basic infrastructur for building plugins with services and inject these into the Dynamics 365 plugin pipeline.</description>
-		<releaseNotes>Facility to parse empty guid to an entity reference to ensure the value is cleared from a web api update operation</releaseNotes>
+		<releaseNotes>If IUnitOfWork injection is decorated with [Admin], you will get an IAdminUnitOfWork instance</releaseNotes>
 		<copyright>Copyright Kipon ApS 2019,2020,2021,2022</copyright>
 		<tags>Dynamics 365 plugin C# SOLID</tags>
 		<dependencies>

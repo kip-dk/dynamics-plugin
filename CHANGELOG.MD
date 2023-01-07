@@ -1,6 +1,10 @@
-## Last updated: 2022-01-10
+## Last updated: 2023-01-07
 
-### 1.0.0.4 
+### 1.0.9.5
+If [Admin] attributes was used when injecting IUnitOfWork, the underlying IOrganizationService would NOT be running with system priviliges, but would run in the context of the current user.
+This has been fixed, so, injecting [Admin]IUnitOfWork is now effectlvely the same as injecting IAdminUnitOfWork
+
+### 1.0.9.4 
 Extension method in SDK namespace to replace all EntityReference empty guid with null. This is convinient when working with Web api based clients, that need to clear
 entityreference in same update operation as other fields. By setting the id to empty guid, and impl. a plugin that replaces empty guid with null in the update operation, this becomes possible.
 

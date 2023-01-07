@@ -1,6 +1,5 @@
 ### Kipon Dynamics 365 SOLID plugin template 
 
-
 ##About Kiopn Solid Plugin framework
 This is a framework for building Dynamics 365 CE plugin libraries, following the guidance that SOLID software princips is given.
 
@@ -47,7 +46,7 @@ We are only adding on the top. To take advantage of the full framework we encour
 2) Add nuget package Kipon.Solid.Plugin to the library
 
 ```shell
-Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.9.4
+Install-Package Kipon.Solid.Plugin -MinimumVersion 1.0.9.5
 ```
 
 3) Rename the following files included in your project, and adjust according to your need

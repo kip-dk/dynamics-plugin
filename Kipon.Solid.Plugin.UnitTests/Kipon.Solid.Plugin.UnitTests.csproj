@@ -117,6 +117,7 @@
     <Compile Include="Plugins\Generic\ProspectPluginTest.cs" />
     <Compile Include="Plugins\kipon_datepoc\PostUpdateTest.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPluginTest.cs" />
+    <Compile Include="Plugins\SpecialService\SpecialServicePluginTest.cs" />
     <Compile Include="Plugins\Template\TemplatePluginTest.cs" />
     <Compile Include="Xrm\Extensions\KiponSdk\KiponSdkExtensionsTest.cs" />
     <Compile Include="Xrm\Extensions\QueryExpression\QueryExpressionTest.cs" />
