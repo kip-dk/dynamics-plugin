@@ -38,12 +38,12 @@
             this.systemuserid = pluginExecutionContext.UserId;
         }
 
-        public object Resolve(TypeCache type)
+        public object Resolve(TypeCache type, Microsoft.Xrm.Sdk.ITracingService trace)
         {
-            return this.Resolve(type, null);
+            return this.Resolve(type, null, trace);
         }
 
-        public object Resolve(TypeCache type, Microsoft.Xrm.Sdk.IOrganizationService orgService)
+        public object Resolve(TypeCache type, Microsoft.Xrm.Sdk.IOrganizationService orgService, Microsoft.Xrm.Sdk.ITracingService trace)
         {
             try
             {
@@ -195,17 +195,17 @@
 
                     if (type.IsAdminUnitOfwork)
                     {
-                        return this.GetIUnitOfWork(true);
+                        return this.GetIUnitOfWork(true, trace);
                     }
 
                     if (type.IsUnitOfWork)
                     {
-                        return this.GetIUnitOfWork(false);
+                        return this.GetIUnitOfWork(false, trace);
                     }
 
                     if (type.IsQuery)
                     {
-                        var uow = this.GetIUnitOfWork(type.RequireAdminService);
+                        var uow = this.GetIUnitOfWork(type.RequireAdminService, trace);
                         var repositoryProperty = type.RepositoryProperty;
                         var repository = repositoryProperty.GetValue(uow, new object[0]);
                         var queryMethod = type.QueryMethod;
@@ -214,14 +214,14 @@
 
                     if (type.IsRepository)
                     {
-                        var uow = this.GetIUnitOfWork(type.RequireAdminService);
+                        var uow = this.GetIUnitOfWork(type.RequireAdminService, trace);
                         var queryProperty = type.RepositoryProperty;
                         return queryProperty.GetValue(uow, new object[0]);
                     }
 
                     if (type.IsEntityCache)
                     {
-                        var uow = this.GetIUnitOfWork(type.RequireAdminService);
+                        var uow = this.GetIUnitOfWork(type.RequireAdminService, trace);
                         var cacheProperty = uow.GetType().GetProperty("Cache");
                         return cacheProperty.GetValue(uow, new object[0]);
                     }
@@ -256,7 +256,7 @@
                         throw new InvalidPluginExecutionException("Relationship is requested as input parameter but there is no such information in the payload");
                     }
 
-                    return this.CreateServiceInstance(type);
+                    return this.CreateServiceInstance(type, trace);
                 }
             }
             catch (System.Collections.Generic.KeyNotFoundException)
@@ -269,10 +269,10 @@
 
         private List<string> resolving = new List<string>();
 
-        private IUnitOfWork GetIUnitOfWork(bool admin)
+        private IUnitOfWork GetIUnitOfWork(bool admin, Microsoft.Xrm.Sdk.ITracingService traceService)
         {
-            TypeCache tc = TypeCache.ForUow(admin);
-            return (IUnitOfWork)this.CreateServiceInstance(tc);
+            TypeCache tc = TypeCache.ForUow(admin, traceService);
+            return (IUnitOfWork)this.CreateServiceInstance(tc, traceService);
         }
 
         private Microsoft.Xrm.Sdk.IOrganizationService GetOrganizationService(bool admin)
@@ -298,7 +298,7 @@
             return (Microsoft.Xrm.Sdk.IOrganizationService)services[objectInstanceKey];
         }
 
-        private object CreateServiceInstance(TypeCache type)
+        private object CreateServiceInstance(TypeCache type, Microsoft.Xrm.Sdk.ITracingService trace)
         {
             if (resolving.Contains(type.ObjectInstanceKey))
             {
@@ -307,7 +307,7 @@
             try
             {
                 resolving.Add(type.ObjectInstanceKey);
-                var argTypes = ServiceConstructorCache.ForConstructor(type.Constructor);
+                var argTypes = ServiceConstructorCache.ForConstructor(type.Constructor, trace);
                 var args = new object[argTypes != null ? argTypes.Length : 0];
 
                 if (args.Length == 0)
@@ -380,7 +380,7 @@
                     }
 
                     {
-                        var next = this.Resolve(argType);
+                        var next = this.Resolve(argType, trace);
                         if (next != null)
                         {
                             services[argType.ObjectInstanceKey] = next;

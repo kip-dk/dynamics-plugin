@@ -8234,6 +8234,22 @@ namespace Kipon.Online.Plugin.Entities
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_description")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(1000)]
+		public string kipon_description
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("kipon_description");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_description");
+				this.SetAttributeValue("kipon_description", value);
+				this.OnPropertyChanged("kipon_description");
+			}
+		}
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_localdateonly")]
 		public System.Nullable<System.DateTime> kipon_localdateonly
 		{

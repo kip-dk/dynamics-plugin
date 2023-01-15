@@ -151,14 +151,14 @@ namespace Kipon.Xrm.Tools.Services
 
                         foreach (var logicalname in handleEntities)
                         {
-                            var methods = this.pluginMethodCache.ForPlugin(pluginType, stage, message, logicalname, false, false);
+                            var methods = this.pluginMethodCache.ForPlugin(pluginType, stage, message, logicalname, false, Kipon.Xrm.Tools.Services.TracingService.Instance, false);
                             if (methods != null && methods.Length > 0)
                             {
                                 next.AddStep(stage, message, logicalname, false, methods);
                             }
                             if (stage == 40)
                             {
-                                methods = this.pluginMethodCache.ForPlugin(pluginType, stage, message, logicalname, true, false);
+                                methods = this.pluginMethodCache.ForPlugin(pluginType, stage, message, logicalname, true, Kipon.Xrm.Tools.Services.TracingService.Instance, false);
                                 if (methods != null)
                                 {
                                     next.AddStep(stage, message, logicalname, true, methods);

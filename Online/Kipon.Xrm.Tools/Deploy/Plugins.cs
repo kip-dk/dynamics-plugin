@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -96,15 +98,31 @@ namespace Kipon.Xrm.Tools.Deploy
                     throw new Exception($"The nuget package did not contain the expected plugin code for library: { pluginAssemblies[0].Name }");
                 }
 
+                var dyns = new Dictionary<string, Assembly>();
                 System.Reflection.Assembly pluginAssm = null;
+
+
+                var others = new List<Assembly>();
+
+                {
+                    var code = System.AppDomain.CurrentDomain.Load(plugindll.Code);
+                    pluginAssm = code;
+                    Console.WriteLine($"Loaded: {code.FullName }");
+                    dyns.Add(code.FullName, code);
+                }
 
                 foreach (var dll in dlls)
                 {
-                    var code = System.Reflection.Assembly.Load(dll.Code);
-                    if (dll.Shortname == pluginAssemblies[0].Name)
+                    if (dll == plugindll)
                     {
-                        pluginAssm = code;
+                        continue;
                     }
+
+                    var code = System.AppDomain.CurrentDomain.Load(dll.Code);
+                    others.Add(code);
+                    Console.WriteLine($"Loaded: { code.FullName }");
+                    dyns.Add(code.FullName, code);
+
                 }
 
                 if (pluginAssm == null)
@@ -114,6 +132,11 @@ namespace Kipon.Xrm.Tools.Deploy
                         this.pacService.Delete(pluginPackage.PluginPackageId.Value);
                     }
                     throw new Exception($"Plugin assembly was not loaded, it is not possible to determin needed steps to be created: { pluginAssemblies[0].Name }");
+                }
+
+                if (others.Count > 0)
+                {
+                    Kipon.Xrm.Reflection.TypeCache.AddServiceAssemblies(pluginAssm, others);
                 }
 
                 foreach (var type in pluginAssm.GetTypes())
@@ -128,6 +151,18 @@ namespace Kipon.Xrm.Tools.Deploy
                         break;
                     }
                 }
+
+                Assembly DynamicResolver(object sender, ResolveEventArgs args) 
+                {
+                    if (dyns.TryGetValue(args.Name, out Assembly asm))
+                    {
+                        return asm;
+                    }
+                    return null;
+                }
+
+                System.AppDomain.CurrentDomain.AssemblyResolve += DynamicResolver;
+
 
                 // Then we find out the steps we needs according to the loaded assembly
                 var upcommingPlugins = pluginDeployService.ForAssembly(pluginAssm);

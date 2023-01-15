@@ -141,6 +141,7 @@
     <Compile Include="ServiceAPI\IAccountService.cs" />
     <Compile Include="ServiceAPI\IContactService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
+    <Compile Include="ServiceAPI\ISomeExternalService.cs" />
     <Compile Include="ServiceAPI\ISpecialAccountService.cs" />
     <Compile Include="ServiceAPI\ISpecialAdminService.cs" />
     <Compile Include="Service\AccountService.cs" />
@@ -148,10 +149,12 @@
     <Compile Include="Service\SpecialAccountService.cs" />
     <Compile Include="Service\SpecialAdminService.cs" />
     <Compile Include="Setting.cs" />
+    <Compile Include="Temp\ServiceResolverLibraries.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Entities\generate.cmd" />
+    <None Include="kipon-tools.json" />
     <None Include="Kipon.Online.Plugin.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

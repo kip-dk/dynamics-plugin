@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Kipon.Xrm")]
-[assembly: AssemblyDescription("Library for building plugins for Dynamics 265 CE Online according to SOLID software princips")]
+[assembly: AssemblyTitle("Kipon.Online.Plugin.Services")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Kipon ApS")]
-[assembly: AssemblyProduct("Kipon.Xrm")]
-[assembly: AssemblyCopyright("Copyright ©  2022, 2023")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Kipon.Online.Plugin.Services")]
+[assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e1b9d006-5601-4304-8535-21dca2285147")]
+[assembly: Guid("127c5dab-985c-44dc-9d3d-a2d9af36f857")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.11")]
-[assembly: AssemblyFileVersion("2.0.0.11")]
+[assembly: AssemblyVersion("1.0.0.3")]
+[assembly: AssemblyFileVersion("1.0.0.3")]

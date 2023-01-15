@@ -53,8 +53,11 @@ namespace Kipon.Xrm.Services
 
         public static void Add(string entitylogicalname, string entityattributeid, string entityattributename)
         {
-            var m = new Meta { PrimaryAttributeId = entityattributeid, PrimaryAttributeName = entityattributename };
-            metas[entitylogicalname] = m;
+            if (!metas.ContainsKey(entitylogicalname))
+            {
+                var m = new Meta { PrimaryAttributeId = entityattributeid, PrimaryAttributeName = entityattributename };
+                metas[entitylogicalname] = m;
+            }
         }
 
         private class Meta

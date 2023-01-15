@@ -12,6 +12,12 @@ namespace Kipon.Online.Plugin.Plugins.kipon_datepoc
     {
         private const string label = "Test of: ";
 
+        public void OnValidateCreate(Entities.kipon_datepoc target, ServiceAPI.ISomeExternalService extService)
+        {
+            target.kipon_description = extService.GetNameOf(target.LogicalName, target.Id); 
+        }
+
+
         public void OnPreCreate(Entities.kipon_datepoc target, Kipon.Xrm.IRepository<Entities.kipon_datepoc> repository)
         {
             target.kipon_no = (from r in repository.GetQuery() select r.kipon_datepocId.Value).ToArray().Count() + 1;

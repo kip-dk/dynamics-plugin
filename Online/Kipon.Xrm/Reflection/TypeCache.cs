@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
     /// <summary>
     /// Type cache is used to resolved types for each parameter in a context. 
@@ -19,6 +20,8 @@
 
         private static readonly object locks = new object();
 
+        private static Dictionary<Assembly, Assembly[]> SERVICEASSEMBLYINDEX = new Dictionary<Assembly, Assembly[]>();
+
         static TypeCache()
         {
             TypeCache.Types = Types.Instance;
@@ -28,9 +31,18 @@
             UOW_ADMIN = pms[1];
         }
 
+        public static void AddServiceAssemblies(Assembly pluginLib, IEnumerable<Assembly> others)
+        {
+            if (others != null && others.Count() > 0)
+            {
+                SERVICEASSEMBLYINDEX[pluginLib] = others.ToArray();
+                _allTypes = null;
+            } 
+        }
+
         private static Dictionary<Key, TypeCache> resolvedTypes = new Dictionary<Key, TypeCache>();
 
-        public static TypeCache ForParameter(System.Reflection.ParameterInfo parameter, string logicalname)
+        public static TypeCache ForParameter(System.Reflection.ParameterInfo parameter, string logicalname, Microsoft.Xrm.Sdk.ITracingService trace)
         {
             var key = new Key() { Parameter = parameter, LogicalName = logicalname };
 
@@ -456,7 +468,7 @@
                 #region find implementing interface
                 if (type.IsInterface)
                 {
-                    var r1 = GetInterfaceImplementation(type);
+                    var r1 = GetInterfaceImplementation(type, trace);
 
                     var entityType = type.ImplementsGenericInterface(Types.ActionTarget);
                     string logialName = null;
@@ -483,7 +495,7 @@
                 }
                 #endregion
 
-                throw new Exceptions.UnresolvableTypeException(type);
+                throw new Exceptions.UnresolvableTypeException(type, "Source 1");
             }
         }
 
@@ -517,7 +529,7 @@
         }
 
 
-        public static TypeCache ForUow(bool admin)
+        public static TypeCache ForUow(bool admin, Microsoft.Xrm.Sdk.ITracingService trace)
         {
             var pi = admin ? UOW_ADMIN : UOW;
 
@@ -528,7 +540,7 @@
             }
 
             var fromType = admin ? Types.IAdminUnitOfWork : Types.IUnitOfWork;
-            var r1 = GetInterfaceImplementation(fromType);
+            var r1 = GetInterfaceImplementation(fromType, trace);
             var result = new TypeCache { FromType = fromType, ToType = r1, Constructor = GetConstructor(r1), RequireAdminService = admin };
             resolvedTypes[key] = result;
             return result;
@@ -550,6 +562,28 @@
 
                     result.AddRange(typeof(TypeCache).Assembly.GetTypes());
                     result.AddRange(Types.Assembly.GetTypes());
+
+                    if (SERVICEASSEMBLYINDEX.TryGetValue(Types.Assembly, out Assembly[] others))
+                    {
+                        foreach (var other in others)
+                        {
+                            try
+                            {
+                                result.AddRange(other.GetTypes());
+                            } catch (System.Reflection.ReflectionTypeLoadException re)
+                            {
+                                if (re.LoaderExceptions != null && re.LoaderExceptions.Length > 0)
+                                {
+                                    foreach (var le in re.LoaderExceptions)
+                                    {
+                                        Console.WriteLine(le.Message);
+                                    }
+                                }
+                                throw;
+                            }
+                        }
+                    }
+
                     _allTypes = result.ToArray();
                 }
                 return _allTypes;
@@ -557,7 +591,7 @@
         }
 
         #region private static helpers
-        private static Type GetInterfaceImplementation(Type type)
+        private static Type GetInterfaceImplementation(Type type, Microsoft.Xrm.Sdk.ITracingService trace)
         {
             var allTypes = AllTypes;
 
@@ -582,7 +616,8 @@
 
             if (candidates.Count == 0)
             {
-                throw new Exceptions.UnresolvableTypeException(type);
+                LogFail2Load(trace, allTypes);
+                throw new Exceptions.UnresolvableTypeException(type, "Source 2");
             }
 
             var all = candidates.ToArray();
@@ -605,6 +640,29 @@
             }
 
             throw new Exceptions.MultiImplementationOfSameInterfaceException(type);
+        }
+
+        private static void LogFail2Load(Microsoft.Xrm.Sdk.ITracingService traceService, Type[] allTypes)
+        {
+            var assm = Types.Assembly;
+            traceService.Trace($"Failed on load for assembly: { assm.FullName }");
+
+            if (SERVICEASSEMBLYINDEX.TryGetValue(Types.Assembly, out Assembly[] others))
+            {
+                foreach (var oth in others)
+                {
+                    traceService.Trace($"Other service assembly: { oth.FullName }");
+                }
+
+                foreach (var t in allTypes)
+                {
+                    traceService.Trace($"{ t.Assembly.FullName }: { t.FullName }");
+                }
+
+            } else
+            {
+                traceService.Trace($"We did not find any service assms");
+            }
         }
 
         private static System.Reflection.ConstructorInfo GetConstructor(Type type)
@@ -757,14 +815,14 @@
                 var entityType = this.ToType.GetGenericArguments()[0];
                 var queryType = repositoryType.MakeGenericType(entityType);
 
-                var uowTC = TypeCache.ForUow(this.RequireAdminService);
+                var uowTC = TypeCache.ForUow(this.RequireAdminService, null);
 
                 var properties = uowTC.ToType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
                                         .Where(r => r.PropertyType == queryType).ToArray();
 
                 if (properties.Length == 0)
                 {
-                    throw new Exceptions.UnresolvableTypeException(this.ToType);
+                    throw new Exceptions.UnresolvableTypeException(this.ToType, "Source 3");
                 }
 
                 if (properties.Length > 1)
@@ -788,7 +846,7 @@
                     this._queryMethod = repository.PropertyType.GetMethod("GetQuery", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
                     if (this.QueryMethod == null)
                     {
-                        throw new Exceptions.UnresolvableTypeException(this.ToType);
+                        throw new Exceptions.UnresolvableTypeException(this.ToType, "Source 4");
                     }
                 }
                 return this._queryMethod;

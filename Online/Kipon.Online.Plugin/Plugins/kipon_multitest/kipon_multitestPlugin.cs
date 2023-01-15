@@ -13,22 +13,25 @@ namespace Kipon.Online.Plugin.Plugins.kipon_multitest
         {
             var queryWithoutName = (from r in repo.GetQuery()
                                  where r.kipon_Name == "ROOT"
-                                 select r.kipon_multitestId).Single();
+                                 select r.kipon_multitestId).SingleOrDefault();
 
-            var queryWithName = (from r in repo.GetQuery()
-                                 where r.kipon_multitestId == queryWithoutName.Value
-                                 select new
-                                 {
-                                     Id = r.kipon_multitestId.Value,
-                                     Name = r.kipon_Name
-                                 }).Single();
-
-            if (string.IsNullOrEmpty(queryWithName.Name))
+            if (queryWithoutName != null)
             {
-                throw new InvalidPluginExecutionException("name did not have a value");
-            }
+                var queryWithName = (from r in repo.GetQuery()
+                                     where r.kipon_multitestId == queryWithoutName.Value
+                                     select new
+                                     {
+                                         Id = r.kipon_multitestId.Value,
+                                         Name = r.kipon_Name
+                                     }).Single();
 
-            target.kipon_Name = $"{ queryWithoutName.Value.ToString() } did have a name: { queryWithName.Name }";
+                if (string.IsNullOrEmpty(queryWithName.Name))
+                {
+                    throw new InvalidPluginExecutionException("name did not have a value");
+                }
+
+                target.kipon_Name = $"{queryWithoutName.Value.ToString()} did have a name: {queryWithName.Name}";
+            }
 
         }
     }

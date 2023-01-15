@@ -204,6 +204,7 @@
     <Compile Include="Services\SolutionComponentsService.cs" />
     <Compile Include="Services\SolutionService.cs" />
     <Compile Include="Services\SystemFormService.cs" />
+    <Compile Include="Services\TracingService.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="XrmOrganization\ConnectionString.cs" />
     <Compile Include="XrmOrganization\OAuthOrganizationService.cs" />

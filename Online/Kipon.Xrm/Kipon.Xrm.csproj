@@ -130,6 +130,7 @@
     <Compile Include="Exceptions\UnresolveableParameterException.cs" />
     <Compile Include="Exceptions\UnresolvedQueryParameter.cs" />
     <Compile Include="Extensions\IQueryable\QueryableMethods.cs" />
+    <Compile Include="Extensions\Platform\PlatformExtensions.cs" />
     <Compile Include="Extensions\QueryExpression\QueryExpressionMethods.cs" />
     <Compile Include="Extensions\Sdk\KiponSdkGeneratedExtensionMethods.cs" />
     <Compile Include="Extensions\Strings\StringMethods.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Reflection\Types.cs" />
     <Compile Include="ServiceAPI\IEntityCache.cs" />
     <Compile Include="ServiceAPI\INamingService.cs" />
+    <Compile Include="ServiceAPI\IServiceResolverLibraries.cs" />
     <Compile Include="ServiceAPI\IStaticInitializer.cs" />
     <Compile Include="ServiceAPI\IVersion.cs" />
     <Compile Include="Services\NamingService.cs" />

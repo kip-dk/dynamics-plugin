@@ -15,7 +15,7 @@ namespace Kipon.Xrm.UnitTests.Xrm.Reflection
         {
             var constructor = typeof(MyOkService).GetConstructors()[0];
 
-            var types = Kipon.Xrm.Reflection.ServiceConstructorCache.ForConstructor(constructor);
+            var types = Kipon.Xrm.Reflection.ServiceConstructorCache.ForConstructor(constructor, Kipon.Xrm.Fake.Services.TracingService.Instance);
             Assert.AreEqual(0, types.Length);
         }
 
@@ -24,7 +24,7 @@ namespace Kipon.Xrm.UnitTests.Xrm.Reflection
         {
             var constructor = typeof(MyOk2Service).GetConstructors()[0];
 
-            var types = Kipon.Xrm.Reflection.ServiceConstructorCache.ForConstructor(constructor);
+            var types = Kipon.Xrm.Reflection.ServiceConstructorCache.ForConstructor(constructor, Kipon.Xrm.Fake.Services.TracingService.Instance);
             Assert.AreEqual(1, types.Length);
         }
 

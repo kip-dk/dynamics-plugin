@@ -1,8 +1,14 @@
 ﻿namespace Kipon.Xrm
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Microsoft.Xrm.Sdk;
+    using Kipon.Xrm.Extensions.Platform;
+    using System.Reflection;
+    using Kipon.Xrm.Reflection;
+    using System.Runtime.InteropServices;
+
     public abstract class BasePlugin : IPlugin
     {
         public const string Version = "2.0.0.10";
@@ -17,8 +23,6 @@
                 PluginMethodCache = new Reflection.PluginMethod.Cache(this.GetType().Assembly);
                 Reflection.Types.Instance.SetAssembly(this.GetType().Assembly);
             }
-
-            this.Initialize();
         }
 
         public BasePlugin(string unSecure, string secure) : this()
@@ -40,6 +44,9 @@
             var toolOrgService = serviceFactory.CreateOrganizationService(null);
 
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+
+            this.Initialize(tracingService);
+
 
             var userId = context.UserId;
             var message = context.MessageName;
@@ -65,7 +72,7 @@
                     entityName = null;
                 }
 
-                var methods = PluginMethodCache.ForPlugin(this.GetType(), stage, message, entityName, context.Mode == 1);
+                var methods = PluginMethodCache.ForPlugin(this.GetType(), stage, message, entityName, context.Mode == 1, tracingService);
 
                 var logs = new System.Collections.Generic.List<string>();
                 try
@@ -137,7 +144,7 @@
                             }
                             else
                             {
-                                args[ix] = serviceCache.Resolve(p, toolOrgService);
+                                args[ix] = serviceCache.Resolve(p, toolOrgService, tracingService);
                             }
 
                             #region set TargetAttributes
@@ -385,11 +392,17 @@
 
         #region initializer
         private static System.Collections.Generic.Dictionary<string, Kipon.Xrm.ServiceAPI.IStaticInitializer[]> initializers = new System.Collections.Generic.Dictionary<string, ServiceAPI.IStaticInitializer[]>();
-        private void Initialize()
+        private void Initialize(Microsoft.Xrm.Sdk.ITracingService traceService)
         {
-            var assm = System.Reflection.Assembly.GetExecutingAssembly();
+
+            var assm = this.GetType().Assembly;
+
+            traceService.Trace($"Initialize: { assm.FullName  }");
+
+
             if (initializers.ContainsKey(assm.FullName))
             {
+                traceService.Trace($"Initialize: done");
                 return;
             }
 
@@ -397,19 +410,61 @@
             {
                 if (initializers.ContainsKey(assm.FullName))
                 {
+                    traceService.Trace($"Initialize: done");
                     return;
                 }
 
+                var successfullLoad = true;
+
+                var serviceLibraries = new List<string>();
                 var result = new System.Collections.Generic.List<ServiceAPI.IStaticInitializer>();
                 foreach (var type in assm.GetTypes())
                 {
-                    if (type is Kipon.Xrm.ServiceAPI.IStaticInitializer sc)
+                    if (type.Implements(typeof(Kipon.Xrm.ServiceAPI.IStaticInitializer)))
                     {
-                        result.Add(sc);
-                        sc.Initialize();
+                        var si = (ServiceAPI.IStaticInitializer)Activator.CreateInstance(type);
+                        result.Add(si);
+                        si.Initialize();
+                    }
+
+                    if (type.Implements(typeof(Kipon.Xrm.ServiceAPI.IServiceResolverLibraries)))
+                    {
+                        var libr = (Kipon.Xrm.ServiceAPI.IServiceResolverLibraries)Activator.CreateInstance(type);
+                        var libs = libr.Fullnames;
+                        if (libs != null && libs.Length > 0)
+                        {
+                            serviceLibraries.AddRange(libs);
+                        }
                     }
                 }
-                initializers[assm.FullName] = result.ToArray();
+
+                serviceLibraries = serviceLibraries.Distinct().ToList();
+                var assms = new List<Assembly>();
+                foreach (var lib in serviceLibraries)
+                {
+                    var next = lib.Resolve();
+                    if (next != null)
+                    {
+                        assms.Add(next);
+                        traceService.Trace($"Service libs adds: {next.FullName}");
+                    }
+                    else
+                    {
+                        traceService.Trace($"We where unable to resolve: { lib }");
+                        successfullLoad = false;
+                    }
+                }
+
+                if (assms.Count > 0)
+                {
+                    Kipon.Xrm.Reflection.TypeCache.AddServiceAssemblies(assm, assms);
+                    traceService.Trace($"Service libs added.");
+                }
+
+                if (successfullLoad)
+                {
+                    initializers[assm.FullName] = result.ToArray();
+                }
             }
         }
         #endregion

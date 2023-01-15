@@ -17,7 +17,7 @@ namespace Kipon.Xrm.UnitTests.Xrm.Reflection
 
             // Test target is full entity
             {
-                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
 
                 // First test basic functionality for entity
                 Assert.AreEqual(true, t1.IsTarget);
@@ -30,13 +30,13 @@ namespace Kipon.Xrm.UnitTests.Xrm.Reflection
                 Assert.IsNull(t1.Constructor);
 
                 // Test that result is cached
-                var t2 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null);
+                var t2 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
                 Assert.AreEqual(t2, t1);
             }
 
             // Test preimage is interface
             {
-                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[1], null);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[1], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
                 Assert.AreEqual(false, t1.IsTarget);
                 Assert.AreEqual(true, t1.IsPreimage);
                 Assert.AreEqual(false, t1.IsPostimage);
@@ -49,7 +49,7 @@ namespace Kipon.Xrm.UnitTests.Xrm.Reflection
 
             // Test deep target interface
             {
-                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[2], null);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[2], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
                 Assert.AreEqual(true, t1.IsTarget);
                 Assert.AreEqual(false, t1.IsPreimage);
                 Assert.AreEqual(false, t1.IsPostimage);
@@ -62,20 +62,20 @@ namespace Kipon.Xrm.UnitTests.Xrm.Reflection
 
             // Test if two call to same entity parameters is givin same result
             {
-                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null);
-                var t2 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
+                var t2 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
                 Assert.AreEqual(t1, t2);
             }
 
             // Test if each entity parameter is giving different result, even though they represent same type
             {
-                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null);
-                var t2 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[3], null);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
+                var t2 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[3], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
                 Assert.AreNotEqual(t1, t2);
             }
 
             {
-                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[4], null);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[4], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
                 Assert.AreEqual(typeof(Kipon.Online.Plugin.Service.AccountService), t1.ToType);
                 Assert.IsFalse(t1.IsTarget);
                 Assert.IsFalse(t1.IsPreimage);
@@ -86,7 +86,7 @@ namespace Kipon.Xrm.UnitTests.Xrm.Reflection
             }
 
             {
-                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[5], null);
+                var t1 = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[5], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
                 Assert.AreEqual(typeof(Kipon.Online.Plugin.Entities.Account), t1.ToType);
                 Assert.IsFalse(t1.IsTarget);
                 Assert.IsFalse(t1.IsPreimage);
@@ -102,11 +102,11 @@ namespace Kipon.Xrm.UnitTests.Xrm.Reflection
         {
             var method = typeof(PluginTemplate).GetMethod(nameof(PluginTemplate.OnPreCreate2));
 
-            Assert.ThrowsException<Kipon.Xrm.Exceptions.TypeMismatchException>(() => Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null));
+            Assert.ThrowsException<Kipon.Xrm.Exceptions.TypeMismatchException>(() => Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null, Kipon.Xrm.Fake.Services.TracingService.Instance));
 
-            Assert.ThrowsException<Kipon.Xrm.Exceptions.UnresolvableTypeException>(() => Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[1], null));
+            Assert.ThrowsException<Kipon.Xrm.Exceptions.UnresolvableTypeException>(() => Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[1], null, Kipon.Xrm.Fake.Services.TracingService.Instance));
 
-            Assert.ThrowsException<Kipon.Xrm.Exceptions.UnresolvableConstructorException>(() => Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[2], null));
+            Assert.ThrowsException<Kipon.Xrm.Exceptions.UnresolvableConstructorException>(() => Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[2], null, Kipon.Xrm.Fake.Services.TracingService.Instance));
         }
 
 
@@ -143,7 +143,7 @@ namespace Kipon.Xrm.UnitTests.Xrm.Reflection
         public void IQueryableParameterTest()
         {
             var method = typeof(QueryableParameterClass).GetMethod(nameof(QueryableParameterClass.OnPreUpdate));
-            var typefor = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null);
+            var typefor = Kipon.Xrm.Reflection.TypeCache.ForParameter(method.GetParameters()[0], null, Kipon.Xrm.Fake.Services.TracingService.Instance);
             Assert.IsTrue(typefor.IsQuery);
             Assert.AreEqual(typefor.RepositoryProperty.PropertyType, typeof(Kipon.Xrm.IRepository<Kipon.Online.Plugin.Entities.Contact>));
             Assert.AreEqual("GetQuery", typefor.QueryMethod.Name);

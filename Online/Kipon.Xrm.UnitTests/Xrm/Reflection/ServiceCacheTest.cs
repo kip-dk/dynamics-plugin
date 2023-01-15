@@ -31,24 +31,24 @@ namespace Kipon.Xrm.UnitTests.Xrm.Reflection
 
             var serviceCache = new Kipon.Xrm.Reflection.ServiceCache(context, organizationServiceFactory, traceService, null,  unsecureConfig , secureConfig);
 
-            var methodCache = pluginMethodcache.ForPlugin(typeof(TestPlugin), 20, "Update", Kipon.Online.Plugin.Entities.Account.EntityLogicalName, false);
+            var methodCache = pluginMethodcache.ForPlugin(typeof(TestPlugin), 20, "Update", Kipon.Online.Plugin.Entities.Account.EntityLogicalName, false, Kipon.Xrm.Fake.Services.TracingService.Instance);
 
-            var p1 = serviceCache.Resolve(methodCache[0].Parameters[0]);
+            var p1 = serviceCache.Resolve(methodCache[0].Parameters[0], Kipon.Xrm.Fake.Services.TracingService.Instance);
             Assert.AreEqual(p1, account);
 
-            var p2 = serviceCache.Resolve(methodCache[0].Parameters[1]) as OrganizationService;
+            var p2 = serviceCache.Resolve(methodCache[0].Parameters[1], Kipon.Xrm.Fake.Services.TracingService.Instance) as OrganizationService;
             Assert.IsInstanceOfType(p2, typeof(OrganizationService));
             Assert.AreEqual(PluginExecutionContext.USERID, p2.UserId.Value);
 
-            var p3 = serviceCache.Resolve(methodCache[0].Parameters[2]) as Kipon.Online.Plugin.Entities.AdminCrmUnitOfWork;
+            var p3 = serviceCache.Resolve(methodCache[0].Parameters[2], Kipon.Xrm.Fake.Services.TracingService.Instance) as Kipon.Online.Plugin.Entities.AdminCrmUnitOfWork;
             Assert.IsNotNull(p3);
             Assert.AreNotEqual(p2, p3.OrgService);
 
-            var p4 = serviceCache.Resolve(methodCache[0].Parameters[3]) as Kipon.Online.Plugin.Service.AccountService;
+            var p4 = serviceCache.Resolve(methodCache[0].Parameters[3], Kipon.Xrm.Fake.Services.TracingService.Instance) as Kipon.Online.Plugin.Service.AccountService;
             Assert.IsNotNull(p4);
             Assert.AreEqual(p2, p4.OrgService);
 
-            var p5 = serviceCache.Resolve(methodCache[0].Parameters[4]);
+            var p5 = serviceCache.Resolve(methodCache[0].Parameters[4], Kipon.Xrm.Fake.Services.TracingService.Instance);
             Assert.AreEqual(account, p5);
 
             Assert.AreEqual(unsecureConfig, p4.UnsecureConfig);

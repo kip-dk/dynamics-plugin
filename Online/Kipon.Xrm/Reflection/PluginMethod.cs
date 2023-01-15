@@ -32,7 +32,7 @@
                 this.Types.SetAssembly(assm);
             }
 
-            public PluginMethod[] ForPlugin(Type type, int stage, string message, string primaryEntityName, bool isAsync, bool throwIfEmpty = true)
+            public PluginMethod[] ForPlugin(Type type, int stage, string message, string primaryEntityName, bool isAsync, Microsoft.Xrm.Sdk.ITracingService trace, bool throwIfEmpty = true)
             {
                 var key = type.FullName + "|" + stage + "|" + message + "|" + primaryEntityName + "|" + isAsync.ToString();
 
@@ -100,7 +100,7 @@
                             throw new InvalidPluginExecutionException($"Virtual Entity plugin must have a method called On{message}.");
                         }
 
-                        var next = CreateFrom(fallback, null);
+                        var next = CreateFrom(fallback, null, trace);
 
                         cache[key] = new[] { next };
                         return cache[key];
@@ -151,7 +151,7 @@
 
                             if (_stage == stepStage && _message == message && _primaryEntityName == primaryEntityName && _isAsync == isAsync)
                             {
-                                var next = CreateFrom(method, primaryEntityName);
+                                var next = CreateFrom(method, primaryEntityName, trace);
                                 AddIfConsistent(type, method, results, next, message, stage);
                                 found = true;
                                 break;
@@ -192,7 +192,7 @@
                         #region find by naming convention
                         if (method.Name == lookFor)
                         {
-                            var next = CreateFrom(method, primaryEntityName);
+                            var next = CreateFrom(method, primaryEntityName, trace);
 
                             if (primaryEntityName == null)
                             {
@@ -397,7 +397,7 @@
                 }
             }
 
-            private PluginMethod CreateFrom(System.Reflection.MethodInfo method, string logicalname)
+            private PluginMethod CreateFrom(System.Reflection.MethodInfo method, string logicalname, Microsoft.Xrm.Sdk.ITracingService trace)
             {
                 var result = new PluginMethod();
                 result.Name = method.Name;
@@ -408,7 +408,7 @@
                 var ix = 0;
                 foreach (var parameter in parameters)
                 {
-                    result.Parameters[ix] = TypeCache.ForParameter(parameter, logicalname);
+                    result.Parameters[ix] = TypeCache.ForParameter(parameter, logicalname, trace);
                     ix++;
                 }
 

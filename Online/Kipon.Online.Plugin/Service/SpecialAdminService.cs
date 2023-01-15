@@ -17,6 +17,6 @@ namespace Kipon.Online.Plugin.Xrm.Service
             this.uow = uow;
         }
 
-        public string UOWImplementation => this.uow.GetType().FullName;
+        public string UOWImplementation => $"{this.GetType().Assembly.FullName}:{ this.uow.GetType().Assembly.FullName }:{this.uow.GetType().FullName}";
     }
 }

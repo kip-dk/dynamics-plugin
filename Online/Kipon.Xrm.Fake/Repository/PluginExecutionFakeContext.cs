@@ -317,7 +317,7 @@ namespace Kipon.Xrm.Fake.Repository
 
             if (this.uow == null)
             {
-                var uowTypeCache = Kipon.Xrm.Reflection.TypeCache.ForUow(false);
+                var uowTypeCache = Kipon.Xrm.Reflection.TypeCache.ForUow(false, Kipon.Xrm.Fake.Services.TracingService.Instance);
                 var pms = new object[1];
                 pms[0] = this.orgService;
                 this.uow = uowTypeCache.Constructor.Invoke(pms);
@@ -489,7 +489,7 @@ namespace Kipon.Xrm.Fake.Repository
                 this.preImage = this.entities[key].Clone();
             } 
 
-            var methods = this.pluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
+            var methods = this.pluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, Kipon.Xrm.Fake.Services.TracingService.Instance, false);
             if (methods.Length > 0)
             {
                 var pluginExecutionContext = new Services.PluginExecutionContext(stage, 1, message, target.LogicalName, target.Id, isAsync);
@@ -551,7 +551,7 @@ namespace Kipon.Xrm.Fake.Repository
                 this.preImage = this.entities[key].Clone();
             }
 
-            var methods = this.pluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, false);
+            var methods = this.pluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, target.LogicalName, isAsync, Kipon.Xrm.Fake.Services.TracingService.Instance, false);
             if (methods.Length > 0)
             {
                 var pluginExecutionContext = new Services.PluginExecutionContext(stage, 1, message, target.LogicalName, target.Id, isAsync);
@@ -596,7 +596,7 @@ namespace Kipon.Xrm.Fake.Repository
 
         private void ExecuteStep(Dictionary<string, object> inputParameters, int stage, string message, string primaryentityname, string logicalName, Guid id, bool isAsync, Action finalize, Action onDone)
         {
-            var methods = this.pluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, logicalName, isAsync, false);
+            var methods = this.pluginMethodCache.ForPlugin(this.plugin.GetType(), stage, message, logicalName, isAsync, Kipon.Xrm.Fake.Services.TracingService.Instance, false);
             if (methods.Length > 0)
             {
                 if (inputParameters != null && inputParameters.Count > 0)

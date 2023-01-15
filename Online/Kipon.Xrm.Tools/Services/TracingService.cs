@@ -4,24 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Xrm.Fake.Services
+namespace Kipon.Xrm.Tools.Services
 {
-    public class TracingService : Microsoft.Xrm.Sdk.ITracingService
+    internal class TracingService : Microsoft.Xrm.Sdk.ITracingService
     {
         public void Trace(string format, params object[] args)
         {
-            if (args != null && args.Length > 0)
-            {
-                var mess = string.Format(format, args);
-                Console.WriteLine(mess);
-            }
-            else
-            {
-                Console.WriteLine(format);
-            }
+            Console.WriteLine(string.Format(format, args));
         }
 
         private static Microsoft.Xrm.Sdk.ITracingService _instance;
+
         public static Microsoft.Xrm.Sdk.ITracingService Instance
         {
             get

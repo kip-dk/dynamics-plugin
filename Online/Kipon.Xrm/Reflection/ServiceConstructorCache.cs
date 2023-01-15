@@ -7,7 +7,7 @@
 
         private static readonly object locks = new object();
 
-        public static TypeCache[] ForConstructor(System.Reflection.ConstructorInfo constructor)
+        public static TypeCache[] ForConstructor(System.Reflection.ConstructorInfo constructor, Microsoft.Xrm.Sdk.ITracingService traceService)
         {
             if (cache.ContainsKey(constructor))
             {
@@ -33,7 +33,7 @@
                 var ix = 0;
                 foreach (var par in parameters)
                 {
-                    result[ix] = TypeCache.ForParameter(par, null);
+                    result[ix] = TypeCache.ForParameter(par, null, traceService);
                     if (result[ix].RequirePluginContext)
                     {
                         throw new Exceptions.InvalidConstructorServiceArgumentException(constructor, par);
