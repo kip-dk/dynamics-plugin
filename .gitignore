@@ -268,3 +268,4 @@ Online/Kipon.Xrm.Tools/Entities/generate.cmd
 /Online/Kipon.Xrm.Cmd/kipon-tools.json
 /Kipon.PP/deploy.cmd
 /Kipon.PP/Entities/generate.cmd
+/Online/Kipon.Online.Plugin/kipon-tools.json
