@@ -45,7 +45,6 @@ namespace Kipon.Xrm.Tools.Services
                 }
             }
         }
-
         public void AddMissingPluginSteps(SdkMessageProcessingStep[] steps)
         {
             this.Initialize();
@@ -56,6 +55,19 @@ namespace Kipon.Xrm.Tools.Services
                     this.AddSolutionComponent(step.SdkMessageProcessingStepId.Value, 92, true);
                 }
             }
+        }
+        public string[] ListSolutionNames()
+        {
+            var sols = (from s in uow.Solutions.GetQuery()
+                        select new
+                        {
+                            Id = s.SolutionId.Value,
+                            Name = s.UniqueName
+                        }).ToArray();
+
+            uow.Detach(Entities.Solution.EntityLogicalName, sols.Select(r => r.Id).ToArray());
+
+            return sols.Select(r => r.Name).ToArray();
         }
 
         private void AddSolutionComponent(Guid id, int componentType, bool addRequiredComponents)

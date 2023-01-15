@@ -2452,6 +2452,24 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// 1:N kipon_account_kipon_multitest
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("kipon_account_kipon_multitest")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.kipon_multitest> kipon_account_kipon_multitest
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_multitest>("kipon_account_kipon_multitest", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_account_kipon_multitest");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_multitest>("kipon_account_kipon_multitest", null, value);
+				this.OnPropertyChanged("kipon_account_kipon_multitest");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N lead_customer_accounts
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lead_customer_accounts")]
@@ -5905,6 +5923,24 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// 1:N kipon_contact_kipon_multitest
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("kipon_contact_kipon_multitest")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.kipon_multitest> kipon_contact_kipon_multitest
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_multitest>("kipon_contact_kipon_multitest", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_contact_kipon_multitest");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_multitest>("kipon_contact_kipon_multitest", null, value);
+				this.OnPropertyChanged("kipon_contact_kipon_multitest");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N lead_customer_contacts
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lead_customer_contacts")]
@@ -8472,6 +8508,42 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// Unique identifier for Account associated with Multi test.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_accountid")]
+		public Microsoft.Xrm.Sdk.EntityReference kipon_AccountId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("kipon_accountid");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_AccountId");
+				this.SetAttributeValue("kipon_accountid", value);
+				this.OnPropertyChanged("kipon_AccountId");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for Contact associated with Multi test.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_contactid")]
+		public Microsoft.Xrm.Sdk.EntityReference kipon_ContactId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("kipon_contactid");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_ContactId");
+				this.SetAttributeValue("kipon_contactid", value);
+				this.OnPropertyChanged("kipon_ContactId");
+			}
+		}
+		
+		/// <summary>
 		/// Unique identifier for entity instances
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_multitestid")]
@@ -8684,6 +8756,44 @@ namespace Kipon.Solid.Plugin.Entities
 			get
 			{
 				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 kipon_account_kipon_multitest
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_accountid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("kipon_account_kipon_multitest")]
+		public Kipon.Solid.Plugin.Entities.Account kipon_account_kipon_multitest
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.Account>("kipon_account_kipon_multitest", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_account_kipon_multitest");
+				this.SetRelatedEntity<Kipon.Solid.Plugin.Entities.Account>("kipon_account_kipon_multitest", null, value);
+				this.OnPropertyChanged("kipon_account_kipon_multitest");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 kipon_contact_kipon_multitest
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_contactid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("kipon_contact_kipon_multitest")]
+		public Kipon.Solid.Plugin.Entities.Contact kipon_contact_kipon_multitest
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.Contact>("kipon_contact_kipon_multitest", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_contact_kipon_multitest");
+				this.SetRelatedEntity<Kipon.Solid.Plugin.Entities.Contact>("kipon_contact_kipon_multitest", null, value);
+				this.OnPropertyChanged("kipon_contact_kipon_multitest");
 			}
 		}
 		

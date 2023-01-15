@@ -41,7 +41,11 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                 try
                 {
                     var client = new Microsoft.Xrm.Tooling.Connector.CrmServiceClient(connectionString);
-                    client.OrganizationServiceProxy.EnableProxyTypes(typeof(OrganizationService).Assembly);
+
+                    if (client.OrganizationServiceProxy != null)
+                    {
+                        client.OrganizationServiceProxy.EnableProxyTypes(typeof(OrganizationService).Assembly);
+                    }
                     this.instance = client;
                 }
                 catch (Exception ex)

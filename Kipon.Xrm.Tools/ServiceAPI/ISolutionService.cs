@@ -11,5 +11,6 @@ namespace Kipon.Xrm.Tools.ServiceAPI
         void AddMissingPluginAssembly(Entities.PluginAssembly assm);
         void AddMissingPluginTypes(Entities.PluginType[] pluginTypes);
         void AddMissingPluginSteps(Entities.SdkMessageProcessingStep[] steps);
+        string[] ListSolutionNames();
     }
 }

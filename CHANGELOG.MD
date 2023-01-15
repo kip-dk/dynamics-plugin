@@ -1,4 +1,7 @@
-## Last updated: 2023-01-07
+## Last updated: 2023-01-15
+
+### 1.0.9.6
+Tools version only. Better support for connectionstring syntax according to microsoft documentation.
 
 ### 1.0.9.5
 If [Admin] attributes was used when injecting IUnitOfWork, the underlying IOrganizationService would NOT be running with system priviliges, but would run in the context of the current user.
