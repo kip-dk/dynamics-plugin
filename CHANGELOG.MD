@@ -1,4 +1,7 @@
-## Last updated: 2023-01-15
+## Last updated: 2023-01-25
+
+### 1.0.9.7
+Added extensions method on IPluginExectuionContext to extract entity pre/post image of parent context
 
 ### 1.0.9.6
 Tools version only. Better support for connectionstring syntax according to microsoft documentation.

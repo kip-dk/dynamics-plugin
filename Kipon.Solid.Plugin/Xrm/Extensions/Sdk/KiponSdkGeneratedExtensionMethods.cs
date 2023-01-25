@@ -723,6 +723,68 @@
             throw new InvalidPluginExecutionException($"Unable to convert value of type { value.GetType().FullName } to { typeof(T).FullName }");
         }
 
+        public static T ParentPreimage<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message) where T : Entity, new()
+        {
+            var result = new T();
+
+            if (ctx.ParentContext == null)
+            {
+                return null;
+            }
+
+            if (ctx.ParentContext.MessageName == message && ctx.ParentContext.PrimaryEntityName == result.LogicalName)
+            {
+                if (ctx.ParentContext.PreEntityImages != null && ctx.ParentContext.PreEntityImages.Count > 0)
+                {
+                    foreach (Microsoft.Xrm.Sdk.Entity ent in ctx.ParentContext.PreEntityImages.Values)
+                    {
+                        foreach (var attr in ent.Attributes)
+                        {
+                            result[attr.Key] = attr.Value;
+                        }
+                    }
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            return ctx.ParentContext.ParentContext.ParentPreimage<T>(message);
+        }
+
+        public static T ParentPostimage<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message) where T : Entity, new()
+        {
+            if (ctx.ParentContext == null)
+            {
+                return null;
+            }
+
+            var result = new T();
+
+            if (ctx.ParentContext.MessageName == message && ctx.ParentContext.PrimaryEntityName == result.LogicalName)
+            {
+                if (ctx.ParentContext.PostEntityImages != null && ctx.ParentContext.PostEntityImages.Count > 0)
+                {
+                    foreach (Microsoft.Xrm.Sdk.Entity ent in ctx.ParentContext.PostEntityImages.Values)
+                    {
+                        foreach (var attr in ent.Attributes)
+                        {
+                            result[attr.Key] = attr.Value;
+                        }
+                    }
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return ctx.ParentContext.ParentContext.ParentPreimage<T>(message);
+        }
+
+
         public static void ReplaceEmptyReferenceWithNull(this Microsoft.Xrm.Sdk.Entity target, params string[] attributes)
         {
             foreach (var value in target.Attributes.ToArray())
