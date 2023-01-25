@@ -13,7 +13,7 @@
 		<releaseNotes>
 			IPluginExectuionContext to extract entity pre/post image of parent context
 		</releaseNotes>
-		<copyright>Copyright Kipon ApS 2019,2020,2021,2022</copyright>
+		<copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023</copyright>
 		<tags>Dynamics 365 plugin C# SOLID</tags>
 		<dependencies>
 			<dependency id="Microsoft.CrmSdk.CoreAssemblies" version="9.0.2.42" />
