@@ -1,4 +1,7 @@
-## Last updated: 2023-01-25
+## Last updated: 2023-02-03
+
+### 1.0.9.8  Tools fix only
+Better message on things in filter.xml that is not found in CRM to help resolve wrong configuration.
 
 ### 1.0.9.7
 Added extensions method on IPluginExectuionContext to extract entity pre/post image of parent context

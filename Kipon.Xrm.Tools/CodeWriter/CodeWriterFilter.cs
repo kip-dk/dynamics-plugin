@@ -238,7 +238,11 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                     foreach (var action in ACTIONS)
                     {
-                        var sdkMessage = meta.Messages.MessageCollection.Values.Where(r => r.Name == action.LogicalName).Single();
+                        var sdkMessage = meta.Messages.MessageCollection.Values.Where(r => r.Name == action.LogicalName).SingleOrDefault();
+                        if (sdkMessage == null)
+                        {
+                            throw new Exception($"No SDK message with name: [{ action.LogicalName }] was found."); 
+                        }
 
                         string entityLogicalName = null;
                         var isActivity = false;
@@ -248,7 +252,13 @@ namespace Kipon.Xrm.Tools.CodeWriter
                             if (code > 0)
                             {
                                 // even unbound entities has a filter with the primparyobjecttypecode equals 0
-                                var ent = meta.Entities.Where(r => r.ObjectTypeCode == code).Single();
+                                var ent = meta.Entities.Where(r => r.ObjectTypeCode == code).SingleOrDefault();
+
+                                if (ent == null)
+                                {
+                                    throw new Exception($"No entity with objecttypecode: [{ code }] was found.");
+                                }
+
                                 entityLogicalName = ent.LogicalName;
                                 isActivity = ent.IsActivity ?? false;
                             }

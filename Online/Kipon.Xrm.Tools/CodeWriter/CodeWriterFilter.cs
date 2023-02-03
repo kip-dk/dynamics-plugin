@@ -10,7 +10,7 @@ using Microsoft.Xrm.Sdk.Metadata;
 
 
 namespace Kipon.Xrm.Tools.CodeWriter
- {
+{
     /// <summary>
     /// CodeWriterFilter for CrmSvcUtil that reads list of entities from an xml file to
     /// determine whether or not the entity class should be generated.
@@ -62,246 +62,6 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
             var metaService = services.GetService(typeof(Microsoft.Crm.Services.Utility.IMetadataProviderService)) as Microsoft.Crm.Services.Utility.IMetadataProviderService;
             var meta = metaService.LoadMetadata();
-
-            ReadConfiguration(meta);
-
-            initialized = true;
-        }
-
-        /// <summary>
-        /// /Use filter entity list to determine if the entity class should be generated.
-        /// </summary>
-        public bool GenerateEntity(EntityMetadata entityMetadata, IServiceProvider services)
-        {
-            this.LoadFilterData(services);
-            var generate = _validEntities.ContainsKey(entityMetadata.LogicalName.ToLowerInvariant());
-
-            if (generate)
-            {
-                ENTITIES[entityMetadata.SchemaName] = _validEntities[entityMetadata.LogicalName.ToLowerInvariant()];
-                LOGICALNAME2SCHEMANAME[entityMetadata.LogicalName.ToLowerInvariant()] = entityMetadata.SchemaName;
-                return true;
-            }
-
-            var result =  ACTIVITIES.Values.Where(r => r.RequireEntity(entityMetadata.LogicalName.ToLowerInvariant())).Any();
-
-            if (result)
-            {
-                LOGICALNAME2SCHEMANAME[entityMetadata.LogicalName.ToLowerInvariant()] = entityMetadata.SchemaName;
-            }
-            return result;
-        }
-
-        //All other methods just use default implementation:
-
-        public bool GenerateAttribute(AttributeMetadata attributeMetadata, IServiceProvider services)
-        {
-            this.LoadFilterData(services);
-            if (!_validEntities.ContainsKey(attributeMetadata.EntityLogicalName.ToLowerInvariant()))
-            {
-                return _defaultService.GenerateAttribute(attributeMetadata, services);
-            }
-
-            if (SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES)
-            {
-                var entity = _validEntities[attributeMetadata.EntityLogicalName.ToLowerInvariant()];
-                if (entity.Optionsets != null && entity.Optionsets.Length > 0)
-                {
-                    var me = (from op in entity.Optionsets
-                              where op.Logicalname == attributeMetadata.LogicalName
-                              select op).SingleOrDefault();
-                    if (me != null)
-                    {
-                        if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata)
-                        {
-                            me.Multi = true;
-                        } else
-                        {
-                            me.Multi = false;
-                        }
-
-                        ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
-                        return false;
-                    } 
-                }
-            }
-
-            if (attributeMetadata.LogicalName.ToLower() == "statecode")
-            {
-                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
-                return false;
-            }
-
-            if (attributeMetadata.LogicalName.ToLower() == "statuscode")
-            {
-                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
-                AddOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
-                return false;
-            }
-
-
-            if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata)
-            {
-                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
-                AddMultiOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
-                return false;
-            }
-
-            if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata)
-            {
-
-                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
-                AddOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
-                return false;
-            }
-
-            ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
-            return _defaultService.GenerateAttribute(attributeMetadata, services);
-        }
-
-        public bool GenerateOption(OptionMetadata optionMetadata, IServiceProvider services)
-        {
-            return false;
-            // return _defaultService.GenerateOption(optionMetadata, services);
-        }
-
-        public bool GenerateOptionSet(OptionSetMetadataBase optionSetMetadata, IServiceProvider services)
-        {
-            return false;
-            // return _defaultService.GenerateOptionSet(optionSetMetadata, services);
-        }
-
-        public bool GenerateRelationship(RelationshipMetadataBase relationshipMetadata, EntityMetadata otherEntityMetadata, IServiceProvider services)
-        {
-            return _defaultService.GenerateRelationship(relationshipMetadata, otherEntityMetadata, services);
-        }
-
-        public bool GenerateServiceContext(IServiceProvider services)
-        {
-            return _defaultService.GenerateServiceContext(services);
-        }
-
-        private static void AddOptionSetField(string entitylogicalname, string attrlogicalname)
-        {
-            if (OPTIONSETFIELDS.TryGetValue(entitylogicalname, out List<string> fields))
-            {
-                fields.Add(attrlogicalname);
-            }
-            else
-            {
-                var list = new List<string>();
-                list.Add(attrlogicalname);
-                OPTIONSETFIELDS.Add(entitylogicalname, list);
-            }
-        }
-
-        private static void AddMultiOptionSetField(string entitylogicalname, string attrlogicalname)
-        {
-            if (MULTIOPTIONSETFIELDS.TryGetValue(entitylogicalname, out List<string> fields))
-            {
-                fields.Add(attrlogicalname);
-            }
-            else
-            {
-                var list = new List<string>();
-                list.Add(attrlogicalname);
-                MULTIOPTIONSETFIELDS.Add(entitylogicalname, list);
-            }
-        }
-
-        private void ReadConfiguration(IOrganizationMetadata meta)
-        {
-            if (System.IO.File.Exists("filter.json"))
-            {
-                var ser = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(Model.Filter));
-                using (var fs = new System.IO.FileStream("filter.json", System.IO.FileMode.Open))
-                {
-                    var filter = (Model.Filter)ser.ReadObject(fs);
-                    SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES = filter.SupressMappedStandardOptionsetProperties;
-
-                    #region parse entity definitions
-                    {
-                        var row = 0;
-                        foreach (var entity in filter.Entities)
-                        {
-                            if (string.IsNullOrEmpty(entity.ServiceName))
-                            {
-                                throw new Exception($"No servicename on entity number {row}, { entity.LogicalName }");
-                            }
-
-                            if (string.IsNullOrEmpty(entity.LogicalName))
-                            {
-                                throw new Exception($"No logical name on entity number {row}.");
-                            }
-
-                            if (entity.Optionsets != null && entity.Optionsets.Length > 0)
-                            {
-                                var localWithoutValues = entity.Optionsets.Where(r => string.IsNullOrEmpty(r.Id) && (r.Values == null || r.Values.Length == 0)).ToArray();
-                                if (localWithoutValues.Length > 0)
-                                {
-                                    throw new Exception($"Local optionset without values are not allowed: { entity.LogicalName }, { localWithoutValues.First().Name }");
-                                }
-                            }
-                            _validEntities.Add(entity.LogicalName.ToLower(), entity);
-                        }
-                    }
-                    #endregion
-
-                    #region parse global optionsets
-                    if (filter.Optionsets != null && filter.Optionsets.Length > 0)
-                    {
-                        var row = 0;
-                        foreach (var optionset in filter.Optionsets)
-                        {
-                            row++;
-                            if (string.IsNullOrEmpty(optionset.Name))
-                            {
-                                throw new Exception($"Global optionset definition {row} does not have a name");
-                            }
-
-                            if (string.IsNullOrEmpty(optionset.Id))
-                            {
-                                throw new Exception($"Global optionset definition {row} does not have an id");
-                            }
-
-                            if (GLOBAL_OPTIONSET_INDEX.ContainsKey(optionset.Id))
-                            {
-                                throw new Exception($"Global optionset definition {row} id is not unique");
-                            }
-
-                            GLOBAL_OPTIONSET_INDEX.Add(optionset.Id, optionset);
-                        }
-                    }
-                    #endregion
-
-                    #region parse actions
-                    if (filter.Actions != null && filter.Actions.Length > 0)
-                    {
-                        var row = 0;
-                        foreach (var action in filter.Actions)
-                        {
-                            row++;
-                            if (string.IsNullOrEmpty(action.Name))
-                            {
-                                throw new Exception($"actions must have a name attribute, row: { row }");
-                            }
-
-                            if (string.IsNullOrEmpty(action.LogicalName))
-                            {
-                                throw new Exception($"action must have a logicalname, row: { row }, Name: { action.Name }");
-                            }
-
-                            ACTIONS.Add(action);
-                        }
-
-                        this.RegistreActions(meta);
-                    }
-                    #endregion
-                }
-                return;
-            }
-
-            /// Below legacy code to support simple and seamless approach to migrate from filter.xml til filter.json
 
             XElement xml = XElement.Load("filter.xml");
 
@@ -472,64 +232,192 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         ACTIONS.Add(nextaction);
                     }
                 }
-                RegistreActions(meta);
-            }
-            #endregion
 
-            #region save current config as filter.json
-            {
-                var saveas = new Model.Filter
+                if (ACTIONS.Count > 0)
                 {
-                    SupressMappedStandardOptionsetProperties = SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES,
-                    Actions = ACTIONS?.ToArray(),
-                    Optionsets = GLOBAL_OPTIONSET_INDEX?.Values.ToArray(),
-                    Entities = _validEntities?.Values.ToArray()
-                };
 
-                var ser = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(Model.Filter));
-                using (var fs = new System.IO.FileStream("filter.json", System.IO.FileMode.Create))
-                {
-                    ser.WriteObject(fs, saveas);
-                    Console.WriteLine("********************************************************************************************************************");
-                    Console.WriteLine("* filter.xml has been migrated to filter.json. You must continue maintain the settings, using the new json format. *");
-                    Console.WriteLine("********************************************************************************************************************");
-                    Console.WriteLine("Press ENTER to continue");
-                    Console.ReadLine();
-                }
-            }
-            #endregion
-        }
-
-        private void RegistreActions(IOrganizationMetadata meta)
-        {
-            if (ACTIONS.Count > 0)
-            {
-                foreach (var action in ACTIONS)
-                {
-                    var sdkMessage = meta.Messages.MessageCollection.Values.Where(r => r.Name == action.LogicalName).Single();
-
-                    string entityLogicalName = null;
-                    var isActivity = false;
-                    if (sdkMessage.SdkMessageFilters != null && sdkMessage.SdkMessageFilters.Values.Count == 1)
+                    foreach (var action in ACTIONS)
                     {
-                        var code = sdkMessage.SdkMessageFilters.Values.First().PrimaryObjectTypeCode;
-                        if (code > 0)
+                        var sdkMessage = meta.Messages.MessageCollection.Values.Where(r => r.Name == action.LogicalName).SingleOrDefault();
+                        if (sdkMessage == null)
                         {
-                            // even unbound entities has a filter with the primparyobjecttypecode equals 0
-                            var ent = meta.Entities.Where(r => r.ObjectTypeCode == code).Single();
-                            entityLogicalName = ent.LogicalName;
-                            isActivity = ent.IsActivity ?? false;
+                            throw new Exception($"No SDK message with name: [{action.LogicalName}] was found.");
+                        }
+
+                        string entityLogicalName = null;
+                        var isActivity = false;
+                        if (sdkMessage.SdkMessageFilters != null && sdkMessage.SdkMessageFilters.Values.Count == 1)
+                        {
+                            var code = sdkMessage.SdkMessageFilters.Values.First().PrimaryObjectTypeCode;
+                            if (code > 0)
+                            {
+                                // even unbound entities has a filter with the primparyobjecttypecode equals 0
+                                var ent = meta.Entities.Where(r => r.ObjectTypeCode == code).SingleOrDefault();
+
+                                if (ent == null)
+                                {
+                                    throw new Exception($"No entity with objecttypecode: [{code}] was found.");
+                                }
+
+                                entityLogicalName = ent.LogicalName;
+                                isActivity = ent.IsActivity ?? false;
+                            }
+                        }
+
+                        var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage, entityLogicalName, isActivity);
+                        ACTIVITIES.Add(action.LogicalName, na);
+
+                        if (!string.IsNullOrEmpty(entityLogicalName))
+                        {
+                            LOGICALNAME2SCHEMANAME[action.LogicalName] = entityLogicalName;
                         }
                     }
+                }
+            }
+            #endregion
 
-                    var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage, entityLogicalName, isActivity);
-                    ACTIVITIES.Add(action.LogicalName, na);
+            initialized = true;
+        }
 
-                    if (!string.IsNullOrEmpty(entityLogicalName))
+        /// <summary>
+        /// /Use filter entity list to determine if the entity class should be generated.
+        /// </summary>
+        public bool GenerateEntity(EntityMetadata entityMetadata, IServiceProvider services)
+        {
+            this.LoadFilterData(services);
+            var generate = _validEntities.ContainsKey(entityMetadata.LogicalName.ToLowerInvariant());
+
+            if (generate)
+            {
+                ENTITIES[entityMetadata.SchemaName] = _validEntities[entityMetadata.LogicalName.ToLowerInvariant()];
+                LOGICALNAME2SCHEMANAME[entityMetadata.LogicalName.ToLowerInvariant()] = entityMetadata.SchemaName;
+                return true;
+            }
+
+            var result = ACTIVITIES.Values.Where(r => r.RequireEntity(entityMetadata.LogicalName.ToLowerInvariant())).Any();
+
+            if (result)
+            {
+                LOGICALNAME2SCHEMANAME[entityMetadata.LogicalName.ToLowerInvariant()] = entityMetadata.SchemaName;
+            }
+            return result;
+        }
+
+        //All other methods just use default implementation:
+
+        public bool GenerateAttribute(AttributeMetadata attributeMetadata, IServiceProvider services)
+        {
+            this.LoadFilterData(services);
+            if (!_validEntities.ContainsKey(attributeMetadata.EntityLogicalName.ToLowerInvariant()))
+            {
+                return _defaultService.GenerateAttribute(attributeMetadata, services);
+            }
+
+            if (SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES)
+            {
+                var entity = _validEntities[attributeMetadata.EntityLogicalName.ToLowerInvariant()];
+                if (entity.Optionsets != null && entity.Optionsets.Length > 0)
+                {
+                    var me = (from op in entity.Optionsets
+                              where op.Logicalname == attributeMetadata.LogicalName
+                              select op).SingleOrDefault();
+                    if (me != null)
                     {
-                        LOGICALNAME2SCHEMANAME[action.LogicalName] = entityLogicalName;
+                        if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata)
+                        {
+                            me.Multi = true;
+                        }
+                        else
+                        {
+                            me.Multi = false;
+                        }
+
+                        ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                        return false;
                     }
                 }
+            }
+
+            if (attributeMetadata.LogicalName.ToLower() == "statecode")
+            {
+                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                return false;
+            }
+
+            if (attributeMetadata.LogicalName.ToLower() == "statuscode")
+            {
+                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                AddOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
+                return false;
+            }
+
+
+            if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata)
+            {
+                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                AddMultiOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
+                return false;
+            }
+
+            if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata)
+            {
+
+                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                AddOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
+                return false;
+            }
+
+            ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+            return _defaultService.GenerateAttribute(attributeMetadata, services);
+        }
+
+        public bool GenerateOption(OptionMetadata optionMetadata, IServiceProvider services)
+        {
+            return false;
+            // return _defaultService.GenerateOption(optionMetadata, services);
+        }
+
+        public bool GenerateOptionSet(OptionSetMetadataBase optionSetMetadata, IServiceProvider services)
+        {
+            return false;
+            // return _defaultService.GenerateOptionSet(optionSetMetadata, services);
+        }
+
+        public bool GenerateRelationship(RelationshipMetadataBase relationshipMetadata, EntityMetadata otherEntityMetadata, IServiceProvider services)
+        {
+            return _defaultService.GenerateRelationship(relationshipMetadata, otherEntityMetadata, services);
+        }
+
+        public bool GenerateServiceContext(IServiceProvider services)
+        {
+            return _defaultService.GenerateServiceContext(services);
+        }
+
+        private static void AddOptionSetField(string entitylogicalname, string attrlogicalname)
+        {
+            if (OPTIONSETFIELDS.TryGetValue(entitylogicalname, out List<string> fields))
+            {
+                fields.Add(attrlogicalname);
+            }
+            else
+            {
+                var list = new List<string>();
+                list.Add(attrlogicalname);
+                OPTIONSETFIELDS.Add(entitylogicalname, list);
+            }
+        }
+
+        private static void AddMultiOptionSetField(string entitylogicalname, string attrlogicalname)
+        {
+            if (MULTIOPTIONSETFIELDS.TryGetValue(entitylogicalname, out List<string> fields))
+            {
+                fields.Add(attrlogicalname);
+            }
+            else
+            {
+                var list = new List<string>();
+                list.Add(attrlogicalname);
+                MULTIOPTIONSETFIELDS.Add(entitylogicalname, list);
             }
         }
     }

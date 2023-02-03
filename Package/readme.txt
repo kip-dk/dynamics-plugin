@@ -1,4 +1,4 @@
-Kipon.Solid.Plugin: Copyright Kipon ApS 2019, 2020, 2021, 2022
+Kipon.Solid.Plugin: Copyright Kipon ApS 2019, 2020, 2021, 2022, 2023
 
 DISCLAIMER
 ----------
