@@ -235,13 +235,34 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                 if (ACTIONS.Count > 0)
                 {
+                    var first = true;
+                    var file = @"C:\Temp\atea.txt";
+                    var hasMissing = false;
+
+                    if (System.IO.File.Exists(file))
+                    {
+                        System.IO.File.Delete(file);
+                    }
 
                     foreach (var action in ACTIONS)
                     {
-                        var sdkMessage = meta.Messages.MessageCollection.Values.Where(r => r.Name == action.LogicalName).SingleOrDefault();
+                        var allMessage = meta.Messages.MessageCollection.Values.ToArray().OrderBy(r => r.Name);
+
+                        if (first)
+                        {
+                            first = false;
+                            foreach (var m in allMessage)
+                            {
+                                System.IO.File.AppendAllText(file, m.Name + "\r\n");
+                            }
+                        }
+
+                        var sdkMessage = allMessage.Where(r => r.Name == action.LogicalName).SingleOrDefault();
                         if (sdkMessage == null)
                         {
-                            throw new Exception($"No SDK message with name: [{ action.LogicalName }] was found."); 
+                            Console.WriteLine($"Missing: { action.LogicalName }");
+                            hasMissing = true;
+                            continue;
                         }
 
                         string entityLogicalName = null;
@@ -271,6 +292,11 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         {
                             LOGICALNAME2SCHEMANAME[action.LogicalName] = entityLogicalName;
                         }
+                    }
+
+                    if (hasMissing)
+                    {
+                        throw new Exception("At least one action is missing in SdkMessage, se above for full list.");
                     }
                 }
             }

@@ -129,6 +129,7 @@
     <Compile Include="Tools\Deploy.cs" />
     <Compile Include="Tools\ExportAssmSteps.cs" />
     <Compile Include="Tools\ImportAssmSteps.cs" />
+    <Compile Include="Tools\ListSdkMessages.cs" />
     <Compile Include="Tools\WebResourceDeploy.cs" />
     <Compile Include="Tools\WebResourceGenerateDefinitions.cs" />
   </ItemGroup>
