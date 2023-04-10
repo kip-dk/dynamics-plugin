@@ -270,3 +270,5 @@ Online/Kipon.Xrm.Tools/Entities/generate.cmd
 /Kipon.PP/Entities/generate.cmd
 /Online/Kipon.Online.Plugin/kipon-tools.json
 /Kipon.Xrm.Cmd/App.config
+/FakePackage/lib/net462/Kipon.Solid.Xrm.Fake.dll
+/Package/content/Kipon/Kipon.Xrm.cs
