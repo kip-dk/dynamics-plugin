@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Solid.Plugin.Fake</id>
-    <version>1.0.9.8</version>
+    <version>1.0.9.9</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -11,7 +11,8 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Unit Test library for the Kipon.Solid.Plugin framework</description>
     <releaseNotes>
-		Better message on things in filter.xml that is not found in CRM to help resolve wrong configuration.
+		[ChildOf] and [NotChildOf] tested message and entitylogical name on it self. As a consequence, it was not possible to use the filters on a recursive plugin, ex.
+		preventing a product plugin to trigger if it was child of a product update
 	</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023</copyright>
     <tags>Dynamics 365 plugin C# SOLID</tags>

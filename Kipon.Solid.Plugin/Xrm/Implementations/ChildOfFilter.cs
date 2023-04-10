@@ -7,10 +7,22 @@
 
     public class ChildOfFilter : IMethodCondition
     {
-        public bool Execute(IfAttribute ifAttr, IPluginExecutionContext ctx)
+        public bool Execute(IfAttribute ifAttr, IPluginExecutionContext currentCtx)
         {
             if (ifAttr is Attributes.Filter.ChildOfAttribute coa)
             {
+                if (currentCtx.Depth == 1)
+                {
+                    return false;
+                }
+
+                if (currentCtx.ParentContext == null)
+                {
+                    return false;
+                }
+
+                var ctx = currentCtx.ParentContext;
+
                 Microsoft.Xrm.Sdk.EntityReference refId = null;
                 if (coa.ReferenceAttributeName != null)
                 {

@@ -6,10 +6,22 @@
 
     public class NotChildOfFilter : IMethodCondition
     {
-        public bool Execute(IfAttribute ifAttr, IPluginExecutionContext ctx)
+        public bool Execute(IfAttribute ifAttr, IPluginExecutionContext currentCtx)
         {
             if (ifAttr is Attributes.Filter.NotChildOfAttribute coa)
             {
+                if (currentCtx.Depth == 1)
+                {
+                    return true;
+                }
+
+                if (currentCtx.ParentContext == null)
+                {
+                    return true;
+                }
+
+                var ctx = currentCtx.ParentContext;
+
                 Microsoft.Xrm.Sdk.EntityReference refId = null;
                 if (coa.ReferenceAttributeName != null)
                 {

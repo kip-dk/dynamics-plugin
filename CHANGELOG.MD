@@ -1,4 +1,8 @@
-## Last updated: 2023-02-03
+## Last updated: 2023-04-10
+
+### 1.0.9.9
+[ChildOf] and [NotChildOf] tested message and entitylogical name on it self. As a consequence, it was not possible to use the filters on a recursive plugin, ex. 
+preventing a product plugin to trigger if it was child of a product update
 
 ### 1.0.9.8  Tools fix only
 Better message on things in filter.xml that is not found in CRM to help resolve wrong configuration.
