@@ -151,10 +151,12 @@
     <Compile Include="Plugins\Template\TemplatePlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
     <Compile Include="ServiceAPI\IContactService.cs" />
+    <Compile Include="Xrm\ServiceAPI\IEntityMetadataService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="ServiceAPI\ISpecialAccountService.cs" />
     <Compile Include="ServiceAPI\ISpecialAdminService.cs" />
     <Compile Include="Service\ContactService.cs" />
+    <Compile Include="Xrm\Services\EntityMetadataService.cs" />
     <Compile Include="Service\SpecialAccountService.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Xrm\Actions\AbstractActionRequest.cs" />

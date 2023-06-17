@@ -1,4 +1,7 @@
-## Last updated: 2023-04-10
+## Last updated: 2023-06-17
+
+### 1.0.9.10
+Added Kipon.Xrm.ServiceAPI.IEntityMetadataService. A simple helfull service for extracting metadata about an entity within your plugin in a fairly effective way
 
 ### 1.0.9.9
 [ChildOf] and [NotChildOf] tested message and entitylogical name on it self. As a consequence, it was not possible to use the filters on a recursive plugin, ex. 
