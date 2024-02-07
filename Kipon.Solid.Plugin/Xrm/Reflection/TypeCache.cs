@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.UI.WebControls;
 
     /// <summary>
     /// Type cache is used to resolved types for each parameter in a context. 
@@ -480,6 +481,101 @@
             }
         }
 
+        public static TypeCache ForProperty(System.Reflection.PropertyInfo property)
+        {
+            var key = new Key() { Property = property };
+
+            var type = property.PropertyType;
+
+            if (resolvedTypes.ContainsKey(key))
+            {
+                return resolvedTypes[key];
+            }
+
+            lock (locks)
+            {
+                if (resolvedTypes.ContainsKey(key))
+                {
+                    return resolvedTypes[key];
+                }
+
+                if (property.PropertyType == typeof(Microsoft.Xrm.Sdk.IOrganizationService))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+
+                    resolvedTypes[key].RequireAdminService = property.GetCustomAttributes(Types.AdminAttribute, false).Any();
+                    return resolvedTypes[key];
+                }
+
+                if (property.PropertyType == typeof(Microsoft.Xrm.Sdk.IOrganizationServiceFactory))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                    return resolvedTypes[key];
+                }
+
+                if (property.PropertyType == typeof(Microsoft.Xrm.Sdk.Workflow.IWorkflowContext))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                    return resolvedTypes[key];
+                }
+
+                if (property.PropertyType == typeof(Microsoft.Xrm.Sdk.ITracingService))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type };
+                    return resolvedTypes[key];
+                }
+
+                #region IQueryable
+                if (type.IsInterface && type.IsGenericType && type.GenericTypeArguments.Length == 1 && type.GenericTypeArguments[0].BaseType != null && type.GenericTypeArguments[0].BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                {
+                    var result = ForQuery(type);
+                    if (result != null)
+                    {
+                        result.RequireAdminService = property.GetCustomAttributes(Types.AdminAttribute, false).Any();
+                        return result;
+                    }
+                }
+                #endregion
+
+                #region IRepository
+                if (type.IsInterface && type.IsGenericType && type.GenericTypeArguments.Length == 1 && type.GenericTypeArguments[0].BaseType != null && type.GenericTypeArguments[0].BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                {
+                    var result = ForRepository(type);
+                    if (result != null)
+                    {
+                        result.RequireAdminService = property.GetCustomAttributes(Types.AdminAttribute, false).Any();
+                        return result;
+                    }
+                }
+                #endregion
+
+                #region find implementing interface
+                if (type.IsInterface)
+                {
+                    var r1 = GetInterfaceImplementation(type);
+
+                    var entityType = type.ImplementsGenericInterface(Types.ActionTarget);
+                    string logialName = null;
+                    bool isActionReference = false;
+
+                    if (entityType != null)
+                    {
+                        logialName = ((Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(entityType)).LogicalName;
+                        isActionReference = true;
+                    }
+
+                    var result = new TypeCache { FromType = type, ToType = r1, Constructor = GetConstructor(r1), LogicalName = logialName, IsActionReference = isActionReference };
+                    result.RequireAdminService = property.GetCustomAttributes(Types.AdminAttribute, false).Any();
+
+                    resolvedTypes[key] = result;
+                    return result;
+                }
+                #endregion
+
+                throw new Exceptions.UnresolvableTypeException(type);
+            }
+        }
+
         public static TypeCache ForQuery(Type type)
         {
             var genericQueryable = typeof(System.Linq.IQueryable<>);
@@ -824,14 +920,20 @@
         private class Key
         {
             internal System.Reflection.ParameterInfo Parameter { get; set; }
+            internal System.Reflection.PropertyInfo Property { get; set; }
             internal string LogicalName { get; set; }
 
             public override bool Equals(object obj)
             {
                 var other = obj as Key;
-                if (other != null)
+                if (other != null && Parameter != null)
                 {
                     return other.LogicalName == this.LogicalName && other.Parameter == this.Parameter;
+                }
+
+                if (other != null && Property != null)
+                {
+                    return other.Property == this.Property;
                 }
                 return false;
             }

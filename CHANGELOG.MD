@@ -1,4 +1,7 @@
-## Last updated: 2023-06-17
+## Last updated: 2024-07-12
+
+### 1.0.10.1
+Support for workflow with dependency injection through the kipon solid dependency injection framework. An example article will be published shortly on the kipon solid official website.
 
 ### 1.0.9.10
 Added Kipon.Xrm.ServiceAPI.IEntityMetadataService. A simple helfull service for extracting metadata about an entity within your plugin in a fairly effective way

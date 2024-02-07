@@ -1,6 +1,7 @@
 ﻿namespace Kipon.Xrm.Reflection
 {
     using Microsoft.Xrm.Sdk;
+    using Microsoft.Xrm.Sdk.Workflow;
     using System;
     using System.Collections.Generic;
     public class ServiceCache: System.IDisposable
@@ -36,6 +37,25 @@
                 this.services.Add(typeof(IPluginContext).FullName, pContext);
             }
             this.systemuserid = pluginExecutionContext.UserId;
+        }
+
+        public ServiceCache(System.Activities.CodeActivityContext codeActivityContext, IWorkflowContext workflowContext, IOrganizationServiceFactory organizationServiceFactory, ITracingService traceService)
+        {
+            this.organizationServiceFactory = organizationServiceFactory;
+            this.services.Add(typeof(IOrganizationServiceFactory).FullName, organizationServiceFactory);
+            this.services.Add(typeof(ITracingService).FullName, traceService);
+
+            this.pluginExecutionContext = new Xrm.Implementations.WorkflowPluginExecutionContext(workflowContext);
+            this.services.Add(typeof(IPluginExecutionContext).FullName, this.pluginExecutionContext);
+
+
+            var pContext = new Services.PluginContext(null, null, pluginExecutionContext, CrmEventType.Other, workflowContext.UserId);
+            this.services.Add(typeof(IPluginContext).FullName, pContext);
+
+            this.services.Add(typeof(System.Activities.CodeActivityContext).FullName, codeActivityContext);
+            this.services.Add(typeof(IWorkflowContext).FullName, workflowContext);
+
+            this.systemuserid = workflowContext.UserId;
         }
 
         public object Resolve(TypeCache type)
