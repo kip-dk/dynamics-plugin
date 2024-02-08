@@ -153,6 +153,7 @@
     <Compile Include="Plugins\Template\TemplatePlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
     <Compile Include="ServiceAPI\IContactService.cs" />
+    <Compile Include="Workflow\HelloWorkflowWorld.cs" />
     <Compile Include="Xrm\Attributes\ImportAttribute.cs" />
     <Compile Include="Xrm\BaseCodeActivity.cs" />
     <Compile Include="Xrm\Implementations\WorkflowPluginExecutionContext.cs" />

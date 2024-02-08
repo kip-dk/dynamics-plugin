@@ -485,13 +485,12 @@
         {
             var key = new Key() { Property = property };
 
-            var type = property.PropertyType;
-
             if (resolvedTypes.ContainsKey(key))
             {
                 return resolvedTypes[key];
             }
 
+            var type = property.PropertyType;
             lock (locks)
             {
                 if (resolvedTypes.ContainsKey(key))

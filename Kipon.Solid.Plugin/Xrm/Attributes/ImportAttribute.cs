@@ -2,15 +2,14 @@
 {
     using System;
     /// <summary>
-    /// Use ImportingConstructor to decorate classes with multi public constructor, decorating the one and only constructor to be used to create the instance
+    /// Use ImportProperty to decorate 
+    /// 
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class ImportingAttribute : Attribute
+    public class ImportAttribute : Attribute
     {
-        public Type Type { get; private set; }
-        public ImportingAttribute(Type type)
+        public ImportAttribute()
         {
-            this.Type = type;
         }
     }
 }

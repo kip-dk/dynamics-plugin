@@ -164,12 +164,14 @@
     <Compile Include="Entities\workflow_stage.cs" />
     <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\ConfigurationException.cs" />
+    <Compile Include="Exceptions\ReflectionExtensionsMethods.cs" />
     <Compile Include="Extensions\Strings\StringsExtensions.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Configs\Webresource.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Plugin.cs" />
     <Compile Include="Models\PluginAssembly.cs" />
+    <Compile Include="Models\SandboxCustomActivityInfo.cs" />
     <Compile Include="Models\Step.cs" />
     <Compile Include="Models\SystemForm.cs" />
     <Compile Include="Models\WebResourceMerge.cs" />
@@ -226,6 +228,7 @@
     <Content Include="bin\Debug\Microsoft.Xrm.Sdk.dll" />
     <Content Include="bin\Debug\Microsoft.Xrm.Sdk.xml" />
     <Content Include="Entities\filter.xml" />
+    <Content Include="Models\Xml\CustomActivityInfo.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

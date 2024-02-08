@@ -14,10 +14,14 @@
         protected override void Execute(CodeActivityContext executionContext)
         {
             this.Initialize(executionContext);
-            this.Run();
+            this.Run(executionContext);
         }
 
-        protected abstract void Run();
+        public BaseCodeActivity() : base()
+        {
+        }
+
+        protected abstract void Run(CodeActivityContext executionContext);
 
         private void Initialize(CodeActivityContext executionContext)
         {
@@ -40,7 +44,7 @@
 
                 foreach (var property in properties)
                 {
-                    var importAttr = property.GetCustomAttributes(typeof(Attributes.ImportingAttribute), false).SingleOrDefault() as Attributes.ImportingAttribute;
+                    var importAttr = property.GetCustomAttributes(typeof(Attributes.ImportAttribute), false).SingleOrDefault() as Attributes.ImportAttribute;
                     if (importAttr != null)
                     {
                         result.Add(property);
