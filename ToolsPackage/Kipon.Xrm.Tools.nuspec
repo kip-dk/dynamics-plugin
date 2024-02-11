@@ -13,7 +13,7 @@
     <releaseNotes>
 		added support for workflows
 	</releaseNotes>
-    <copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023</copyright>
+    <copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023,2024</copyright>
     <tags>Dynamics 365 CE plugin C# SOLID webresource typescript DefinitelyTyped @types/xrm</tags>
       <dependencies>
         <dependency id="Microsoft.CrmSdk.CoreTools" version="9.1.0.108" />
