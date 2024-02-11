@@ -36,10 +36,14 @@ namespace Kipon.Fake.Xrm
         protected override void Execute(CodeActivityContext executionContext)
         {
             this.Initialize(executionContext);
-            this.Run();
+            this.Run(executionContext);
         }
 
-        protected abstract void Run();
+        public BaseCodeActivity() : base()
+        {
+        }
+
+        protected abstract void Run(CodeActivityContext executionContext);
 
         private void Initialize(CodeActivityContext executionContext)
         {
@@ -62,7 +66,7 @@ namespace Kipon.Fake.Xrm
 
                 foreach (var property in properties)
                 {
-                    var importAttr = property.GetCustomAttributes(typeof(Attributes.ImportingAttribute), false).SingleOrDefault() as Attributes.ImportingAttribute;
+                    var importAttr = property.GetCustomAttributes(typeof(Attributes.ImportAttribute), false).SingleOrDefault() as Attributes.ImportAttribute;
                     if (importAttr != null)
                     {
                         result.Add(property);
@@ -955,7 +959,7 @@ namespace Kipon.Fake.Xrm.Attributes
     /// <summary>
     /// Property indicating that the underlying IOrganizationService must be run with system priviliges
     /// </summary>
-    [AttributeUsage(AttributeTargets.Parameter, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public class AdminAttribute : Attribute
     {
     }
@@ -1012,15 +1016,14 @@ namespace Kipon.Fake.Xrm.Attributes
 {
     using System;
     /// <summary>
-    /// Use ImportingConstructor to decorate classes with multi public constructor, decorating the one and only constructor to be used to create the instance
+    /// Use ImportProperty to decorate 
+    /// 
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class ImportingAttribute : Attribute
+    public class ImportAttribute : Attribute
     {
-        public Type Type { get; private set; }
-        public ImportingAttribute(Type type)
+        public ImportAttribute()
         {
-            this.Type = type;
         }
     }
 }
@@ -5198,13 +5201,12 @@ namespace Kipon.Fake.Xrm.Reflection
         {
             var key = new Key() { Property = property };
 
-            var type = property.PropertyType;
-
             if (resolvedTypes.ContainsKey(key))
             {
                 return resolvedTypes[key];
             }
 
+            var type = property.PropertyType;
             lock (locks)
             {
                 if (resolvedTypes.ContainsKey(key))
@@ -5839,6 +5841,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
             this.BasePlugin = allTypes[$"{NAMESPACE}{nameof(_instance.BasePlugin)}"];
             this.VirtualEntityPlugin = allTypes[$"{NAMESPACE}{nameof(_instance.VirtualEntityPlugin)}"];
+            this.BaseCodeActivity = allTypes[$"{NAMESPACE}{nameof(_instance.BaseCodeActivity)}"];
 
             this.IPluginContext = allTypes[$"{NAMESPACE}{nameof(_instance.IPluginContext)}"];
         }
@@ -5876,6 +5879,7 @@ namespace Kipon.Fake.Xrm.Reflection
 
         public Type BasePlugin { get; private set; }
         public Type VirtualEntityPlugin { get; private set; }
+        public Type BaseCodeActivity { get; private set; }
 
         public Type IPluginContext { get; private set; }
 

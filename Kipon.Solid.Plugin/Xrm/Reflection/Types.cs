@@ -77,6 +77,7 @@
 
             this.BasePlugin = allTypes[$"{NAMESPACE}{nameof(_instance.BasePlugin)}"];
             this.VirtualEntityPlugin = allTypes[$"{NAMESPACE}{nameof(_instance.VirtualEntityPlugin)}"];
+            this.BaseCodeActivity = allTypes[$"{NAMESPACE}{nameof(_instance.BaseCodeActivity)}"];
 
             this.IPluginContext = allTypes[$"{NAMESPACE}{nameof(_instance.IPluginContext)}"];
         }
@@ -114,6 +115,7 @@
 
         public Type BasePlugin { get; private set; }
         public Type VirtualEntityPlugin { get; private set; }
+        public Type BaseCodeActivity { get; private set; }
 
         public Type IPluginContext { get; private set; }
 

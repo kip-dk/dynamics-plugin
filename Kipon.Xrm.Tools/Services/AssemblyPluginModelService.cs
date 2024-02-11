@@ -44,7 +44,7 @@ namespace Kipon.Xrm.Tools.Services
                 Name = assm.Name
             };
 
-            var types = this.typeService.ForPluginAssembly(assm.PluginAssemblyId.Value);
+            var types = this.typeService.GetPluginTypes(assm.PluginAssemblyId.Value);
             var steps = this.stepService.ForPluginAssembly(assm.PluginAssemblyId.Value);
             var filters = this.stepService.FiltersForAssembly(assm.PluginAssemblyId.Value); 
             var images = this.stepService.ImagesForPluginAssembly(assm.PluginAssemblyId.Value);

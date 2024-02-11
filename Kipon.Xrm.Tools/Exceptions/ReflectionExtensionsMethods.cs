@@ -12,9 +12,9 @@ namespace Kipon.Xrm.Tools.Exceptions
         {
             var result = new List<System.Reflection.PropertyInfo>();
 
-            foreach (var prop in type.GetProperties(System.Reflection.BindingFlags.Public & System.Reflection.BindingFlags.Instance))
+            foreach (var prop in type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
             {
-                var cust = prop.GetCustomAttributes(type, false).FirstOrDefault();
+                var cust = prop.GetCustomAttributes(decorator, false).FirstOrDefault();
                 if (cust != null)
                 {
                     result.Add(prop);

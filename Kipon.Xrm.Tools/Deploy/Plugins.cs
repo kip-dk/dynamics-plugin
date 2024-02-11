@@ -49,13 +49,16 @@ namespace Kipon.Xrm.Tools.Deploy
             #endregion
 
             // Then we find out the steps we needs according to the loaded assembly
-            var upcommingPlugins = pluginDeployService.ForAssembly(pluginAssmService.Assembly);
+            var upcommingPlugins = pluginDeployService.PluginForAssembly(pluginAssmService.Assembly);
+            var upcommingWorkflows = pluginDeployService.WorkflowForAssembly(pluginAssmService.Assembly);
 
             // Then we find the plugin types we already have
-            var existingplugins = pluginTypeService.ForPluginAssembly(pluginAssembly.PluginAssemblyId.Value);
+            var existingplugins = pluginTypeService.GetPluginTypes(pluginAssembly.PluginAssemblyId.Value);
+            var existingworkflows = pluginTypeService.GetWorkflowTypes(pluginAssembly.PluginAssemblyId.Value);
 
             // Then we cleanup plugin types in CRM that are no longer needed.
-            pluginTypeService.JoinAndCleanup(existingplugins, upcommingPlugins);
+            pluginTypeService.JoinAndCleanupPlugins(existingplugins, upcommingPlugins);
+            pluginTypeService.JoinAndCleanupWorkflows(existingworkflows, upcommingWorkflows);
 
             // Then we find the steps we already have (after cleanup on plugins that no longer exists in the assembly)
             var steps = sdkMessageProcessingStepService.ForPluginAssembly(pluginAssembly.PluginAssemblyId.Value);
@@ -67,7 +70,8 @@ namespace Kipon.Xrm.Tools.Deploy
             pluginAssmService.UploadAssembly();
 
             // now map existing plugin types with existing upcomming, and create new plugintypes on the fly and map to upcomming if applicable
-            pluginTypeService.CreateAnJoinMissing(pluginAssembly.PluginAssemblyId.Value, upcommingPlugins);
+            pluginTypeService.CreateAnJoinMissingPlugins(pluginAssembly.PluginAssemblyId.Value, upcommingPlugins);
+            pluginTypeService.CreateAnJoinMissingWorkflows(pluginAssembly.PluginAssemblyId.Value, upcommingWorkflows);
 
             // Create/Update steps according to upcommingPlugins defacto code, and return the brutto list of steps we have after the create/update
             steps = sdkMessageProcessingStepService.CreateOrUpdateSteps(steps, upcommingPlugins);

@@ -21,14 +21,16 @@ namespace Kipon.Xrm.Tools.Services
             this.messageService = messageService;
         }
 
-        public PluginType[] ForPluginAssembly(Guid pluginAssemblyId)
+        #region plugins
+        public PluginType[] GetPluginTypes(Guid pluginAssemblyId)
         {
             return (from pt in uow.PluginTypes.GetQuery()
                     where pt.PluginAssemblyId.Id == pluginAssemblyId
+                      && pt.IsWorkflowActivity != true
                     select pt).ToArray();
         }
 
-        public void JoinAndCleanup(Entities.PluginType[] currents, Models.Plugin[] tobee)
+        public void JoinAndCleanupPlugins(Entities.PluginType[] currents, Models.Plugin[] tobee)
         {
             foreach (var current in currents)
             {
@@ -46,7 +48,7 @@ namespace Kipon.Xrm.Tools.Services
             this.uow.ClearContext();
         }
 
-        public void CreateAnJoinMissing(Guid pluginassemblyId, Models.Plugin[] tobees)
+        public void CreateAnJoinMissingPlugins(Guid pluginassemblyId, Models.Plugin[] tobees)
         {
             foreach (var tobee in tobees)
             {
@@ -65,7 +67,57 @@ namespace Kipon.Xrm.Tools.Services
                 }
             }
         }
+        #endregion
 
+        #region workflows
+        public PluginType[] GetWorkflowTypes(Guid pluginAssemblyId)
+        {
+            return (from pt in uow.PluginTypes.GetQuery()
+                    where pt.PluginAssemblyId.Id == pluginAssemblyId
+                      && pt.IsWorkflowActivity == true
+                    select pt).ToArray();
+        }
+
+        public void JoinAndCleanupWorkflows(Entities.PluginType[] currents, Models.Workflow[] tobee)
+        {
+            foreach (var current in currents)
+            {
+                var inTobee = (from t in tobee
+                               where t.Type.FullName == current.Name
+                               select t).SingleOrDefault();
+
+                if (inTobee != null)
+                {
+                    inTobee.CurrentCrmInstance = current;
+                    continue;
+                }
+                uow.Delete(current);
+            }
+            this.uow.ClearContext();
+        }
+
+        public void CreateAnJoinMissingWorkflows(Guid pluginassemblyId, Models.Workflow[] tobees)
+        {
+            foreach (var tobee in tobees)
+            {
+                if (tobee.CurrentCrmInstance == null)
+                {
+                    var next = new Entities.PluginType
+                    {
+                        PluginTypeId = Guid.NewGuid(),
+                        PluginAssemblyId = new Microsoft.Xrm.Sdk.EntityReference(Entities.PluginAssembly.EntityLogicalName, pluginassemblyId),
+                        FriendlyName = tobee.Type.FullName,
+                        Name = tobee.Type.FullName,
+                        TypeName = tobee.Type.FullName,
+                        WorkflowActivityGroupName = tobee.SandboxCustomActivityInfo.CustomActivityInfo.GroupName
+                    };
+                    uow.Create(next);
+                    tobee.CurrentCrmInstance = next;
+                }
+            }
+
+        }
+        #endregion
 
         private void Delete(Entities.PluginType pluginType)
         {

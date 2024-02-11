@@ -47,7 +47,7 @@ namespace Kipon.Xrm.Tools.Services
             this.uow = uow;
         }
 
-        public Plugin[] ForAssembly(Assembly assembly)
+        public Plugin[] PluginForAssembly(Assembly assembly)
         {
             var customActions = (from sm in uow.SdkMessages.GetQuery()
                                  join wf in uow.Workflows.GetQuery() on sm.SdkMessageId equals wf.SdkMessageId.Id
@@ -167,6 +167,25 @@ namespace Kipon.Xrm.Tools.Services
                     }
                 }
             }
+            return result.ToArray();
+        }
+
+        public Models.Workflow[] WorkflowForAssembly(System.Reflection.Assembly assembly)
+        {
+            this.types = Kipon.Tools.Xrm.Reflection.Types.Instance;
+            types.SetAssembly(assembly);
+
+            var result = new List<Models.Workflow>();
+
+            var workflowtypes = assembly.GetTypes().Where(r => r.BaseType == types.BaseCodeActivity).ToArray();
+
+            foreach (var workflowtype in workflowtypes)
+            {
+                var next = new Models.Workflow(workflowtype);
+                result.Add(next);
+            }
+
+
             return result.ToArray();
         }
     }

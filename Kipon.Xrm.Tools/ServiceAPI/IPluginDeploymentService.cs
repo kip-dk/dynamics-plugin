@@ -8,6 +8,7 @@ namespace Kipon.Xrm.Tools.ServiceAPI
 {
     public interface IPluginDeploymentService
     {
-        Models.Plugin[] ForAssembly(System.Reflection.Assembly assembly);
+        Models.Plugin[] PluginForAssembly(System.Reflection.Assembly assembly);
+        Models.Workflow[] WorkflowForAssembly(System.Reflection.Assembly assembly);
     }
 }
