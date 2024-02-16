@@ -11,19 +11,19 @@
     {
         private static readonly Dictionary<Type, System.Reflection.PropertyInfo[]> imports = new Dictionary<Type, System.Reflection.PropertyInfo[]>();
         private static readonly Dictionary<System.Reflection.PropertyInfo,  Reflection.TypeCache> typeMap = new Dictionary<System.Reflection.PropertyInfo, Reflection.TypeCache>();
-        protected override void Execute(CodeActivityContext executionContext)
-        {
-            this.Initialize(executionContext);
-            this.Run(executionContext);
-        }
-
         public BaseCodeActivity() : base()
         {
+            Reflection.Types.Instance.SetAssembly(typeof(BasePlugin).Assembly);
+        }
+
+        protected override void Execute(CodeActivityContext executionContext)
+        {
+            this.InitializeAndRun(executionContext);
         }
 
         protected abstract void Run(CodeActivityContext executionContext);
 
-        private void Initialize(CodeActivityContext executionContext)
+        private void InitializeAndRun(CodeActivityContext executionContext)
         {
             var traceService = executionContext.GetExtension<ITracingService>() as ITracingService;
             var workflowExecutionContext = executionContext.GetExtension<IWorkflowContext>()as IWorkflowContext;
@@ -39,7 +39,7 @@
             }
             else
             {
-                var properties = type.GetProperties(System.Reflection.BindingFlags.Public & System.Reflection.BindingFlags.Instance);
+                var properties = type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
                 var result = new List<System.Reflection.PropertyInfo>();
 
                 foreach (var property in properties)
@@ -65,6 +65,8 @@
                         var service = serviceCahce.Resolve(typeCache);
                         prop.SetValue(this, service);
                     }
+
+                    this.Run(executionContext);
                 }
             }
         }

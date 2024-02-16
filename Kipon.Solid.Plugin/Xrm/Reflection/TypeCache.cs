@@ -942,8 +942,16 @@
                 unchecked
                 {
                     int hash = 17;
-                    // Suitable nullity checks etc, of course :)
-                    hash = hash * 23 + Parameter.GetHashCode();
+                    if (Parameter != null)
+                    {
+                        hash = hash * 23 + Parameter.GetHashCode();
+                    }
+
+                    if (Property != null)
+                    {
+                        hash = hash * 23 + Property.GetHashCode();
+                    }
+
                     if (LogicalName != null)
                     {
                         hash = hash * 23 + this.LogicalName.GetHashCode();

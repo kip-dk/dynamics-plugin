@@ -1,6 +1,9 @@
-## Last updated: 2024-07-12
+## Last updated: 2024-02-16
 
-### 1.0.10.1
+### 1.0.10.2
+Workflow now tested, and injection should work now.
+
+### 1.0.10.1 - pre test
 Support for workflow with dependency injection through the kipon solid dependency injection framework. An example article will be published shortly on the kipon solid official website.
 
 ### 1.0.9.10
