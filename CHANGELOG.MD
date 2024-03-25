@@ -1,4 +1,15 @@
-## Last updated: 2024-02-16
+## Last updated: 2024-03-25
+
+### 1.0.10.3
+Tool version only, avoid generate UpsetMultipleRequest on generate early bound entities
+
+If you are using this framework with online environment, you might have found that generating early bound entities generates an UpsetMultipleRequest request that cannot compile.
+
+add this parameter to the generate.cmd command line tool in the plugin entity folder:
+
+/codewritermessagefilter:Kipon.Xrm.Tools.CodeWriter.CodeWriterMessageFilterService,Kipon.Xrm.Tools
+
+this will supress the generate of the request. The request is not that relevant for plugin development, and should not be generated at all because it is a SDK standard message.
 
 ### 1.0.10.2
 Workflow now tested, and injection should work now.

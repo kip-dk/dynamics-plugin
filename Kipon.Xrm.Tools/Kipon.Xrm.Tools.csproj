@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeCopy\CopyXrmCode.cs" />
+    <Compile Include="CodeWriter\CodeWriterMessageFilterService.cs" />
     <Compile Include="CodeWriter\PlainTxtCodeWriterFilter.cs" />
     <Compile Include="CodeWriter\CodeWriterFilter.cs" />
     <Compile Include="CodeWriter\Model\Action.cs" />

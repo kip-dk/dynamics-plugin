@@ -145,7 +145,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
             var metaService = services.GetService(typeof(Microsoft.Crm.Services.Utility.IMetadataProviderService)) as Microsoft.Crm.Services.Utility.IMetadataProviderService;
             var meta = metaService.LoadMetadata();
 
-            Console.WriteLine("(c) 2020, 2021, 2022, 2023 Kipon ApS, " + this.GetType().FullName + ", Version: " + Kipon.Xrm.Tools.Version.No + ". All rights reserved");
+            Console.WriteLine("(c) 2020, 2021, 2022, 2023, 2024 Kipon ApS, " + this.GetType().FullName + ", Version: " + Kipon.Xrm.Tools.Version.No + ". All rights reserved");
             var ns = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/namespace:") select c.Split(':')[1]).Single();
             var xrmNS = "Kipon.Xrm";
 
