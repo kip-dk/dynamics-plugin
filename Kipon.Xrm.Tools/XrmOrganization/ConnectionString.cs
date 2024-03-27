@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace Kipon.Xrm.Tools.XrmOrganization
 
                         if (conString != null)
                         {
-                            _value = conString.Substring(18);
+                            _value = ResolveConnectionStringFromStorage(conString.Substring(18));
                         }
 
                         if (_value == null)
@@ -68,6 +69,8 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                     if (string.IsNullOrWhiteSpace(_value))
                     {
                         _value = ConfigurationManager.ConnectionStrings["CRM"]?.ConnectionString;
+
+                        _value = ResolveConnectionStringFromStorage(_value);
                     }
 
                     if (string.IsNullOrWhiteSpace(_value))
@@ -77,6 +80,46 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                 }
                 return _value;
             }
+        }
+
+        public static string ResolveConnectionStringFromStorage(string _value)
+        {
+            if (_value != null && _value.StartsWith("auth="))
+            {
+                string name = null;
+                string pwd = null;
+
+                var pms = _value.Split(';');
+                foreach (var pm in pms)
+                {
+                    if (pm.StartsWith("auth="))
+                    {
+                        name = pm.Split('=').Skip(1).FirstOrDefault();
+                    }
+
+                    if (pm.StartsWith("pwd="))
+                    {
+                        pwd = pm.Split('=').Skip(1).FirstOrDefault();
+                    }
+                }
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    throw new Exception($"Unable to extract name of stored connection from connection string: {_value}. ");
+                }
+
+                while (string.IsNullOrEmpty(pwd))
+                {
+                    Console.Write($"Please enter password for the connection string storage: ");
+                    pwd = Console.ReadLine();
+                }
+
+                var secService = new Services.SecurityService();
+                var stoService = new Services.AuthStorageService(secService);
+
+                _value = stoService.GetConnectionString(pwd, name);
+            }
+            return _value;
         }
     }
 }

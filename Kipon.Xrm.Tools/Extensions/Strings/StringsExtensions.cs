@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +21,17 @@ namespace Kipon.Xrm.Tools.Extensions.Strings
             {
                 var index = match.IndexOf("=");
                 return match.Substring(index + 1).Trim();
+            }
+            return null;
+        }
+
+        public static string GetCommandlineParameter(this string name)
+        {
+            var pName = $"/{name}:";
+            var pms = System.Environment.GetCommandLineArgs().Where(r => r.StartsWith(pName)).FirstOrDefault();
+            if (pms != null)
+            {
+                return pms.Substring(pName.Length).Trim();
             }
             return null;
         }
@@ -106,6 +118,18 @@ namespace Kipon.Xrm.Tools.Extensions.Strings
                 }
             }
             return result;
+        }
+
+        public static string ToJsonString<T>(this T data)
+        {
+            var ser = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(T));
+
+            using (var mem = new System.IO.MemoryStream())
+            {
+                ser.WriteObject(mem, data);
+
+                return System.Text.Encoding.UTF8.GetString(mem.ToArray());
+            }
         }
     }
 }

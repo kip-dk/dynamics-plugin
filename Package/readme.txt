@@ -1,4 +1,4 @@
-Kipon.Solid.Plugin: Copyright Kipon ApS 2019, 2020, 2021, 2022, 2023
+Kipon.Solid.Plugin: Copyright Kipon ApS 2019, 2020, 2021, 2022, 2023, 2024
 
 DISCLAIMER
 ----------
@@ -27,10 +27,10 @@ adjust the content of the file to your need.
 
 The following template files need to be adjusted:
 
-deploy.cmd.template  (a command line tool that can deploy your plugin assembly to Dynamics 365)
+deploy.cmd.template  (a command line tool that can deploy your plugin assembly to Dynamics 365 CE)
 Entities/filter.xml.template (an xml file describing the entities you need to work with in your plugin)
 Entities/generate.cmd.template (a command line tool that can generate early bound entities according to filter.xml spec)
-bin/coretools/Kipon.Xrm.Cmd.exe.config.template (configuration file for the Kipon.Xrm.Cmd.exe tool, you must added you CRM connection string here)
+bin/coretools/Kipon.Xrm.Cmd.exe.config.template (configuration file for the Kipon.Xrm.Cmd.exe tool, you can added you CRM connection string here if you would like to avoid putting it directly into the generate.cmd command line script)
 
 Finally you must include the Kipon/Kipon.Xrm.cs source in you C# dynamics-plugin-assembly-library project. This file is an accumulated single source version of all the coded needed to build
 plugins, extending from the Kipon.Xrm.BasePlugin.

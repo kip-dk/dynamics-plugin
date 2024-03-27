@@ -126,9 +126,11 @@
     <Compile Include="Tests\AnunboundedactionTest.cs" />
     <Compile Include="Tests\SandboxCustomActivityInfoTest.cs" />
     <Compile Include="Tests\SolutionListTest.cs" />
+    <Compile Include="Tools\Auth.cs" />
     <Compile Include="Tools\CodeCopy.cs" />
     <Compile Include="Tools\Deploy.cs" />
     <Compile Include="Tools\ExportAssmSteps.cs" />
+    <Compile Include="Tools\GenerateModel.cs" />
     <Compile Include="Tools\ImportAssmSteps.cs" />
     <Compile Include="Tools\ListSdkMessages.cs" />
     <Compile Include="Tools\WebResourceDeploy.cs" />

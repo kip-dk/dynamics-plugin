@@ -1,5 +1,9 @@
 ## Last updated: 2024-03-25
 
+### 1.0.10.4 
+Tool version only, added experimental  option to store connection string encrypted and outside source scope, to avoid revealing connection string in code.
+Full documentation will follow as concept mature.
+
 ### 1.0.10.3
 Tool version only, avoid generate UpsetMultipleRequest on generate early bound entities
 
