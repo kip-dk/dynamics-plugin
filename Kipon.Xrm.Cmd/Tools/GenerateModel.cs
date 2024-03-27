@@ -22,6 +22,11 @@ namespace Kipon.Xrm.Cmd.Tools
 
         public Task ExecuteAsync(string[] args)
         {
+            if (args.Contains("/debug"))
+            {
+                Console.WriteLine($"Debug flag is not supported when using the kipon xrm tools wrapper for CrmSvcUtil.exe. Call CrmSvcUtil directly instead.");
+                args = args.Where(r => r != "/debug").ToArray();
+            }
 
             var ix = 0;
             foreach (var arg in args.ToArray())
@@ -38,20 +43,23 @@ namespace Kipon.Xrm.Cmd.Tools
 
             if (args.Length > 0)
             {
-                argString = string.Join(" ", args.Select(r => "\"{r}\""));
+                argString = string.Join(" ", args.Select(r => $"\"{r}\""));
             }
 
             using (System.Diagnostics.Process pProcess = new System.Diagnostics.Process())
             {
-                pProcess.StartInfo.FileName = @"CrmSvcUtil.exe";
+                pProcess.StartInfo.FileName = @"..\bin\coretools\CrmSvcUtil.exe";
                 pProcess.StartInfo.Arguments = argString; //argument
                 pProcess.StartInfo.UseShellExecute = false;
                 pProcess.StartInfo.RedirectStandardOutput = true;
-                pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                pProcess.StartInfo.CreateNoWindow = true; //not diplay a windows
+                pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                pProcess.StartInfo.CreateNoWindow = false; //not diplay a windows
                 pProcess.Start();
+
                 string output = pProcess.StandardOutput.ReadToEnd(); //The output result
                 pProcess.WaitForExit();
+
+                Console.WriteLine(output);
             }
 
             return Task.CompletedTask;
