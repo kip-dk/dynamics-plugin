@@ -1,4 +1,7 @@
-## Last updated: 2024-03-25
+## Last updated: 2024-03-28
+
+### 1.0.10.5
+Finalize and document hiding connection string, and document it in readme file
 
 ### 1.0.10.4 
 Tool version only, added experimental  option to store connection string encrypted and outside source scope, to avoid revealing connection string in code.
