@@ -110,7 +110,6 @@ namespace Kipon.Xrm.Tools.XrmOrganization
 
                 while (string.IsNullOrEmpty(pwd))
                 {
-                    Console.Write($"Please enter password for the connection string storage: ");
                     pwd = GetPassword();
                 }
 
