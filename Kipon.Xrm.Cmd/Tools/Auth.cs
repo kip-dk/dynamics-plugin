@@ -31,8 +31,7 @@ namespace Kipon.Xrm.Cmd.Tools
             var pwd = "pwd".GetCommandlineParameter();
             while (string.IsNullOrEmpty(pwd))
             {
-                Console.Write($"Please enter password: ");
-                pwd = Console.ReadLine();
+                pwd = Kipon.Xrm.Tools.XrmOrganization.ConnectionString.GetPassword();
             }
 
             switch (args[0])

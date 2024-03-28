@@ -111,7 +111,7 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                 while (string.IsNullOrEmpty(pwd))
                 {
                     Console.Write($"Please enter password for the connection string storage: ");
-                    pwd = Console.ReadLine();
+                    pwd = GetPassword();
                 }
 
                 var secService = new Services.SecurityService();
@@ -120,6 +120,36 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                 _value = stoService.GetConnectionString(pwd, name);
             }
             return _value;
+        }
+
+        public static string GetPassword()
+        {
+            Console.Write($"Enter password for connection string storage: ");
+            StringBuilder input = new StringBuilder();
+            while (true)
+            {
+                int x = Console.CursorLeft;
+                int y = Console.CursorTop;
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Enter)
+                {
+                    Console.WriteLine();
+                    break;
+                }
+                if (key.Key == ConsoleKey.Backspace && input.Length > 0)
+                {
+                    input.Remove(input.Length - 1, 1);
+                    Console.SetCursorPosition(x - 1, y);
+                    Console.Write(" ");
+                    Console.SetCursorPosition(x - 1, y);
+                }
+                else if (key.Key != ConsoleKey.Backspace)
+                {
+                    input.Append(key.KeyChar);
+                    Console.Write("*");
+                }
+            }
+            return input.ToString();
         }
     }
 }
