@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Kipon.Solid.Xrm.Fake")]
-[assembly: AssemblyCopyright("Copyright ©  2019,2020,2021,2022,2023")]
+[assembly: AssemblyCopyright("Copyright ©  2019,2020,2021,2022,2023,2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
