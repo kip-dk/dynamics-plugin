@@ -7,7 +7,7 @@ using Kipon.Xrm.Attributes;
 
 namespace Kipon.Solid.Plugin.Plugins.Account
 {
-    public class AccountPlugin : Kipon.Xrm.BasePlugin
+    public class AccountPlugin : MyProjectSpecificBasePlugin
     {
 
         public void OnValidateCreate(Entities.Account.IAccountMergedImageWithTargetAttributes target, ServiceAPI.IAccountService accountService)

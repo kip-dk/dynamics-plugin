@@ -148,6 +148,7 @@
     <Compile Include="Plugins\kipon_multitest\kipon_multitestPlugin.cs" />
     <Compile Include="Plugins\Lead\LeadPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
+    <Compile Include="Plugins\MyProjectSpecificBasePlugin.cs" />
     <Compile Include="Plugins\Relationship\RelationshipPlugin.cs" />
     <Compile Include="Plugins\SpecialService\SpecialServicePlugin.cs" />
     <Compile Include="Plugins\Template\TemplatePlugin.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Xrm\Attributes\ImportAttribute.cs" />
     <Compile Include="Xrm\BaseCodeActivity.cs" />
     <Compile Include="Xrm\Implementations\WorkflowPluginExecutionContext.cs" />
+    <Compile Include="Xrm\IStepExecuter.cs" />
     <Compile Include="Xrm\ServiceAPI\IEntityMetadataService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="ServiceAPI\ISpecialAccountService.cs" />

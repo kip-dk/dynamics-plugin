@@ -104,8 +104,11 @@ namespace Kipon.Xrm.Tools.Services
             types.SetAssembly(assembly);
             this.pluginMethodCache = new Kipon.Tools.Xrm.Reflection.PluginMethod.Cache(assembly);
 
-            var plugins = assembly.GetTypes().Where(r => r.BaseType == types.BasePlugin).ToArray();
-            var vPlugins = assembly.GetTypes().Where(r => r.BaseType == types.VirtualEntityPlugin).ToArray();
+            var abstractPlugins = assembly.GetTypes().Where(r => r.BaseType == types.BasePlugin && r.IsAbstract).ToArray();
+            var plugins = assembly.GetTypes().Where(r => (r.BaseType == types.BasePlugin && !r.IsAbstract) || abstractPlugins.Contains(r.BaseType)).ToArray();
+
+            var abstractvPlugins = assembly.GetTypes().Where(r => r.BaseType == types.VirtualEntityPlugin && r.IsAbstract).ToArray();
+            var vPlugins = assembly.GetTypes().Where(r => (r.BaseType == types.VirtualEntityPlugin && !r.IsAbstract) || abstractvPlugins.Contains(r.BaseType)).ToArray();
 
             this.messageService.Inform($"Kipon.Xrm.Tools, plugin deployment found {plugins.Length} plugins, virtual entityplugins: {vPlugins.Length} in {assembly.FullName}");
 

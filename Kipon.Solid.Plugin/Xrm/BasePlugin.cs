@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Kipon.Solid.Plugin.Xrm;
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
@@ -227,7 +228,19 @@
                         try
                         {
                             logs.Add($"before: {nextlog}");
-                            var result = method.Invoke(this, args);
+                            object result = null;
+                            if (this is IStepExecuter stepExe)
+                            {
+                                stepExe.Run(serviceProvider, context, () =>
+                                {
+                                    result = method.Invoke(this, args);
+                                });
+                            }
+                            else
+                            {
+                                result = method.Invoke(this, args);
+                            }
+
                             logs.Add($"after: {nextlog}");
 
                             if (result != null && method.OutputProperties != null && method.OutputProperties.Count > 0)
