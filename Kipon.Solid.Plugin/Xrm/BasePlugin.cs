@@ -2,11 +2,10 @@
 {
     using System;
     using System.Linq;
-    using Kipon.Solid.Plugin.Xrm;
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.10.5";
+        public const string Version = "1.0.10.6";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 

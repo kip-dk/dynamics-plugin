@@ -1,6 +1,6 @@
 ﻿namespace Kipon.Xrm.Implementations
 {
-    using Kipon.Xrm.Reflection;
+    using Reflection;
     using Microsoft.Xrm.Sdk;
     using System;
     using System.Collections.Generic;

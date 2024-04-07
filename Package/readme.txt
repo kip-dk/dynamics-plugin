@@ -36,7 +36,7 @@ Finally you must include the Kipon/Kipon.Xrm.cs source in you C# dynamics-plugin
 plugins, extending from the Kipon.Xrm.BasePlugin.
 
 
-PROTECT YOUR CONNECTIONSTRING (from version 1.0.10.5)
+PROTECT YOUR CONNECTIONSTRING (starting from version 1.0.10.5)
 -----------------------------------------------------
 It is possible to protect you connection string if it contains secret information like application user id and secret. Use the Kipon.Xrm.Cmd.exe tool, places it in the bin\coretools folder
 to registre you connectionstrings, and then replace connection string in the deploy and generate cmd tool with:
@@ -50,10 +50,15 @@ use
 
 kipon.xrm.cmd auth create /name:ENG_NAME "/connectionstring:yourconnectionstring" 
 
-..to create connection string in your local storage. If you ommit parameters, you will be prompted. You will also be prompted for a password. That is used to encrypt the connection string storage fil,
-so it is only possible to decrypt the file if you know the password.
+..to create connection string in your local storage. If you ommit parameters, you will be prompted. 
 
-You will be prompted for this password on each decrypt of the connecting string storage.
+You will also be prompted for a password. That is used to encrypt the connection string storage fil,
+so it is only possible to decrypt the file if you know the password. You can use the word "ramdon" as password - to let the tool handle password. That will generate a random password and store it in your personal folder
+locally on your developer machine. This is not 100% as secure as selecting a password, - on the other hand, you do not need to enter the password every time the connection storage is needed by a tool.
+
+Different users on same developer machine have have separate connection string storages, and different passwords.
+
+You will be prompted for this password on each decrypt of the connecting string storage - unless you choosed the random approach.
 
 the connection string storage is saved in the users personal application data folder, and is personal, and will not be included in GIT repository push etc. The file cannot be copied
 between different machines, so you need to do this setup for each machine you are using. 
@@ -70,4 +75,4 @@ This will happen in situations where basic interfaces/methods in the model has b
 regenerate your entities and the compile errors will go away.
 
 
-updated: 2024-03-28 08:45 GMT+1
+updated: 2024-04-07 08:30 GMT+1
