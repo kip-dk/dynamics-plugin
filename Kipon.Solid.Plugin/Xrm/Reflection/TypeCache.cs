@@ -481,6 +481,12 @@
             }
         }
 
+        public static TypeCache ForServiceIntereface(Type type)
+        {
+            var r1 = GetInterfaceImplementation(type);
+            return new TypeCache { FromType = type, ToType = r1, Constructor = GetConstructor(r1), LogicalName = null, IsActionReference = false };
+        }
+
         public static TypeCache ForProperty(System.Reflection.PropertyInfo property)
         {
             var key = new Key() { Property = property };

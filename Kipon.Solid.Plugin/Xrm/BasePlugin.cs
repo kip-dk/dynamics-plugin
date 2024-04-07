@@ -60,6 +60,19 @@
                 var methods = PluginMethodCache.ForPlugin(this.GetType(), stage, message, entityName, context.Mode == 1);
 
                 var logs = new System.Collections.Generic.List<string>();
+
+                Implementations.InternalServiceProvider sp = null;
+
+                Implementations.InternalServiceProvider GetSp()
+                {
+                    if (sp == null)
+                    {
+                        sp = new Implementations.InternalServiceProvider(serviceProvider, serviceCache, toolOrgService);
+                    }
+                    return sp;
+                }
+
+
                 try
                 {
                     foreach (var method in methods)
@@ -93,6 +106,7 @@
                         System.ComponentModel.INotifyPropertyChanged mergedimage = null;
                         System.ComponentModel.INotifyPropertyChanged target = null;
                         var comma = "";
+                        var stepInitialized = false;
                         foreach (var p in method.Parameters)
                         {
                             nextlog += $"{comma}{p?.FromType?.FullName}";
@@ -227,19 +241,16 @@
                         nextlog += ")";
                         try
                         {
+                            if (!stepInitialized && this is IStepInitializer stepExe)
+                            {
+                                logs.Add($"before plugin service initialiser: {nextlog}");
+                                stepExe.Initialize(GetSp());
+                                stepInitialized = true;
+                                logs.Add($"after plugin service initialiser: {nextlog}");
+                            }
+
                             logs.Add($"before: {nextlog}");
-                            object result = null;
-                            if (this is IStepExecuter stepExe)
-                            {
-                                stepExe.Run(serviceProvider, context, () =>
-                                {
-                                    result = method.Invoke(this, args);
-                                });
-                            }
-                            else
-                            {
-                                result = method.Invoke(this, args);
-                            }
+                            var result = method.Invoke(this, args);
 
                             logs.Add($"after: {nextlog}");
 
@@ -342,6 +353,13 @@
                             }
                         }
                         #endregion
+                    }
+
+                    if (this is IStepFinalizer sf)
+                    {
+                        logs.Add("Before step finalizer.");
+                        sf.Finalize(GetSp());
+                        logs.Add("After step finalizer.");
                     }
                 } catch (Exception ex)
                 {

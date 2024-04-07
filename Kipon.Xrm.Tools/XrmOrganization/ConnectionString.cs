@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -121,9 +122,22 @@ namespace Kipon.Xrm.Tools.XrmOrganization
             return _value;
         }
 
+        public static readonly string AUTH_FILE_SECRET = $@"{Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData)}\.kipon.xrm.secret";
+
         public static string GetPassword()
         {
-            Console.Write($"Enter password for connection string storage: ");
+            if (System.IO.File.Exists(AUTH_FILE_SECRET) && System.IO.File.Exists(Tools.Services.AuthStorageService.AUTH_FILE_NAME))
+            {
+                return System.IO.File.ReadAllText(AUTH_FILE_SECRET);
+            }
+
+            string addedRandomSuggestion = string.Empty;
+            if (!System.IO.File.Exists(Tools.Services.AuthStorageService.AUTH_FILE_NAME))
+            {
+                addedRandomSuggestion = "(use [random]) to let the tool handle password";
+            }
+
+            Console.Write($"Enter password for connection string storage { addedRandomSuggestion }: ");
             StringBuilder input = new StringBuilder();
             while (true)
             {
@@ -148,7 +162,14 @@ namespace Kipon.Xrm.Tools.XrmOrganization
                     Console.Write("*");
                 }
             }
-            return input.ToString();
+            var result = input.ToString();
+
+            if (result.Replace("[","").Replace("]","").ToLower() == "random")
+            {
+                result = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 12);
+                System.IO.File.WriteAllText(AUTH_FILE_SECRET, result);
+            }
+            return result;
         }
     }
 }

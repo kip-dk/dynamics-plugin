@@ -158,8 +158,10 @@
     <Compile Include="Workflow\SetContactJobTitle.cs" />
     <Compile Include="Xrm\Attributes\ImportAttribute.cs" />
     <Compile Include="Xrm\BaseCodeActivity.cs" />
+    <Compile Include="Xrm\Implementations\InternalServiceProvider.cs" />
     <Compile Include="Xrm\Implementations\WorkflowPluginExecutionContext.cs" />
-    <Compile Include="Xrm\IStepExecuter.cs" />
+    <Compile Include="Xrm\IStepFinalizer.cs" />
+    <Compile Include="Xrm\IStepInitializer.cs" />
     <Compile Include="Xrm\ServiceAPI\IEntityMetadataService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="ServiceAPI\ISpecialAccountService.cs" />

@@ -93,7 +93,7 @@ namespace Kipon.Xrm.Tools.Services
         }
 
 
-        private static readonly string AUTH_FILE_NAME = $@"{ Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData) }\.kipon.xrm.keystorage";
+        public static readonly string AUTH_FILE_NAME = $@"{ Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData) }\.kipon.xrm.keystorage";
 
         private Models.Auth[] GetModel(string pwd, bool throwIfNowFound = true)
         {

@@ -1,4 +1,10 @@
-## Last updated: 2024-03-28
+## Last updated: 2024-04-06
+
+### 1.0.10.6
+It is now possible to put an abstract plugin layer between the plugin holding the step methods and the Kipon.Xrm.BasePlugin. This allow you to add some generic plugin
+infrastructure of you own to handle problem or solution specific generic functionality that applies to more than one plugin.
+
+On top, a plugin can now implement the Kipon.Xrm.
 
 ### 1.0.10.5
 Finalize and document hiding connection string, and document it in readme file
