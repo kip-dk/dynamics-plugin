@@ -30,6 +30,7 @@
             return null;
         }
 
+        [System.Diagnostics.DebuggerNonUserCode()]
         public static Microsoft.Xrm.Sdk.Query.ConditionOperator ToConditionOperator(this string value, out string rawsearch)
         {
             if (string.IsNullOrEmpty(value))
@@ -226,6 +227,73 @@
                 }
             }
             return filter;
+        }
+
+        [System.Diagnostics.DebuggerNonUserCode()]
+        public static T[] Sort<T>(this IEnumerable<T> values, Microsoft.Xrm.Sdk.Query.QueryExpression query) where T : Microsoft.Xrm.Sdk.Entity
+        {
+            if (query != null && query.Orders != null && query.Orders.Count > 0)
+            {
+                var baseQuery = values.AsQueryable();
+
+                IOrderedQueryable<T> orderQuery = null;
+                foreach (var order in query.Orders)
+                {
+                    if (orderQuery == null)
+                    {
+                        switch (order.OrderType)
+                        {
+                            case Microsoft.Xrm.Sdk.Query.OrderType.Ascending:
+                                {
+                                    orderQuery = baseQuery.OrderBy(r => r.SafeValueOf(order.AttributeName));
+                                    break;
+                                }
+                            case Microsoft.Xrm.Sdk.Query.OrderType.Descending:
+                                {
+                                    orderQuery = baseQuery.OrderByDescending(r => r.SafeValueOf(order.AttributeName));
+                                    break;
+                                }
+                        }
+                    }
+                    else
+                    {
+                        switch (order.OrderType)
+                        {
+                            case Microsoft.Xrm.Sdk.Query.OrderType.Ascending:
+                                {
+                                    baseQuery = orderQuery.ThenBy(r => r.SafeValueOf(order.AttributeName));
+                                    break;
+                                }
+                            case Microsoft.Xrm.Sdk.Query.OrderType.Descending:
+                                {
+                                    baseQuery = orderQuery.ThenByDescending(r => r.SafeValueOf(order.AttributeName));
+                                    break;
+                                }
+                        }
+
+                    }
+                }
+                return orderQuery.ToArray();
+            }
+
+            return values.ToArray();
+        }
+
+        [System.Diagnostics.DebuggerNonUserCode()]
+        public static object SafeValueOf(this Microsoft.Xrm.Sdk.Entity entity, string attrName)
+        {
+            if (entity.Attributes.ContainsKey(attrName))
+            {
+                var val = entity[attrName];
+
+                if (val is Microsoft.Xrm.Sdk.EntityReference re)
+                {
+                    return re.Name;
+                }
+
+                return val;
+            }
+            return null;
         }
     }
 }
