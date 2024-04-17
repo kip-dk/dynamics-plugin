@@ -1,5 +1,6 @@
 ﻿namespace Kipon.Xrm.Extensions.QueryExpression
 {
+    using Microsoft.Xrm.Sdk;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -27,6 +28,35 @@
                 }
             }
             return null;
+        }
+
+        public static Microsoft.Xrm.Sdk.Query.ConditionOperator ToConditionOperator(this string value, out string rawsearch)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new InvalidPluginExecutionException($"Null or empty string cannot be resolved to a ConditionOperator");
+            }
+
+            if (value.StartsWith("%") && value.EndsWith("%"))
+            {
+                rawsearch = value.Substring(1, value.Length - 2);
+                return Microsoft.Xrm.Sdk.Query.ConditionOperator.Contains;
+            }
+
+            if (value.StartsWith("%") && !value.EndsWith("%"))
+            {
+                rawsearch = value.Substring(1, value.Length - 1);
+                return Microsoft.Xrm.Sdk.Query.ConditionOperator.EndsWith;
+            }
+
+            if (!value.StartsWith("%") && value.EndsWith("%"))
+            {
+                rawsearch = value.Substring(0, value.Length - 1);
+                return Microsoft.Xrm.Sdk.Query.ConditionOperator.BeginsWith;
+            }
+
+            rawsearch = value;
+            return Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal;
         }
 
         [System.Diagnostics.DebuggerNonUserCode()]
@@ -111,7 +141,7 @@
         {
             if (filter != null && filter.Conditions != null && filter.Conditions.Count > 0)
             {
-                var con = filter.Conditions.Where(r => r.AttributeName == attribName && r.Operator == Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal && r.Values != null && r.Values.Count > 1).FirstOrDefault();
+                var con = filter.Conditions.Where(r => r.AttributeName == attribName && r.Operator == opr && r.Values != null && r.Values.Count > 0).FirstOrDefault();
 
                 if (con != null)
                 {
@@ -120,10 +150,13 @@
 
                 if (filter.Filters != null)
                 {
-                    var next = filter.FilterValues<T>(attribName, opr);
-                    if (next != null)
+                    foreach (var sub in filter.Filters)
                     {
-                        return next;
+                        var next = sub.FilterValues<T>(attribName, opr);
+                        if (next != null)
+                        {
+                            return next;
+                        }
                     }
                 }
             }
