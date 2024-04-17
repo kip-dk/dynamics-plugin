@@ -241,62 +241,82 @@
             {
                 if (ctx.InputParameters.Contains("Requests"))
                 {
-                    var requests = ctx.InputParameters["Requests"] as Microsoft.Xrm.Sdk.OrganizationRequestCollection;
-                    if (requests != null)
+                    try
                     {
-                        foreach (var r in requests)
+                        var requests = ctx.InputParameters["Requests"] as Microsoft.Xrm.Sdk.DataCollection<Microsoft.Xrm.Sdk.OrganizationRequest>;
+                        if (requests != null)
                         {
-                            switch (message)
+                            foreach (var r in requests)
                             {
-                                case "Create":
+                                try
+                                {
+                                    switch (message)
                                     {
-                                        if (r is Microsoft.Xrm.Sdk.Messages.CreateRequest c)
-                                        {
-                                            if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
-                                        }
-                                        break;
+                                        case "Create":
+                                            {
+                                                if (r is Microsoft.Xrm.Sdk.Messages.CreateRequest c)
+                                                {
+                                                    if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
+                                                }
+                                                break;
+                                            }
+                                        case "Update":
+                                            {
+                                                if (r is Microsoft.Xrm.Sdk.Messages.UpdateRequest c)
+                                                {
+                                                    if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
+                                                }
+                                                break;
+                                            }
+                                        case "Delete":
+                                            {
+                                                if (r is Microsoft.Xrm.Sdk.Messages.DeleteRequest c)
+                                                {
+                                                    if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
+                                                }
+                                                break;
+                                            }
                                     }
-                                case "Update":
+
+                                    if (r.RequestName == message)
                                     {
-                                        if (r is Microsoft.Xrm.Sdk.Messages.UpdateRequest c)
+                                        if (entityLogicalName == null && id == null)
                                         {
-                                            if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
+                                            return true;
                                         }
-                                        break;
+
+                                        if (r.Parameters.ContainsKey("Target") && r.Parameters["Target"] is Microsoft.Xrm.Sdk.EntityReference targetid)
+                                        {
+                                            if (targetid.LogicalName == entityLogicalName && (id == null || id == targetid.Id))
+                                            {
+                                                return true;
+                                            }
+                                        }
+
+                                        if (r.Parameters.ContainsKey("Target") && r.Parameters["Target"] is Microsoft.Xrm.Sdk.Entity target)
+                                        {
+                                            if (target.LogicalName == entityLogicalName && (id == null || id == target.Id))
+                                            {
+                                                return true;
+                                            }
+                                        }
                                     }
-                                case "Delete":
+                                }
+                                catch (Exception ex)
+                                {
+                                    if (ex.Message == null || !ex.Message.Contains("contains data from a type that maps to the name"))
                                     {
-                                        if (r is Microsoft.Xrm.Sdk.Messages.DeleteRequest c)
-                                        {
-                                            if ((entityLogicalName == null || c.Target.LogicalName == entityLogicalName) && (id == null || id == c.Target.Id)) return true;
-                                        }
-                                        break;
+                                        throw;
                                     }
+                                }
                             }
-
-                            if (r.RequestName == message)
-                            {
-                                if (entityLogicalName == null && id == null)
-                                {
-                                    return true;
-                                }
-
-                                if (r.Parameters.ContainsKey("Target") && r.Parameters["Target"] is Microsoft.Xrm.Sdk.EntityReference targetid)
-                                {
-                                    if (targetid.LogicalName == entityLogicalName && (id == null || id == targetid.Id))
-                                    {
-                                        return true;
-                                    }
-                                }
-
-                                if (r.Parameters.ContainsKey("Target") && r.Parameters["Target"] is Microsoft.Xrm.Sdk.Entity target)
-                                {
-                                    if (target.LogicalName == entityLogicalName && (id == null || id == target.Id))
-                                    {
-                                        return true;
-                                    }
-                                }
-                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.Message == null || !ex.Message.Contains("contains data from a type that maps to the name"))
+                        {
+                            throw;
                         }
                     }
                 }
@@ -417,7 +437,7 @@
 
                         if (prop == null)
                         {
-                            foreach (var p in t.GetProperties(System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Instance))
+                            foreach (var p in t.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
                             {
                                 var c = (Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute)p.GetCustomAttributes(typeof(Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute), false).FirstOrDefault();
                                 if (c != null && c.LogicalName == entitypropertyname)
@@ -720,7 +740,7 @@
                     }
                 }
             }
-            throw new InvalidPluginExecutionException($"Unable to convert value of type { value.GetType().FullName } to { typeof(T).FullName }");
+            throw new InvalidPluginExecutionException($"Unable to convert value of type {value.GetType().FullName} to {typeof(T).FullName}");
         }
 
         public static T ParentPreimage<T>(this Microsoft.Xrm.Sdk.IPluginExecutionContext ctx, string message) where T : Entity, new()
