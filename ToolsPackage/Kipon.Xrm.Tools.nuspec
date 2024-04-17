@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Kipon.Xrm.Tools - tool to generate and deploy Dynamics 365 CE items</description>
     <releaseNotes>
-		added supported for abstract extension of baseplugin
+		added query extension methods to solid plugin lib
 	</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023,2024</copyright>
     <tags>Dynamics 365 CE plugin C# SOLID webresource typescript DefinitelyTyped @types/xrm</tags>
