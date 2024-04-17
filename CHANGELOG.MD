@@ -1,7 +1,5 @@
 ## Last updated: 2024-04-17
 
-
-
 ### 1.0.10.8
 (version 1.0.10.7 had some bugs, so it is ommited and will be removed as listed version)
 
