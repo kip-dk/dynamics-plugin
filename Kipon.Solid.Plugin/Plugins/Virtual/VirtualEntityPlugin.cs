@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kipon.Xrm.Extensions.QueryExpression;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,10 @@ namespace Kipon.Solid.Plugin.Plugins.Virtual
             return new Microsoft.Xrm.Sdk.Entity { LogicalName = primaryentityname, Id = primaryentityid };
         }
 
-        public Microsoft.Xrm.Sdk.EntityCollection OnRetrieveMultiple(string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query)
+        public Microsoft.Xrm.Sdk.EntityCollection OnRetrieveMultiple(string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query, Microsoft.Xrm.Sdk.ITracingService traceService)
         {
+            query.Trace(traceService);
+
             var result = new Microsoft.Xrm.Sdk.EntityCollection();
             for (var i = 0; i < 10; i++)
             {

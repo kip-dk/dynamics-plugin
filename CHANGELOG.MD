@@ -1,4 +1,18 @@
-## Last updated: 2024-04-06
+## Last updated: 2024-04-17
+
+### 1.0.10.7
+Added simple query extension method to extract filter values from QueryExpression
+
+Guid? EntityReferenceIdEqualFilter(attrname)
+Guid[] EntityReferenceIdInFilter(attrname)
+int[] OptionSetValueInFilter(attrname)
+T[] FilterValues<T>(attrname, operator)
+
+#### Be aware:
+These extension are designed to extract very simple filtering, based on typical actions from a none joined entity view, where filtering is done through reference columns in related entity or headers in a grid view
+There are NOT designed to transform a complex query into SQL or other query language that can be used against other types of datasources. 
+
+The methods are simply looking in the filters after the attribute and operator match, and returns the first found match set of values, regardles of how filters are nested an connected.
 
 ### 1.0.10.6
 It is now possible to put an abstract plugin layer between the plugin holding the step methods and the Kipon.Xrm.BasePlugin. This allow you to add some generic plugin
