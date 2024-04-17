@@ -1,5 +1,9 @@
 ## Last updated: 2024-04-17
 
+### 1.0.10.9
+Added simple query extension method to sort an in memory list of entities according to a QueryExpression
+Fixed problem with ischildoff, when used in a transaction invocation from the client
+
 ### 1.0.10.8
 (version 1.0.10.7 had some bugs, so it is ommited and will be removed as listed version)
 

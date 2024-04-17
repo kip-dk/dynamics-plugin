@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>Kipon.Solid.Plugin</id>
-		<version>1.0.10.8</version>
+		<version>1.0.10.9</version>
 		<authors>Kjeld Ingemann Poulsen</authors>
 		<owners>Kipon ApS</owners>
 		<licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -11,7 +11,7 @@
 		<requireLicenseAcceptance>true</requireLicenseAcceptance>
 		<description>Create Dynamics 365 plugins according to SOLID software princips. This package provide the basic infrastructur for building plugins with services and inject these into the Dynamics 365 plugin pipeline.</description>
 		<releaseNotes>
-			added supported for abstract extension of baseplugin
+			extension methods for QueryExpression sort, and fixed ischildof running on a transaction message
 		</releaseNotes>
 		<copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023,2024</copyright>
 		<tags>Dynamics 365 plugin C# SOLID</tags>
