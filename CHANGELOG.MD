@@ -1,4 +1,7 @@
-## Last updated: 2024-04-17
+## Last updated: 2024-05-19
+
+### 1.0.10.10
+Unit test framework release only. Query within a plugin did not filter correctly on sub filters to the main Criteria filter
 
 ### 1.0.10.9
 Added simple query extension method to sort an in memory list of entities according to a QueryExpression
