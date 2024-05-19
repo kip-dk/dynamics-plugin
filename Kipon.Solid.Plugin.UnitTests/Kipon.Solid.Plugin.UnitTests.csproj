@@ -124,6 +124,7 @@
     <Compile Include="Plugins\Contact\ContactDeletePluginTest.cs" />
     <Compile Include="Plugins\Generic\ProspectPluginTest.cs" />
     <Compile Include="Plugins\kipon_datepoc\PostUpdateTest.cs" />
+    <Compile Include="Plugins\kipon_multitest\kipon_multitestPluginTest.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPluginTest.cs" />
     <Compile Include="Plugins\SpecialService\SpecialServicePluginTest.cs" />
     <Compile Include="Plugins\Template\TemplatePluginTest.cs" />
@@ -197,7 +198,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
-    <Folder Include="Plugins\kipon_multitest\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

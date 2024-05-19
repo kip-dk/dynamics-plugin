@@ -28,6 +28,14 @@ namespace Kipon.Xrm.Fake.Repository.Query
                                  where e.Match(alias, criteria.FilterOperator, criteria.Conditions, criteria.Filters)
                                  select e).ToArray();
             }
+
+            if (criteria != null && criteria.Filters != null && criteria.Filters.Count > 0)
+            {
+                foreach (var filter in criteria.Filters)
+                {
+                    this.ApplyFilter(alias, filter);
+                }
+            }
         }
 
         internal void LinkEntity(string fromAlias, Microsoft.Xrm.Sdk.Query.LinkEntity link, EntityShadow[] allEntities)
