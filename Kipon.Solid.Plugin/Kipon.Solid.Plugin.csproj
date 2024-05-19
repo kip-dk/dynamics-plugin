@@ -120,6 +120,8 @@
     <Compile Include="Entities\Contacts\IPhonenumberChanged.cs" />
     <Compile Include="Entities\CrmUnitOfWork.Design.cs" />
     <Compile Include="Entities\kipon_datepocs\IDateChanged.cs" />
+    <Compile Include="Entities\kipon_multitests\ICalculate.cs" />
+    <Compile Include="Entities\kipon_numbers\ILockChanged.cs" />
     <Compile Include="Entities\Phonecalls\IPhonenumberChanged.cs" />
     <Compile Include="Model\AccountModel.cs" />
     <Compile Include="Model\INamed.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Plugins\Generic\ProspectPlugin.cs" />
     <Compile Include="Plugins\kipon_datepoc\kipon_datepocPlugin.cs" />
     <Compile Include="Plugins\kipon_multitest\kipon_multitestPlugin.cs" />
+    <Compile Include="Plugins\kipon_number\kipon_numberPlugin.cs" />
     <Compile Include="Plugins\Lead\LeadPlugin.cs" />
     <Compile Include="Plugins\ListMember\ListMemberPlugin.cs" />
     <Compile Include="Plugins\MyProjectSpecificBasePlugin.cs" />
@@ -154,6 +157,8 @@
     <Compile Include="Plugins\Template\TemplatePlugin.cs" />
     <Compile Include="Plugins\Virtual\VirtualEntityPlugin.cs" />
     <Compile Include="ServiceAPI\IContactService.cs" />
+    <Compile Include="ServiceAPI\INumberService.cs" />
+    <Compile Include="Service\NumberService.cs" />
     <Compile Include="Workflow\HelloWorkflowWorld.cs" />
     <Compile Include="Workflow\SetContactJobTitle.cs" />
     <Compile Include="Xrm\Attributes\ImportAttribute.cs" />

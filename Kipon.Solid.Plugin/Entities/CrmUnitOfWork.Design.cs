@@ -231,6 +231,18 @@ namespace Kipon.Solid.Plugin.Entities
 				return _datepocs;
 			}
 		}
+		private Kipon.Xrm.IRepository<kipon_number> _numbers; 
+		public Kipon.Xrm.IRepository<kipon_number> Numbers
+		{
+			get
+			{
+				if (_numbers == null)
+					{
+						_numbers = new CrmRepository<kipon_number>(this.context, this._service);
+					}
+				return _numbers;
+			}
+		}
 		private Kipon.Xrm.IRepository<Template> _templates; 
 		public Kipon.Xrm.IRepository<Template> Templates
 		{
@@ -461,6 +473,18 @@ namespace Kipon.Solid.Plugin.Entities
 				return _datepocs;
 			}
 		}
+		private Kipon.Xrm.IRepository<kipon_number> _numbers; 
+		public Kipon.Xrm.IRepository<kipon_number> Numbers
+		{
+			get
+			{
+				if (_numbers == null)
+					{
+						_numbers = new CrmRepository<kipon_number>(this.context, this._service);
+					}
+				return _numbers;
+			}
+		}
 		private Kipon.Xrm.IRepository<Template> _templates; 
 		public Kipon.Xrm.IRepository<Template> Templates
 		{
@@ -617,6 +641,19 @@ namespace Kipon.Solid.Plugin.Entities
 		public Microsoft.Xrm.Sdk.AttributeCollection TargetAttributes { get; set; }
 		public Microsoft.Xrm.Sdk.AttributeCollection PreimageAttributes { get; set; }
 	}
+	public partial interface Ikipon_numberTarget : Kipon.Xrm.Target<kipon_number>{ }
+	public partial interface Ikipon_numberPreimage : Kipon.Xrm.Preimage<kipon_number>{ }
+	public partial interface Ikipon_numberPostimage : Kipon.Xrm.Postimage<kipon_number>{ }
+	public partial interface Ikipon_numberMergedimage : Kipon.Xrm.Mergedimage<kipon_number>{ }
+	public sealed partial class kipon_number :
+		Ikipon_numberTarget,
+		Ikipon_numberPreimage,
+		Ikipon_numberPostimage,
+		Ikipon_numberMergedimage
+	{
+		public Microsoft.Xrm.Sdk.AttributeCollection TargetAttributes { get; set; }
+		public Microsoft.Xrm.Sdk.AttributeCollection PreimageAttributes { get; set; }
+	}
 	public partial interface ITemplateTarget : Kipon.Xrm.Target<Template>{ }
 	public partial interface ITemplatePreimage : Kipon.Xrm.Preimage<Template>{ }
 	public partial interface ITemplatePostimage : Kipon.Xrm.Postimage<Template>{ }
@@ -685,6 +722,11 @@ namespace Kipon.Solid.Plugin.Entities
 		public kipon_datepocReference(EntityReference target): base(target){ }
 		protected sealed override string _logicalName => kipon_datepoc.EntityLogicalName;
 	}
+	public sealed class kipon_numberReference : Kipon.Xrm.TargetReference<kipon_number>
+	{
+		public kipon_numberReference(EntityReference target): base(target){ }
+		protected sealed override string _logicalName => kipon_number.EntityLogicalName;
+	}
 	public sealed class TemplateReference : Kipon.Xrm.TargetReference<Template>
 	{
 		public TemplateReference(EntityReference target): base(target){ }
@@ -704,6 +746,7 @@ namespace Kipon.Solid.Plugin.Entities
 		Kipon.Xrm.IRepository<Quote> Quotes { get; }
 		Kipon.Xrm.IRepository<SystemUser> Systemusers { get; }
 		Kipon.Xrm.IRepository<kipon_datepoc> Datepocs { get; }
+		Kipon.Xrm.IRepository<kipon_number> Numbers { get; }
 		Kipon.Xrm.IRepository<Template> Templates { get; }
 		#endregion
 	}
@@ -2525,6 +2568,58 @@ namespace Kipon.Solid.Plugin.Entities
 			}
 		}
 	}
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("Kipon.Solid.Plugin", "1.0.10.9")]
+	public enum kipon_numberState
+	{
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Active = 0,
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		Inactive = 1,
+	}
+	public partial class kipon_number
+	{
+		[Microsoft.Xrm.Sdk.AttributeLogicalName("statuscode")]
+		public Microsoft.Xrm.Sdk.OptionSetValue statuscode
+		{
+			get => this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statuscode");
+			set
+			{
+				this.OnPropertyChanging("statuscode");
+					this.SetAttributeValue("statuscode", value);
+				this.OnPropertyChanged("statuscode");
+			}
+		}
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
+		public kipon_numberState? statecode
+		{
+			get
+			{
+				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
+				if ((optionSet != null))
+				{
+					return ((kipon_numberState)(System.Enum.ToObject(typeof(kipon_numberState), optionSet.Value)));
+				}
+				else
+				{
+					return null;
+				}
+			}
+			set
+			{
+				this.OnPropertyChanging("statecode");
+				if ((value == null))
+				{
+					this.SetAttributeValue("statecode", null);
+				}
+				else
+				{
+					this.SetAttributeValue("statecode", new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+				}
+				this.OnPropertyChanged("statecode");
+			}
+		}
+	}
 	public partial class Template
 	{
 		[Microsoft.Xrm.Sdk.AttributeLogicalName("componentstate")]
@@ -2559,6 +2654,7 @@ namespace Kipon.Xrm.Extensions.Sdk
 			entittypes[Kipon.Solid.Plugin.Entities.Quote.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.Quote);
 			entittypes[Kipon.Solid.Plugin.Entities.SystemUser.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.SystemUser);
 			entittypes[Kipon.Solid.Plugin.Entities.kipon_datepoc.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.kipon_datepoc);
+			entittypes[Kipon.Solid.Plugin.Entities.kipon_number.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.kipon_number);
 			entittypes[Kipon.Solid.Plugin.Entities.Template.EntityLogicalName] = typeof(Kipon.Solid.Plugin.Entities.Template);
 			entityLogicalNameToTypeCodeIndex["entitydataprovider"] = 78;
 			typecodeToEntityLogicalNameIndex[78] = "entitydataprovider";
@@ -2610,6 +2706,8 @@ namespace Kipon.Xrm.Extensions.Sdk
 			typecodeToEntityLogicalNameIndex[1] = "account";
 			entityLogicalNameToTypeCodeIndex["reportvisibility"] = 9103;
 			typecodeToEntityLogicalNameIndex[9103] = "reportvisibility";
+			entityLogicalNameToTypeCodeIndex["kipon_number"] = 10121;
+			typecodeToEntityLogicalNameIndex[10121] = "kipon_number";
 			entityLogicalNameToTypeCodeIndex["connectionroleassociation"] = 3232;
 			typecodeToEntityLogicalNameIndex[3232] = "connectionroleassociation";
 			entityLogicalNameToTypeCodeIndex["bulkoperation"] = 4406;
@@ -3702,6 +3800,7 @@ namespace Kipon.Xrm.Extensions.Sdk
 			Add("territory","territoryid","name");
 			Add("msdyn_knowledgeinteractioninsight","msdyn_knowledgeinteractioninsightid","msdyn_interactiontype");
 			Add("account","accountid","name");
+			Add("kipon_number","kipon_numberid","kipon_name");
 			Add("bulkoperation","activityid","subject");
 			Add("fileattachment","fileattachmentid","filename");
 			Add("virtualresourcegroupresource","virtualresourcegroupresourceid","name");

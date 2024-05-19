@@ -31,5 +31,14 @@ namespace Kipon.Solid.Plugin.Plugins.kipon_multitest
             target.kipon_name = $"{ queryWithoutName.Value.ToString() } did have a name: { queryWithName.Name }";
 
         }
+
+        public void OnPreUpdate(Entities.kipon_multitest.ICalculate target, ServiceAPI.INumberService numberService)
+        {
+            if (target.kipon_calculate == true)
+            {
+                target.kipon_calculate = false;
+                target.kipon_number = numberService.Next(1);
+            }
+        }
     }
 }

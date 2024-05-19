@@ -8525,6 +8525,21 @@ namespace Kipon.Solid.Plugin.Entities
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_calculate")]
+		public System.Nullable<bool> kipon_calculate
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("kipon_calculate");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_calculate");
+				this.SetAttributeValue("kipon_calculate", value);
+				this.OnPropertyChanged("kipon_calculate");
+			}
+		}
+		
 		/// <summary>
 		/// Unique identifier for Contact associated with Multi test.
 		/// </summary>
@@ -8598,6 +8613,22 @@ namespace Kipon.Solid.Plugin.Entities
 				this.OnPropertyChanging("kipon_name");
 				this.SetAttributeValue("kipon_name", value);
 				this.OnPropertyChanged("kipon_name");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_number")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 2147483647)]
+		public System.Nullable<int> kipon_number
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("kipon_number");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_number");
+				this.SetAttributeValue("kipon_number", value);
+				this.OnPropertyChanged("kipon_number");
 			}
 		}
 		
@@ -8859,6 +8890,370 @@ namespace Kipon.Solid.Plugin.Entities
 			get
 			{
 				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("user_kipon_multitest", null);
+			}
+		}
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("kipon_number")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.118")]
+	public partial class kipon_number : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public kipon_number() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "kipon_number";
+		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "kipon_number";
+		
+		public const string PrimaryIdAttribute = "kipon_numberid";
+		
+		public const string PrimaryNameAttribute = "kipon_name";
+		
+		public const string EntityLogicalCollectionName = "kipon_numbers";
+		
+		public const string EntitySetName = "kipon_numbers";
+		
+		public const int EntityTypeCode = 10121;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who created the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the record was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who created the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Sequence number of the import that created this record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-2147483648, 2147483647)]
+		public System.Nullable<int> ImportSequenceNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("importsequencenumber");
+			}
+			set
+			{
+				this.OnPropertyChanging("ImportSequenceNumber");
+				this.SetAttributeValue("importsequencenumber", value);
+				this.OnPropertyChanged("ImportSequenceNumber");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_latest")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(0, 2147483647)]
+		public System.Nullable<int> kipon_latest
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("kipon_latest");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_latest");
+				this.SetAttributeValue("kipon_latest", value);
+				this.OnPropertyChanged("kipon_latest");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_lock")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(36)]
+		public string kipon_lock
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("kipon_lock");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_lock");
+				this.SetAttributeValue("kipon_lock", value);
+				this.OnPropertyChanged("kipon_lock");
+			}
+		}
+		
+		/// <summary>
+		/// The name of the custom entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
+		public string kipon_name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("kipon_name");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_name");
+				this.SetAttributeValue("kipon_name", value);
+				this.OnPropertyChanged("kipon_name");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for entity instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_numberid")]
+		public System.Nullable<System.Guid> kipon_numberId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("kipon_numberid");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_numberId");
+				this.SetAttributeValue("kipon_numberid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("kipon_numberId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_numberid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.kipon_numberId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who modified the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the record was modified.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who modified the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for the organization
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time that the record was migrated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overriddencreatedon")]
+		public System.Nullable<System.DateTime> OverriddenCreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overriddencreatedon");
+			}
+			set
+			{
+				this.OnPropertyChanging("OverriddenCreatedOn");
+				this.SetAttributeValue("overriddencreatedon", value);
+				this.OnPropertyChanged("OverriddenCreatedOn");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("timezoneruleversionnumber")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
+		public System.Nullable<int> TimeZoneRuleVersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("timezoneruleversionnumber");
+			}
+			set
+			{
+				this.OnPropertyChanging("TimeZoneRuleVersionNumber");
+				this.SetAttributeValue("timezoneruleversionnumber", value);
+				this.OnPropertyChanged("TimeZoneRuleVersionNumber");
+			}
+		}
+		
+		/// <summary>
+		/// Time zone code that was in use when the record was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("utcconversiontimezonecode")]
+		[Kipon.Xrm.Attributes.Metadata.WholenumberAttribute(-1, 2147483647)]
+		public System.Nullable<int> UTCConversionTimeZoneCode
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("utcconversiontimezonecode");
+			}
+			set
+			{
+				this.OnPropertyChanging("UTCConversionTimeZoneCode");
+				this.SetAttributeValue("utcconversiontimezonecode", value);
+				this.OnPropertyChanged("UTCConversionTimeZoneCode");
+			}
+		}
+		
+		/// <summary>
+		/// Version Number
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 lk_kipon_number_createdby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_kipon_number_createdby")]
+		public Kipon.Solid.Plugin.Entities.SystemUser lk_kipon_number_createdby
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("lk_kipon_number_createdby", null);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 lk_kipon_number_createdonbehalfby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_kipon_number_createdonbehalfby")]
+		public Kipon.Solid.Plugin.Entities.SystemUser lk_kipon_number_createdonbehalfby
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("lk_kipon_number_createdonbehalfby", null);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 lk_kipon_number_modifiedby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_kipon_number_modifiedby")]
+		public Kipon.Solid.Plugin.Entities.SystemUser lk_kipon_number_modifiedby
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("lk_kipon_number_modifiedby", null);
+			}
+		}
+		
+		/// <summary>
+		/// N:1 lk_kipon_number_modifiedonbehalfby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_kipon_number_modifiedonbehalfby")]
+		public Kipon.Solid.Plugin.Entities.SystemUser lk_kipon_number_modifiedonbehalfby
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("lk_kipon_number_modifiedonbehalfby", null);
 			}
 		}
 	}
@@ -20405,6 +20800,78 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// 1:N lk_kipon_number_createdby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_kipon_number_createdby")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.kipon_number> lk_kipon_number_createdby
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_number>("lk_kipon_number_createdby", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("lk_kipon_number_createdby");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_number>("lk_kipon_number_createdby", null, value);
+				this.OnPropertyChanged("lk_kipon_number_createdby");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N lk_kipon_number_createdonbehalfby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_kipon_number_createdonbehalfby")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.kipon_number> lk_kipon_number_createdonbehalfby
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_number>("lk_kipon_number_createdonbehalfby", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("lk_kipon_number_createdonbehalfby");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_number>("lk_kipon_number_createdonbehalfby", null, value);
+				this.OnPropertyChanged("lk_kipon_number_createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N lk_kipon_number_modifiedby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_kipon_number_modifiedby")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.kipon_number> lk_kipon_number_modifiedby
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_number>("lk_kipon_number_modifiedby", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("lk_kipon_number_modifiedby");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_number>("lk_kipon_number_modifiedby", null, value);
+				this.OnPropertyChanged("lk_kipon_number_modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N lk_kipon_number_modifiedonbehalfby
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_kipon_number_modifiedonbehalfby")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.kipon_number> lk_kipon_number_modifiedonbehalfby
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_number>("lk_kipon_number_modifiedonbehalfby", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("lk_kipon_number_modifiedonbehalfby");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_number>("lk_kipon_number_modifiedonbehalfby", null, value);
+				this.OnPropertyChanged("lk_kipon_number_modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N lk_lead_createdonbehalfby
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lk_lead_createdonbehalfby")]
@@ -22024,6 +22491,17 @@ namespace Kipon.Solid.Plugin.Entities
 			get
 			{
 				return this.CreateQuery<Kipon.Solid.Plugin.Entities.kipon_multitest>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Solid.Plugin.Entities.kipon_number"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Solid.Plugin.Entities.kipon_number> kipon_numberSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Solid.Plugin.Entities.kipon_number>();
 			}
 		}
 		
