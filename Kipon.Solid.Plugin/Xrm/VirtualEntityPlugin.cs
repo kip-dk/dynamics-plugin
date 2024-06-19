@@ -57,9 +57,12 @@
                 toolOrgService = serviceFactory.CreateOrganizationService(null);
             }
 
+            var pluginType = this.GetType();
+            Models.Calendar.Initialize(pluginType, context.OrganizationId, toolOrgService);
+
             using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext, this.UnsecureConfig, this.SecureConfig))
             {
-                var method = PluginMethodCache.ForPlugin(this.GetType(), 30, message, context.PrimaryEntityName, context.Mode == 1).Single();
+                var method = PluginMethodCache.ForPlugin(pluginType, 30, message, context.PrimaryEntityName, context.Mode == 1).Single();
 
                 var args = new object[method.Parameters.Length];
 

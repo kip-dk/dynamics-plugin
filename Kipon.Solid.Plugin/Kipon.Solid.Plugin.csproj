@@ -124,6 +124,8 @@
     <Compile Include="Entities\kipon_numbers\ILockChanged.cs" />
     <Compile Include="Entities\Phonecalls\IPhonenumberChanged.cs" />
     <Compile Include="Model\AccountModel.cs" />
+    <Compile Include="Xrm\Attributes\FiscalAttribute.cs" />
+    <Compile Include="Xrm\Models\Calendar.cs" />
     <Compile Include="Model\INamed.cs" />
     <Compile Include="Model\IPhonenumberChanged.cs" />
     <Compile Include="Model\IProspect.cs" />
@@ -163,7 +165,9 @@
     <Compile Include="Workflow\SetContactJobTitle.cs" />
     <Compile Include="Xrm\Attributes\ImportAttribute.cs" />
     <Compile Include="Xrm\BaseCodeActivity.cs" />
+    <Compile Include="Xrm\Extensions\DateTimes\DateTimesExtensions.cs" />
     <Compile Include="Xrm\Implementations\InternalServiceProvider.cs" />
+    <Compile Include="Xrm\Implementations\QueryResolver.cs" />
     <Compile Include="Xrm\Implementations\WorkflowPluginExecutionContext.cs" />
     <Compile Include="Xrm\IStepFinalizer.cs" />
     <Compile Include="Xrm\IStepInitializer.cs" />

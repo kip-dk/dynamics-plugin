@@ -45,6 +45,9 @@
 
             var type = message.Contains("_") ? CrmEventType.CustomPlugin : (CrmEventType)Enum.Parse(typeof(CrmEventType), context.MessageName);
 
+            var pluginType = this.GetType();
+            Models.Calendar.Initialize(pluginType, context.OrganizationId, toolOrgService);
+
             IPluginContext pluginContext = new Services.PluginContext(this.UnsecureConfig, this.SecureConfig, context, type, userId);
 
             using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext, this.UnsecureConfig, this.SecureConfig))
@@ -56,7 +59,7 @@
                     entityName = null;
                 }
 
-                var methods = PluginMethodCache.ForPlugin(this.GetType(), stage, message, entityName, context.Mode == 1);
+                var methods = PluginMethodCache.ForPlugin(pluginType, stage, message, entityName, context.Mode == 1);
 
                 var logs = new System.Collections.Generic.List<string>();
 
