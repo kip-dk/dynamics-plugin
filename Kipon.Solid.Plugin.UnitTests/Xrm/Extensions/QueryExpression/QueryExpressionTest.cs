@@ -50,5 +50,20 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.QueryExpression
             Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.ThisWeek.CompareSpecialDate(null, now));
             Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.LastXWeeks.CompareSpecialDate(new object[] { 2 }, now.AddDays(-8)));
         }
+
+        [TestMethod]
+        public void CompareStringTest()
+        {
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal.CompareString("a string", "a string"));
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.BeginsWith.CompareString("a string", "a string that starts with"));
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.Contains.CompareString("a string", "this string does contain a string just somewhere"));
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotBeginWith.CompareString("a string", "this string does not begin with a string"));
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotContain.CompareString("a string", "this string does not begin contain the a-string."));
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotEndWith.CompareString("a string", "this string does not end with a string. We do have something after"));
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.EndsWith.CompareString("a string", "this string end with a string. We do have something after. a string"));
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.Like.CompareString("a string", "this string end with a string. We do have something after. a string"));
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.NotEqual.CompareString("a string", "b string"));
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.NotLike.CompareString("a string", "b string"));
+        }
     }
 }

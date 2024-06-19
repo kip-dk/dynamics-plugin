@@ -605,8 +605,26 @@
 
         public static bool CompareString(this Microsoft.Xrm.Sdk.Query.ConditionOperator opr, string filterValue, string entityObjectValue)
         {
+            if (string.IsNullOrEmpty(filterValue) || string.IsNullOrEmpty(entityObjectValue))
+            {
+                throw new InvalidPluginExecutionException($"Expected to have a value for filter and object, filter: [{ filterValue }], object: [{ entityObjectValue }]");
+            }
+
+            filterValue = filterValue.ToLower();
+            entityObjectValue = entityObjectValue.ToLower();
+
             switch (opr)
             {
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.BeginsWith: return entityObjectValue.StartsWith(filterValue);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.Contains: return entityObjectValue.Contains(filterValue);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotBeginWith: return !entityObjectValue.StartsWith(filterValue);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotContain: return !entityObjectValue.Contains(filterValue);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotEndWith: return !entityObjectValue.EndsWith(filterValue);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal: return entityObjectValue == filterValue;
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.Like: return entityObjectValue.Contains(filterValue);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.NotLike: return !entityObjectValue.Contains(filterValue);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.EndsWith: return entityObjectValue.EndsWith(filterValue);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.NotEqual: return entityObjectValue != filterValue;
                 default: throw new InvalidPluginExecutionException($"Unexpected string operator: { opr }");
             }
         }
@@ -622,8 +640,8 @@
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.OnOrBefore: return entityObjectValue <= filterValue;
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.Above: return entityObjectValue > filterValue;
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.AboveOrEqual: return entityObjectValue >= filterValue;
-                case Microsoft.Xrm.Sdk.Query.ConditionOperator.On: return entityObjectValue.StartOfDay() == entityObjectValue.StartOfDay();
-                case Microsoft.Xrm.Sdk.Query.ConditionOperator.NotOn: return entityObjectValue.StartOfDay() != entityObjectValue.StartOfDay();
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.On: return entityObjectValue.StartOfDay() == filterValue.StartOfDay();
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.NotOn: return entityObjectValue.StartOfDay() != filterValue.StartOfDay();
                 default: throw new InvalidPluginExecutionException($"Unexpected DateTime operator: {opr}");
             }
         }
