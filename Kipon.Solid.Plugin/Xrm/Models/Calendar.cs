@@ -20,12 +20,12 @@
         {
             get
             {
-                var current = System.DateTime.UtcNow;
-                if (current.Year == _yearStart.Year)
+                var now = System.DateTime.UtcNow;
+                if (now.Year == _yearStart.Year)
                 {
                     return _yearStart;
                 }
-                _yearStart = new DateTime(current.Year, _yearStart.Month, _yearStart.Day, 0, 0, 0, 0, _yearStart.Kind);
+                _yearStart = new DateTime(now.Year, _yearStart.Month, _yearStart.Day, 0, 0, 0, 0, _yearStart.Kind);
                 return _yearStart;
             }
         }

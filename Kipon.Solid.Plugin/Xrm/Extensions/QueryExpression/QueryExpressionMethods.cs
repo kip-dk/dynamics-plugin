@@ -642,6 +642,12 @@
                         var week = System.DateTime.UtcNow.Week();
                         return entityObjectValue >= week[0] && entityObjectValue <= week[1];
                     }
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.InFiscalYear:
+                    {
+                        var from = Models.Calendar.Current.YearStart;
+                        var to = from.AddYears(1).AddMilliseconds(-1);
+                        return entityObjectValue >= from && entityObjectValue <= to;
+                    }
                 default: throw new InvalidPluginExecutionException($"Special DateTime operator not implemented: {opr}");
             }
         }
