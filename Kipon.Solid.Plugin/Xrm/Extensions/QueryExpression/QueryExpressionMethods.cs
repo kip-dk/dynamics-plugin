@@ -3,6 +3,7 @@
     using Kipon.Xrm.Extensions.DateTimes;
     using Microsoft.Crm.Sdk.Messages;
     using Microsoft.Xrm.Sdk;
+    using Microsoft.Xrm.Sdk.Query;
     using System;
     using System.CodeDom;
     using System.Collections;
@@ -313,7 +314,7 @@
                 return true;
             }
 
-                switch (expression.FilterOperator)
+            switch (expression.FilterOperator)
             {
                 case Microsoft.Xrm.Sdk.Query.LogicalOperator.And: return entity.MatchAnd(expression);
                 case Microsoft.Xrm.Sdk.Query.LogicalOperator.Or: return entity.MatchOr(expression);
@@ -323,7 +324,12 @@
 
         public static bool MatchAnd(this Microsoft.Xrm.Sdk.Entity entity, Microsoft.Xrm.Sdk.Query.FilterExpression expression)
         {
-            // search for false, and return false if found
+            var resolveFilters = expression.Filters?.Where(r => !r.IsQuickFindFilter).ToArray();
+            if ((resolveFilters == null || resolveFilters.Length == 0) && (expression.Conditions == null || expression.Conditions.Count == 0)) 
+            {
+                return true;
+            }
+
             if (expression.Conditions != null && expression.Conditions.Count > 0)
             {
                 foreach (var condition in expression.Conditions)
@@ -341,7 +347,7 @@
                 }
             }
 
-            if (expression.Filters != null && expression.Filters.Count > 0)
+            if (resolveFilters != null && resolveFilters.Length > 0)
             {
                 foreach (var filter in expression.Filters)
                 {
@@ -357,6 +363,12 @@
 
         public static bool MatchOr(this Microsoft.Xrm.Sdk.Entity entity, Microsoft.Xrm.Sdk.Query.FilterExpression expression)
         {
+            var resolveFilters = expression.Filters?.Where(r => !r.IsQuickFindFilter).ToArray();
+            if ((resolveFilters == null || resolveFilters.Length == 0) && (expression.Conditions == null || expression.Conditions.Count == 0))
+            {
+                return true;
+            }
+
             if (expression.Conditions != null && expression.Conditions.Count > 0)
             {
                 foreach (var condition in expression.Conditions)
@@ -374,7 +386,7 @@
                 }
             }
 
-            if (expression.Filters != null && expression.Filters.Count > 0)
+            if (resolveFilters != null && resolveFilters.Length > 0)
             {
                 foreach (var filter in expression.Filters)
                 {
@@ -385,7 +397,7 @@
                     }
                 }
             }
-            return true;
+            return false;
         }
 
         public static bool IsTrue(this Microsoft.Xrm.Sdk.Query.ConditionExpression condition, object enttyObjectValue)
@@ -668,6 +680,72 @@
                     }
                 default: throw new InvalidPluginExecutionException($"Special DateTime operator not implemented: {opr}");
             }
+        }
+
+        public static bool QuickFindMatch(this Microsoft.Xrm.Sdk.Entity entity, string quickFindFilter, string[] quickFindFields)
+        {
+            if (!string.IsNullOrEmpty(quickFindFilter) && (quickFindFields != null && quickFindFields.Length > 0))
+            {
+                quickFindFilter = quickFindFilter.Replace("*", "%");
+
+                var opr = Microsoft.Xrm.Sdk.Query.ConditionOperator.BeginsWith;
+
+                if (quickFindFilter.StartsWith("%") && quickFindFilter.EndsWith("%"))
+                {
+                    opr = ConditionOperator.Contains;
+                }
+
+                if (!quickFindFilter.StartsWith("%") && !quickFindFilter.EndsWith("%"))
+                {
+                    opr = ConditionOperator.EndsWith;
+                }
+
+                var finalFilter = quickFindFilter.Replace("%", "");
+
+                if (string.IsNullOrEmpty(finalFilter))
+                {
+                    return true;
+                }
+
+                foreach (var field in quickFindFields)
+                {
+                    if (entity.Attributes.ContainsKey(field))
+                    {
+                        var value = entity[field];
+
+                        if (value is string stringValue)
+                        {
+                            if (!string.IsNullOrEmpty(stringValue))
+                            {
+                                var next = opr.CompareString(finalFilter, stringValue);
+                                if (next)
+                                {
+                                    return true;
+                                }
+                            }
+                            continue;
+                        }
+
+                        if (value is Microsoft.Xrm.Sdk.EntityReference re)
+                        {
+                            if (!string.IsNullOrEmpty(re.Name))
+                            {
+                                var next = opr.CompareString(finalFilter, re.Name.ToLower());
+                                if (next)
+                                {
+                                    return true;
+                                }
+                            }
+                            continue;
+                        }
+
+                        throw new InvalidPluginExecutionException($"Unsupported type in quickfind filter: { value.GetType() }");
+                    }
+                }
+
+                return false;
+            }
+            return true;
         }
     }
 }

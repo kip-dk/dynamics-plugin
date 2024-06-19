@@ -65,5 +65,19 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.QueryExpression
             Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.NotEqual.CompareString("a string", "b string"));
             Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.NotLike.CompareString("a string", "b string"));
         }
+
+        [TestMethod]
+        public void QuickFindMatchTest()
+        {
+            var accounts = new Entities.Account[]
+            {
+                new Entities.Account{ Name = "Kipon ApS", Description = "En beskrivelse", PrimaryContactId = new Microsoft.Xrm.Sdk.EntityReference{ Id = Guid.NewGuid(), LogicalName = Entities.Contact.EntityLogicalName, Name = "Kjeld Ingemann Poulsen" } }
+            };
+
+            Assert.IsTrue(accounts[0].QuickFindMatch("En be%", new string[] { "name", "description", "primarycontactid" }));
+            Assert.IsTrue(accounts[0].QuickFindMatch("Kipon%", new string[] { "name", "description", "primarycontactid" }));
+            Assert.IsTrue(accounts[0].QuickFindMatch("%ingemann%", new string[] { "name", "description", "primarycontactid" }));
+            Assert.IsTrue(accounts[0].QuickFindMatch(" aps", new string[] { "name", "description", "primarycontactid" }));
+        }
     }
 }

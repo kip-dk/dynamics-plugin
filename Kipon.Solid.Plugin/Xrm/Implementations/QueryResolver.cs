@@ -10,12 +10,14 @@
         private readonly ICollection<T> entities;
         private readonly QueryExpression query;
         private int totalCount = 0;
+        private string[] quickFindColumns;
 
-        public QueryResolver(ICollection<T> entities, Microsoft.Xrm.Sdk.Query.QueryExpression query)
+        public QueryResolver(ICollection<T> entities, Microsoft.Xrm.Sdk.Query.QueryExpression query, params string[] quickFindColumns)
         {
             this.entities = entities;
             this.query = query;
-            this.totalCount = entities.Count();
+            this.totalCount = entities?.Count() ?? 0;
+            this.quickFindColumns = quickFindColumns;
         }
 
         public Microsoft.Xrm.Sdk.EntityCollection Resolve()
@@ -24,19 +26,23 @@
 
             var include = new List<Microsoft.Xrm.Sdk.Entity>();
 
+            var quickFind = this.query.QuickFindFilter();
+
             if (entities != null)
             {
                 foreach (var entity in entities)
                 {
-                    if (entity.Match(this.query.Criteria))
+                    if (string.IsNullOrEmpty(quickFind) || quickFindColumns == null || quickFindColumns.Length == 0 || entity.QuickFindMatch(quickFind, this.quickFindColumns))
                     {
-                        include.Add(entity);
+                        if (entity.Match(this.query.Criteria))
+                        {
+                            include.Add(entity);
+                        }
                     }
                 }
             }
 
             include = include.Sort(query).ToList();
-
             bool isLast = true;
 
             if (include.Count > 0)
@@ -48,9 +54,10 @@
                     if (query.PageInfo.PageNumber > 1)
                     {
                         include = include.Skip(query.PageInfo.PageNumber * query.PageInfo.Count).ToList();
-                        include = include.Take(query.PageInfo.Count).ToList();
-                        isLast = include.Count == 0 || include.Last() == last;
                     }
+
+                    include = include.Take(query.PageInfo.Count).ToList();
+                    isLast = include.Count == 0 || include.Last() == last;
                 }
             }
 
