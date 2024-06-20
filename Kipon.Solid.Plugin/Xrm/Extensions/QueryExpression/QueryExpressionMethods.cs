@@ -1,6 +1,6 @@
 ﻿namespace Kipon.Xrm.Extensions.QueryExpression
 {
-    using Kipon.Xrm.Extensions.DateTimes;
+    using Extensions.DateTimes;
     using Microsoft.Crm.Sdk.Messages;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;

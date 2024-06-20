@@ -1,6 +1,6 @@
 ﻿namespace Kipon.Xrm.Models
 {
-    using Kipon.Xrm.Extensions.DateTimes;
+    using Extensions.DateTimes;
     using System;
     using System.Reflection;
 
