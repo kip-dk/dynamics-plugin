@@ -1,6 +1,6 @@
 ﻿namespace Kipon.Xrm.Implementations
 {
-    using Kipon.Xrm.Extensions.QueryExpression;
+    using Extensions.QueryExpression;
     using Microsoft.Xrm.Sdk.Query;
     using System.Collections.Generic;
     using System.Linq;
