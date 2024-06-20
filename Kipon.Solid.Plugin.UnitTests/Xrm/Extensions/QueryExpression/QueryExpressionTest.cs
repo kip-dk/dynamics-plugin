@@ -34,12 +34,12 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.QueryExpression
             var accounts = new Entities.Account[]
             {
                 new Entities.Account{ AccountId = 1.ToGuid(), Name = "Kipon ApS", Description = "En beskrivelse", PrimaryContactId = new Microsoft.Xrm.Sdk.EntityReference{ Id = 1000.ToGuid(), LogicalName = Entities.Contact.EntityLogicalName, Name = "Kjeld Ingemann Poulsen" }, AccountCategoryCode = new Microsoft.Xrm.Sdk.OptionSetValue(1), ["createdon"] = new System.DateTime(2024,1,1,0,0,0,0, DateTimeKind.Utc), ["modifiedon"] = new System.DateTime(2024,1,1,0,0,0,0, DateTimeKind.Utc)},
-                new Entities.Account{ AccountId = 2.ToGuid(), Name = "Portalworkers ApS", Description = "En beskrivelse", PrimaryContactId = new Microsoft.Xrm.Sdk.EntityReference{ Id = 1001.ToGuid(), LogicalName = Entities.Contact.EntityLogicalName, Name = "David Ingemann Poulsen" }, AccountCategoryCode = new Microsoft.Xrm.Sdk.OptionSetValue(1), ["createdon"] = new System.DateTime(2024,1,1,0,0,0,0, DateTimeKind.Utc), ["modifiedon"] = new System.DateTime(2024,1,1,0,0,0,0, DateTimeKind.Utc)}
+                new Entities.Account{ AccountId = 2.ToGuid(), Name = "Portalworkers ApS, Owned by Kipon ApS", Description = "En beskrivelse", PrimaryContactId = new Microsoft.Xrm.Sdk.EntityReference{ Id = 1001.ToGuid(), LogicalName = Entities.Contact.EntityLogicalName, Name = "David Ingemann Poulsen" }, AccountCategoryCode = new Microsoft.Xrm.Sdk.OptionSetValue(1), ["createdon"] = new System.DateTime(2024,1,1,0,0,0,0, DateTimeKind.Utc), ["modifiedon"] = new System.DateTime(2024,1,1,0,0,0,0, DateTimeKind.Utc)}
             };
 
             var query = new Microsoft.Xrm.Sdk.Query.QueryExpression();
             var qf = new Microsoft.Xrm.Sdk.Query.FilterExpression { IsQuickFindFilter = true };
-            qf.AddCondition("", Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal, new object[] { "kipon" });
+            qf.AddCondition("", Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal, new object[] { "%kipon%" });
             query.Criteria.AddFilter(qf);
 
             var orfilter = new Microsoft.Xrm.Sdk.Query.FilterExpression(Microsoft.Xrm.Sdk.Query.LogicalOperator.Or);
