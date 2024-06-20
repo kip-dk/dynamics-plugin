@@ -349,7 +349,7 @@
 
             if (resolveFilters != null && resolveFilters.Length > 0)
             {
-                foreach (var filter in expression.Filters)
+                foreach (var filter in resolveFilters)
                 {
                     var next = entity.Match(filter);
                     if (!next)
@@ -388,7 +388,7 @@
 
             if (resolveFilters != null && resolveFilters.Length > 0)
             {
-                foreach (var filter in expression.Filters)
+                foreach (var filter in resolveFilters)
                 {
                     var next = entity.Match(filter);
                     if (next)
@@ -437,9 +437,16 @@
                 return !entityObjectValue.IsBetween(values);
             }
 
+
+
             if (entityObjectValue is DateTime dt && (values == null || values.Length != 1 || !(values[0] is DateTime)))
             {
                 return opr.CompareSpecialDate(values, dt);
+            }
+
+            if (entityObjectValue is Microsoft.Xrm.Sdk.OptionSetValueCollection evc && values != null && values.Length > 0)
+            {
+                return opr.CompareOptionSetValueCollection(values.Select(r => (int)r).OrderBy(r => r).ToArray(), evc);
             }
 
             if (entityObjectValue == null && values != null && values.Length > 0)
@@ -459,6 +466,62 @@
                 }
             }
             return false;
+        }
+
+        public static bool CompareOptionSetValueCollection(this Microsoft.Xrm.Sdk.Query.ConditionOperator opr, int[] filterValues, Microsoft.Xrm.Sdk.OptionSetValueCollection entityObjectValue)
+        {
+            var entityObjectValues = entityObjectValue.Select(r => r.Value).OrderBy(r =>r).ToArray();
+
+            switch (opr)
+            {
+                case ConditionOperator.Equal:
+                    {
+                        if (entityObjectValues.Length != filterValues.Length) return false;
+                        for (var i=0;i<filterValues.Length;i++)
+                        {
+                            if (entityObjectValues[i] != filterValues[i])
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                case ConditionOperator.NotEqual:
+                    {
+                        if (entityObjectValues.Length != filterValues.Length) return true;
+                        for (var i = 0; i < filterValues.Length; i++)
+                        {
+                            if (entityObjectValues[i] != filterValues[i])
+                            {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                case ConditionOperator.ContainValues:
+                    {
+                        foreach (var v in filterValues)
+                        {
+                            if (!entityObjectValues.Contains(v))
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                case ConditionOperator.DoesNotContainValues:
+                    {
+                        foreach (var v in filterValues)
+                        {
+                            if (entityObjectValues.Contains(v))
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                default: throw new InvalidPluginExecutionException($"Unexpected OptionSetValueCollection operator: {opr}");
+            }
         }
 
         public static bool IsTrue(this Microsoft.Xrm.Sdk.Query.ConditionOperator opr, object filterValue, object entityObjectValue)
@@ -493,7 +556,17 @@
                 return opr.CompareString(fev, sev);
             }
 
-            throw new InvalidPluginExecutionException($"Expression not handle: { opr }");
+            if (entityObjectValue is Microsoft.Xrm.Sdk.EntityReference entityref && filterValue is Guid gv)
+            {
+                return opr.CompareGuid(gv, entityref.Id);
+            }
+
+            if (entityObjectValue is Guid entityId && filterValue is Guid gfv)
+            {
+                return opr.CompareGuid(gfv, entityId);
+            }
+
+            throw new InvalidPluginExecutionException($"Expression not supported: [{ opr }] [{ entityObjectValue }] / [{filterValue}]");
         }
 
         public static bool IsBetween(this object entityObjectValue, object[] filterValue)
@@ -587,6 +660,16 @@
             }
 
             return !filterValues.IsIn(entityValue);
+        }
+
+        public static bool CompareGuid(this Microsoft.Xrm.Sdk.Query.ConditionOperator opr, Guid filterValue, Guid entityObjectValue)
+        {
+            switch (opr)
+            {
+                case ConditionOperator.Equal: return entityObjectValue == filterValue;
+                case ConditionOperator.NotEqual: return entityObjectValue != filterValue;
+                default: throw new InvalidPluginExecutionException($"Unexpected Guid operator: {opr}");
+            }
         }
 
         public static bool CompareInt(this Microsoft.Xrm.Sdk.Query.ConditionOperator opr, int filterValue, int entityObjectValue)
