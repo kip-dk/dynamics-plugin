@@ -1,5 +1,8 @@
 ## Last updated: 2024-05-19
 
+### 1.0.10.11
+Introduced in-mem impl. of filter using a queryexpression
+
 ### 1.0.10.10
 Unit test framework release only. Query within a plugin did not filter correctly on sub filters to the main Criteria filter
 
