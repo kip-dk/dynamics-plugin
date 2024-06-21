@@ -10,6 +10,8 @@ Where the second parameter is optional but allow you to take advantage of quick-
 
 This i convinient if you have a datasource you expose as a virtual entity in Dataverse with limited query facilities, because you can add in mem. filtering based on Dataverse data fetch mechanism.
 
+The impl. is performing filtering based on the conditions sort and paging according the the query parsed.  
+
 ### 1.0.10.11
 Introduced in-mem impl. of filter using a queryexpression
 
