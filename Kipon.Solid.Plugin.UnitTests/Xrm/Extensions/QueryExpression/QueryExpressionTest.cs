@@ -96,7 +96,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Extensions.QueryExpression
             Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotContain.CompareString("a string", "this string does not begin contain the a-string."));
             Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotEndWith.CompareString("a string", "this string does not end with a string. We do have something after"));
             Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.EndsWith.CompareString("a string", "this string end with a string. We do have something after. a string"));
-            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.Like.CompareString("a string", "this string end with a string. We do have something after. a string"));
+            Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.Like.CompareString("a string", "this string does not end with a string. We do have something after. a string"));
             Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.NotEqual.CompareString("a string", "b string"));
             Assert.IsTrue(Microsoft.Xrm.Sdk.Query.ConditionOperator.NotLike.CompareString("a string", "b string"));
         }

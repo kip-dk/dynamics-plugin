@@ -1,4 +1,14 @@
-## Last updated: 2024-05-19
+## Last updated: 2024-06-21
+
+### 1.0.10.12
+Fixed and tested in-mem exeucte query expression, Having a QueryExpression, and a raw array of Microsoft.Xrm.Sdk.Entity, your can now execute
+a query expression against the in-mem list of entities, simply by
+
+myarrayofentities.Query(query, new string["my_name","my_description"])
+
+Where the second parameter is optional but allow you to take advantage of quick-find-filtering.
+
+This i convinient if you have a datasource you expose as a virtual entity in Dataverse with limited query facilities, because you can add in mem. filtering based on Dataverse data fetch mechanism.
 
 ### 1.0.10.11
 Introduced in-mem impl. of filter using a queryexpression

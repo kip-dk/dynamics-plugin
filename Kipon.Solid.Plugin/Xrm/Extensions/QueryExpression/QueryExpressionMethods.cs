@@ -1,6 +1,7 @@
 ﻿namespace Kipon.Xrm.Extensions.QueryExpression
 {
     using Extensions.DateTimes;
+    using Implementations;
     using Microsoft.Crm.Sdk.Messages;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
@@ -17,59 +18,19 @@
     public static class QueryExpressionMethods
     {
         [System.Diagnostics.DebuggerNonUserCode()]
-        public static Microsoft.Xrm.Sdk.EntityCollection Query<T>(this ICollection<T> collection, Microsoft.Xrm.Sdk.Query.QueryExpression expression) where T: Microsoft.Xrm.Sdk.Entity
+        public static Microsoft.Xrm.Sdk.EntityCollection Query<T>(this ICollection<T> collection, Microsoft.Xrm.Sdk.Query.QueryExpression expression, params string[] quickFindFields) where T: Microsoft.Xrm.Sdk.Entity
         {
-            var handler = new Implementations.QueryResolver<T>(collection, expression);
+            var handler = new Implementations.QueryResolver<T>(collection, expression, quickFindFields);
             return handler.Resolve();
         }
 
-        [System.Diagnostics.DebuggerNonUserCode()]
-        public static T[] Sort<T>(this IEnumerable<T> values, Microsoft.Xrm.Sdk.Query.QueryExpression query) where T : Microsoft.Xrm.Sdk.Entity
+        // [System.Diagnostics.DebuggerNonUserCode()]
+        public static Microsoft.Xrm.Sdk.Entity[] Sort(this Microsoft.Xrm.Sdk.Entity[] values, Microsoft.Xrm.Sdk.Query.QueryExpression query)
         {
             if (query != null && query.Orders != null && query.Orders.Count > 0)
             {
-                var baseQuery = values.AsQueryable();
-
-                IOrderedQueryable<T> orderQuery = null;
-                foreach (var order in query.Orders)
-                {
-                    if (orderQuery == null)
-                    {
-                        switch (order.OrderType)
-                        {
-                            case Microsoft.Xrm.Sdk.Query.OrderType.Ascending:
-                                {
-                                    orderQuery = baseQuery.OrderBy(r => r.SafeValueOf(order.AttributeName));
-                                    break;
-                                }
-                            case Microsoft.Xrm.Sdk.Query.OrderType.Descending:
-                                {
-                                    orderQuery = baseQuery.OrderByDescending(r => r.SafeValueOf(order.AttributeName));
-                                    break;
-                                }
-                        }
-                    }
-                    else
-                    {
-                        switch (order.OrderType)
-                        {
-                            case Microsoft.Xrm.Sdk.Query.OrderType.Ascending:
-                                {
-                                    baseQuery = orderQuery.ThenBy(r => r.SafeValueOf(order.AttributeName));
-                                    break;
-                                }
-                            case Microsoft.Xrm.Sdk.Query.OrderType.Descending:
-                                {
-                                    baseQuery = orderQuery.ThenByDescending(r => r.SafeValueOf(order.AttributeName));
-                                    break;
-                                }
-                        }
-
-                    }
-                }
-                return orderQuery.ToArray();
+                return values.Select(r => new Sorter(r, query.Orders)).OrderBy(s => s).Select(s => s.entity).ToArray();
             }
-
             return values.ToArray();
         }
 
@@ -716,8 +677,8 @@
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotContain: return !entityObjectValue.Contains(filterValue);
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.DoesNotEndWith: return !entityObjectValue.EndsWith(filterValue);
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.Equal: return entityObjectValue == filterValue;
-                case Microsoft.Xrm.Sdk.Query.ConditionOperator.Like: return entityObjectValue.Contains(filterValue);
-                case Microsoft.Xrm.Sdk.Query.ConditionOperator.NotLike: return !entityObjectValue.Contains(filterValue);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.Like: return filterValue.Like(entityObjectValue);
+                case Microsoft.Xrm.Sdk.Query.ConditionOperator.NotLike: return !filterValue.Like(entityObjectValue);
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.EndsWith: return entityObjectValue.EndsWith(filterValue);
                 case Microsoft.Xrm.Sdk.Query.ConditionOperator.NotEqual: return entityObjectValue != filterValue;
                 default: throw new InvalidPluginExecutionException($"Unexpected string operator: { opr }");
@@ -765,31 +726,46 @@
             }
         }
 
+        public static bool Like(this string quickFindFilter, string entityObjectValue)
+        {
+            if (string.IsNullOrEmpty(quickFindFilter))
+            {
+                return true;
+            }
+
+            if (string.IsNullOrEmpty(entityObjectValue))
+            {
+                return false;
+            }
+
+            quickFindFilter = quickFindFilter.Replace("*", "%");
+
+            if (!quickFindFilter.Contains("%"))
+            {
+                quickFindFilter = $"%{quickFindFilter}%";
+            }
+
+            var opr = Microsoft.Xrm.Sdk.Query.ConditionOperator.BeginsWith;
+
+            if (quickFindFilter.StartsWith("%") && quickFindFilter.EndsWith("%"))
+            {
+                opr = ConditionOperator.Contains;
+            }
+
+            if (quickFindFilter.StartsWith("%") && !quickFindFilter.EndsWith("%"))
+            {
+                opr = ConditionOperator.EndsWith;
+            }
+
+            var finalFilter = quickFindFilter.Replace("%", "");
+
+            return opr.CompareString(finalFilter, entityObjectValue);
+        }
+
         public static bool QuickFindMatch(this Microsoft.Xrm.Sdk.Entity entity, string quickFindFilter, string[] quickFindFields)
         {
             if (!string.IsNullOrEmpty(quickFindFilter) && (quickFindFields != null && quickFindFields.Length > 0))
             {
-                quickFindFilter = quickFindFilter.Replace("*", "%");
-
-                var opr = Microsoft.Xrm.Sdk.Query.ConditionOperator.BeginsWith;
-
-                if (quickFindFilter.StartsWith("%") && quickFindFilter.EndsWith("%"))
-                {
-                    opr = ConditionOperator.Contains;
-                }
-
-                if (!quickFindFilter.StartsWith("%") && !quickFindFilter.EndsWith("%"))
-                {
-                    opr = ConditionOperator.EndsWith;
-                }
-
-                var finalFilter = quickFindFilter.Replace("%", "");
-
-                if (string.IsNullOrEmpty(finalFilter))
-                {
-                    return true;
-                }
-
                 foreach (var field in quickFindFields)
                 {
                     if (entity.Attributes.ContainsKey(field))
@@ -798,13 +774,9 @@
 
                         if (value is string stringValue)
                         {
-                            if (!string.IsNullOrEmpty(stringValue))
+                            if (quickFindFilter.Like(stringValue))
                             {
-                                var next = opr.CompareString(finalFilter, stringValue);
-                                if (next)
-                                {
-                                    return true;
-                                }
+                                return true;
                             }
                             continue;
                         }
@@ -813,8 +785,7 @@
                         {
                             if (!string.IsNullOrEmpty(re.Name))
                             {
-                                var next = opr.CompareString(finalFilter, re.Name.ToLower());
-                                if (next)
+                                if (quickFindFilter.Like(re.Name))
                                 {
                                     return true;
                                 }

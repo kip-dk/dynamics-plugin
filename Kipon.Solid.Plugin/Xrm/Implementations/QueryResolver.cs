@@ -42,7 +42,7 @@
                 }
             }
 
-            include = include.Sort(query).ToList();
+            include = this.Sort(include, query);
             bool isLast = true;
 
             if (include.Count > 0)
@@ -53,7 +53,7 @@
                 {
                     if (query.PageInfo.PageNumber > 1)
                     {
-                        include = include.Skip(query.PageInfo.PageNumber * query.PageInfo.Count).ToList();
+                        include = include.Skip((query.PageInfo.PageNumber  - 1) * query.PageInfo.Count).ToList();
                     }
 
                     include = include.Take(query.PageInfo.Count).ToList();
@@ -69,6 +69,16 @@
                 result.Entities.Add(r);
             }
             return result;
+        }
+
+        private List<Microsoft.Xrm.Sdk.Entity> Sort(List<Microsoft.Xrm.Sdk.Entity> values, Microsoft.Xrm.Sdk.Query.QueryExpression query)
+        {
+            if (query != null && query.Orders != null && query.Orders.Count > 0)
+            {
+                return values.Select(r => new Sorter(r, query.Orders)).OrderBy(s => s).Select(s => s.entity).ToList();
+
+            }
+            return values;
         }
     }
 }

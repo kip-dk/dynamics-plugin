@@ -22,7 +22,7 @@ namespace Kipon.Xrm.Services
         {
             if (entities.TryGetValue(logicalName, out MetaContainer m))
             {
-                if (m.timeout < System.DateTime.Now)
+                if (m.timeout < System.DateTime.UtcNow)
                 {
                     return m.meta;
                 }
@@ -37,7 +37,7 @@ namespace Kipon.Xrm.Services
             var con = new MetaContainer
             {
                 meta = res.EntityMetadata,
-                timeout = System.DateTime.Now.AddMinutes(15)
+                timeout = System.DateTime.UtcNow.AddMinutes(15)
             };
             entities[logicalName] = con;
             return con.meta;
@@ -88,9 +88,7 @@ namespace Kipon.Xrm.Services
             return result;
         }
 
-
-
-        internal class MetaContainer
+        public class MetaContainer
         {
             internal DateTime timeout { get; set; }
             internal EntityMetadata meta { get; set; }

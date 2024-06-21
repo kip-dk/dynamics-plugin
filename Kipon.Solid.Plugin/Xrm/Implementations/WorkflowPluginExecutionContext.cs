@@ -4,7 +4,7 @@ namespace Kipon.Xrm.Implementations
     using Microsoft.Xrm.Sdk;
     using System;
 
-    internal class WorkflowPluginExecutionContext : Microsoft.Xrm.Sdk.IPluginExecutionContext
+    public class WorkflowPluginExecutionContext : Microsoft.Xrm.Sdk.IPluginExecutionContext
     {
         private Microsoft.Xrm.Sdk.Workflow.IWorkflowContext wfContext;
         private WorkflowPluginExecutionContext parent;

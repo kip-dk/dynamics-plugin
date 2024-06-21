@@ -2470,6 +2470,24 @@ namespace Kipon.Solid.Plugin.Entities
 		}
 		
 		/// <summary>
+		/// 1:N kipon_account_vetests
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("kipon_account_vetests")]
+		public System.Collections.Generic.IEnumerable<Kipon.Solid.Plugin.Entities.kipon_vetest> kipon_account_vetests
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_vetest>("kipon_account_vetests", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_account_vetests");
+				this.SetRelatedEntities<Kipon.Solid.Plugin.Entities.kipon_vetest>("kipon_account_vetests", null, value);
+				this.OnPropertyChanged("kipon_account_vetests");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N lead_customer_accounts
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("lead_customer_accounts")]
@@ -9254,6 +9272,197 @@ namespace Kipon.Solid.Plugin.Entities
 			get
 			{
 				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.SystemUser>("lk_kipon_number_modifiedonbehalfby", null);
+			}
+		}
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("kipon_vetest")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.118")]
+	public partial class kipon_vetest : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public kipon_vetest() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "kipon_vetest";
+		
+		public const bool IsEntityActivityType = false;
+		
+		public const string EntitySchemaName = "kipon_vetest";
+		
+		public const string PrimaryIdAttribute = "kipon_vetestid";
+		
+		public const string PrimaryNameAttribute = "kipon_name";
+		
+		public const string EntityLogicalCollectionName = "kipon_vetests";
+		
+		public const string EntitySetName = "kipon_vetests";
+		
+		public const int EntityTypeCode = 10013;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for Account associated with VETest.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_accountid")]
+		public Microsoft.Xrm.Sdk.EntityReference kipon_accountid
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("kipon_accountid");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_accountid");
+				this.SetAttributeValue("kipon_accountid", value);
+				this.OnPropertyChanged("kipon_accountid");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_date")]
+		public System.Nullable<System.DateTime> kipon_date
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("kipon_date");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_date");
+				this.SetAttributeValue("kipon_date", value);
+				this.OnPropertyChanged("kipon_date");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_decimalfield")]
+		public System.Nullable<decimal> kipon_decimalfield
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<decimal>>("kipon_decimalfield");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_decimalfield");
+				this.SetAttributeValue("kipon_decimalfield", value);
+				this.OnPropertyChanged("kipon_decimalfield");
+			}
+		}
+		
+		/// <summary>
+		/// The name of the custom entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_name")]
+		[Kipon.Xrm.Attributes.Metadata.MaxLengthAttribute(100)]
+		public string kipon_name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("kipon_name");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_name");
+				this.SetAttributeValue("kipon_name", value);
+				this.OnPropertyChanged("kipon_name");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_truefalse")]
+		public System.Nullable<bool> kipon_truefalse
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("kipon_truefalse");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_truefalse");
+				this.SetAttributeValue("kipon_truefalse", value);
+				this.OnPropertyChanged("kipon_truefalse");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for entity instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_vetestid")]
+		public System.Nullable<System.Guid> kipon_vetestId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("kipon_vetestid");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_vetestId");
+				this.SetAttributeValue("kipon_vetestid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("kipon_vetestId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_vetestid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.kipon_vetestId = value;
+			}
+		}
+		
+		/// <summary>
+		/// N:1 kipon_account_vetests
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_accountid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("kipon_account_vetests")]
+		public Kipon.Solid.Plugin.Entities.Account kipon_account_vetests
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Solid.Plugin.Entities.Account>("kipon_account_vetests", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_account_vetests");
+				this.SetRelatedEntity<Kipon.Solid.Plugin.Entities.Account>("kipon_account_vetests", null, value);
+				this.OnPropertyChanged("kipon_account_vetests");
 			}
 		}
 	}
@@ -22502,6 +22711,17 @@ namespace Kipon.Solid.Plugin.Entities
 			get
 			{
 				return this.CreateQuery<Kipon.Solid.Plugin.Entities.kipon_number>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Solid.Plugin.Entities.kipon_vetest"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Solid.Plugin.Entities.kipon_vetest> kipon_vetestSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Solid.Plugin.Entities.kipon_vetest>();
 			}
 		}
 		

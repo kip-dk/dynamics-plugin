@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Solid.Plugin.Fake</id>
-    <version>1.0.10.11</version>
+    <version>1.0.10.12</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>

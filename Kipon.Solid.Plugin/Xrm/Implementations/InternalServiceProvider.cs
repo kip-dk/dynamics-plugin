@@ -8,7 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    internal class InternalServiceProvider : System.IServiceProvider
+    public class InternalServiceProvider : System.IServiceProvider
     {
         private readonly IServiceProvider root;
         private readonly ServiceCache serviceCache;

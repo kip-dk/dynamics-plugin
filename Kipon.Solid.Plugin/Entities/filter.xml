@@ -24,6 +24,7 @@
 		<entity servicename="Multitests" logicalname="kipon_multitest"></entity>
 		<entity servicename="Templates" logicalname="template"></entity>
 		<entity servicename="Numbers" logicalname="kipon_number"></entity>
+		<entity servicename="Vetests" logicalname="kipon_vetest"></entity>
 	</entities>
 	<optionsets>
 		<optionset id="budget" name="BudgetEnum">

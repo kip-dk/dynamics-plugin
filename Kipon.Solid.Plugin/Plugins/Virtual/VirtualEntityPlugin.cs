@@ -11,12 +11,25 @@ namespace Kipon.Solid.Plugin.Plugins.Virtual
     {
         public Microsoft.Xrm.Sdk.Entity OnRetrieve(Guid primaryentityid, string primaryentityname)
         {
+            if (primaryentityname == Entities.kipon_vetest.EntityLogicalName)
+            {
+                return Entities.kipon_vetest.Testdata().Where(r => r.Id == primaryentityid).Single();
+            }
+
             return new Microsoft.Xrm.Sdk.Entity { LogicalName = primaryentityname, Id = primaryentityid };
         }
 
         public Microsoft.Xrm.Sdk.EntityCollection OnRetrieveMultiple(string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query, Microsoft.Xrm.Sdk.ITracingService traceService)
         {
+            traceService.Trace($"RM: { primaryentityname }");
+
             query.Trace(traceService);
+
+
+            if (primaryentityname == Entities.kipon_vetest.EntityLogicalName)
+            {
+                return Entities.kipon_vetest.Testdata().Query(query, nameof(Entities.kipon_vetest.kipon_name));
+            }
 
             var accountId = query.EntityReferenceIdEqualFilter("kipon_accountid");
             var quicksearch = query.QuickFindFilter();
