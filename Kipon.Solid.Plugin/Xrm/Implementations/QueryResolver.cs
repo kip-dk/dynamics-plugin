@@ -32,12 +32,14 @@
             {
                 foreach (var entity in entities)
                 {
-                    if (string.IsNullOrEmpty(quickFind) || quickFindColumns == null || quickFindColumns.Length == 0 || entity.QuickFindMatch(quickFind, this.quickFindColumns))
+                    if (!string.IsNullOrEmpty(quickFind) && quickFindColumns != null && quickFindColumns.Length > 0 && !entity.QuickFindMatch(quickFind, quickFindColumns))
                     {
-                        if (entity.Match(this.query.Criteria))
-                        {
-                            include.Add(entity);
-                        }
+                        continue;
+                    }
+
+                    if (entity.Match(this.query.Criteria))
+                    {
+                        include.Add(entity);
                     }
                 }
             }

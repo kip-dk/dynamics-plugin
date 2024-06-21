@@ -223,7 +223,7 @@
             var indentString = "".PadLeft(indent, ' ');
             if (filter.IsQuickFindFilter)
             {
-                tracingService.Trace($"{ indentString }Filter i quickfindfilter");
+                tracingService.Trace($"{ indentString } [{ indent }] Filter is quickfindfilter:");
             }
 
             if (filter.Conditions != null && filter.Conditions.Count > 0)
