@@ -47,6 +47,8 @@
             include = this.Sort(include, query);
             bool isLast = true;
 
+            result.TotalRecordCount = include.Count;
+
             if (include.Count > 0)
             {
                 var last = include.Last();
@@ -64,7 +66,6 @@
             }
 
             result.MoreRecords = !isLast;
-            result.TotalRecordCount = this.totalCount;
 
             foreach (var r in include)
             {

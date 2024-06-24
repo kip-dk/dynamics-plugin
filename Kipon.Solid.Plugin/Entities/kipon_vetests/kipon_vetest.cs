@@ -29,6 +29,20 @@ namespace Kipon.Solid.Plugin.Entities
             "Børnehuset Aske",
         };
 
+        private static Guid[] accounts = new Guid[]
+        {
+            new Guid("CB5AA321-B543-E711-A962-000D3A27D441"),
+            new Guid("28E45114-B543-E711-A962-000D3A27D441"),
+            new Guid("C54BEC0B-B543-E711-A962-000D3A27D441")
+        };
+
+        private static string[] accountNames = new string[]
+        {
+            "Larsen A/S",
+            "Atea A/S",
+            "Kipon ApS"
+        };
+
         private static kipon_vetest[] data;
 
         public static kipon_vetest[] Testdata()
@@ -46,7 +60,7 @@ namespace Kipon.Solid.Plugin.Entities
                         var next = new kipon_vetest
                         {
                             kipon_vetestId = i.ToGuid(ix),
-                            kipon_accountid = new Microsoft.Xrm.Sdk.EntityReference(Entities.Account.EntityLogicalName, new Guid("CB5AA321-B543-E711-A962-000D3A27D441")),
+                            kipon_accountid = new Microsoft.Xrm.Sdk.EntityReference { LogicalName = Entities.Account.EntityLogicalName, Id = accounts[i % 3], Name = accountNames[ i % 3 ] },
                             kipon_date = System.DateTime.UtcNow.AddDays(i - 50),
                             kipon_name = $"{name} ({ix}) ({i})",
                             kipon_decimalfield = ((decimal)(i * ix) + 34M) / (i + ix),
@@ -60,6 +74,14 @@ namespace Kipon.Solid.Plugin.Entities
                     }
                 }
                 data = result.ToArray();
+            }
+
+            for (var i=0;i<data.Length;i++)
+            {
+                if (i % 7 == 0)
+                {
+                    data[i].Attributes.Remove("kipon_accountid");
+                }
             }
             return data;
         }
