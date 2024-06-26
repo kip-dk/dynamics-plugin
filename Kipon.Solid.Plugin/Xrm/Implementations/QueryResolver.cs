@@ -70,6 +70,17 @@
             foreach (var r in include)
             {
                 result.Entities.Add(r);
+
+                if (this.query.ColumnSet != null && !this.query.ColumnSet.AllColumns && this.query.ColumnSet.Columns != null && this.query.ColumnSet.Columns.Count > 0)
+                {
+                    foreach (var attr in r.Attributes.ToArray())
+                    {
+                        if (!this.query.ColumnSet.Columns.Contains(attr.Key))
+                        {
+                            r.Attributes.Remove(attr.Key);
+                        }
+                    }
+                } 
             }
             return result;
         }

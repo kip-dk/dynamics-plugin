@@ -1,4 +1,7 @@
-## Last updated: 2024-06-21
+## Last updated: 2024-06-26
+
+### 1.0.10.13
+Fixed in-mem query, better total count, quickfindfilter improved
 
 ### 1.0.10.12
 Fixed and tested in-mem exeucte query expression, Having a QueryExpression, and a raw array of Microsoft.Xrm.Sdk.Entity, your can now execute
