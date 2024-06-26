@@ -772,8 +772,18 @@
                     {
                         var value = entity[field];
 
+                        if (value == null)
+                        {
+                            continue;
+                        }
+
                         if (value is string stringValue)
                         {
+                            if (string.IsNullOrEmpty(stringValue))
+                            {
+                                continue;
+                            }
+
                             if (quickFindFilter.Like(stringValue))
                             {
                                 return true;
@@ -783,6 +793,11 @@
 
                         if (value is Microsoft.Xrm.Sdk.EntityReference re)
                         {
+                            if (re == null)
+                            {
+                                continue;
+                            }
+
                             if (!string.IsNullOrEmpty(re.Name))
                             {
                                 if (quickFindFilter.Like(re.Name))
@@ -793,10 +808,9 @@
                             continue;
                         }
 
-                        throw new InvalidPluginExecutionException($"Unsupported type in quickfind filter: { value.GetType() }");
+                        throw new InvalidPluginExecutionException($"Unsupported type in quickfind filter: { value?.GetType() }");
                     }
                 }
-
                 return false;
             }
             return true;

@@ -1,5 +1,8 @@
 ## Last updated: 2024-06-26
 
+### 1.0.10.15
+quick find filter did not handle null or empty string values correct.
+
 ### 1.0.10.14
 Compile warning semantic only
 

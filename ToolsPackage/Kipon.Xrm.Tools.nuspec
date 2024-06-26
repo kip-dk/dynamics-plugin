@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Xrm.Tools</id>
-    <version>1.0.10.14</version>
+    <version>1.0.10.15</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Kipon.Xrm.Tools - tool to generate and deploy Dynamics 365 CE items</description>
     <releaseNotes>
-		Compile warning semantic only
+		fixed bug in quickfind filter for in-mem query
 	</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023,2024</copyright>
     <tags>Dynamics 365 CE plugin C# SOLID webresource typescript DefinitelyTyped @types/xrm</tags>
