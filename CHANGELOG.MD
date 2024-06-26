@@ -1,5 +1,8 @@
 ## Last updated: 2024-06-26
 
+### 1.0.10.14
+Compile warning semantic only
+
 ### 1.0.10.13
 Fixed in-mem query, better total count, quickfindfilter improved
 

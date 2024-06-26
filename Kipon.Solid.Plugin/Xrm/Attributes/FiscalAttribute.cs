@@ -8,7 +8,6 @@
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public class FiscalAttribute : Attribute
     {
-        private Type type;
         public FiscalAttribute()
         {
         }
