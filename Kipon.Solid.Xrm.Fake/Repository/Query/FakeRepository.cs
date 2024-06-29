@@ -2,46 +2,56 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Kipon.Xrm.Fake.Repository.Query
+namespace Kipon.Xrm.Fake
 {
-    public class FakeRepository<T> : Kipon.Fake.Xrm.IRepository<T> where T : Microsoft.Xrm.Sdk.Entity, new()
+    public class Repository<T> : Kipon.Fake.Xrm.IRepository<T> where T : Microsoft.Xrm.Sdk.Entity, new()
     {
+        public string LogicalName => new T().LogicalName;
+
+        private Dictionary<Guid, T> data = new Dictionary<Guid, T>();
+
         void IRepository<T>.Add(T entity)
         {
-            throw new NotImplementedException();
+            if (entity.Id == Guid.Empty)
+            {
+                entity.Id = Guid.NewGuid();
+            }
+            data[entity.Id] = entity;
         }
 
         void IRepository<T>.Attach(T entity)
         {
-            throw new NotImplementedException();
+            data[entity.Id] = entity;
         }
 
         void IRepository<T>.Delete(T entity)
         {
-            throw new NotImplementedException();
+            data.Remove(entity.Id);
         }
 
         void IRepository<T>.Detach(T entity)
         {
-            throw new NotImplementedException();
+            data.Remove(entity.Id);
         }
 
         T IRepository<T>.GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return data[id];
         }
 
         IQueryable<T> IRepository<T>.GetQuery()
         {
-            throw new NotImplementedException();
+            return data.Values.AsQueryable(); 
         }
 
         void IRepository<T>.Update(T entity)
         {
-            throw new NotImplementedException();
+            var me = data[entity.Id];
+            foreach (var attr in entity.Attributes)
+            {
+                me[attr.Key] = attr.Value;
+            }
         }
     }
 }

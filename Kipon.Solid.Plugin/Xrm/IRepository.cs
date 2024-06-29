@@ -8,6 +8,8 @@
     /// </summary>
     public interface IRepository<T> where T: Microsoft.Xrm.Sdk.Entity, new()
     {
+        string LogicalName { get; }
+
         /// <summary>
         /// Gets an <see cref="IQueryable{T}"/> to perform further operations.
         /// </summary>

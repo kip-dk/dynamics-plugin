@@ -1,4 +1,11 @@
-## Last updated: 2024-06-26
+## Last updated: 2024-06-29
+
+### 1.0.10.16
+Added experimental support for Create, Update, Delete on virtual entities
+
+Changed GetById method to use Retrieve on or service instead of query single approach
+
+Fixed minors in Fake lib
 
 ### 1.0.10.15
 quick find filter did not handle null or empty string values correct.

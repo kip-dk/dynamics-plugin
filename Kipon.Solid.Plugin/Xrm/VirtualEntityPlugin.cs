@@ -40,22 +40,16 @@
             var userId = context.UserId;
             var message = context.MessageName;
 
-            if (message != "Retrieve" && message != "RetrieveMultiple")
+            if (message != "Retrieve" && message != "RetrieveMultiple" && message != "Update" && message != "Create" && message != "Delete")
             {
-                throw new InvalidPluginExecutionException($"Unsupported message in VirtualEntityPlugin { message }. Only Retrieve and RetrieveMultiple is supported");
+                throw new InvalidPluginExecutionException($"Unsupported message in VirtualEntityPlugin { message }. Only Retrieve, RetrieveMultiple., Create, Update, Delete are supported");
             }
 
             var type = (CrmEventType)Enum.Parse(typeof(CrmEventType), context.MessageName);
 
             IPluginContext pluginContext = new Services.PluginContext(this.UnsecureConfig, this.SecureConfig, context, type, userId);
 
-            IOrganizationService toolOrgService = null;
-
-
-            if (type == CrmEventType.Retrieve || type == CrmEventType.RetrieveMultiple)
-            {
-                toolOrgService = serviceFactory.CreateOrganizationService(null);
-            }
+            IOrganizationService toolOrgService = serviceFactory.CreateOrganizationService(null);
 
             var pluginType = this.GetType();
             Models.Calendar.Initialize(pluginType, context.OrganizationId, toolOrgService);
@@ -147,6 +141,17 @@
                             this.RemoveNullValues(fe);
                         }
                         context.OutputParameters["BusinessEntityCollection"] = bes;
+                    }
+
+                    if (message == "Create")
+                    {
+                        if (result is Guid g)
+                        {
+                            context.OutputParameters["id"] = g;
+                        } else
+                        {
+                            throw new InvalidPluginExecutionException($"Virtual entity Create event is returning wrong type. A Guid was expected but found: { result.GetType().FullName }");
+                        }
                     }
                 }
             }

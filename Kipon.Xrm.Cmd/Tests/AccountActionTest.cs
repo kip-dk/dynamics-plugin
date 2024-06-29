@@ -32,8 +32,9 @@ namespace Kipon.Xrm.Cmd.Tests
             var res = uow.Execute(req);
 
             var tot = (int)res.Results["Count"];
+            var name = (string)res.Results["FirstVeName"];
 
-            Console.WriteLine($"We execute the action and found  { tot }");
+            Console.WriteLine($"We execute the action and found  { tot }, { name }");
 
             return Task.CompletedTask;
         }

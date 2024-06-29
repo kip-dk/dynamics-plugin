@@ -93,10 +93,13 @@ namespace Kipon.Xrm.Tools.CodeWriter
         private {1} context;
         private Microsoft.Xrm.Sdk.IOrganizationService _service;
 
-        public CrmRepository({1} context, Microsoft.Xrm.Sdk.IOrganizationService service)
+        public string LogicalName {{ get; private set; }}
+
+        public CrmRepository({1} context, Microsoft.Xrm.Sdk.IOrganizationService service, string logicalName)
         {{
             this.context = context;
             this._service = service;
+            this.LogicalName = logicalName;
         }}
 
         public IQueryable<T> GetQuery()
@@ -122,9 +125,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         public T GetById(Guid id)
         {{
-            return (from q in this.GetQuery()
-                    where q.Id == id
-                    select q).Single();
+            return this._service.Retrieve(this.LogicalName, id, new Microsoft.Xrm.Sdk.Query.ColumnSet(true)).ToEntity<T>();
         }}
 
         public void Attach(T entity)
@@ -230,7 +231,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                         /* R2 */ writer.WriteLine("\t\t\t{");
                         /*    */ writer.WriteLine("\t\t\t\tif (_" + uowname.ToLower() + " == null)");
                         /* R3 */ writer.WriteLine("\t\t\t\t\t{");
-                        /*    */ writer.WriteLine("\t\t\t\t\t\t_" + uowname.ToLower() + " = new CrmRepository<" + logicalname + ">(this.context, this._service);");
+                        /*    */ writer.WriteLine("\t\t\t\t\t\t_" + uowname.ToLower() + " = new CrmRepository<" + logicalname + $">(this.context, this._service, \"{ logicalname.ToLower() }\");");
                         /* R3 */ writer.WriteLine("\t\t\t\t\t}");
                         /*    */ writer.WriteLine("\t\t\t\treturn _" + uowname.ToLower() + ";");
                         /* R2 */ writer.WriteLine("\t\t\t}");

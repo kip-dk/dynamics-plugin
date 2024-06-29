@@ -23490,6 +23490,21 @@ namespace Kipon.Solid.Plugin.Entities
 				}
 			}
 		}
+		
+		public string FirstVeName
+		{
+			get
+			{
+				if (this.Results.Contains("FirstVeName"))
+				{
+					return ((string)(this.Results["FirstVeName"]));
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/kipon/")]
