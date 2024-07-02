@@ -259,7 +259,7 @@
     <Compile Include="Xrm\Preimage.cs" />
     <Compile Include="Xrm\Reflection\Types.cs" />
     <Compile Include="Xrm\ServiceAPI\INamingService.cs" />
-    <Compile Include="Xrm\Services\IMerged.cs" />
+    <Compile Include="Xrm\IMerged.cs" />
     <Compile Include="Xrm\Services\NamingService.cs" />
     <Compile Include="Service\SpecialAdminService.cs" />
     <Compile Include="Xrm\VirtualEntityPlugin.cs" />
