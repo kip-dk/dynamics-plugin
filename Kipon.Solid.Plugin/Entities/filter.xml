@@ -19,6 +19,8 @@
 		<entity servicename="Invoices" logicalname="invoice"></entity>
 		<entity servicename="Systemusers" logicalname="systemuser"></entity>
 		<entity servicename="Phonecalls" logicalname="phonecall"></entity>
+		<entity servicename="Emails" logicalname="email"></entity>
+		<entity servicename="Appointments" logicalname="appointment"></entity>
 		<entity servicename="Leads" logicalname="lead"></entity>
 		<entity servicename="Datepocs" logicalname="kipon_datepoc"></entity>
 		<entity servicename="Multitests" logicalname="kipon_multitest"></entity>

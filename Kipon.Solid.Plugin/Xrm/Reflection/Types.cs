@@ -65,7 +65,7 @@
             this.Target = allTypes[$"{NAMESPACE}{nameof(_instance.Target)}`1"];
             this.TargetReference = allTypes[$"{NAMESPACE}{nameof(_instance.TargetReference)}`1"];
             this.Preimage = allTypes[$"{NAMESPACE}{nameof(_instance.Preimage)}`1"];
-            this.IMerged = allTypes[$"{NAMESPACE}{nameof(_instance.IMerged)}`1"];
+            this.IMerged = allTypes[$"{NAMESPACE}{nameof(_instance.IMerged)}"];
             this.Mergedimage = allTypes[$"{NAMESPACE}{nameof(_instance.Mergedimage)}`1"];
             this.Postimage = allTypes[$"{NAMESPACE}{nameof(_instance.Postimage)}`1"];
             this.ActionTarget = allTypes[$"{NAMESPACE}{nameof(_instance.ActionTarget)}`1"];

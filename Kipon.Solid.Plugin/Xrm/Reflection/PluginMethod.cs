@@ -171,7 +171,7 @@
                         }
                         #endregion
 
-                        #region handling match on parameter of type ITarget, only continue and return this method, if the current primaryEntity actual implements the ITarget inherited interface
+                        #region handling match on parameter of type ITarget/IMerged, only continue and return this method, if the current primaryEntity actual implements the ITarget/IMerged inherited interface
                         if (!string.IsNullOrEmpty(primaryEntityName))
                         {
                             var parameters = method.GetParameters();
@@ -183,6 +183,16 @@
                                 {
                                     var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity(primaryEntityName));
                                     if (!itargetParameter.ParameterType.IsAssignableFrom(entity.GetType()))
+                                    {
+                                        continue;
+                                    }
+                                }
+
+                                var imergedParameter = method.GetParameters().Where(p => Types.IMerged.IsAssignableFrom(p.ParameterType)).FirstOrDefault();
+                                if (imergedParameter != null)
+                                {
+                                    var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity(primaryEntityName));
+                                    if (!imergedParameter.ParameterType.IsAssignableFrom(entity.GetType()))
                                     {
                                         continue;
                                     }

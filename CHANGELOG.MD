@@ -1,4 +1,16 @@
-## Last updated: 2024-06-29
+## Last updated: 2024-07-02
+
+### 1.0.10.17
+Kipon.Xrm.IMerged interface introduced. This interface is similar to Kipon.Xrm.ITarget, but is addressing the problem of letting multiple entities impl. same
+merged image, to allow a shared service to work on several entities, ex. same logic, for email, phonecall, appointment and tasks.
+
+You must create an interface extending the IMerged entities, typically exposing the properties of an entity that need to be part of target filter or preimage.
+Any attribute that should be part of target filter on update must be decorated with the Kipon.Xrm.Attributes.TargetFilterAttribute, exactly same pattern as for merged images design to support
+a single entity.
+
+Any property in the IMerged interface must be implemented implicit in the entity class and must be decorated with the Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute to be added to the preimage.
+Only properties that has a getter will be added to the preimage.
+
 
 ### 1.0.10.16
 Added experimental support for Create, Update, Delete on virtual entities
