@@ -65,6 +65,7 @@
             this.Target = allTypes[$"{NAMESPACE}{nameof(_instance.Target)}`1"];
             this.TargetReference = allTypes[$"{NAMESPACE}{nameof(_instance.TargetReference)}`1"];
             this.Preimage = allTypes[$"{NAMESPACE}{nameof(_instance.Preimage)}`1"];
+            this.IMerged = allTypes[$"{NAMESPACE}{nameof(_instance.IMerged)}`1"];
             this.Mergedimage = allTypes[$"{NAMESPACE}{nameof(_instance.Mergedimage)}`1"];
             this.Postimage = allTypes[$"{NAMESPACE}{nameof(_instance.Postimage)}`1"];
             this.ActionTarget = allTypes[$"{NAMESPACE}{nameof(_instance.ActionTarget)}`1"];
@@ -98,6 +99,7 @@
         public Type Target { get; private set; }
         public Type TargetReference { get; private set; }
         public Type TargetFilterAttribute { get; private set; }
+        public Type IMerged { get; private set; }
         public Type Preimage { get; private set; }
         public Type Mergedimage { get; private set; }
         public Type Postimage { get; private set; }

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Web.UI.WebControls;
 
     /// <summary>
@@ -320,6 +321,27 @@
                             var result = new TypeCache { FromType = type, ToType = entityType, IsTarget = true };
                             result.LogicalName = entity.LogicalName;
                             result.ResolveProperties();
+
+                            if (ReturnIfOk(type, result))
+                            {
+                                resolvedTypes[key] = result;
+                                return result;
+                            }
+                        }
+                    }
+
+                    if (type.IsIMerged())
+                    {
+                        var entity = Extensions.Sdk.KiponSdkGeneratedExtensionMethods.ToEarlyBoundEntity(new Microsoft.Xrm.Sdk.Entity { LogicalName = key.LogicalName });
+                        var entityType = entity.GetType();
+
+                        if (type.IsAssignableFrom(entityType))
+                        {
+                            var result = new TypeCache { FromType = type, ToType = entityType, IsMergedimage = true };
+                            result.LogicalName = entity.LogicalName;
+
+                            result.ResolveProperties();
+
 
                             if (ReturnIfOk(type, result))
                             {
@@ -1024,6 +1046,12 @@
         public static bool IsITarget(this Type fromType)
         {
             var propertytype = TypeCache.Types.ITarget;
+            return propertytype.IsAssignableFrom(fromType);
+        }
+
+        public static bool IsIMerged(this Type fromType)
+        {
+            var propertytype = TypeCache.Types.IMerged;
             return propertytype.IsAssignableFrom(fromType);
         }
 

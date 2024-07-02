@@ -174,6 +174,7 @@
     <Compile Include="Xrm\Implementations\WorkflowPluginExecutionContext.cs" />
     <Compile Include="Xrm\IStepFinalizer.cs" />
     <Compile Include="Xrm\IStepInitializer.cs" />
+    <Compile Include="Xrm\Reflection\ReflectionExtensions.cs" />
     <Compile Include="Xrm\ServiceAPI\IEntityMetadataService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="ServiceAPI\ISpecialAccountService.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Xrm\Preimage.cs" />
     <Compile Include="Xrm\Reflection\Types.cs" />
     <Compile Include="Xrm\ServiceAPI\INamingService.cs" />
+    <Compile Include="Xrm\Services\IMerged.cs" />
     <Compile Include="Xrm\Services\NamingService.cs" />
     <Compile Include="Service\SpecialAdminService.cs" />
     <Compile Include="Xrm\VirtualEntityPlugin.cs" />
