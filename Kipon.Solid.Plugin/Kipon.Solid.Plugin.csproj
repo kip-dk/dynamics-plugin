@@ -267,6 +267,7 @@
     <Compile Include="Xrm\IMerged.cs" />
     <Compile Include="Xrm\Services\NamingService.cs" />
     <Compile Include="Service\SpecialAdminService.cs" />
+    <Compile Include="Xrm\Tracer.cs" />
     <Compile Include="Xrm\VirtualEntityPlugin.cs" />
     <Compile Include="Xrm\Services\PluginContext.cs" />
     <Compile Include="Xrm\Target.cs" />

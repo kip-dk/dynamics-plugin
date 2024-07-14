@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Solid.Plugin.Fake</id>
-    <version>1.0.10.17</version>
+    <version>1.0.10.18</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Unit Test library for the Kipon.Solid.Plugin framework</description>
     <releaseNotes>
-		Kipon.Xrm.IMerged interface was introduced
+		Fixed bug in INameService, and added experimental feature for trace
 	</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023,2024</copyright>
     <tags>Dynamics 365 plugin C# SOLID</tags>

@@ -22,6 +22,8 @@ namespace Kipon.Solid.Plugin.Service
         {
             var dd = this.contactQuery.FirstOrDefault();
             var yy = this.accountQuery.FirstOrDefault();
+
+            Kipon.Xrm.Tracer.Trace("Vi skriver noget her");
         }
     }
 }

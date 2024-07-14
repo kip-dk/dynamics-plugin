@@ -1,4 +1,15 @@
-## Last updated: 2024-07-02
+## Last updated: 2024-07-14
+
+### 1.0.10.18
+Fixed problem in INameService. If the EntityReference primary field resolved to null, the service would throw a key not found exception. This has been fixed.
+
+Experimental:
+static method: Kipon.Xrm.Tracer.Trace("some message")
+
+can be used to perform trace against Microsoft.Xrm.Sdk.ITraceService
+
+Normally you would need to inject the ITraceService, but with this impl. you can just call this static method. The Microsoft ITraceService i taken from the plugin IServiceContext, and shared over the
+current thread id, assuming that each thread on the platform will run on plugin at a time - only. (this might prove to be a wrong assumption).
 
 ### 1.0.10.17
 Kipon.Xrm.IMerged interface introduced. This interface is similar to Kipon.Xrm.ITarget, but is addressing the problem of letting multiple entities impl. same

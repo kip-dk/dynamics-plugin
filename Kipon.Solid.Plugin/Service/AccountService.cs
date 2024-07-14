@@ -28,11 +28,13 @@ namespace Kipon.Solid.Plugin.Service
 
         public void OnNameChanged(Account.IAccountNameChanged target)
         {
+            Kipon.Xrm.Tracer.Trace("In account service on name changed");
             if (!string.IsNullOrEmpty(target.Name))
             {
                 var names = target.Name.Split(' ').Select(r => r.FirstToUpper());
                 target.Name = string.Join(" ", names);
             }
+            Kipon.Xrm.Tracer.Trace("In account service on name changed - finalized");
         }
 
         public void OnPostMerged(Entities.Account.IAccountPostMergedImage mergedimage)

@@ -20,7 +20,7 @@ namespace Kipon.Xrm.Extensions.Sdk
                 return null;
             }
 
-            if (!string.IsNullOrEmpty(refid.Name))
+            if (refid.Name == null)
             {
                 return refid.Name;
             }
@@ -28,7 +28,16 @@ namespace Kipon.Xrm.Extensions.Sdk
             if (metas.TryGetValue(refid.LogicalName, out Meta m))
             {
                 var result = this.organizationService.Retrieve(refid.LogicalName, refid.Id, new Microsoft.Xrm.Sdk.Query.ColumnSet(m.PrimaryAttributeName));
-                refid.Name = result[m.PrimaryAttributeName] as string;
+                if (result != null && result.Attributes != null && result.Attributes.ContainsKey(m.PrimaryAttributeName))
+                {
+                    refid.Name = result[m.PrimaryAttributeName] as string;
+                }
+
+                if (refid.Name == null)
+                {
+                    refid.Name = string.Empty;
+                }
+
                 return refid.Name;
             }
             return null;

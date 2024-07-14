@@ -37,120 +37,126 @@
             var serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
 
-            var userId = context.UserId;
-            var message = context.MessageName;
-
-            if (message != "Retrieve" && message != "RetrieveMultiple" && message != "Update" && message != "Create" && message != "Delete")
+            using (var tracer = new Tracer(tracingService))
             {
-                throw new InvalidPluginExecutionException($"Unsupported message in VirtualEntityPlugin { message }. Only Retrieve, RetrieveMultiple., Create, Update, Delete are supported");
-            }
 
-            var type = (CrmEventType)Enum.Parse(typeof(CrmEventType), context.MessageName);
+                var userId = context.UserId;
+                var message = context.MessageName;
 
-            IPluginContext pluginContext = new Services.PluginContext(this.UnsecureConfig, this.SecureConfig, context, type, userId);
-
-            IOrganizationService toolOrgService = serviceFactory.CreateOrganizationService(null);
-
-            var pluginType = this.GetType();
-            Models.Calendar.Initialize(pluginType, context.OrganizationId, toolOrgService);
-
-            using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext, this.UnsecureConfig, this.SecureConfig))
-            {
-                var method = PluginMethodCache.ForPlugin(pluginType, 30, message, context.PrimaryEntityName, context.Mode == 1).Single();
-
-                var args = new object[method.Parameters.Length];
-
-                var ix = 0;
-
-                Microsoft.Xrm.Sdk.Entity datasource = null;
-
-                foreach (var p in method.Parameters)
+                if (message != "Retrieve" && message != "RetrieveMultiple" && message != "Update" && message != "Create" && message != "Delete")
                 {
-                    if (p.Name != null && p.Name.ToLower() == "datasource")
-                    {
-                        if (datasource == null)
-                        {
-                            var ds = (IEntityDataSourceRetrieverService)serviceProvider.GetService(typeof(IEntityDataSourceRetrieverService));
-                            datasource = ds.RetrieveEntityDataSource();
-
-                            if (p.FromType.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
-                            {
-                                var tmp = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(p.FromType);
-                                tmp.Attributes = datasource.Attributes;
-                                datasource = tmp;
-                            }
-                        }
-                        args[ix] = datasource;
-                    }
-                    else
-                    {
-                        args[ix] = serviceCache.Resolve(p, toolOrgService);
-                    }
-                    ix++;
+                    throw new InvalidPluginExecutionException($"Unsupported message in VirtualEntityPlugin {message}. Only Retrieve, RetrieveMultiple., Create, Update, Delete are supported");
                 }
 
-                var result = method.Invoke(this, args);
-                if (result != null)
+                var type = (CrmEventType)Enum.Parse(typeof(CrmEventType), context.MessageName);
+
+                IPluginContext pluginContext = new Services.PluginContext(this.UnsecureConfig, this.SecureConfig, context, type, userId);
+
+                IOrganizationService toolOrgService = serviceFactory.CreateOrganizationService(null);
+
+                var pluginType = this.GetType();
+                Models.Calendar.Initialize(pluginType, context.OrganizationId, toolOrgService);
+
+                using (var serviceCache = new Reflection.ServiceCache(context, serviceFactory, tracingService, pluginContext, this.UnsecureConfig, this.SecureConfig))
                 {
-                    if (message == "Retrieve")
+                    var method = PluginMethodCache.ForPlugin(pluginType, 30, message, context.PrimaryEntityName, context.Mode == 1).Single();
+
+                    var args = new object[method.Parameters.Length];
+
+                    var ix = 0;
+
+                    Microsoft.Xrm.Sdk.Entity datasource = null;
+
+                    foreach (var p in method.Parameters)
                     {
-                        var be = result as Microsoft.Xrm.Sdk.Entity;
-                        if (be == null)
+                        if (p.Name != null && p.Name.ToLower() == "datasource")
                         {
-                            throw new InvalidPluginExecutionException("Return from virtual antity Retrieve must be of type Microsoft.Xrm.Sdk.Entity");
-                        }
+                            if (datasource == null)
+                            {
+                                var ds = (IEntityDataSourceRetrieverService)serviceProvider.GetService(typeof(IEntityDataSourceRetrieverService));
+                                datasource = ds.RetrieveEntityDataSource();
 
-                        if (be.GetType() != typeof(Microsoft.Xrm.Sdk.Entity))
+                                if (p.FromType.BaseType == typeof(Microsoft.Xrm.Sdk.Entity))
+                                {
+                                    var tmp = (Microsoft.Xrm.Sdk.Entity)Activator.CreateInstance(p.FromType);
+                                    tmp.Attributes = datasource.Attributes;
+                                    datasource = tmp;
+                                }
+                            }
+                            args[ix] = datasource;
+                        }
+                        else
                         {
-                            var fr = new Microsoft.Xrm.Sdk.Entity { Id = be.Id, LogicalName = be.LogicalName };
-                            fr.Attributes = be.Attributes;
-                            be = fr;
+                            args[ix] = serviceCache.Resolve(p, toolOrgService);
                         }
-
-                        this.RemoveNullValues(be);
-                        context.OutputParameters["BusinessEntity"] = be;
+                        ix++;
                     }
 
-                    if (message == "RetrieveMultiple")
+                    var result = method.Invoke(this, args);
+                    if (result != null)
                     {
-                        var bes = result as Microsoft.Xrm.Sdk.EntityCollection;
-                        if (bes == null)
+                        if (message == "Retrieve")
                         {
-                            throw new InvalidPluginExecutionException("Return from virtual entity RetrieveMultiple must be of type Microsoft.Xrm.Sdk.EntityCollection");
-                        }
-
-                        var entities = bes.Entities.ToArray();
-                        bes.Entities.Clear();
-
-
-                        foreach (var be in entities)
-                        {
-                            if (be.GetType() == typeof(Microsoft.Xrm.Sdk.Entity))
+                            var be = result as Microsoft.Xrm.Sdk.Entity;
+                            if (be == null)
                             {
-                                bes.Entities.Add(be);
-                            } else
+                                throw new InvalidPluginExecutionException("Return from virtual antity Retrieve must be of type Microsoft.Xrm.Sdk.Entity");
+                            }
+
+                            if (be.GetType() != typeof(Microsoft.Xrm.Sdk.Entity))
                             {
                                 var fr = new Microsoft.Xrm.Sdk.Entity { Id = be.Id, LogicalName = be.LogicalName };
                                 fr.Attributes = be.Attributes;
-                                bes.Entities.Add(fr);
+                                be = fr;
                             }
+
+                            this.RemoveNullValues(be);
+                            context.OutputParameters["BusinessEntity"] = be;
                         }
 
-                        foreach (var fe in bes.Entities)
+                        if (message == "RetrieveMultiple")
                         {
-                            this.RemoveNullValues(fe);
-                        }
-                        context.OutputParameters["BusinessEntityCollection"] = bes;
-                    }
+                            var bes = result as Microsoft.Xrm.Sdk.EntityCollection;
+                            if (bes == null)
+                            {
+                                throw new InvalidPluginExecutionException("Return from virtual entity RetrieveMultiple must be of type Microsoft.Xrm.Sdk.EntityCollection");
+                            }
 
-                    if (message == "Create")
-                    {
-                        if (result is Guid g)
+                            var entities = bes.Entities.ToArray();
+                            bes.Entities.Clear();
+
+
+                            foreach (var be in entities)
+                            {
+                                if (be.GetType() == typeof(Microsoft.Xrm.Sdk.Entity))
+                                {
+                                    bes.Entities.Add(be);
+                                }
+                                else
+                                {
+                                    var fr = new Microsoft.Xrm.Sdk.Entity { Id = be.Id, LogicalName = be.LogicalName };
+                                    fr.Attributes = be.Attributes;
+                                    bes.Entities.Add(fr);
+                                }
+                            }
+
+                            foreach (var fe in bes.Entities)
+                            {
+                                this.RemoveNullValues(fe);
+                            }
+                            context.OutputParameters["BusinessEntityCollection"] = bes;
+                        }
+
+                        if (message == "Create")
                         {
-                            context.OutputParameters["id"] = g;
-                        } else
-                        {
-                            throw new InvalidPluginExecutionException($"Virtual entity Create event is returning wrong type. A Guid was expected but found: { result.GetType().FullName }");
+                            if (result is Guid g)
+                            {
+                                context.OutputParameters["id"] = g;
+                            }
+                            else
+                            {
+                                throw new InvalidPluginExecutionException($"Virtual entity Create event is returning wrong type. A Guid was expected but found: {result.GetType().FullName}");
+                            }
                         }
                     }
                 }
