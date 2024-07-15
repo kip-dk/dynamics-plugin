@@ -20,7 +20,7 @@ namespace Kipon.Xrm.Extensions.Sdk
                 return null;
             }
 
-            if (refid.Name == null)
+            if (refid.Name != null)
             {
                 return refid.Name;
             }

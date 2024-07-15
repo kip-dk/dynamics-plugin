@@ -1,5 +1,8 @@
 ## Last updated: 2024-07-14
 
+### 1.0.10.19
+Bug in INameService was name service was not fixed correctly. This is fixed now
+
 ### 1.0.10.18
 Fixed problem in INameService. If the EntityReference primary field resolved to null, the service would throw a key not found exception. This has been fixed.
 
