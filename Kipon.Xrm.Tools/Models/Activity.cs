@@ -44,14 +44,11 @@ namespace Kipon.Xrm.Tools.Models
                     }
                 case "GenerateQuoteFromOpportunity":
                     {
-                        this.LogicalName = "quote";
-                        this.PrimaryEntityLogicalName = "quote";
                         this.InputMembers = new Member[]
                         {
                             new Member("OpportunityId", typeof(Guid), true, "OpportunityId"),
                             new Member("ColumnSet", typeof(Microsoft.Xrm.Sdk.Query.ColumnSet), false, "ColumnSet"),
-                            new Member("ProcessInstanceId", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "ProcessInstanceId"),
-                            new Member("Target", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "Target"),
+                            new Member("ProcessInstanceId", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "ProcessInstanceId")
                         };
                         this.OutputMembers = new Member[] 
                         {
@@ -191,7 +188,7 @@ namespace Kipon.Xrm.Tools.Models
                     if (this.Type == typeof(decimal) && this.Required) return "decimal";
                     if (this.Type == typeof(decimal) && !this.Required) return "decimal?";
                     if (this.Type == typeof(Guid?) && !this.Required) return "Guid?";
-                    if (this.Type == typeof(Guid) && !this.Required) return "Guid";
+                    if (this.Type == typeof(Guid) && this.Required) return "Guid";
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.OptionSetValue)) return Type.FullName;
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.OptionSetValueCollection)) return Type.FullName;
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.Money)) return Type.FullName;

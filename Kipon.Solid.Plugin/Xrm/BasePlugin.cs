@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.10.20";
+        public const string Version = "1.0.10.21";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 

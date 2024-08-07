@@ -17,7 +17,7 @@
         RemoveMember,
 
         QualifyLead,
-
+        GenerateQuoteFromOpportunity,
         CustomPlugin
     }
 }

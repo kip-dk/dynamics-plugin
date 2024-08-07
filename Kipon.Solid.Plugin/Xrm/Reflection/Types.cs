@@ -11,7 +11,8 @@
             "AddMember",
             "RemoveMember",
             "Associate",
-            "Disassociate"
+            "Disassociate",
+            "GenerateQuoteFromOpportunity"
         };
 
 
