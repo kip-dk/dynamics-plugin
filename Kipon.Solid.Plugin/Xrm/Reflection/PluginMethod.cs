@@ -314,6 +314,7 @@
                 {
                     case "RemoveMember": return true;
                     case "QualifyLead": return true;
+                    case "GenerateQuoteFromOpportunity": return true;
                     case "Associate": return true;
                     case "Disassociate": return true;
                 }

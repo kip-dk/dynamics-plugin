@@ -39,6 +39,7 @@
 	<actions>
 		<action name="AccountCountContacts">kipon_AccountCountContacts</action>
 		<action name="Anunboundedaction">kipon_Anunboundedaction</action>
-		<action name="QualityLead">QualifyLead</action>
+		<action name="QualifyLead">QualifyLead</action>
+		<action name="GenerateQuoteFromOpportunity">GenerateQuoteFromOpportunity</action>
 	</actions>
 </filter>

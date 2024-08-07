@@ -34,7 +34,7 @@ namespace Kipon.Xrm.Tools.Services
             "AddListMembers",
             "RemoveMember",
             "Merge",
-
+            "GenerateQuoteFromOpportunity",
             "QualifyLead"
         };
 
@@ -91,6 +91,7 @@ namespace Kipon.Xrm.Tools.Services
                          .ToDictionary(r => r.Name, v => v.PrimaryEntity);
 
             bounds["QualifyLead"] = "lead";
+            bounds["GenerateQuoteFromOpportunity"] = "quote";
 
             uow.ClearContext();
 
@@ -126,6 +127,7 @@ namespace Kipon.Xrm.Tools.Services
             foreach (var pluginType in plugins)
             {
                 var typeName = pluginType.FullName;
+
                 var next = new Models.Plugin(pluginType);
                 result.Add(next);
                 foreach (var stage in this.stages)

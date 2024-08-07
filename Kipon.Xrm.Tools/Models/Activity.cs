@@ -14,6 +14,12 @@ namespace Kipon.Xrm.Tools.Models
 {
     public class Activity
     {
+        public static readonly string[] CUSTOMIZED = new string[]
+        {
+            "QualifyLead",
+            "GenerateQuoteFromOpportunity"
+        };
+
         public Activity(string messageName)
         {
             switch (messageName)
@@ -30,9 +36,27 @@ namespace Kipon.Xrm.Tools.Models
                             new Member("OpportunityCurrencyId", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "OpportunityCurrencyId"),
                             new Member("OpportunityCustomerId", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "OpportunityCustomerId"),
                             new Member("SourceCampaignId", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "SourceCampaignId"),
-                            new Member("Status", typeof(int), true, "Status")
+                            new Member("Status", typeof(int), true, "Status"),
+                            new Member("Target", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "Target")
                         };
                         this.OutputMembers = new Member[0];
+                        break;
+                    }
+                case "GenerateQuoteFromOpportunity":
+                    {
+                        this.LogicalName = "quote";
+                        this.PrimaryEntityLogicalName = "quote";
+                        this.InputMembers = new Member[]
+                        {
+                            new Member("OpportunityId", typeof(Guid), true, "OpportunityId"),
+                            new Member("ColumnSet", typeof(Microsoft.Xrm.Sdk.Query.ColumnSet), false, "ColumnSet"),
+                            new Member("ProcessInstanceId", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "ProcessInstanceId"),
+                            new Member("Target", typeof(Microsoft.Xrm.Sdk.EntityReference), false, "Target"),
+                        };
+                        this.OutputMembers = new Member[] 
+                        {
+                            new Member("Entity", typeof(Microsoft.Xrm.Sdk.Entity), false, "Entity"),
+                        };
                         break;
                     }
                 default:throw new Exceptions.ConfigurationException($"{messageName} does not have a workflow an has not been match to an action activity in the framework. If this is a std Microsoft SDK action message then please post a feature request on the git repository. Before posting and issue, please verify that the action is a valid action part of the Microsoft standard SDK");
@@ -166,6 +190,8 @@ namespace Kipon.Xrm.Tools.Models
                     if (this.Type == typeof(double) && !this.Required) return "double?";
                     if (this.Type == typeof(decimal) && this.Required) return "decimal";
                     if (this.Type == typeof(decimal) && !this.Required) return "decimal?";
+                    if (this.Type == typeof(Guid?) && !this.Required) return "Guid?";
+                    if (this.Type == typeof(Guid) && !this.Required) return "Guid";
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.OptionSetValue)) return Type.FullName;
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.OptionSetValueCollection)) return Type.FullName;
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.Money)) return Type.FullName;
@@ -173,6 +199,7 @@ namespace Kipon.Xrm.Tools.Models
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.EntityReference)) return Type.FullName;
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.EntityCollection)) return Type.FullName;
                     if (this.Type == typeof(Microsoft.Xrm.Sdk.EntityReferenceCollection)) return Type.FullName;
+                    if (this.Type == typeof(Microsoft.Xrm.Sdk.Query.ColumnSet)) return Type.FullName;
                     return "object";
                 }
             }

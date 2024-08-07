@@ -130,6 +130,7 @@
     <Compile Include="Model\AccountModel.cs" />
     <Compile Include="Model\IActivitySubject.cs" />
     <Compile Include="Plugins\ActivitySubject\ActivitySubjectPlugin.cs" />
+    <Compile Include="Plugins\GenerateQuoteFromOpportunity\GenerateQuoteFromOpportunityPlugin.cs" />
     <Compile Include="Xrm\Attributes\FiscalAttribute.cs" />
     <Compile Include="Xrm\Extensions\Generics\GenericsMethods.cs" />
     <Compile Include="Xrm\Implementations\Sorter.cs" />

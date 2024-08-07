@@ -1,4 +1,7 @@
-## Last updated: 2024-07-15
+## Last updated: 2024-08-07
+
+### 1.0.10.20
+Added support for message: GenerateQuoteFromOpportunity bound to quote
 
 ### 1.0.10.19
 Bug in INameService was name service was not fixed correctly. This is fixed now

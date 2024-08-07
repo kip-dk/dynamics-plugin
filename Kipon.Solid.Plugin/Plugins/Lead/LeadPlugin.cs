@@ -8,7 +8,7 @@ namespace Kipon.Solid.Plugin.Plugins.Lead
 {
     public class LeadPlugin : Kipon.Xrm.BasePlugin
     {
-        public void OnValidateQualifyLead(Actions.IQualityLeadRequest request, Microsoft.Xrm.Sdk.IPluginExecutionContext ctx)
+        public void OnValidateQualifyLead(Actions.IQualifyLeadRequest request, Microsoft.Xrm.Sdk.IPluginExecutionContext ctx)
         {
         }
     }

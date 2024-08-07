@@ -285,8 +285,16 @@ namespace Kipon.Xrm.Tools.CodeWriter
                             }
                         }
 
-                        var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage, entityLogicalName, isActivity);
-                        ACTIVITIES.Add(action.LogicalName, na);
+                        if (Kipon.Xrm.Tools.Models.Activity.CUSTOMIZED.Contains(sdkMessage.Name))
+                        {
+                            var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage.Name);
+                            ACTIVITIES.Add(action.LogicalName, na);
+                        }
+                        else
+                        {
+                            var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage, entityLogicalName, isActivity);
+                            ACTIVITIES.Add(action.LogicalName, na);
+                        }
 
                         if (!string.IsNullOrEmpty(entityLogicalName))
                         {
