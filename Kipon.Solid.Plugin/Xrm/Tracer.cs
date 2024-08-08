@@ -3,23 +3,22 @@ namespace Kipon.Xrm
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
 
     public class Tracer :IDisposable
     {
-        private static Dictionary<int, Microsoft.Xrm.Sdk.ITracingService> SERVICES = new Dictionary<int, Microsoft.Xrm.Sdk.ITracingService>();
+        private static Dictionary<System.Threading.Thread, Microsoft.Xrm.Sdk.ITracingService> SERVICES = new Dictionary<System.Threading.Thread, Microsoft.Xrm.Sdk.ITracingService>();
 
         private bool isRoot = true;
         public Tracer(Microsoft.Xrm.Sdk.ITracingService trace)
         {
-            var id = System.Threading.Thread.CurrentThread.ManagedThreadId;
-
-            if (!SERVICES.ContainsKey(id))
+            if (!SERVICES.ContainsKey(System.Threading.Thread.CurrentThread))
             {
-                SERVICES[System.Threading.Thread.CurrentThread.ManagedThreadId] = trace;
+                SERVICES[System.Threading.Thread.CurrentThread] = trace;
                 this.isRoot = true;
             } else
             {
-                var me = SERVICES[id];
+                var me = SERVICES[System.Threading.Thread.CurrentThread];
 
                 if (trace != me)
                 {
@@ -36,22 +35,41 @@ namespace Kipon.Xrm
 
         public static void Trace(string message)
         {
-            traceService.Trace(message);
+            var ts = traceService;
+            if (ts != null)
+            {
+                ts.Trace(message);
+            }
         }
 
         private static Microsoft.Xrm.Sdk.ITracingService traceService
         {
             get
             {
-                return SERVICES[System.Threading.Thread.CurrentThread.ManagedThreadId];
+                var xid = System.Threading.Thread.CurrentThread;
+                if (SERVICES.TryGetValue(xid, out Microsoft.Xrm.Sdk.ITracingService ts))
+                {
+                    return ts;
+                }
+                return null;
             }
         }
 
         public void Dispose()
         {
-            if (this.isRoot)
+            try
             {
-                SERVICES.Remove(System.Threading.Thread.CurrentThread.ManagedThreadId);
+                if (this.isRoot)
+                {
+                    var xid = System.Threading.Thread.CurrentThread;
+                    if (SERVICES.ContainsKey(xid))
+                    {
+                        SERVICES.Remove(xid);
+                    }
+                }
+            }
+            catch (Exception)
+            {
             }
         }
     }

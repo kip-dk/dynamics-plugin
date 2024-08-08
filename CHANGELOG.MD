@@ -1,4 +1,7 @@
-## Last updated: 2024-08-07
+## Last updated: 2024-08-08
+
+### 1.0.10.22
+Solved potential problem in tracker, and improved error reporting from baseplugin
 
 ### 1.0.10.21
 Added support for message: GenerateQuoteFromOpportunity bound to quote
