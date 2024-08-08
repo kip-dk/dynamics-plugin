@@ -3,32 +3,21 @@ namespace Kipon.Xrm
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
+    using System.Linq;
 
     public class Tracer :IDisposable
     {
-        private static Dictionary<System.Threading.Thread, Microsoft.Xrm.Sdk.ITracingService> SERVICES = new Dictionary<System.Threading.Thread, Microsoft.Xrm.Sdk.ITracingService>();
-
-        private bool isRoot = true;
+        private static Dictionary<System.Threading.Thread, List<Microsoft.Xrm.Sdk.ITracingService>> SERVICES = new Dictionary<System.Threading.Thread, List<Microsoft.Xrm.Sdk.ITracingService>>();
+        private static readonly object locker = new object();
         public Tracer(Microsoft.Xrm.Sdk.ITracingService trace)
         {
-            if (!SERVICES.ContainsKey(System.Threading.Thread.CurrentThread))
+            lock (locker)
             {
-                SERVICES[System.Threading.Thread.CurrentThread] = trace;
-                this.isRoot = true;
-            } else
-            {
-                var me = SERVICES[System.Threading.Thread.CurrentThread];
-
-                if (trace != me)
+                if (!SERVICES.ContainsKey(System.Threading.Thread.CurrentThread))
                 {
-                    trace.Trace($"TRACE: Two different instance of trace found on same thread, that is unexpected");
-                    me.Trace($"ME: Two different instance of trace found on same thread, that is unexpected");
-                } else
-                {
-                    trace.Trace($"Nested Tracer found. You do not need to create local instance of Tracer. The kipon base plugin has the only needed instance for the plugin flow.");
+                    SERVICES[System.Threading.Thread.CurrentThread] = new List<Microsoft.Xrm.Sdk.ITracingService>();
                 }
-                this.isRoot = false;
+                SERVICES[System.Threading.Thread.CurrentThread].Add(trace);
             }
         }
 
@@ -47,9 +36,9 @@ namespace Kipon.Xrm
             get
             {
                 var xid = System.Threading.Thread.CurrentThread;
-                if (SERVICES.TryGetValue(xid, out Microsoft.Xrm.Sdk.ITracingService ts))
+                if (SERVICES.TryGetValue(xid, out List<Microsoft.Xrm.Sdk.ITracingService> tss))
                 {
-                    return ts;
+                    return tss.LastOrDefault();
                 }
                 return null;
             }
@@ -59,12 +48,34 @@ namespace Kipon.Xrm
         {
             try
             {
-                if (this.isRoot)
+                lock (locker)
                 {
                     var xid = System.Threading.Thread.CurrentThread;
-                    if (SERVICES.ContainsKey(xid))
+                    if (SERVICES.TryGetValue(xid, out List<Microsoft.Xrm.Sdk.ITracingService> tss))
                     {
-                        SERVICES.Remove(xid);
+                        if (tss.Count > 0)
+                        {
+                            tss.Remove(tss.Last());
+                        }
+                    }
+                    CleanupEmpty();
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private static void CleanupEmpty()
+        {
+            try
+            {
+                foreach (var key in SERVICES.Keys.ToArray())
+                {
+                    var list = SERVICES[key];
+                    if (list.Count == 0)
+                    {
+                        SERVICES.Remove(key);
                     }
                 }
             }

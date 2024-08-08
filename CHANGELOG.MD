@@ -1,5 +1,8 @@
 ## Last updated: 2024-08-08
 
+### 1.0.10.23
+Solved more potential problem in tracker
+
 ### 1.0.10.22
 Solved potential problem in tracker, and improved error reporting from baseplugin
 
