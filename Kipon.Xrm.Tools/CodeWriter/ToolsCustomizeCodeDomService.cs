@@ -18,7 +18,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
             var metaService = services.GetService(typeof(Microsoft.Crm.Services.Utility.IMetadataProviderService)) as Microsoft.Crm.Services.Utility.IMetadataProviderService;
 
             var ns = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/namespace:") select c.Split(':')[1]).Single();
-                        var entities = CodeWriterFilter.ENTITIES;
+                        var entities = CodeWriterFilter.FILTER.ENTITIES;
             using (var writer = new System.IO.StreamWriter("CrmUnitOfWork.Design.cs", false))
             {
                 var sharedService = new SharedCustomizeCodeDomService(writer, metaService);
@@ -48,12 +48,12 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 }
                 writer.WriteLine("\t}");
 
-                sharedService.GlobalOptionSets(CodeWriterFilter.GLOBAL_OPTIONSET_INDEX.Values);
+                sharedService.GlobalOptionSets(CodeWriterFilter.FILTER.GLOBAL_OPTIONSET_INDEX.Values);
                 sharedService.EntityOptionsetProperties(
-                    CodeWriterFilter.ENTITIES,
-                    CodeWriterFilter.GLOBAL_OPTIONSET_INDEX,
-                    CodeWriterFilter.ATTRIBUTE_SCHEMANAME_MAP,
-                    CodeWriterFilter.SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES);
+                    CodeWriterFilter.FILTER.ENTITIES,
+                    CodeWriterFilter.FILTER.GLOBAL_OPTIONSET_INDEX,
+                    CodeWriterFilter.FILTER.ATTRIBUTE_SCHEMANAME_MAP,
+                    CodeWriterFilter.FILTER.SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES);
 
                 writer.WriteLine("}");
             }

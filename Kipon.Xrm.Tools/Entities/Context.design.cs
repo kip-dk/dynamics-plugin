@@ -2615,6 +2615,24 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
+		/// 1:N message_sdkmessagepair
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("message_sdkmessagepair")]
+		public System.Collections.Generic.IEnumerable<Kipon.Xrm.Tools.Entities.SdkMessagePair> message_sdkmessagepair
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Xrm.Tools.Entities.SdkMessagePair>("message_sdkmessagepair", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("message_sdkmessagepair");
+				this.SetRelatedEntities<Kipon.Xrm.Tools.Entities.SdkMessagePair>("message_sdkmessagepair", null, value);
+				this.OnPropertyChanged("message_sdkmessagepair");
+			}
+		}
+		
+		/// <summary>
 		/// 1:N sdkmessageid_sdkmessagefilter
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sdkmessageid_sdkmessagefilter")]
@@ -3078,6 +3096,377 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("sdkmessageid_sdkmessagefilter");
 				this.SetRelatedEntity<Kipon.Xrm.Tools.Entities.SdkMessage>("sdkmessageid_sdkmessagefilter", null, value);
 				this.OnPropertyChanged("sdkmessageid_sdkmessagefilter");
+			}
+		}
+	}
+	
+	/// <summary>
+	/// For internal use only.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessagepair")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.118")]
+	public partial class SdkMessagePair : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public SdkMessagePair() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "sdkmessagepair";
+		
+		public const string EntityLogicalCollectionName = "sdkmessagepairs";
+		
+		public const string EntitySetName = "sdkmessagepairs";
+		
+		public const int EntityTypeCode = 4613;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who created the SDK message pair.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the SDK message pair was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who created the sdkmessagepair.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Customization level of the SDK message filter.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customizationlevel")]
+		public System.Nullable<int> CustomizationLevel
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("customizationlevel");
+			}
+		}
+		
+		/// <summary>
+		/// Version in which the component is deprecated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("deprecatedversion")]
+		public string DeprecatedVersion
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("deprecatedversion");
+			}
+			set
+			{
+				this.OnPropertyChanging("DeprecatedVersion");
+				this.SetAttributeValue("deprecatedversion", value);
+				this.OnPropertyChanged("DeprecatedVersion");
+			}
+		}
+		
+		/// <summary>
+		/// Endpoint that the message pair is associated with.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("endpoint")]
+		public string Endpoint
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("endpoint");
+			}
+			set
+			{
+				this.OnPropertyChanging("Endpoint");
+				this.SetAttributeValue("endpoint", value);
+				this.OnPropertyChanged("Endpoint");
+			}
+		}
+		
+		/// <summary>
+		/// Version in which the component is introduced.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("introducedversion")]
+		public string IntroducedVersion
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("introducedversion");
+			}
+			set
+			{
+				this.OnPropertyChanging("IntroducedVersion");
+				this.SetAttributeValue("introducedversion", value);
+				this.OnPropertyChanged("IntroducedVersion");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component is managed.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
+		public System.Nullable<bool> IsManaged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("ismanaged");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who last modified the SDK message pair.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the SDK message pair was last modified.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who last modified the sdkmessagepair.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Namespace that the message pair is associated with.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("namespace")]
+		public string Namespace
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("namespace");
+			}
+			set
+			{
+				this.OnPropertyChanging("Namespace");
+				this.SetAttributeValue("namespace", value);
+				this.OnPropertyChanged("Namespace");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the organization with which the SDK message pair is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overwritetime")]
+		public System.Nullable<System.DateTime> OverwriteTime
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overwritetime");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagebindinginformation")]
+		public string SdkMessageBindingInformation
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("sdkmessagebindinginformation");
+			}
+			set
+			{
+				this.OnPropertyChanging("SdkMessageBindingInformation");
+				this.SetAttributeValue("sdkmessagebindinginformation", value);
+				this.OnPropertyChanged("SdkMessageBindingInformation");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the message with which the SDK message pair is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageid")]
+		public Microsoft.Xrm.Sdk.EntityReference SdkMessageId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("sdkmessageid");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the SDK message pair entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagepairid")]
+		public System.Nullable<System.Guid> SdkMessagePairId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessagepairid");
+			}
+			set
+			{
+				this.OnPropertyChanging("SdkMessagePairId");
+				this.SetAttributeValue("sdkmessagepairid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("SdkMessagePairId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagepairid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.SdkMessagePairId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the SDK message pair.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagepairidunique")]
+		public System.Nullable<System.Guid> SdkMessagePairIdUnique
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessagepairidunique");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the associated solution.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("solutionid")]
+		public System.Nullable<System.Guid> SolutionId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("solutionid");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N messagepair_sdkmessagerequest
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messagepair_sdkmessagerequest")]
+		public System.Collections.Generic.IEnumerable<Kipon.Xrm.Tools.Entities.SdkMessageRequest> messagepair_sdkmessagerequest
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Xrm.Tools.Entities.SdkMessageRequest>("messagepair_sdkmessagerequest", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("messagepair_sdkmessagerequest");
+				this.SetRelatedEntities<Kipon.Xrm.Tools.Entities.SdkMessageRequest>("messagepair_sdkmessagerequest", null, value);
+				this.OnPropertyChanged("messagepair_sdkmessagerequest");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 message_sdkmessagepair
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("message_sdkmessagepair")]
+		public Kipon.Xrm.Tools.Entities.SdkMessage message_sdkmessagepair
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Xrm.Tools.Entities.SdkMessage>("message_sdkmessagepair", null);
 			}
 		}
 	}
@@ -4139,6 +4528,1466 @@ namespace Kipon.Xrm.Tools.Entities
 				this.OnPropertyChanging("sdkmessageprocessingstepid_sdkmessageprocessingstepimage");
 				this.SetRelatedEntity<Kipon.Xrm.Tools.Entities.SdkMessageProcessingStep>("sdkmessageprocessingstepid_sdkmessageprocessingstepimage", null, value);
 				this.OnPropertyChanged("sdkmessageprocessingstepid_sdkmessageprocessingstepimage");
+			}
+		}
+	}
+	
+	/// <summary>
+	/// For internal use only.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessagerequest")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.118")]
+	public partial class SdkMessageRequest : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public SdkMessageRequest() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "sdkmessagerequest";
+		
+		public const string EntityLogicalCollectionName = "sdkmessagerequests";
+		
+		public const string EntitySetName = "sdkmessagerequests";
+		
+		public const int EntityTypeCode = 4609;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who created the SDK message request.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the SDK message request was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who created the sdkmessagerequest.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Customization level of the SDK message request.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customizationlevel")]
+		public System.Nullable<int> CustomizationLevel
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("customizationlevel");
+			}
+		}
+		
+		/// <summary>
+		/// Version in which the component is introduced.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("introducedversion")]
+		public string IntroducedVersion
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("introducedversion");
+			}
+			set
+			{
+				this.OnPropertyChanging("IntroducedVersion");
+				this.SetAttributeValue("introducedversion", value);
+				this.OnPropertyChanged("IntroducedVersion");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component is managed.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
+		public System.Nullable<bool> IsManaged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("ismanaged");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who last modified the SDK message request.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the SDK message request was last modified.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who last modified the sdkmessagerequest.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Name of the SDK message request.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		public string Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("name");
+			}
+			set
+			{
+				this.OnPropertyChanging("Name");
+				this.SetAttributeValue("name", value);
+				this.OnPropertyChanged("Name");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the organization with which the SDK message request is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overwritetime")]
+		public System.Nullable<System.DateTime> OverwriteTime
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overwritetime");
+			}
+		}
+		
+		/// <summary>
+		/// Type of entity with which the SDK request is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("primaryobjecttypecode")]
+		public string PrimaryObjectTypeCode
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("primaryobjecttypecode");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the message pair with which the SDK message request is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagepairid")]
+		public Microsoft.Xrm.Sdk.EntityReference SdkMessagePairId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("sdkmessagepairid");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the SDK message request entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagerequestid")]
+		public System.Nullable<System.Guid> SdkMessageRequestId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessagerequestid");
+			}
+			set
+			{
+				this.OnPropertyChanging("SdkMessageRequestId");
+				this.SetAttributeValue("sdkmessagerequestid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("SdkMessageRequestId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagerequestid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.SdkMessageRequestId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the SDK message request.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagerequestidunique")]
+		public System.Nullable<System.Guid> SdkMessageRequestIdUnique
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessagerequestidunique");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the associated solution.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("solutionid")]
+		public System.Nullable<System.Guid> SolutionId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("solutionid");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N messagerequest_sdkmessagerequestfield
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messagerequest_sdkmessagerequestfield")]
+		public System.Collections.Generic.IEnumerable<Kipon.Xrm.Tools.Entities.SdkMessageRequestField> messagerequest_sdkmessagerequestfield
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Xrm.Tools.Entities.SdkMessageRequestField>("messagerequest_sdkmessagerequestfield", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("messagerequest_sdkmessagerequestfield");
+				this.SetRelatedEntities<Kipon.Xrm.Tools.Entities.SdkMessageRequestField>("messagerequest_sdkmessagerequestfield", null, value);
+				this.OnPropertyChanged("messagerequest_sdkmessagerequestfield");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N messagerequest_sdkmessageresponse
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messagerequest_sdkmessageresponse")]
+		public System.Collections.Generic.IEnumerable<Kipon.Xrm.Tools.Entities.SdkMessageResponse> messagerequest_sdkmessageresponse
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Xrm.Tools.Entities.SdkMessageResponse>("messagerequest_sdkmessageresponse", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("messagerequest_sdkmessageresponse");
+				this.SetRelatedEntities<Kipon.Xrm.Tools.Entities.SdkMessageResponse>("messagerequest_sdkmessageresponse", null, value);
+				this.OnPropertyChanged("messagerequest_sdkmessageresponse");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 messagepair_sdkmessagerequest
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagepairid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messagepair_sdkmessagerequest")]
+		public Kipon.Xrm.Tools.Entities.SdkMessagePair messagepair_sdkmessagerequest
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Xrm.Tools.Entities.SdkMessagePair>("messagepair_sdkmessagerequest", null);
+			}
+		}
+	}
+	
+	/// <summary>
+	/// For internal use only.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessagerequestfield")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.118")]
+	public partial class SdkMessageRequestField : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public SdkMessageRequestField() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "sdkmessagerequestfield";
+		
+		public const string EntityLogicalCollectionName = "sdkmessagerequestfields";
+		
+		public const string EntitySetName = "sdkmessagerequestfields";
+		
+		public const int EntityTypeCode = 4614;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Common language runtime (CLR)-based parser for the SDK message request field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("clrparser")]
+		public string ClrParser
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("clrparser");
+			}
+			set
+			{
+				this.OnPropertyChanging("ClrParser");
+				this.SetAttributeValue("clrparser", value);
+				this.OnPropertyChanged("ClrParser");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who created the SDK message request field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the SDK message request field was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who created the sdkmessagerequestfield.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Customization level of the SDK message request field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customizationlevel")]
+		public System.Nullable<int> CustomizationLevel
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("customizationlevel");
+			}
+		}
+		
+		/// <summary>
+		/// Indicates how field contents are used during message processing. 1 - Primary entity, 2- Secondary entity
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("fieldmask")]
+		public System.Nullable<int> FieldMask
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("fieldmask");
+			}
+		}
+		
+		/// <summary>
+		/// Version in which the component is introduced.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("introducedversion")]
+		public string IntroducedVersion
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("introducedversion");
+			}
+			set
+			{
+				this.OnPropertyChanging("IntroducedVersion");
+				this.SetAttributeValue("introducedversion", value);
+				this.OnPropertyChanged("IntroducedVersion");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component is managed.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
+		public System.Nullable<bool> IsManaged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("ismanaged");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who last modified the SDK message request field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the SDK message request field was last modified.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who last modified the sdkmessagerequestfield.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Name of the SDK message request field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		public string Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("name");
+			}
+			set
+			{
+				this.OnPropertyChanging("Name");
+				this.SetAttributeValue("name", value);
+				this.OnPropertyChanged("Name");
+			}
+		}
+		
+		/// <summary>
+		/// Information about whether SDK message request field is optional.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("optional")]
+		public System.Nullable<bool> Optional
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("optional");
+			}
+			set
+			{
+				this.OnPropertyChanging("Optional");
+				this.SetAttributeValue("optional", value);
+				this.OnPropertyChanged("Optional");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the organization with which the SDK message request field is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overwritetime")]
+		public System.Nullable<System.DateTime> OverwriteTime
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overwritetime");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parameterbindinginformation")]
+		public string ParameterBindingInformation
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("parameterbindinginformation");
+			}
+			set
+			{
+				this.OnPropertyChanging("ParameterBindingInformation");
+				this.SetAttributeValue("parameterbindinginformation", value);
+				this.OnPropertyChanged("ParameterBindingInformation");
+			}
+		}
+		
+		/// <summary>
+		/// Parser for the SDK message request field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parser")]
+		public string Parser
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("parser");
+			}
+			set
+			{
+				this.OnPropertyChanging("Parser");
+				this.SetAttributeValue("parser", value);
+				this.OnPropertyChanged("Parser");
+			}
+		}
+		
+		/// <summary>
+		/// Position of the Sdk message request field
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("position")]
+		public System.Nullable<int> Position
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("position");
+			}
+		}
+		
+		/// <summary>
+		/// Public name of the SDK message request field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("publicname")]
+		public string PublicName
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("publicname");
+			}
+			set
+			{
+				this.OnPropertyChanging("PublicName");
+				this.SetAttributeValue("publicname", value);
+				this.OnPropertyChanged("PublicName");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the SDK message request field entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagerequestfieldid")]
+		public System.Nullable<System.Guid> SdkMessageRequestFieldId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessagerequestfieldid");
+			}
+			set
+			{
+				this.OnPropertyChanging("SdkMessageRequestFieldId");
+				this.SetAttributeValue("sdkmessagerequestfieldid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("SdkMessageRequestFieldId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagerequestfieldid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.SdkMessageRequestFieldId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Entity identifier of the SDK message request field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagerequestfieldidunique")]
+		public System.Nullable<System.Guid> SdkMessageRequestFieldIdUnique
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessagerequestfieldidunique");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the message request with which the SDK message request field is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagerequestid")]
+		public Microsoft.Xrm.Sdk.EntityReference SdkMessageRequestId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("sdkmessagerequestid");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the associated solution.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("solutionid")]
+		public System.Nullable<System.Guid> SolutionId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("solutionid");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 messagerequest_sdkmessagerequestfield
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagerequestid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messagerequest_sdkmessagerequestfield")]
+		public Kipon.Xrm.Tools.Entities.SdkMessageRequest messagerequest_sdkmessagerequestfield
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Xrm.Tools.Entities.SdkMessageRequest>("messagerequest_sdkmessagerequestfield", null);
+			}
+		}
+	}
+	
+	/// <summary>
+	/// For internal use only.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessageresponse")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.118")]
+	public partial class SdkMessageResponse : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public SdkMessageResponse() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "sdkmessageresponse";
+		
+		public const string EntityLogicalCollectionName = "sdkmessageresponses";
+		
+		public const string EntitySetName = "sdkmessageresponses";
+		
+		public const int EntityTypeCode = 4610;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who created the SDK message response.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the SDK message response was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who created the sdkmessageresponse.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Customization level of the SDK message response.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customizationlevel")]
+		public System.Nullable<int> CustomizationLevel
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("customizationlevel");
+			}
+		}
+		
+		/// <summary>
+		/// Version in which the component is introduced.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("introducedversion")]
+		public string IntroducedVersion
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("introducedversion");
+			}
+			set
+			{
+				this.OnPropertyChanging("IntroducedVersion");
+				this.SetAttributeValue("introducedversion", value);
+				this.OnPropertyChanged("IntroducedVersion");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component is managed.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
+		public System.Nullable<bool> IsManaged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("ismanaged");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who last modified the SDK message response.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the SDK message response was last modified.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who last modified the sdkmessageresponse.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the organization with which the SDK message response is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overwritetime")]
+		public System.Nullable<System.DateTime> OverwriteTime
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overwritetime");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the message request with which the SDK message response is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagerequestid")]
+		public Microsoft.Xrm.Sdk.EntityReference SdkMessageRequestId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("sdkmessagerequestid");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the SDK message response entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageresponseid")]
+		public System.Nullable<System.Guid> SdkMessageResponseId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessageresponseid");
+			}
+			set
+			{
+				this.OnPropertyChanging("SdkMessageResponseId");
+				this.SetAttributeValue("sdkmessageresponseid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("SdkMessageResponseId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageresponseid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.SdkMessageResponseId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the SDK message response.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageresponseidunique")]
+		public System.Nullable<System.Guid> SdkMessageResponseIdUnique
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessageresponseidunique");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the associated solution.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("solutionid")]
+		public System.Nullable<System.Guid> SolutionId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("solutionid");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N messageresponse_sdkmessageresponsefield
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messageresponse_sdkmessageresponsefield")]
+		public System.Collections.Generic.IEnumerable<Kipon.Xrm.Tools.Entities.SdkMessageResponseField> messageresponse_sdkmessageresponsefield
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.Xrm.Tools.Entities.SdkMessageResponseField>("messageresponse_sdkmessageresponsefield", null);
+			}
+			set
+			{
+				this.OnPropertyChanging("messageresponse_sdkmessageresponsefield");
+				this.SetRelatedEntities<Kipon.Xrm.Tools.Entities.SdkMessageResponseField>("messageresponse_sdkmessageresponsefield", null, value);
+				this.OnPropertyChanged("messageresponse_sdkmessageresponsefield");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 messagerequest_sdkmessageresponse
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagerequestid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messagerequest_sdkmessageresponse")]
+		public Kipon.Xrm.Tools.Entities.SdkMessageRequest messagerequest_sdkmessageresponse
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Xrm.Tools.Entities.SdkMessageRequest>("messagerequest_sdkmessageresponse", null);
+			}
+		}
+	}
+	
+	/// <summary>
+	/// For internal use only.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessageresponsefield")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.118")]
+	public partial class SdkMessageResponseField : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public SdkMessageResponseField() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "sdkmessageresponsefield";
+		
+		public const string EntityLogicalCollectionName = "sdkmessageresponsefields";
+		
+		public const string EntitySetName = "sdkmessageresponsefields";
+		
+		public const int EntityTypeCode = 4611;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Common language runtime (CLR)-based formatter of the SDK message response field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("clrformatter")]
+		public string ClrFormatter
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("clrformatter");
+			}
+			set
+			{
+				this.OnPropertyChanging("ClrFormatter");
+				this.SetAttributeValue("clrformatter", value);
+				this.OnPropertyChanged("ClrFormatter");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who created the SDK message response field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the SDK message response field was created.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdon")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who created the sdkmessageresponsefield.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Customization level of the SDK message response field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customizationlevel")]
+		public System.Nullable<int> CustomizationLevel
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("customizationlevel");
+			}
+		}
+		
+		/// <summary>
+		/// Formatter for the SDK message response field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formatter")]
+		public string Formatter
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("formatter");
+			}
+			set
+			{
+				this.OnPropertyChanging("Formatter");
+				this.SetAttributeValue("formatter", value);
+				this.OnPropertyChanged("Formatter");
+			}
+		}
+		
+		/// <summary>
+		/// Version in which the component is introduced.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("introducedversion")]
+		public string IntroducedVersion
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("introducedversion");
+			}
+			set
+			{
+				this.OnPropertyChanging("IntroducedVersion");
+				this.SetAttributeValue("introducedversion", value);
+				this.OnPropertyChanged("IntroducedVersion");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component is managed.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
+		public System.Nullable<bool> IsManaged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("ismanaged");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the user who last modified the SDK message response field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
+			}
+		}
+		
+		/// <summary>
+		/// Date and time when the SDK message response field was last modified.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedon")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the delegate user who last modified the sdkmessageresponsefield.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedonbehalfby")]
+		public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
+			}
+		}
+		
+		/// <summary>
+		/// Name of the SDK message response field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		public string Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("name");
+			}
+			set
+			{
+				this.OnPropertyChanging("Name");
+				this.SetAttributeValue("name", value);
+				this.OnPropertyChanged("Name");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the organization with which the SDK message response field is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overwritetime")]
+		public System.Nullable<System.DateTime> OverwriteTime
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overwritetime");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parameterbindinginformation")]
+		public string ParameterBindingInformation
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("parameterbindinginformation");
+			}
+			set
+			{
+				this.OnPropertyChanging("ParameterBindingInformation");
+				this.SetAttributeValue("parameterbindinginformation", value);
+				this.OnPropertyChanged("ParameterBindingInformation");
+			}
+		}
+		
+		/// <summary>
+		/// Position of the Sdk message response field
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("position")]
+		public System.Nullable<int> Position
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("position");
+			}
+		}
+		
+		/// <summary>
+		/// Public name of the SDK message response field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("publicname")]
+		public string PublicName
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("publicname");
+			}
+			set
+			{
+				this.OnPropertyChanging("PublicName");
+				this.SetAttributeValue("publicname", value);
+				this.OnPropertyChanged("PublicName");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the SDK message response field entity.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageresponsefieldid")]
+		public System.Nullable<System.Guid> SdkMessageResponseFieldId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessageresponsefieldid");
+			}
+			set
+			{
+				this.OnPropertyChanging("SdkMessageResponseFieldId");
+				this.SetAttributeValue("sdkmessageresponsefieldid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("SdkMessageResponseFieldId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageresponsefieldid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.SdkMessageResponseFieldId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the SDK message response field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageresponsefieldidunique")]
+		public System.Nullable<System.Guid> SdkMessageResponseFieldIdUnique
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessageresponsefieldidunique");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the message response with which the SDK message response field is associated.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageresponseid")]
+		public Microsoft.Xrm.Sdk.EntityReference SdkMessageResponseId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("sdkmessageresponseid");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the associated solution.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("solutionid")]
+		public System.Nullable<System.Guid> SolutionId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("solutionid");
+			}
+		}
+		
+		/// <summary>
+		/// Actual value of the SDK message response field.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("value")]
+		public string Value
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("value");
+			}
+			set
+			{
+				this.OnPropertyChanging("Value");
+				this.SetAttributeValue("value", value);
+				this.OnPropertyChanged("Value");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 messageresponse_sdkmessageresponsefield
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageresponseid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messageresponse_sdkmessageresponsefield")]
+		public Kipon.Xrm.Tools.Entities.SdkMessageResponse messageresponse_sdkmessageresponsefield
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.Xrm.Tools.Entities.SdkMessageResponse>("messageresponse_sdkmessageresponsefield", null);
 			}
 		}
 	}
@@ -6829,6 +8678,17 @@ namespace Kipon.Xrm.Tools.Entities
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Xrm.Tools.Entities.SdkMessagePair"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Xrm.Tools.Entities.SdkMessagePair> SdkMessagePairSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Xrm.Tools.Entities.SdkMessagePair>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="Kipon.Xrm.Tools.Entities.SdkMessageProcessingStep"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<Kipon.Xrm.Tools.Entities.SdkMessageProcessingStep> SdkMessageProcessingStepSet
@@ -6847,6 +8707,50 @@ namespace Kipon.Xrm.Tools.Entities
 			get
 			{
 				return this.CreateQuery<Kipon.Xrm.Tools.Entities.SdkMessageProcessingStepImage>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Xrm.Tools.Entities.SdkMessageRequest"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Xrm.Tools.Entities.SdkMessageRequest> SdkMessageRequestSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Xrm.Tools.Entities.SdkMessageRequest>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Xrm.Tools.Entities.SdkMessageRequestField"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Xrm.Tools.Entities.SdkMessageRequestField> SdkMessageRequestFieldSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Xrm.Tools.Entities.SdkMessageRequestField>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Xrm.Tools.Entities.SdkMessageResponse"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Xrm.Tools.Entities.SdkMessageResponse> SdkMessageResponseSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Xrm.Tools.Entities.SdkMessageResponse>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.Xrm.Tools.Entities.SdkMessageResponseField"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.Xrm.Tools.Entities.SdkMessageResponseField> SdkMessageResponseFieldSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.Xrm.Tools.Entities.SdkMessageResponseField>();
 			}
 		}
 		

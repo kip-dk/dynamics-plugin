@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Crm.Services.Utility;
 using Microsoft.Xrm.Sdk.Metadata;
+using System.Web.Caching;
 
 // To acknowledge the initial author, this sources comes from
 // http://erikpool.blogspot.nl/2011/03/filtering-generated-entities-with.html
@@ -17,21 +18,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
     /// </summary>
     public class CodeWriterFilter : ICodeWriterFilterService
     {
-        public static readonly Dictionary<string, Model.Entity> ENTITIES = new Dictionary<string, Model.Entity>();
-        public static readonly Dictionary<string, Model.OptionSet> GLOBAL_OPTIONSET_INDEX = new Dictionary<string, Model.OptionSet>();
-        public static readonly Dictionary<string, string> ATTRIBUTE_SCHEMANAME_MAP = new Dictionary<string, string>();
-        public static readonly List<Model.Action> ACTIONS = new List<Model.Action>();
-        public static readonly Dictionary<string, Kipon.Xrm.Tools.Models.Activity> ACTIVITIES = new Dictionary<string, Models.Activity>();
-
-        public static Dictionary<string, string> LOGICALNAME2SCHEMANAME = new Dictionary<string, string>();
-
-        public static bool SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES = false;
-
-        public static Dictionary<string, List<string>> OPTIONSETFIELDS = new Dictionary<string, List<string>>();
-        public static Dictionary<string, List<string>> MULTIOPTIONSETFIELDS = new Dictionary<string, List<string>>();
-
-        //list of entity names to generate classes for.
-        private Dictionary<string, Model.Entity> _validEntities = new Dictionary<string, Model.Entity>();
+        public static Model.Filter FILTER;
         private bool initialized = false;
 
         //reference to the default service.
@@ -61,203 +48,107 @@ namespace Kipon.Xrm.Tools.CodeWriter
             if (this.initialized) return;
 
             var metaService = services.GetService(typeof(Microsoft.Crm.Services.Utility.IMetadataProviderService)) as Microsoft.Crm.Services.Utility.IMetadataProviderService;
+
             var meta = metaService.LoadMetadata();
 
-            XElement xml = XElement.Load("filter.xml");
-
-            var supress = xml.Attribute("supress-mapped-standard-optionset-properties");
-            if (supress != null && supress.Value.ToLower() == "true")
-            {
-                SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES = true;
-            }
-
-            #region parse entity definitions
-            {
-                XElement entitiesElement = xml.Element("entities");
-
-                var row = 0;
-                foreach (XElement entityElement in entitiesElement.Elements("entity"))
-                {
-                    row++;
-                    var uowName = entityElement.Attribute("servicename");
-                    if (uowName == null)
-                    {
-                        throw new Exception($"No servicename on entity number {row}");
-                    }
-
-                    var logicalname = entityElement.Attribute("logicalname");
-                    if (logicalname == null)
-                    {
-                        throw new Exception($"No logical name on entity number {row} : {uowName.Value}");
-                    }
-
-                    string primaryfield = null;
-                    {
-                        var pf = entityElement.Attribute("primaryfield");
-                        if (pf != null)
-                        {
-                            primaryfield = pf.Value;
-                        }
-                    }
-
-                    string primaryfieldvaluetemplate = null;
-                    {
-                        var pfv = entityElement.Attribute("primaryfieldvaluetemplate");
-                        if (pfv != null)
-                        {
-                            primaryfieldvaluetemplate = pfv.Value;
-                        }
-                    }
-
-                    List<Model.OptionSet> optionsets = new List<Model.OptionSet>();
-                    if (optionsets != null)
-                    {
-                        foreach (XElement optionset in entityElement.Elements("optionset"))
-                        {
-                            var optionsetLogicalname = optionset.Attribute("logicalname");
-                            var optionsetName = optionset.Attribute("name");
-                            var optionsetId = optionset.Attribute("id");
-                            var optionsetMulti = optionset.Attribute("multi");
-                            var next = new Model.OptionSet
-                            {
-                                Id = optionsetId?.Value,
-                                Name = optionsetName.Value,
-                                Logicalname = optionsetLogicalname.Value,
-                                Multi = optionsetMulti != null && optionsetMulti.Value.ToLower() == "true"
-                            };
-
-                            if (next.Id == null)
-                            {
-                                var values = new List<Model.OptionSetValue>();
-                                foreach (XElement optionsetValue in optionset.Elements("value"))
-                                {
-                                    values.Add(new Model.OptionSetValue
-                                    {
-                                        Name = optionsetValue.Attribute("name").Value,
-                                        Value = int.Parse(optionsetValue.Value.Replace(".", ""))
-                                    });
-                                }
-                                next.Values = values.ToArray();
-                                if (next.Values.Length == 0)
-                                {
-                                    throw new Exception($"Local optionset on {logicalname.Value} {next.Name} does not define any values");
-                                }
-                            }
-                            optionsets.Add(next);
-                        }
-                    }
-
-                    var entity = new Model.Entity
-                    {
-                        LogicalName = logicalname.Value,
-                        ServiceName = uowName.Value,
-                        Primaryfield = primaryfield,
-                        PrimaryfieldValuetemplate = primaryfieldvaluetemplate,
-                        Optionsets = optionsets.ToArray()
-                    };
-
-                    _validEntities.Add(entity.LogicalName, entity);
-                }
-            }
-            #endregion
-
-            #region parse global optionsets
-            {
-                XElement optionsetsElement = xml.Element("optionsets");
-                var row = 0;
-                if (optionsetsElement != null)
-                {
-                    foreach (XElement optionset in optionsetsElement.Elements("optionset"))
-                    {
-                        var optionsetName = optionset.Attribute("name");
-                        if (optionsetName == null)
-                        {
-                            throw new Exception($"Global optionset definition {row} does not have a name");
-                        }
-                        var optionsetId = optionset.Attribute("id");
-                        if (optionsetId == null)
-                        {
-                            throw new Exception($"Global optionset definition {row} does not have an id");
-                        }
-
-                        if (GLOBAL_OPTIONSET_INDEX.ContainsKey(optionsetId.Value))
-                        {
-                            throw new Exception($"Global optionset definition {row} id is not unique");
-                        }
-
-                        var next = new Model.OptionSet
-                        {
-                            Id = optionsetId.Value,
-                            Name = optionsetName.Value
-                        };
-
-                        var values = new List<Model.OptionSetValue>();
-                        foreach (XElement optionsetValue in optionset.Elements("value"))
-                        {
-                            values.Add(new Model.OptionSetValue
-                            {
-                                Name = optionsetValue.Attribute("name").Value,
-                                Value = int.Parse(optionsetValue.Value.Replace(".",""))
-                            });
-                        }
-                        next.Values = values.ToArray();
-                        if (next.Values.Length == 0)
-                        {
-                            throw new Exception($"Global optionset {row} does not define any values");
-                        }
-                        GLOBAL_OPTIONSET_INDEX.Add(next.Id, next);
-                    }
-                }
-            }
-            #endregion
+            FILTER = new Model.Filter("filter.xml");
 
             #region parse actions
             {
-                XElement actionElements = xml.Element("actions");
-                if (actionElements != null)
+                if (FILTER.ACTIONS.Count > 0)
                 {
-                    foreach (XElement action in actionElements.Elements("action"))
-                    {
-                        var name = action.Attribute("name");
-                        if (name == null || string.IsNullOrEmpty(name.Value))
-                        {
-                            throw new Exception("actions must have a name attribute");
-                        }
-                        var logicalName = action.Value;
-                        if (string.IsNullOrEmpty(logicalName))
-                        {
-                            throw new Exception("action logical name must be set inside the action tag");
-                        }
-                        var nextaction = new Model.Action { Name = name.Value, LogicalName = logicalName };
-                        ACTIONS.Add(nextaction);
-                    }
-                }
-
-                if (ACTIONS.Count > 0)
-                {
-                    var first = true;
-                    var file = @"C:\Temp\atea.txt";
                     var hasMissing = false;
 
-                    if (System.IO.File.Exists(file))
-                    {
-                        System.IO.File.Delete(file);
-                    }
 
-                    foreach (var action in ACTIONS)
-                    {
-                        var allMessage = meta.Messages.MessageCollection.Values.ToArray().OrderBy(r => r.Name);
+                    var messageCollection = meta.Messages.MessageCollection.Values;
 
-                        if (first)
+                    var result = new List<Models.SdkMessageWrapper>();
+                    foreach (var m in messageCollection)
+                    {
+                        var next = new Models.SdkMessageWrapper
                         {
-                            first = false;
-                            foreach (var m in allMessage)
-                            {
-                                System.IO.File.AppendAllText(file, m.Name + "\r\n");
-                            }
+                            Code = (m.SdkMessageFilters != null && m.SdkMessageFilters?.Values?.Count == 1) ? m.SdkMessageFilters.Values.First().PrimaryObjectTypeCode : 0,
+                            Name = m.Name
+                        };
+
+                        if (m.SdkMessagePairs != null
+                            && m.SdkMessagePairs.Values != null
+                            && m.SdkMessagePairs.Values.Count > 0
+                            && m.SdkMessagePairs.Values.First().Request != null
+                            && m.SdkMessagePairs.Values.First().Request.RequestFields != null
+                            && m.SdkMessagePairs.Values.First().Request.RequestFields.Count > 0)
+                        {
+                            next.InputFields = (from input in m.SdkMessagePairs.Values.FirstOrDefault().Request.RequestFields.Values
+                                                select new Models.SdkMessageWrapper.Field
+                                                {
+                                                    Name = input.Name,
+                                                    CLRFormatter = input.CLRFormatter,
+                                                    IsOptional = input.IsOptional
+                                                }).OrderBy(r => r.Name).ToArray();
                         }
 
+                        if (m.SdkMessagePairs != null
+                            && m.SdkMessagePairs.Values != null
+                            && m.SdkMessagePairs.Values.Count > 0
+                            && m.SdkMessagePairs.Values.First().Response != null
+                            && m.SdkMessagePairs.Values.First().Response.ResponseFields != null
+                            && m.SdkMessagePairs.Values.First().Response.ResponseFields.Values != null
+                            && m.SdkMessagePairs.Values.First().Response.ResponseFields.Values.Count > 0)
+                        {
+
+                            next.OutputFields = (from input in m.SdkMessagePairs.Values.FirstOrDefault().Response.ResponseFields.Values
+                                                 select new Models.SdkMessageWrapper.Field
+                                                 {
+                                                     Name = input.Name,
+                                                     CLRFormatter = input.CLRFormatter,
+                                                     IsOptional = false
+                                                 }).OrderBy(r => r.Name).ToArray();
+                        }
+
+                        result.Add(next);
+                    }
+
+                    var allMessage = result.ToArray();
+
+                    var ser = new System.Runtime.Serialization.Json.DataContractJsonSerializer(allMessage.GetType());
+                    var toFile = allMessage.Where(r => FILTER.ACTIONS.Where(a => a.LogicalName == r.Name).Any()).ToArray();
+                    using (var fs = new System.IO.FileStream(@"C:\Temp\kipon-plugin-message-example.json", System.IO.FileMode.Create))
+                    {
+                        ser.WriteObject(fs, toFile);
+                    }
+
+                    #region backup due to bug in crmsvcutil on some online environments
+                    Models.SdkMessageWrapper[] fileBackup = null;
+                    Models.SdkMessageWrapper GetFromFile(string logicalName)
+                    {
+                        if (fileBackup == null)
+                        {
+
+                            if (string.IsNullOrEmpty(FILTER.ACTION_BACKUP_FILENAME))
+                            {
+                                fileBackup = new Models.SdkMessageWrapper[0];
+                                return null;
+                            }
+
+                            var wrapperSer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(Models.SdkMessageWrapper[]));
+                            using (var wrapperFile = new System.IO.FileStream(FILTER.ACTION_BACKUP_FILENAME, System.IO.FileMode.Open))
+                            {
+                                fileBackup = (Models.SdkMessageWrapper[])wrapperSer.ReadObject(wrapperFile);
+                            }
+                        }
+                        return fileBackup.Where(r => r.Name == logicalName).SingleOrDefault();
+                    }
+                    #endregion
+
+                    foreach (var action in FILTER.ACTIONS)
+                    {
                         var sdkMessage = allMessage.Where(r => r.Name == action.LogicalName).SingleOrDefault();
+
+                        if (sdkMessage == null)
+                        {
+                            sdkMessage = GetFromFile(action.LogicalName);
+                        }
+
                         if (sdkMessage == null)
                         {
                             Console.WriteLine($"Missing: { action.LogicalName }");
@@ -267,43 +158,45 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                         string entityLogicalName = null;
                         var isActivity = false;
-                        if (sdkMessage.SdkMessageFilters != null && sdkMessage.SdkMessageFilters.Values.Count == 1)
+                        if (sdkMessage.Code > 0)
                         {
-                            var code = sdkMessage.SdkMessageFilters.Values.First().PrimaryObjectTypeCode;
-                            if (code > 0)
+                            // even unbound entities has a filter with the primparyobjecttypecode equals 0
+                            var ent = meta.Entities.Where(r => r.ObjectTypeCode == sdkMessage.Code).SingleOrDefault();
+
+                            if (ent == null)
                             {
-                                // even unbound entities has a filter with the primparyobjecttypecode equals 0
-                                var ent = meta.Entities.Where(r => r.ObjectTypeCode == code).SingleOrDefault();
-
-                                if (ent == null)
-                                {
-                                    throw new Exception($"No entity with objecttypecode: [{ code }] was found.");
-                                }
-
-                                entityLogicalName = ent.LogicalName;
-                                isActivity = ent.IsActivity ?? false;
+                                throw new Exception($"No entity with objecttypecode: [{sdkMessage.Code}] was found.");
                             }
+
+                            entityLogicalName = ent.LogicalName;
+                            isActivity = ent.IsActivity ?? false;
                         }
 
                         if (Kipon.Xrm.Tools.Models.Activity.CUSTOMIZED.Contains(sdkMessage.Name))
                         {
                             var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage.Name);
-                            ACTIVITIES.Add(action.LogicalName, na);
+                            FILTER.ACTIVITIES.Add(action.LogicalName, na);
                         }
                         else
                         {
                             var na = new Kipon.Xrm.Tools.Models.Activity(sdkMessage, entityLogicalName, isActivity);
-                            ACTIVITIES.Add(action.LogicalName, na);
+                            FILTER.ACTIVITIES.Add(action.LogicalName, na);
                         }
 
                         if (!string.IsNullOrEmpty(entityLogicalName))
                         {
-                            LOGICALNAME2SCHEMANAME[action.LogicalName] = entityLogicalName;
+                            FILTER.LOGICALNAME2SCHEMANAME[action.LogicalName] = entityLogicalName;
                         }
                     }
 
                     if (hasMissing)
                     {
+                        Console.WriteLine("******************************************************************************************************************************************************************************************");
+                        Console.WriteLine("Some actions are not returned from crmsvcutil Metadata service. If you know for sure, that your registred actions do endeed exists in the environment, you can use the export-sdk-messages");
+                        Console.WriteLine("tool to generate a json file that can be used as backup to enable this tool to generate the interfaces anyway.");
+                        Console.WriteLine("Please look into the changelog on the GIT repository on version 1.0.10.24 for a detailed description on how this works.");
+                        Console.WriteLine("******************************************************************************************************************************************************************************************");
+
                         throw new Exception("At least one action is missing in SdkMessage, se above for full list.");
                     }
                 }
@@ -319,20 +212,20 @@ namespace Kipon.Xrm.Tools.CodeWriter
         public bool GenerateEntity(EntityMetadata entityMetadata, IServiceProvider services)
         {
             this.LoadFilterData(services);
-            var generate = _validEntities.ContainsKey(entityMetadata.LogicalName.ToLowerInvariant());
+            var generate = FILTER._validEntities.ContainsKey(entityMetadata.LogicalName.ToLowerInvariant());
 
             if (generate)
             {
-                ENTITIES[entityMetadata.SchemaName] = _validEntities[entityMetadata.LogicalName.ToLowerInvariant()];
-                LOGICALNAME2SCHEMANAME[entityMetadata.LogicalName.ToLowerInvariant()] = entityMetadata.SchemaName;
+                FILTER.ENTITIES[entityMetadata.SchemaName] = FILTER._validEntities[entityMetadata.LogicalName.ToLowerInvariant()];
+                FILTER.LOGICALNAME2SCHEMANAME[entityMetadata.LogicalName.ToLowerInvariant()] = entityMetadata.SchemaName;
                 return true;
             }
 
-            var result =  ACTIVITIES.Values.Where(r => r.RequireEntity(entityMetadata.LogicalName.ToLowerInvariant())).Any();
+            var result = FILTER.ACTIVITIES.Values.Where(r => r.RequireEntity(entityMetadata.LogicalName.ToLowerInvariant())).Any();
 
             if (result)
             {
-                LOGICALNAME2SCHEMANAME[entityMetadata.LogicalName.ToLowerInvariant()] = entityMetadata.SchemaName;
+                FILTER.LOGICALNAME2SCHEMANAME[entityMetadata.LogicalName.ToLowerInvariant()] = entityMetadata.SchemaName;
             }
             return result;
         }
@@ -342,14 +235,14 @@ namespace Kipon.Xrm.Tools.CodeWriter
         public bool GenerateAttribute(AttributeMetadata attributeMetadata, IServiceProvider services)
         {
             this.LoadFilterData(services);
-            if (!_validEntities.ContainsKey(attributeMetadata.EntityLogicalName.ToLowerInvariant()))
+            if (!FILTER._validEntities.ContainsKey(attributeMetadata.EntityLogicalName.ToLowerInvariant()))
             {
                 return _defaultService.GenerateAttribute(attributeMetadata, services);
             }
 
-            if (SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES)
+            if (FILTER.SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES)
             {
-                var entity = _validEntities[attributeMetadata.EntityLogicalName.ToLowerInvariant()];
+                var entity = FILTER._validEntities[attributeMetadata.EntityLogicalName.ToLowerInvariant()];
                 if (entity.Optionsets != null && entity.Optionsets.Length > 0)
                 {
                     var me = (from op in entity.Optionsets
@@ -365,7 +258,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                             me.Multi = false;
                         }
 
-                        ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                        FILTER.ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
                         return false;
                     } 
                 }
@@ -373,13 +266,13 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
             if (attributeMetadata.LogicalName.ToLower() == "statecode")
             {
-                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                FILTER.ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
                 return false;
             }
 
             if (attributeMetadata.LogicalName.ToLower() == "statuscode")
             {
-                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                FILTER.ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
                 AddOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
                 return false;
             }
@@ -387,7 +280,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
             if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata)
             {
-                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                FILTER.ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
                 AddMultiOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
                 return false;
             }
@@ -395,12 +288,12 @@ namespace Kipon.Xrm.Tools.CodeWriter
             if (attributeMetadata is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata)
             {
 
-                ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+                FILTER.ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
                 AddOptionSetField(attributeMetadata.EntityLogicalName.ToLower(), attributeMetadata.SchemaName);
                 return false;
             }
 
-            ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
+            FILTER.ATTRIBUTE_SCHEMANAME_MAP.Add($"{attributeMetadata.EntityLogicalName}.{attributeMetadata.LogicalName}", attributeMetadata.SchemaName);
             return _defaultService.GenerateAttribute(attributeMetadata, services);
         }
 
@@ -428,7 +321,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
         private static void AddOptionSetField(string entitylogicalname, string attrlogicalname)
         {
-            if (OPTIONSETFIELDS.TryGetValue(entitylogicalname, out List<string> fields))
+            if (FILTER.OPTIONSETFIELDS.TryGetValue(entitylogicalname, out List<string> fields))
             {
                 fields.Add(attrlogicalname);
             }
@@ -436,13 +329,13 @@ namespace Kipon.Xrm.Tools.CodeWriter
             {
                 var list = new List<string>();
                 list.Add(attrlogicalname);
-                OPTIONSETFIELDS.Add(entitylogicalname, list);
+                FILTER.OPTIONSETFIELDS.Add(entitylogicalname, list);
             }
         }
 
         private static void AddMultiOptionSetField(string entitylogicalname, string attrlogicalname)
         {
-            if (MULTIOPTIONSETFIELDS.TryGetValue(entitylogicalname, out List<string> fields))
+            if (FILTER.MULTIOPTIONSETFIELDS.TryGetValue(entitylogicalname, out List<string> fields))
             {
                 fields.Add(attrlogicalname);
             }
@@ -450,7 +343,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
             {
                 var list = new List<string>();
                 list.Add(attrlogicalname);
-                MULTIOPTIONSETFIELDS.Add(entitylogicalname, list);
+                FILTER.MULTIOPTIONSETFIELDS.Add(entitylogicalname, list);
             }
         }
     }

@@ -1,0 +1,154 @@
+[
+  {
+    "Code": 1084,
+    "InputFields": [
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.Query.ColumnSet,Microsoft.Xrm.Sdk",
+        "IsOptional": true,
+        "Name": "ColumnSet"
+      },
+      {
+        "CLRFormatter": "System.Guid",
+        "IsOptional": false,
+        "Name": "OpportunityId"
+      },
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.EntityReference,Microsoft.Xrm.Sdk",
+        "IsOptional": true,
+        "Name": "ProcessInstanceId"
+      }
+    ],
+    "Name": "GenerateQuoteFromOpportunity",
+    "OutputFields": [
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.Entity,Microsoft.Xrm.Sdk",
+        "IsOptional": false,
+        "Name": "Entity"
+      }
+    ]
+  },
+  {
+    "Code": 1,
+    "InputFields": [
+      {
+        "CLRFormatter": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "IsOptional": false,
+        "Name": "Name"
+      },
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.EntityReference, Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+        "IsOptional": false,
+        "Name": "Target"
+      }
+    ],
+    "Name": "kipon_AccountCountContacts",
+    "OutputFields": [
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.Money, Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+        "IsOptional": false,
+        "Name": "AMoney"
+      },
+      {
+        "CLRFormatter": "System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "IsOptional": false,
+        "Name": "Count"
+      },
+      {
+        "CLRFormatter": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "IsOptional": false,
+        "Name": "FirstVeName"
+      }
+    ]
+  },
+  {
+    "Code": 0,
+    "InputFields": [
+      {
+        "CLRFormatter": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "IsOptional": false,
+        "Name": "Document"
+      },
+      {
+        "CLRFormatter": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "IsOptional": false,
+        "Name": "Name"
+      },
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.OptionSetValue, Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+        "IsOptional": false,
+        "Name": "Picklist"
+      }
+    ],
+    "Name": "kipon_Anunboundedaction",
+    "OutputFields": [
+      {
+        "CLRFormatter": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+        "IsOptional": false,
+        "Name": "Id"
+      }
+    ]
+  },
+  {
+    "Code": 4,
+    "InputFields": [
+      {
+        "CLRFormatter": "System.Boolean",
+        "IsOptional": false,
+        "Name": "CreateAccount"
+      },
+      {
+        "CLRFormatter": "System.Boolean",
+        "IsOptional": false,
+        "Name": "CreateContact"
+      },
+      {
+        "CLRFormatter": "System.Boolean",
+        "IsOptional": false,
+        "Name": "CreateOpportunity"
+      },
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.EntityReference,Microsoft.Xrm.Sdk",
+        "IsOptional": false,
+        "Name": "LeadId"
+      },
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.EntityReference,Microsoft.Xrm.Sdk",
+        "IsOptional": true,
+        "Name": "OpportunityCurrencyId"
+      },
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.EntityReference,Microsoft.Xrm.Sdk",
+        "IsOptional": true,
+        "Name": "OpportunityCustomerId"
+      },
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.EntityReference,Microsoft.Xrm.Sdk",
+        "IsOptional": true,
+        "Name": "ProcessInstanceId"
+      },
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.EntityReference,Microsoft.Xrm.Sdk",
+        "IsOptional": true,
+        "Name": "SourceCampaignId"
+      },
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.OptionSetValue,Microsoft.Xrm.Sdk",
+        "IsOptional": true,
+        "Name": "Status"
+      },
+      {
+        "CLRFormatter": "System.Boolean",
+        "IsOptional": true,
+        "Name": "SuppressDuplicateDetection"
+      }
+    ],
+    "Name": "QualifyLead",
+    "OutputFields": [
+      {
+        "CLRFormatter": "Microsoft.Xrm.Sdk.EntityReferenceCollection,Microsoft.Xrm.Sdk",
+        "IsOptional": false,
+        "Name": "CreatedEntities"
+      }
+    ]
+  }
+]

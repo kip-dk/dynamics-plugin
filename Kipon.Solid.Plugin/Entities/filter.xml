@@ -1,4 +1,4 @@
-﻿<filter supress-mapped-standard-optionset-properties="true">
+﻿<filter supress-mapped-standard-optionset-properties="true" action-backup-filename="solid-actions.json">
 	<entities>
 		<entity servicename="Accounts" logicalname="account">
 			<optionset logicalname="preferredcontactmethodcode" name="PreferredContactMethodCode">

@@ -60,7 +60,7 @@ namespace Kipon.Xrm.Tools.Models
             }
         }
 
-        public Activity(SdkMessage message, string entityLogicalName, bool isActivityEntity)
+        public Activity(SdkMessageWrapper message, string entityLogicalName, bool isActivityEntity)
         {
             this.PrimaryEntityLogicalName = entityLogicalName;
             this.LogicalName = entityLogicalName;
@@ -68,7 +68,8 @@ namespace Kipon.Xrm.Tools.Models
             List<Member> inputs = new List<Member>();
             List<Member> outputs = new List<Member>();
 
-            var inputFields = message.SdkMessagePairs?.Values?.FirstOrDefault()?.Request?.RequestFields?.Values;
+            var inputFields = message.InputFields;
+            // var inputFields = message.SdkMessagePairs?.Values?.FirstOrDefault()?.Request?.RequestFields?.Values;
 
             if (inputFields != null)
             {
@@ -81,12 +82,13 @@ namespace Kipon.Xrm.Tools.Models
                         name = "Target";
                     }
 
-                    var next = new Member(name, input.CLRFormatter.ClrToDatatype(), !input.IsOptional, name);
+                    var next = new Member(name, input.CLRFormatter.ClrToDatatype(), !input.IsOptional ?? false, name);
                     inputs.Add(next);
                 }
             }
 
-            var outputFields = message.SdkMessagePairs?.Values?.FirstOrDefault()?.Response?.ResponseFields?.Values;
+            var outputFields = message.OutputFields;
+            //var outputFields = message.SdkMessagePairs?.Values?.FirstOrDefault()?.Response?.ResponseFields?.Values;
 
             if (outputFields != null)
             {

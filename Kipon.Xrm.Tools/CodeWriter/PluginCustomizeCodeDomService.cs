@@ -162,8 +162,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
             var ctxName = (from c in Environment.GetCommandLineArgs() where c.StartsWith("/ServiceContextName") select c.Split(':')[1]).Single();
 
-            var entities = CodeWriterFilter.ENTITIES;
-            var actions = CodeWriterFilter.ACTIONS;
+            var entities = CodeWriterFilter.FILTER.ENTITIES;
+            var actions = CodeWriterFilter.FILTER.ACTIONS;
 
             this.AddEntityConsts(codeUnit, ns, entities, meta);
 
@@ -316,13 +316,13 @@ namespace Kipon.Xrm.Tools.CodeWriter
                 #endregion
 
 
-                sharedService.GlobalOptionSets(CodeWriterFilter.GLOBAL_OPTIONSET_INDEX.Values);
+                sharedService.GlobalOptionSets(CodeWriterFilter.FILTER.GLOBAL_OPTIONSET_INDEX.Values);
 
                 sharedService.EntityOptionsetProperties(
-                    CodeWriterFilter.ENTITIES, 
-                    CodeWriterFilter.GLOBAL_OPTIONSET_INDEX, 
-                    CodeWriterFilter.ATTRIBUTE_SCHEMANAME_MAP,
-                    CodeWriterFilter.SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES);
+                    CodeWriterFilter.FILTER.ENTITIES, 
+                    CodeWriterFilter.FILTER.GLOBAL_OPTIONSET_INDEX, 
+                    CodeWriterFilter.FILTER.ATTRIBUTE_SCHEMANAME_MAP,
+                    CodeWriterFilter.FILTER.SUPRESSMAPPEDSTANDARDOPTIONSETPROPERTIES);
                 /* NS */
                 writer.WriteLine("}");
 
@@ -384,12 +384,12 @@ namespace Kipon.Xrm.Tools.CodeWriter
                     writer.WriteLine("{");
                     foreach (var action in actions)
                     {
-                        if (!CodeWriterFilter.ACTIVITIES.ContainsKey(action.LogicalName))
+                        if (!CodeWriterFilter.FILTER.ACTIVITIES.ContainsKey(action.LogicalName))
                         {
                             throw new Exception($"Expected to find action { action.LogicalName } in the list of actions.");
                         }
 
-                        var activity = CodeWriterFilter.ACTIVITIES[action.LogicalName];
+                        var activity = CodeWriterFilter.FILTER.ACTIVITIES[action.LogicalName];
                         #region write request interface
                         if (activity.InputMembers != null && activity.InputMembers.Length > 0)
                         {
@@ -397,12 +397,12 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                             if (!string.IsNullOrEmpty(activity.LogicalName))
                             {
-                                if (!CodeWriterFilter.LOGICALNAME2SCHEMANAME.ContainsKey(activity.LogicalName))
+                                if (!CodeWriterFilter.FILTER.LOGICALNAME2SCHEMANAME.ContainsKey(activity.LogicalName))
                                 {
                                     throw new Exception($"Action {action.Name} is bounded to entity { activity.LogicalName } but that entity is not included in the list of entities to be generated. You must generate entities for bounded actions.");
                                 }
 
-                                targetInterface = $": Kipon.Xrm.ActionTarget<{ns}.{CodeWriterFilter.LOGICALNAME2SCHEMANAME[activity.PrimaryEntityLogicalName]}>";
+                                targetInterface = $": Kipon.Xrm.ActionTarget<{ns}.{CodeWriterFilter.FILTER.LOGICALNAME2SCHEMANAME[activity.PrimaryEntityLogicalName]}>";
                             }
 
                             if (activity.PrimaryEntityLogicalName != null)
@@ -444,7 +444,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
                     #endregion
 
                     #region generate action request implementations
-                    var hasInput = CodeWriterFilter.ACTIVITIES.Values.Where(r => r.InputMembers != null && r.InputMembers.Length > 0).Any();
+                    var hasInput = CodeWriterFilter.FILTER.ACTIVITIES.Values.Where(r => r.InputMembers != null && r.InputMembers.Length > 0).Any();
                     if (hasInput)
                     {
                         writer.WriteLine($"namespace {nsa}.Implement");
@@ -454,7 +454,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                         foreach (var action in actions)
                         {
-                            var activity = CodeWriterFilter.ACTIVITIES[action.LogicalName];
+                            var activity = CodeWriterFilter.FILTER.ACTIVITIES[action.LogicalName];
                             if (activity.InputMembers != null && activity.InputMembers.Length > 0)
                             {
                                 writer.WriteLine($"\tpublic partial class {action.Name}Request : AbstractActionRequest, I{action.Name}Request");

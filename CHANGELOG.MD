@@ -1,4 +1,32 @@
-## Last updated: 2024-08-08
+## Last updated: 2024-09-10
+
+### 1.0.10.24
+This is a TOOL version only. You will only need this version, if you get the error: "At least one action is missing in SdkMessage, se above for full list" when you try to generate early bound entities.
+
+The above error can have two reasons. 
+
+1. You named an action incorrectly in the filter.xml file, so i cannot be resolved.  In this case, just find the right message name, update your filter.xml file, and try generate early bound entities again.
+2. But the reason might also bee that the crmsvcutil simply fails to get all SDK messages into the MetadaserviceProvider, impl. by Microsoft. In this case you are a bit stucked, because there is no way you can 
+change that part of implementation.
+
+To handle this hopefylly rare situation, the Kipon Solid plugin tool now offer a simple workaround. Follow these steps to make it work anyway.
+
+a) Upgrade Kipon.Solid.Plugin to 1.0.10.24 or later (not supported in version 2.)
+b) add the following attribute to ýour filter.xml file: &lt;filter .... action-backup-filename="solid-actions.json" ...&gt;
+
+you can use whatever file name you like, and place it anywhere in the filesystem. We recommend using ".json" as prefix... because it will become a json fil, and place it in the Entities folder.
+
+c) now open a command prompt, and place your self in the Entities folder and call the below command
+
+..\bin\coretools\kipon.xrm.cmd.exe export-sdk-messages "/connectionstring:...."
+
+This will lookup all message, and generate a "solid-actions.json" json file that will be used, in case the crmsvcutil fails to return a message.
+
+We reccomend adding the json file to your solution, and check in into source-control, so all team members can facility on the generated action-list-backup.
+
+You might need to regenerate the file, every time you add more actions. It is however only needed if crmsvcutil fails to return you new actions as well.
+
+The framework will always try to get the information from The microsoft provider, and only if that fails, it will see if this "backup" can solve the problem.
 
 ### 1.0.10.23
 Solved more potential problem in tracker

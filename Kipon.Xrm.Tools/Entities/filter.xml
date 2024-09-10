@@ -1,18 +1,25 @@
 ﻿<filter>
-  <entities>
-    <entity servicename="Workflows" logicalname="workflow"></entity>
-    <entity servicename="Solutions" logicalname="solution"></entity>
-    <entity servicename="SolutionComponents" logicalname="solutioncomponent"></entity>
-    <entity servicename="SdkMessages" logicalname="sdkmessage"></entity>
-    <entity servicename="SdkMessageFilters" logicalname="sdkmessagefilter"></entity>
-    <entity servicename="PluginAssemblies" logicalname="pluginassembly"></entity>
-    <entity servicename="PluginTypes" logicalname="plugintype"></entity>
-    <entity servicename="SdkMessageProcessingSteps" logicalname="sdkmessageprocessingstep"></entity>
-    <entity servicename="SdkMessageProcessingStepImages" logicalname="sdkmessageprocessingstepimage"></entity>
+	<entities>
+		<entity servicename="Workflows" logicalname="workflow"></entity>
+		<entity servicename="Solutions" logicalname="solution"></entity>
+		<entity servicename="SolutionComponents" logicalname="solutioncomponent"></entity>
+		<entity servicename="SdkMessages" logicalname="sdkmessage"></entity>
+		<entity servicename="SdkMessageFilters" logicalname="sdkmessagefilter"></entity>
+		<entity servicename="PluginAssemblies" logicalname="pluginassembly"></entity>
+		<entity servicename="PluginTypes" logicalname="plugintype"></entity>
+		<entity servicename="SdkMessageProcessingSteps" logicalname="sdkmessageprocessingstep"></entity>
+		<entity servicename="SdkMessageProcessingStepImages" logicalname="sdkmessageprocessingstepimage"></entity>
+		
+		<!-- to be able to serialize sdk message information, due to bug  in crmsvcutil not always returning all needed messages -->
+		<entity servicename="SdkMessageRequests" logicalname="sdkmessagerequest"></entity>
+		<entity servicename="SdkMessageResponses" logicalname="sdkmessageresponse"></entity>
+		<entity servicename="SdkMessagePairs" logicalname="sdkmessagepair"></entity>
+		<entity servicename="SdkMessageRequestFields" logicalname="sdkmessagerequestfield"></entity>
+		<entity servicename="SdkMessageResponseFields" logicalname="sdkmessageresponsefield"></entity>
 
-    <!-- related to typescript from generator -->
-    <entity servicename="WebResources" logicalname="webresource"></entity>
-    <entity servicename="Publishers" logicalname="publisher"></entity>
-    <entity servicename="SystemForms" logicalname="systemform"></entity>
-  </entities>
+		<!-- related to typescript from generator -->
+		<entity servicename="WebResources" logicalname="webresource"></entity>
+		<entity servicename="Publishers" logicalname="publisher"></entity>
+		<entity servicename="SystemForms" logicalname="systemform"></entity>
+	</entities>
 </filter>

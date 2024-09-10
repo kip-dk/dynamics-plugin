@@ -48,8 +48,8 @@ namespace Kipon.Xrm.Tools.CodeWriter
             {
                 var entity = entities[logicalname];
 
-                var hasOpt = Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter.OPTIONSETFIELDS.ContainsKey(logicalname.ToLower());
-                var hasMul = Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter.MULTIOPTIONSETFIELDS.ContainsKey(logicalname.ToLower());
+                var hasOpt = Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter.FILTER.OPTIONSETFIELDS.ContainsKey(logicalname.ToLower());
+                var hasMul = Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter.FILTER.MULTIOPTIONSETFIELDS.ContainsKey(logicalname.ToLower());
 
                 var entMeta = metadata.Entities.Where(r => r.LogicalName.ToLower() == logicalname.ToLower()).Single();
                 var stateAtt = (Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata)entMeta.Attributes.Where(r => r.LogicalName.ToLower() == "statecode").SingleOrDefault();
@@ -209,7 +209,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                     #region generate std-optionsets
                     {
-                        if (Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter.OPTIONSETFIELDS.TryGetValue(logicalname.ToLower(), out List<string> attrs))
+                        if (Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter.FILTER.OPTIONSETFIELDS.TryGetValue(logicalname.ToLower(), out List<string> attrs))
                         {
                             foreach (var att in attrs)
                             {
@@ -233,7 +233,7 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                     #region generate std-multi optionsets
                     {
-                        if (Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter.MULTIOPTIONSETFIELDS.TryGetValue(logicalname.ToLower(), out List<string> attrs))
+                        if (Kipon.Xrm.Tools.CodeWriter.CodeWriterFilter.FILTER.MULTIOPTIONSETFIELDS.TryGetValue(logicalname.ToLower(), out List<string> attrs))
                         {
                             foreach (var att in attrs)
                             {
