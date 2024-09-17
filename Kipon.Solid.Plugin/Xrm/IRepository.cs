@@ -1,6 +1,7 @@
 ﻿namespace Kipon.Xrm
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -53,6 +54,5 @@
         /// </summary>
         /// <param name="entity"></param>
         void Detach(T entity);
-
     }
 }
