@@ -1,4 +1,6 @@
-﻿namespace Kipon.Xrm.ServiceAPI
+﻿using System;
+
+namespace Kipon.Xrm.ServiceAPI
 {
     public interface INamingService
     {
@@ -10,6 +12,8 @@
         /// <param name="refid">Reference to lookup name for</param>
         /// <returns>null or name of the eference instance</returns>
         string NameOf(Microsoft.Xrm.Sdk.EntityReference refid);
+
+        Microsoft.Xrm.Sdk.EntityReference[] NamesOf(string entityLogicalName, params Guid[] ids);
 
         /// <summary>
         /// Returns the primary attributeid for the entity

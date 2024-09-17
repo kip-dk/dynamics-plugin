@@ -1,7 +1,10 @@
 ﻿
 namespace Kipon.Xrm.Extensions.Sdk
 {
+    using Microsoft.Crm.Sdk.Messages;
     using Microsoft.Xrm.Sdk;
+    using System;
+    using System.Linq;
 
     public partial class NamingService : ServiceAPI.INamingService
     {
@@ -42,6 +45,39 @@ namespace Kipon.Xrm.Extensions.Sdk
             }
             return null;
         }
+
+        public Microsoft.Xrm.Sdk.EntityReference[] NamesOf(string entityLogicalName, params Guid[] ids)
+        {
+            if (string.IsNullOrEmpty(entityLogicalName))
+            {
+                return null;
+            }
+
+            if (ids == null || ids.Length == 0)
+            {
+                return null;
+            }
+
+            if (metas.TryGetValue(entityLogicalName, out Meta meta))
+            {
+                var qe = new Microsoft.Xrm.Sdk.Query.QueryExpression(entityLogicalName);
+                qe.ColumnSet.AddColumn(meta.PrimaryAttributeId);
+                qe.ColumnSet.AddColumn(meta.PrimaryAttributeName);
+                qe.Criteria.Conditions.Add(new Microsoft.Xrm.Sdk.Query.ConditionExpression(meta.PrimaryAttributeId, Microsoft.Xrm.Sdk.Query.ConditionOperator.In, ids));
+
+                var result = this.organizationService.RetrieveMultiple(qe);
+
+                return (from r in result.Entities
+                        select new Microsoft.Xrm.Sdk.EntityReference
+                        {
+                            Id = (Guid)r[meta.PrimaryAttributeId],
+                            LogicalName = entityLogicalName,
+                            Name = (string)r[meta.PrimaryAttributeName]
+                        }).ToArray();
+            }
+            return null;
+        }
+
 
         public string PrimaryAttributeId(string entitylogicalname)
         {
