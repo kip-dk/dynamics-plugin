@@ -10,9 +10,13 @@ namespace Kipon.Dynamics.Plugin.Plugins
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
+        private Type _callingType;
+
         #region constructors
         public AbstractBasePlugin() : base()
         {
+            // The plugin services may exist in an external assembly so hold the calling type to register external exports with the DI container
+            _callingType = this.GetType();
         }
 
         public AbstractBasePlugin(string unSecure, string secure) : base()
@@ -49,7 +53,7 @@ namespace Kipon.Dynamics.Plugin.Plugins
 
             try
             {
-                var pc = new DI.PluginContext(this.UnsecureConfig, this.SecureConfig, context, tracingService, service, et, context.UserId, di);
+                var pc = new DI.PluginContext(this.UnsecureConfig, this.SecureConfig, context, tracingService, service, et, context.UserId, di, _callingType);
                 di.Add(typeof(IServiceProvider), serviceProvider);
                 di.Add(typeof(IOrganizationServiceFactory), serviceFactory);
                 di.Add(typeof(IPluginExecutionContext), context);
