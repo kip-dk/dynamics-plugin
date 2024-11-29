@@ -527,6 +527,11 @@
                 return opr.CompareGuid(gfv, entityId);
             }
 
+            if (entityObjectValue is bool trueFalse && filterValue != null)
+            {
+                return opr.CompareBool(filterValue.ToBool(), trueFalse);
+            }
+
             throw new InvalidPluginExecutionException($"Expression not supported: [{ opr }] [{ entityObjectValue }] / [{filterValue}]");
         }
 
@@ -725,6 +730,26 @@
                 default: throw new InvalidPluginExecutionException($"Special DateTime operator not implemented: {opr}");
             }
         }
+
+        public static bool CompareBool(this Microsoft.Xrm.Sdk.Query.ConditionOperator opr, bool filterValue, bool entityObjectValue)
+        {
+            switch (opr)
+            {
+                case ConditionOperator.Equal:
+                    {
+                        return filterValue == entityObjectValue;
+                    }
+                case ConditionOperator.NotEqual:
+                    {
+                        return filterValue != entityObjectValue;
+                    }
+                default:
+                    {
+                        throw new InvalidPluginExecutionException($"Unexpected operator for True/False comparator: {opr}");
+                    }
+            }
+        }
+
 
         public static bool Like(this string quickFindFilter, string entityObjectValue)
         {

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Kipon.Solid.Plugin.Fake</id>
-    <version>1.0.10.24</version>
+    <version>1.0.10.25</version>
     <authors>Kjeld Ingemann Poulsen</authors>
     <owners>Kipon ApS</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Unit Test library for the Kipon.Solid.Plugin framework</description>
     <releaseNotes>
-		export-sdk-messages to generate actions, if crmsvcutil fails to do it right
+		Added support for bool condition in in-mem query execute
 	</releaseNotes>
     <copyright>Copyright Kipon ApS 2019,2020,2021,2022,2023,2024</copyright>
     <tags>Dynamics 365 plugin C# SOLID</tags>

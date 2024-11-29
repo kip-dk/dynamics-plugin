@@ -1,4 +1,7 @@
-## Last updated: 2024-09-10
+## Last updated: 2024-11-29
+
+### 1.0.10.25
+Added support for bool condition in in-mem query execute
 
 ### 1.0.10.24
 This is a TOOL version only. You will only need this version, if you get the error: "At least one action is missing in SdkMessage, se above for full list" when you try to generate early bound entities.

@@ -1,5 +1,6 @@
 ﻿namespace Kipon.Xrm.Extensions.TypeConverters
 {
+    using Microsoft.Xrm.Sdk;
     using System;
 
     public static class TypeConvertersMethods
@@ -185,6 +186,21 @@
 
             resolved = false;
             return default(T);
+        }
+
+        public static bool ToBool(this object value)
+        {
+            if (value == null)
+            {
+                throw new InvalidPluginExecutionException("null cannot be converted to bool");
+            }
+
+            if (value is bool b)
+            {
+                return b;
+            }
+
+            return value.ToString().ToUpper() == "TRUE";
         }
 
     }

@@ -1,7 +1,7 @@
-﻿using System;
-
+﻿
 namespace Kipon.Xrm.ServiceAPI
 {
+    using System;
     public interface INamingService
     {
         /// <summary>
