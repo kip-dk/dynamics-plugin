@@ -5,6 +5,7 @@ namespace Kipon.Xrm.Extensions.Sdk
     using Microsoft.Xrm.Sdk;
     using System;
     using System.Linq;
+    using System.Text;
 
     public partial class NamingService : ServiceAPI.INamingService
     {
@@ -76,6 +77,35 @@ namespace Kipon.Xrm.Extensions.Sdk
                         }).ToArray();
             }
             return null;
+        }
+
+        public string Concat(params Microsoft.Xrm.Sdk.EntityReference[] refs)
+        {
+            return this.Concat(", ", refs);
+        }
+        public string Concat(string sep, params Microsoft.Xrm.Sdk.EntityReference[] refs)
+        {
+            if (refs == null || refs.Length == 0)
+            {
+                return null;
+            }
+
+            var comma = string.Empty;
+            var sb = new StringBuilder();
+
+            foreach (var re in refs)
+            {
+                if (re != null)
+                {
+                    var next = this.NameOf(re);
+                    if (!string.IsNullOrEmpty(next))
+                    {
+                        sb.Append($"{comma}{next}");
+                        comma = sep;
+                    }
+                }
+            }
+            return sb.ToString();
         }
 
 

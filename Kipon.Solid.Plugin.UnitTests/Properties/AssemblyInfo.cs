@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Kipon.Solid.Plugin.UnitTests")]
-[assembly: AssemblyCopyright("Copyright ©  2019,2020,2021,2022,2023,2024")]
+[assembly: AssemblyCopyright("Copyright ©  2019,2020,2021,2022,2023,2024,2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -16,5 +16,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("f47f28e0-66c9-4363-8d45-419766c2dac9")]
 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.10.25")]
-[assembly: AssemblyFileVersion("1.0.10.25")]
+[assembly: AssemblyVersion("1.0.10.26")]
+[assembly: AssemblyFileVersion("1.0.10.26")]

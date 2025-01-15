@@ -263,6 +263,20 @@
                             return pluginExecutionContext.InputParameters["EntityId"];
                         }
 
+                        if (type.Name.ToLower() == "subordinateid")
+                        {
+                            return pluginExecutionContext.InputParameters["SubordinateId"];
+                        }
+
+                        if (pluginExecutionContext.InputParameters.ContainsKey(type.Name))
+                        {
+                            var v = pluginExecutionContext.InputParameters[type.Name];
+                            if (v is Guid)
+                            {
+                                return pluginExecutionContext.InputParameters[type.Name];
+                            }
+                        }
+
                         throw new Exceptions.UnresolveableParameterException(type.FromType, type.Name);
                     }
 

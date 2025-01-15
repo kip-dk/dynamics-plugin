@@ -12,7 +12,8 @@ namespace Kipon.Xrm.ServiceAPI
         /// <param name="refid">Reference to lookup name for</param>
         /// <returns>null or name of the eference instance</returns>
         string NameOf(Microsoft.Xrm.Sdk.EntityReference refid);
-
+        string Concat(params Microsoft.Xrm.Sdk.EntityReference[] refs);
+        string Concat(string sep, params Microsoft.Xrm.Sdk.EntityReference[] refs);
         Microsoft.Xrm.Sdk.EntityReference[] NamesOf(string entityLogicalName, params Guid[] ids);
 
         /// <summary>

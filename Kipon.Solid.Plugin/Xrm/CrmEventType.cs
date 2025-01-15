@@ -5,6 +5,7 @@
         Create,
         Update,
         Delete,
+        Merge,
         Associate,
         Disassociate,
         SetState,

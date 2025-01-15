@@ -11945,6 +11945,51 @@ namespace Kipon.Solid.Plugin.Entities
 			}
 		}
 		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_decimal")]
+		public System.Nullable<decimal> kipon_decimal
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<decimal>>("kipon_decimal");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_decimal");
+				this.SetAttributeValue("kipon_decimal", value);
+				this.OnPropertyChanged("kipon_decimal");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_float")]
+		public System.Nullable<double> kipon_float
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<double>>("kipon_float");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_float");
+				this.SetAttributeValue("kipon_float", value);
+				this.OnPropertyChanged("kipon_float");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("kipon_memo")]
+		public string kipon_memo
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("kipon_memo");
+			}
+			set
+			{
+				this.OnPropertyChanging("kipon_memo");
+				this.SetAttributeValue("kipon_memo", value);
+				this.OnPropertyChanged("kipon_memo");
+			}
+		}
+		
 		/// <summary>
 		/// Unique identifier for entity instances
 		/// </summary>

@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     public class BasePlugin : IPlugin
     {
-        public const string Version = "1.0.10.25";
+        public const string Version = "1.0.10.26";
         public string UnsecureConfig { get; private set; }
         public string SecureConfig { get; private set; }
 
@@ -116,26 +116,26 @@
                                 System.ComponentModel.INotifyPropertyChanged target = null;
                                 var comma = "";
                                 var stepInitialized = false;
-                                foreach (var p in method.Parameters)
+                                foreach (var pam in method.Parameters)
                                 {
-                                    nextlog += $"{comma}{p?.FromType?.FullName}";
+                                    nextlog += $"{comma}{pam?.FromType?.FullName}";
                                     comma = ", ";
-                                    if (p.IsInputParameter)
+                                    if (pam.IsInputParameter)
                                     {
-                                        if (context.InputParameters.ContainsKey(p.Name))
+                                        if (context.InputParameters.ContainsKey(pam.Name))
                                         {
-                                            args[ix] = context.InputParameters[p.Name];
+                                            args[ix] = context.InputParameters[pam.Name];
                                         }
                                         else
                                         {
-                                            if (p.Name != null)
+                                            if (pam.Name != null)
                                             {
-                                                if (p.Name.ToLower() == nameof(this.UnsecureConfig).ToLower())
+                                                if (pam.Name.ToLower() == nameof(this.UnsecureConfig).ToLower())
                                                 {
                                                     args[ix] = this.UnsecureConfig;
                                                 }
                                                 else
-                                                if (p.Name.ToLower() == nameof(this.SecureConfig).ToLower())
+                                                if (pam.Name.ToLower() == nameof(this.SecureConfig).ToLower())
                                                 {
                                                     args[ix] = this.SecureConfig;
                                                 }
@@ -152,13 +152,13 @@
                                     }
                                     else
                                     {
-                                        args[ix] = serviceCache.Resolve(p, toolOrgService);
+                                        args[ix] = serviceCache.Resolve(pam, toolOrgService);
                                     }
 
                                     #region set TargetAttributes
                                     if (message == "Create" || message == "Update")
                                     {
-                                        if (p.IsMergedimage || p.IsPreimage || p.IsPostimage)
+                                        if (pam.IsMergedimage || pam.IsPreimage || pam.IsPostimage)
                                         {
                                             var tap = args[ix].GetType().GetProperty("TargetAttributes");
 
@@ -172,7 +172,7 @@
                                     #endregion
 
                                     #region set preimage attributes
-                                    if (p.IsMergedimage || p.IsTarget || p.IsPreimage || p.IsPostimage)
+                                    if (pam.IsMergedimage || pam.IsTarget || pam.IsPreimage || pam.IsPostimage)
                                     {
                                         if (message == "Update" || message == "Delete")
                                         {
@@ -203,12 +203,12 @@
                                     #region add property notification to ensure mirror of set in pre state on merged images
                                     if (stage <= 20 && message == "Update")
                                     {
-                                        if (p.IsMergedimage)
+                                        if (pam.IsMergedimage)
                                         {
                                             mergedimage = (System.ComponentModel.INotifyPropertyChanged)args[ix];
                                         }
 
-                                        if (p.IsTarget)
+                                        if (pam.IsTarget)
                                         {
                                             target = args[ix] as System.ComponentModel.INotifyPropertyChanged;
                                         }

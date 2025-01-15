@@ -368,6 +368,12 @@
                         inError = false;
                     }
 
+                    if (message == "Merge")
+                    {
+                        // merge always provides an entity reference as target, everything is good
+                        inError = false;
+                    }
+
                     var mess = message.Split('_');
                     if (mess.Length >= 2)
                     {
