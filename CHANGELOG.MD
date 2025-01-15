@@ -1,4 +1,7 @@
-## Last updated: 2024-11-29
+## Last updated: 2025-01-15
+
+### 1.0.10.26
+Added support for Merge message
 
 ### 1.0.10.25
 Added support for bool condition in in-mem query execute
