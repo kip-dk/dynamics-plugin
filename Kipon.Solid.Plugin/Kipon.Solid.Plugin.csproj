@@ -183,6 +183,7 @@
     <Compile Include="Xrm\IStepInitializer.cs" />
     <Compile Include="Xrm\Models\QueryExpressionEvaluator.cs" />
     <Compile Include="Xrm\Reflection\ReflectionExtensions.cs" />
+    <Compile Include="Xrm\ServiceAPI\AbstractPostGRestService.cs" />
     <Compile Include="Xrm\ServiceAPI\IEntityMetadataService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="ServiceAPI\ISpecialAccountService.cs" />
