@@ -93,11 +93,15 @@
                     }
                     comma = ",";
                 }
+                nextParam = "&";
             }
             #endregion
 
-            #region filtering
-            // resolve the filter
+            #region quickfind filtering
+            // resolve the quick findfilter
+            #endregion
+
+            #region column filtering
             #endregion
 
             var results = this.Fetch(meta, url.ToString());
