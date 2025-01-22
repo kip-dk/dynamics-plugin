@@ -11,10 +11,12 @@
     using System.Threading.Tasks;
     using System.Text;
     using System.Net;
-    using Kipon.Xrm.Extensions.Json;
+    using Extensions.Json;
 
     public abstract class AbstractPostGRestService
     {
+        // https://docs.postgrest.org/en/v12/references/api/tables_views.html
+
         private readonly IOrganizationService orgService;
         private readonly ITracingService traceService;
         private ServiceAPI.IEntityMetadataService metaService;
@@ -345,7 +347,7 @@
             var value = con.Values.ToGFilterValue(con.Operator);
             if (value == null)
             {
-                Kipon.Xrm.Tracer.Trace($"Unable to set filter: {con.AttributeName} {con.Operator}");
+                Tracer.Trace($"Unable to set filter: {con.AttributeName} {con.Operator}");
             }
 
             var att = meta.Attributes.Where(r => r.LogicalName == con.AttributeName).Single();
@@ -395,7 +397,7 @@
                     }
                 default:
                     {
-                        Kipon.Xrm.Tracer.Trace($"condition on { con.AttributeName } { con.Operator } is not implemented");
+                        Tracer.Trace($"condition on { con.AttributeName } { con.Operator } is not implemented");
                         break;
                     }
             }
@@ -416,7 +418,7 @@
 
             if (value.Count > 1)
             {
-                Kipon.Xrm.Tracer.Trace($"Multi values in condition is not implemented");
+                Tracer.Trace($"Multi values in condition is not implemented");
                 return null;
             }
 
@@ -454,7 +456,7 @@
                         return string.Empty;
                     }
                 default:
-                    Kipon.Xrm.Tracer.Trace($"Value operator: {opr} is not implemented");
+                    Tracer.Trace($"Value operator: {opr} is not implemented");
                     return null;
             }
         }

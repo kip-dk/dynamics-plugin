@@ -1,4 +1,8 @@
-## Last updated: 2025-01-15
+## Last updated: 2025-01-22
+
+### 1.0.10.27
+ServiceAPI.AbstractPostGRestService has been added to make it easy to create PostGrest based virtual entities.
+The filtering part is still expeerimental, but works for most very simple scenarios.
 
 ### 1.0.10.26
 Added support for Merge message
