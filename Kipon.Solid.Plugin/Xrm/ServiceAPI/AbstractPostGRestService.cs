@@ -16,7 +16,10 @@
     public abstract class AbstractPostGRestService
     {
         private readonly IOrganizationService orgService;
+        private readonly ITracingService traceService;
         private ServiceAPI.IEntityMetadataService metaService;
+
+        private System.Globalization.CultureInfo CI = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
         protected abstract string BaseURL { get; }
 
@@ -28,9 +31,10 @@
             return null;
         }
 
-        public AbstractPostGRestService(Microsoft.Xrm.Sdk.IOrganizationService orgService)
+        public AbstractPostGRestService(Microsoft.Xrm.Sdk.IOrganizationService orgService, Microsoft.Xrm.Sdk.ITracingService traceService)
         {
             this.orgService = orgService;
+            this.traceService = traceService;
             this.metaService = new Services.EntityMetadataService(orgService);
 
         }
@@ -127,7 +131,7 @@
                         var attr = (from a in meta.Attributes
                                     where a.LogicalName == column
                                     select a).Single();
-                        qf.Append($"{comma}{column}=like.{filter}");
+                        qf.Append($"{comma}{attr.ExternalName}.like.{filter}");
                         comma = ",";
                     }
                     qf.Append(")");
@@ -155,6 +159,10 @@
             {
                 foreach (var filter in query.Criteria.Filters)
                 {
+                    if (filter.IsQuickFindFilter)
+                    {
+                        continue;
+                    }
                     var next = filter.ToPostGFilter(meta);
                     if (!string.IsNullOrEmpty(next))
                     {
@@ -196,110 +204,117 @@
 
         private Entity[] Fetch(Microsoft.Xrm.Sdk.Metadata.EntityMetadata meta, string url)
         {
-            Kipon.Xrm.Tracer.Trace($"PostG url: {url}"); 
+            this.traceService.Trace($"PostG url: {url}"); 
 
+            try { 
             var req = WebRequest.Create(url);
 
-            using (var resp = req.GetResponse())
-            {
-                using (var str = resp.GetResponseStream())
+                using (var resp = req.GetResponse())
                 {
-                    var rows = str.ToDictionaryArray();
-                    var result = new List<Entity>();
-
-                    foreach (var row in rows)
+                    using (var str = resp.GetResponseStream())
                     {
-                        var key = meta.Attributes.Where(r => r.IsPrimaryId == true).Single();
-                        var val = row[key.ExternalName];
-                        var id = this.ToId(val);
-                        var next = new Entity(meta.LogicalName);
-                        next[key.LogicalName] = id;
+                        var rows = str.ToDictionaryArray();
+                        var result = new List<Entity>();
 
-                        foreach (var column in row.Keys)
+                        foreach (var row in rows)
                         {
-                            var attrs = meta.Attributes.Where(r => r.IsPrimaryId != true && r.ExternalName == column).ToArray();
-                            if (attrs.Length > 0)
-                            {
-                                var value = row[column];
-                                if (value != null && !string.IsNullOrEmpty(value))
-                                {
-                                    var raw = value;
-                                    foreach (var att in attrs)
-                                    {
-                                        var resolved = this.Resolve(att.ExternalName, value);
-                                        if (resolved != null)
-                                        {
-                                            next[att.LogicalName] = resolved;
-                                            continue;
-                                        }
+                            var key = meta.Attributes.Where(r => r.IsPrimaryId == true).Single();
+                            var val = row[key.ExternalName];
+                            var id = this.ToId(val);
+                            var next = new Entity(meta.LogicalName);
+                            next[key.LogicalName] = id;
 
-                                        switch (att.AttributeType)
+                            foreach (var column in row.Keys)
+                            {
+                                var attrs = meta.Attributes.Where(r => r.IsPrimaryId != true && r.ExternalName == column).ToArray();
+                                if (attrs.Length > 0)
+                                {
+                                    var value = row[column];
+                                    if (value != null && !string.IsNullOrEmpty(value))
+                                    {
+                                        var raw = value;
+                                        foreach (var att in attrs)
                                         {
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Boolean:
-                                                {
-                                                    var lower = raw.ToLower();
-                                                    next[att.LogicalName] = lower == "true" || lower == "on" || lower == "yes" || lower == "ja" || lower == "ok" || lower == "1";
-                                                    continue;
-                                                }
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.BigInt:
-                                                {
-                                                    next[att.LogicalName] = long.Parse(raw);
-                                                    continue;
-                                                }
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.DateTime:
-                                                {
-                                                    next[att.LogicalName] = DateTime.Parse(value);
-                                                    continue;
-                                                }
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.String:
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Memo:
-                                                {
-                                                    next[att.LogicalName] = value;
-                                                    break;
-                                                }
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Decimal:
-                                                {
-                                                    next[att.LogicalName] = decimal.Parse(value);
-                                                    break;
-                                                }
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Double:
-                                                {
-                                                    next[att.LogicalName] = double.Parse(value);
-                                                    break;
-                                                }
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Integer:
-                                                {
-                                                    next[att.LogicalName] = int.Parse(value);
-                                                    break;
-                                                }
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Picklist:
-                                                {
-                                                    next[att.LogicalName] = new OptionSetValue(int.Parse(value));
-                                                    break;
-                                                }
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Money:
-                                                {
-                                                    next[att.LogicalName] = new Money(decimal.Parse(value));
-                                                    break;
-                                                }
-                                            case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.State:
-                                                {
-                                                    next[att.LogicalName] = new OptionSetValue(int.Parse(value));
-                                                    break;
-                                                }
-                                            default:
-                                                {
-                                                    break;
-                                                }
+                                            var resolved = this.Resolve(att.ExternalName, value);
+                                            if (resolved != null)
+                                            {
+                                                next[att.LogicalName] = resolved;
+                                                continue;
+                                            }
+
+                                            switch (att.AttributeType)
+                                            {
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Boolean:
+                                                    {
+                                                        var lower = raw.ToLower();
+                                                        next[att.LogicalName] = lower == "true" || lower == "on" || lower == "yes" || lower == "ja" || lower == "ok" || lower == "1";
+                                                        continue;
+                                                    }
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.BigInt:
+                                                    {
+                                                        next[att.LogicalName] = long.Parse(raw);
+                                                        continue;
+                                                    }
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.DateTime:
+                                                    {
+                                                        next[att.LogicalName] = DateTime.Parse(value);
+                                                        continue;
+                                                    }
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.String:
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Memo:
+                                                    {
+                                                        next[att.LogicalName] = value;
+                                                        break;
+                                                    }
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Decimal:
+                                                    {
+                                                        next[att.LogicalName] = decimal.Parse(value.Replace(",", "."), CI);
+                                                        break;
+                                                    }
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Double:
+                                                    {
+                                                        next[att.LogicalName] = double.Parse(value.Replace(",", "."), CI);
+                                                        break;
+                                                    }
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Integer:
+                                                    {
+                                                        next[att.LogicalName] = int.Parse(value);
+                                                        break;
+                                                    }
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Picklist:
+                                                    {
+                                                        next[att.LogicalName] = new OptionSetValue(int.Parse(value));
+                                                        break;
+                                                    }
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Money:
+                                                    {
+                                                        next[att.LogicalName] = new Money(decimal.Parse(value));
+                                                        break;
+                                                    }
+                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.State:
+                                                    {
+                                                        next[att.LogicalName] = new OptionSetValue(int.Parse(value));
+                                                        break;
+                                                    }
+                                                default:
+                                                    {
+                                                        break;
+                                                    }
+                                            }
                                         }
                                     }
                                 }
                             }
+                            result.Add(next);
                         }
-                        result.Add(next);
+                        return result.ToArray();
                     }
-                    return result.ToArray();
                 }
+            } catch (Exception ex)
+            {
+                this.traceService.Trace($"Unable to handle url: {ex.Message}");
+                this.traceService.Trace($"Unable to handle url: {url}");
+                return new Entity[0];
             }
         }
     }
@@ -335,7 +350,7 @@
 
             var att = meta.Attributes.Where(r => r.LogicalName == con.AttributeName).Single();
             var sb = new StringBuilder();
-            sb.Append($"{att.LogicalName}=");
+            sb.Append($"{att.ExternalName}=");
 
             switch (con.Operator)
             {

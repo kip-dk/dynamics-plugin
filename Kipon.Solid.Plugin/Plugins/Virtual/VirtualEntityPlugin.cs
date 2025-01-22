@@ -76,7 +76,7 @@ namespace Kipon.Solid.Plugin.Plugins.Virtual
         [LogicalName("kipon_postg")]
         public Microsoft.Xrm.Sdk.EntityCollection OnRetrieveMultiple(string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query, ServiceAPI.IPostGDemoService postgService)
         {
-            return postgService.Query(query, null);
+            return postgService.Query(query, "kipon_location", "kipon_name");
         }
         #endregion
     }

@@ -9,7 +9,7 @@ namespace Kipon.Solid.Plugin.Service
 {
     public class PostGDemoService : Kipon.Xrm.ServiceAPI.AbstractPostGRestService, ServiceAPI.IPostGDemoService
     {
-        public PostGDemoService(Microsoft.Xrm.Sdk.IOrganizationService orgService): base(orgService)
+        public PostGDemoService(Microsoft.Xrm.Sdk.IOrganizationService orgService, Microsoft.Xrm.Sdk.ITracingService traceService): base(orgService, traceService)
         {
         }
 
