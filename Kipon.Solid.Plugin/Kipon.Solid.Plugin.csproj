@@ -130,6 +130,7 @@
     <Compile Include="Service\PostGDemoService.cs" />
     <Compile Include="Xrm\Attributes\FiscalAttribute.cs" />
     <Compile Include="Xrm\Extensions\Generics\GenericsMethods.cs" />
+    <Compile Include="Xrm\Extensions\Json\JsonMethods.cs" />
     <Compile Include="Xrm\Implementations\Sorter.cs" />
     <Compile Include="Xrm\Models\Calendar.cs" />
     <Compile Include="Model\INamed.cs" />

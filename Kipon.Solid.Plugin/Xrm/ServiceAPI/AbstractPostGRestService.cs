@@ -11,6 +11,8 @@
     using System.Threading.Tasks;
     using System.Text;
     using System.Net;
+    using Kipon.Xrm.Extensions.Json;
+
     public abstract class AbstractPostGRestService
     {
         private readonly IOrganizationService orgService;
@@ -65,14 +67,20 @@
             if (query.ColumnSet.AllColumns != true)
             {
                 var cols = (from a in meta.Attributes
-                            join c in query.ColumnSet.Columns on a.ExternalName equals c
+                            join c in query.ColumnSet.Columns on a.LogicalName equals c
+                            where a.ExternalName != null
+                              && a.ExternalName != string.Empty
                             select a.ExternalName).Distinct().ToList();
-                if (!cols.Contains(key.ExternalName))
+
+                if (cols.Count > 0)
                 {
-                    cols.Add(key.ExternalName);
+                    if (!cols.Contains(key.ExternalName))
+                    {
+                        cols.Add(key.ExternalName);
+                    }
+                    url.Append($"{nextParam}select={string.Join(",", cols.ToArray())}");
+                    nextParam = "&";
                 }
-                url.Append($"{nextParam}select={string.Join(",", cols.ToArray())}");
-                nextParam = "&";
             }
             #endregion
 
@@ -161,6 +169,7 @@
             var result = new EntityCollection();
             result.EntityName = query.EntityName;
             result.Entities.AddRange(results);
+            result.MoreRecords = query.PageInfo != null && query.PageInfo.Count == results.Length;
             return result;
         }
 
@@ -187,13 +196,15 @@
 
         private Entity[] Fetch(Microsoft.Xrm.Sdk.Metadata.EntityMetadata meta, string url)
         {
+            Kipon.Xrm.Tracer.Trace($"PostG url: {url}"); 
+
             var req = WebRequest.Create(url);
 
             using (var resp = req.GetResponse())
             {
                 using (var str = resp.GetResponseStream())
                 {
-                    var rows = new Dictionary<string, string>[0];
+                    var rows = str.ToDictionaryArray();
                     var result = new List<Entity>();
 
                     foreach (var row in rows)
@@ -237,7 +248,7 @@
                                                 }
                                             case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.DateTime:
                                                 {
-                                                    next[att.LogicalName] = value;
+                                                    next[att.LogicalName] = DateTime.Parse(value);
                                                     continue;
                                                 }
                                             case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.String:
