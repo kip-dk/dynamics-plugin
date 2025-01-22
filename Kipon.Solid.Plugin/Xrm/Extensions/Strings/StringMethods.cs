@@ -28,5 +28,37 @@
             }
             return value.Substring(0, maxLen);
         }
+
+        [System.Diagnostics.DebuggerNonUserCode()]
+        public static string MustEndWith(this string value, string endwith)
+        {
+            if (!string.IsNullOrEmpty(value) && value.EndsWith(endwith))
+            {
+                return value;
+            }
+
+            if (string.IsNullOrEmpty(value))
+            {
+                return endwith;
+            }
+
+            return $"{value}{endwith}";
+        }
+
+        [System.Diagnostics.DebuggerNonUserCode()]
+        public static string MustStartWith(this string value, string startwith)
+        {
+            if (!string.IsNullOrEmpty(value) && value.StartsWith(startwith))
+            {
+                return value;
+            }
+
+            if (string.IsNullOrEmpty(value))
+            {
+                return startwith;
+            }
+
+            return $"{startwith}{value}";
+        }
     }
 }

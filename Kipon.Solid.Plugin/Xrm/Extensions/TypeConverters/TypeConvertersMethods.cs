@@ -200,8 +200,18 @@
                 return b;
             }
 
-            return value.ToString().ToUpper() == "TRUE";
+            var co = value.ToString().ToUpper();
+            return co == "TRUE" || co == "YES" || co == "ON" || co == "JA" || co == "1";
         }
 
+        public static int ToInt(this string value)
+        {
+            if (int.TryParse(value, out int v))
+            {
+                return v;
+            }
+
+            throw new InvalidPluginExecutionException($"[{ value }] cannot be converted to whole number");
+        }
     }
 }

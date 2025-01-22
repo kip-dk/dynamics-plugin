@@ -1,4 +1,5 @@
-﻿using Kipon.Xrm.Extensions.QueryExpression;
+﻿using Kipon.Xrm.Attributes;
+using Kipon.Xrm.Extensions.QueryExpression;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,28 +10,31 @@ namespace Kipon.Solid.Plugin.Plugins.Virtual
 {
     public class VirtualEntityPlugin : Kipon.Xrm.VirtualEntityPlugin
     {
+        #region kipon_vetest
+        [LogicalName(Entities.kipon_vetest.EntityLogicalName)]
         public Microsoft.Xrm.Sdk.Entity OnRetrieve(Guid primaryentityid, string primaryentityname)
         {
-            if (primaryentityname == Entities.kipon_vetest.EntityLogicalName)
-            {
-                return Entities.kipon_vetest.Testdata().Where(r => r.Id == primaryentityid).Single();
-            }
+            return Entities.kipon_vetest.Testdata().Where(r => r.Id == primaryentityid).Single();
+        }
 
+        [LogicalName(Entities.kipon_vetest.EntityLogicalName)]
+        public Microsoft.Xrm.Sdk.EntityCollection OnRetrieveMultiple(string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query, Microsoft.Xrm.Sdk.ITracingService traceService)
+        {
+            return Entities.kipon_vetest.Testdata().Query(query, nameof(Entities.kipon_vetest.kipon_name));
+
+        }
+        #endregion
+
+        #region unknown
+        [LogicalName("unknown")]
+        public Microsoft.Xrm.Sdk.Entity OnRetrieve(Guid primaryentityid, string primaryentityname, ServiceAPI.IAccountService accountService)
+        {
             return new Microsoft.Xrm.Sdk.Entity { LogicalName = primaryentityname, Id = primaryentityid };
         }
 
-        public Microsoft.Xrm.Sdk.EntityCollection OnRetrieveMultiple(string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query, Microsoft.Xrm.Sdk.ITracingService traceService)
+        [LogicalName("unknown")]
+        public Microsoft.Xrm.Sdk.EntityCollection OnRetrieveMultiple(string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query, ServiceAPI.IAccountService accountService)
         {
-            traceService.Trace($"RM: { primaryentityname }");
-
-            query.Trace(traceService);
-
-
-            if (primaryentityname == Entities.kipon_vetest.EntityLogicalName)
-            {
-                return Entities.kipon_vetest.Testdata().Query(query, nameof(Entities.kipon_vetest.kipon_name));
-            }
-
             var accountId = query.EntityReferenceIdEqualFilter("kipon_accountid");
             var quicksearch = query.QuickFindFilter();
 
@@ -54,12 +58,26 @@ namespace Kipon.Solid.Plugin.Plugins.Virtual
                 var ix = 1;
                 foreach (var ent in result.Entities)
                 {
-                    ent["kipon_name"] = $"{ quicksearch}:{ ix }";
+                    ent["kipon_name"] = $"{quicksearch}:{ix}";
                     ix++;
                 }
             }
-
             return result;
         }
+        #endregion
+
+        #region postgtest
+        [LogicalName("kipon_postg")]
+        public Microsoft.Xrm.Sdk.Entity OnRetrieve(Guid primaryentityid, string primaryentityname, ServiceAPI.IPostGDemoService postgService)
+        {
+            return postgService.Get(primaryentityname, primaryentityid);
+        }
+
+        [LogicalName("kipon_postg")]
+        public Microsoft.Xrm.Sdk.EntityCollection OnRetrieveMultiple(string primaryentityname, Microsoft.Xrm.Sdk.Query.QueryExpression query, ServiceAPI.IPostGDemoService postgService)
+        {
+            return postgService.Query(query, null);
+        }
+        #endregion
     }
 }

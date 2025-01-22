@@ -126,6 +126,8 @@
     <Compile Include="Plugins\ActivitySubject\ActivitySubjectPlugin.cs" />
     <Compile Include="Plugins\Contact\MergeContactPlugin.cs" />
     <Compile Include="Plugins\GenerateQuoteFromOpportunity\GenerateQuoteFromOpportunityPlugin.cs" />
+    <Compile Include="ServiceAPI\IPostGDemoService.cs" />
+    <Compile Include="Service\PostGDemoService.cs" />
     <Compile Include="Xrm\Attributes\FiscalAttribute.cs" />
     <Compile Include="Xrm\Extensions\Generics\GenericsMethods.cs" />
     <Compile Include="Xrm\Implementations\Sorter.cs" />
@@ -177,6 +179,7 @@
     <Compile Include="Xrm\IStepInitializer.cs" />
     <Compile Include="Xrm\Models\QueryExpressionEvaluator.cs" />
     <Compile Include="Xrm\Reflection\ReflectionExtensions.cs" />
+    <Compile Include="Xrm\ServiceAPI\AbstractPostGRestService.cs" />
     <Compile Include="Xrm\ServiceAPI\IEntityMetadataService.cs" />
     <Compile Include="ServiceAPI\INotImplementedService.cs" />
     <Compile Include="ServiceAPI\ISpecialAccountService.cs" />
