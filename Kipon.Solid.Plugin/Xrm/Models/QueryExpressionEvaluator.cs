@@ -47,23 +47,32 @@
                         if (conditionString.StartsWith("?"))
                         {
                             conditionString = conditionString.Substring(1);
-                            var conditions = conditionString.Split('&');
-                            foreach (var condition in conditions)
+                        }
+
+                        var conditions = conditionString.Split('&');
+                        foreach (var condition in conditions)
+                        {
+                            var field = condition.Split('=').First();
+                            var val = this.ParseCondition(condition.Substring(field.Length + 1), out ConditionOperator resultOperator);
+
+                            var next = new ConditionExpression
                             {
-                                var field = condition.Split('=').First();
-                                var val = this.ParseCondition(condition.Substring(field.Length + 1), out ConditionOperator resultOperator);
+                                AttributeName = field,
+                                Operator = resultOperator
+                            };
+                            next.Values.Add(val);
 
-                                var next = new ConditionExpression
-                                {
-                                    AttributeName = field,
-                                    Operator = resultOperator
-                                };
-                                next.Values.Add(val);
-
-                                filter.Conditions.Add(next);
-                            }
+                            filter.Conditions.Add(next);
                         }
                     } 
+                }
+            }
+
+            if (filter.Filters != null && filter.Filters.Count > 0)
+            {
+                foreach (var sub in filter.Filters)
+                {
+                    this.Replace(queryField, sub, opr);
                 }
             }
         }

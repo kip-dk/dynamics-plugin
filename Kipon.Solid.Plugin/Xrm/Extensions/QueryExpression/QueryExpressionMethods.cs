@@ -843,7 +843,7 @@
         public static Microsoft.Xrm.Sdk.Query.QueryExpression ParseAndReplace(this Microsoft.Xrm.Sdk.Query.QueryExpression query, string field, Microsoft.Xrm.Sdk.Query.ConditionOperator opr)
         {
             var ev = new Models.QueryExpressionEvaluator(query);
-            return query.ParseAndReplace(field, opr);
+            return ev.ParseAndReplace(field, opr);
         }
     }
 }
