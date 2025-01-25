@@ -2,6 +2,7 @@
 {
     using Microsoft.Xrm.Sdk;
     using System;
+    using System.Linq;
 
     public static class TypeConvertersMethods
     {
@@ -213,5 +214,11 @@
 
             throw new InvalidPluginExecutionException($"[{ value }] cannot be converted to whole number");
         }
+
+        public static int ExtractConditionValue(this string expression)
+        {
+            return int.Parse(expression.Split('(').Last().Replace(")", ""));
+        }
+
     }
 }

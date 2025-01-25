@@ -129,6 +129,7 @@
     <Compile Include="ServiceAPI\IPostGDemoService.cs" />
     <Compile Include="Service\PostGDemoService.cs" />
     <Compile Include="Xrm\Attributes\FiscalAttribute.cs" />
+    <Compile Include="Xrm\Extensions\Entities\EntitiesExtension.cs" />
     <Compile Include="Xrm\Extensions\Generics\GenericsMethods.cs" />
     <Compile Include="Xrm\Extensions\Json\JsonMethods.cs" />
     <Compile Include="Xrm\Implementations\Sorter.cs" />

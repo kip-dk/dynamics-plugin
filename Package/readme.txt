@@ -1,4 +1,4 @@
-Kipon.Solid.Plugin: Copyright Kipon ApS 2019, 2020, 2021, 2022, 2023, 2024
+Kipon.Solid.Plugin: Copyright Kipon ApS 2019, 2020, 2021, 2022, 2023, 2024, 2025
 
 DISCLAIMER
 ----------
@@ -75,4 +75,4 @@ This will happen in situations where basic interfaces/methods in the model has b
 regenerate your entities and the compile errors will go away.
 
 
-updated: 2024-04-07 08:30 GMT+1
+updated: 2025-01-25 14:30 GMT+1

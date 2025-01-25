@@ -3,6 +3,7 @@
     using Extensions.QueryExpression;
     using Extensions.Strings;
     using Extensions.TypeConverters;
+    using Extensions.Entities;
     using Microsoft.Xrm.Sdk;
     using System;
     using System.Collections;
@@ -12,6 +13,7 @@
     using System.Text;
     using System.Net;
     using Extensions.Json;
+    using System.Web.UI.WebControls;
 
     public abstract class AbstractPostGRestService
     {
@@ -20,8 +22,6 @@
         private readonly IOrganizationService orgService;
         private readonly ITracingService traceService;
         private ServiceAPI.IEntityMetadataService metaService;
-
-        private System.Globalization.CultureInfo CI = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
         protected abstract string BaseURL { get; }
 
@@ -175,11 +175,32 @@
             }
             #endregion
 
+            #region resolve filtering on related records
+            if (query.LinkEntities != null && query.LinkEntities.Count > 0)
+            {
+                foreach (var link in query.LinkEntities)
+                {
+                }
+            }
+            #endregion
+
             var results = this.Fetch(meta, url.ToString());
             var result = new EntityCollection();
             result.EntityName = query.EntityName;
             result.Entities.AddRange(results);
-            result.MoreRecords = query.PageInfo != null && query.PageInfo.Count == results.Length;
+
+            if (query.PageInfo != null && query.PageInfo.Count > 0)
+            {
+                result.MoreRecords = query.PageInfo != null && query.PageInfo.Count == results.Length;
+                result.PagingCookie = $"<cookie page='{query.PageInfo.PageNumber}'><{meta.LogicalName} last='{" + results.Last().Id + "}' first='{" + results.First().Id + "}' /></cookie>";
+                result.TotalRecordCount = query.PageInfo.Count * (query.PageInfo.PageNumber - 1) + results.Length;
+                result.TotalRecordCountLimitExceeded = result.MoreRecords;
+            }
+            else
+            {
+                result.TotalRecordCount = results.Length;
+            }
+
             return result;
         }
 
@@ -215,101 +236,7 @@
                 {
                     using (var str = resp.GetResponseStream())
                     {
-                        var rows = str.ToDictionaryArray();
-                        var result = new List<Entity>();
-
-                        foreach (var row in rows)
-                        {
-                            var key = meta.Attributes.Where(r => r.IsPrimaryId == true).Single();
-                            var val = row[key.ExternalName];
-                            var id = this.ToId(val);
-                            var next = new Entity(meta.LogicalName);
-                            next[key.LogicalName] = id;
-
-                            foreach (var column in row.Keys)
-                            {
-                                var attrs = meta.Attributes.Where(r => r.IsPrimaryId != true && r.ExternalName == column).ToArray();
-                                if (attrs.Length > 0)
-                                {
-                                    var value = row[column];
-                                    if (value != null && !string.IsNullOrEmpty(value))
-                                    {
-                                        var raw = value;
-                                        foreach (var att in attrs)
-                                        {
-                                            var resolved = this.Resolve(att.ExternalName, value);
-                                            if (resolved != null)
-                                            {
-                                                next[att.LogicalName] = resolved;
-                                                continue;
-                                            }
-
-                                            switch (att.AttributeType)
-                                            {
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Boolean:
-                                                    {
-                                                        var lower = raw.ToLower();
-                                                        next[att.LogicalName] = lower == "true" || lower == "on" || lower == "yes" || lower == "ja" || lower == "ok" || lower == "1";
-                                                        continue;
-                                                    }
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.BigInt:
-                                                    {
-                                                        next[att.LogicalName] = long.Parse(raw);
-                                                        continue;
-                                                    }
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.DateTime:
-                                                    {
-                                                        next[att.LogicalName] = DateTime.Parse(value);
-                                                        continue;
-                                                    }
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.String:
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Memo:
-                                                    {
-                                                        next[att.LogicalName] = value;
-                                                        break;
-                                                    }
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Decimal:
-                                                    {
-                                                        next[att.LogicalName] = decimal.Parse(value.Replace(",", "."), CI);
-                                                        break;
-                                                    }
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Double:
-                                                    {
-                                                        next[att.LogicalName] = double.Parse(value.Replace(",", "."), CI);
-                                                        break;
-                                                    }
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Integer:
-                                                    {
-                                                        next[att.LogicalName] = int.Parse(value);
-                                                        break;
-                                                    }
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Picklist:
-                                                    {
-                                                        next[att.LogicalName] = new OptionSetValue(int.Parse(value));
-                                                        break;
-                                                    }
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Money:
-                                                    {
-                                                        next[att.LogicalName] = new Money(decimal.Parse(value));
-                                                        break;
-                                                    }
-                                                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.State:
-                                                    {
-                                                        next[att.LogicalName] = new OptionSetValue(int.Parse(value));
-                                                        break;
-                                                    }
-                                                default:
-                                                    {
-                                                        break;
-                                                    }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            result.Add(next);
-                        }
-                        return result.ToArray();
+                        return str.ToDictionaryArray().ToEntities(meta, (v) => this.ToId(v), (l, v) => this.Resolve(l, v));
                     }
                 }
             } catch (Exception ex)

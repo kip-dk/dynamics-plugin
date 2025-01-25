@@ -1,4 +1,10 @@
-## Last updated: 2025-01-22
+## Last updated: 2025-01-25
+
+### 1.0.10.28
+Moved resolve generic json query result to entity to ist own generic Entities extension
+
+Added special query expression to enable replace string condition in postgl like syntax to query expression´for advanced unsupported filtering on dataverse
+(this code is very experimental for now)
 
 ### 1.0.10.27
 ServiceAPI.AbstractPostGRestService has been added to make it easy to create PostGrest based virtual entities.
