@@ -1,4 +1,7 @@
-## Last updated: 2025-01-25
+## Last updated: 2025-01-26
+
+### 1.0.10.29
+Bug fix in new Entitiesquery extensions
 
 ### 1.0.10.28
 Moved resolve generic json query result to entity to ist own generic Entities extension
