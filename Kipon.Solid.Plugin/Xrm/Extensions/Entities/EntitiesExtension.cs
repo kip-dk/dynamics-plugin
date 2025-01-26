@@ -13,14 +13,39 @@
         public static Microsoft.Xrm.Sdk.Entity ToEntity(this Dictionary<string, string> row, Microsoft.Xrm.Sdk.Metadata.EntityMetadata meta, Func<string, Guid> resolveId, Func<string, string, object> resolveValue)
         {
             var key = meta.Attributes.Where(r => r.IsPrimaryId == true).Single();
-            var val = row[key.ExternalName];
+            var val = string.Empty;
+
+            if (!string.IsNullOrEmpty(key.ExternalName) && row.ContainsKey(key.ExternalName))
+            {
+                val = row[key.ExternalName];
+            } else
+            {
+                if (row.ContainsKey("id"))
+                {
+                    val = row["id"];
+                }
+            }
+
+            if (string.IsNullOrEmpty(val))
+            {
+                throw new InvalidPluginExecutionException($"Unable to resolve an id for the input data, ");
+            }
+
             var id = resolveId(val);
             var next = new Entity(meta.LogicalName);
             next[key.LogicalName] = id;
+            next.Id = id;
 
             foreach (var column in row.Keys)
             {
                 var attrs = meta.Attributes.Where(r => r.IsPrimaryId != true && r.ExternalName == column).ToArray();
+
+                if (attrs.Length == 0)
+                {
+                    // unable to resolve attrib name from external name,  lets try the attrib, logical name
+                    attrs = meta.Attributes.Where(r => r.IsPrimaryId != true && r.LogicalName == column).ToArray();
+                }
+
                 if (attrs.Length > 0)
                 {
                     var value = row[column];
@@ -106,10 +131,14 @@
                                             var lookup = new Microsoft.Xrm.Sdk.EntityReference(spl[0], new Guid(spl[1]));
                                             if (spl.Length > 2)
                                             {
-                                                var last = value.Substring(spl[0].Length + spl[1].Length + 2).Trim();
-                                                if (!string.IsNullOrEmpty(last))
+                                                var totLen = spl[0].Length + spl[1].Length + 2;
+                                                if (value.Length > totLen)
                                                 {
-                                                    lookup.Name = last;
+                                                    var last = value.Substring(totLen).Trim();
+                                                    if (!string.IsNullOrEmpty(last))
+                                                    {
+                                                        lookup.Name = last;
+                                                    }
                                                 }
                                             }
                                             next[att.LogicalName] = lookup;

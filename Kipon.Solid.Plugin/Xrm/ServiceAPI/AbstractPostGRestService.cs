@@ -192,8 +192,8 @@
             if (query.PageInfo != null && query.PageInfo.Count > 0)
             {
                 result.MoreRecords = query.PageInfo != null && query.PageInfo.Count == results.Length;
-                result.PagingCookie = $"<cookie page='{query.PageInfo.PageNumber}'><{meta.LogicalName} last='{" + results.Last().Id + "}' first='{" + results.First().Id + "}' /></cookie>";
-                result.TotalRecordCount = query.PageInfo.Count * (query.PageInfo.PageNumber - 1) + results.Length;
+                result.PagingCookie = $"<cookie page='{query.PageInfo.PageNumber}'><{meta.LogicalName} last='{ results.Last().Id }' first='{ results.First().Id }' /></cookie>";
+                result.TotalRecordCount = (query.PageInfo.Count * (query.PageInfo.PageNumber - 1)) + results.Length;
                 result.TotalRecordCountLimitExceeded = result.MoreRecords;
             }
             else
