@@ -69,18 +69,23 @@
 
             foreach (var r in include)
             {
-                result.Entities.Add(r);
-
                 if (this.query.ColumnSet != null && !this.query.ColumnSet.AllColumns && this.query.ColumnSet.Columns != null && this.query.ColumnSet.Columns.Count > 0)
                 {
+                    // clone is needed to avoid side effect on source
+                    var clone = new Microsoft.Xrm.Sdk.Entity { LogicalName = r.LogicalName, Id = r.Id };
                     foreach (var attr in r.Attributes.ToArray())
                     {
-                        if (!this.query.ColumnSet.Columns.Contains(attr.Key))
+                        if (this.query.ColumnSet.Columns.Contains(attr.Key))
                         {
-                            r.Attributes.Remove(attr.Key);
+                            clone[attr.Key] = r[attr.Key];
                         }
                     }
-                } 
+                    result.Entities.Add(clone);
+                } else
+                {
+                    // all columns needed, no side effect on source, we can use directly
+                    result.Entities.Add(r);
+                }
             }
             return result;
         }

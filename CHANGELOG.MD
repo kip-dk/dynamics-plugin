@@ -1,4 +1,7 @@
-## Last updated: 2025-01-26
+## Last updated: 2025-03-03
+
+### 1.0.10.30
+Fixed the query resolve mechanisme had side effects on the source list, if not all columns was selected on a virtual entity
 
 ### 1.0.10.29
 Bug fix in new Entitiesquery extensions
