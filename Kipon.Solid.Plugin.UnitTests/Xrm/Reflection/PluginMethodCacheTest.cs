@@ -115,7 +115,7 @@ namespace Kipon.Solid.Plugin.UnitTests.Xrm.Reflection
         [TestMethod]
         public void GuidParameterTypeTest()
         {
-            var methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.ListMember.ListMemberPlugin), (int)StepAttribute.StageEnum.Pre, StepAttribute.MessageEnum.RemoveMember.ToString(), null, false);
+            var methods = pluginMethodcache.ForPlugin(typeof(Kipon.Solid.Plugin.Plugins.ListMember.ListMemberPlugin), (int)StepAttribute.StageEnum.Post, StepAttribute.MessageEnum.RemoveMember.ToString(), null, false);
             Assert.AreEqual(1, methods.Length);
             Assert.IsTrue(typeof(Guid) == methods[0].Parameters[0].FromType);
             Assert.IsTrue(typeof(Guid) == methods[0].Parameters[1].FromType);

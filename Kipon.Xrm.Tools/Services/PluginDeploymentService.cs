@@ -32,6 +32,7 @@ namespace Kipon.Xrm.Tools.Services
             "Retrieve",
             "AddMember",
             "AddListMembers",
+            "RemoveListMembers",
             "RemoveMember",
             "Merge",
             "GenerateQuoteFromOpportunity",

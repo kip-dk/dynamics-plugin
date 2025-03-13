@@ -12,7 +12,9 @@
             "RemoveMember",
             "Associate",
             "Disassociate",
-            "GenerateQuoteFromOpportunity"
+            "GenerateQuoteFromOpportunity",
+            "AddListMembers",
+            "RemoveListMembers"
         };
 
 

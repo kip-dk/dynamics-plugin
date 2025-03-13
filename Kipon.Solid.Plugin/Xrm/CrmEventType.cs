@@ -14,9 +14,9 @@
         Retrieve,
         Other,
         AddMember,
-        AddListMembers,
         RemoveMember,
-
+        AddListMembers,
+        RemoveListMembers,
         QualifyLead,
         GenerateQuoteFromOpportunity,
         CustomPlugin

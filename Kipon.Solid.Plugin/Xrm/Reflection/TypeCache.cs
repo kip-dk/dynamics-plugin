@@ -50,6 +50,18 @@
                     return resolvedTypes[key];
                 }
 
+                if (parameter.ParameterType == typeof(Guid) && (parameter.Name == "ListId" || parameter.Name == "EntityId"))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
+                if (parameter.ParameterType == typeof(Guid[]) && (parameter.Name == "MemberIds"))
+                {
+                    resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name, IsInputParameter = true };
+                    return resolvedTypes[key];
+                }
+
                 if (parameter.ParameterType == typeof(Guid))
                 {
                     resolvedTypes[key] = new TypeCache { FromType = type, ToType = type, Name = parameter.Name };

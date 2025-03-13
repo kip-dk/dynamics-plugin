@@ -47,6 +47,7 @@
             Retrieve,
             AddMember,
             AddListMembers,
+            RemoveListMembers,
             RemoveMember,
             Merge
         }

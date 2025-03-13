@@ -1,4 +1,7 @@
-## Last updated: 2025-03-03
+## Last updated: 2025-03-13
+
+### 1.0.10.31
+Added support for plugins on messages AddListMembers, RemoveListMembers, AddMember, RemoveMember
 
 ### 1.0.10.30
 Fixed the query resolve mechanisme had side effects on the source list, if not all columns was selected on a virtual entity
