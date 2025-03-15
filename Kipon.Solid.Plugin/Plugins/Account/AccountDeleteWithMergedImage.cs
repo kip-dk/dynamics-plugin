@@ -10,7 +10,7 @@ namespace Kipon.Solid.Plugin.Plugins.Account
     {
         public static string TEST_CONTENT;
 
-        public void OnPreDelete(Entities.AccountReference target, Entities.Account.IMergedImageForDeleteTest mergedimage)
+        public void OnPreDelete(Entities.Account.IMergedImageForDeleteTest mergedimage)
         {
             TEST_CONTENT = $"{mergedimage.AccountNumber}:{mergedimage.Name}";
         }

@@ -1,4 +1,7 @@
-## Last updated: 2025-03-13
+## Last updated: 2025-03-15
+
+### 1.0.10.32
+Removed writing json file to c:\temp causing error if folder not available
 
 ### 1.0.10.31
 Added support for plugins on messages AddListMembers, RemoveListMembers, AddMember, RemoveMember

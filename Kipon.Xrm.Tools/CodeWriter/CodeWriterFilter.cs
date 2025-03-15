@@ -112,10 +112,16 @@ namespace Kipon.Xrm.Tools.CodeWriter
 
                     var ser = new System.Runtime.Serialization.Json.DataContractJsonSerializer(allMessage.GetType());
                     var toFile = allMessage.Where(r => FILTER.ACTIONS.Where(a => a.LogicalName == r.Name).Any()).ToArray();
-                    using (var fs = new System.IO.FileStream(@"C:\Temp\kipon-plugin-message-example.json", System.IO.FileMode.Create))
+
+                    /*
+                    if (System.IO.Directory.Exists(@"C:\Temp"))
                     {
-                        ser.WriteObject(fs, toFile);
+                        using (var fs = new System.IO.FileStream(@"C:\Temp\kipon-plugin-message-example.json", System.IO.FileMode.Create))
+                        {
+                            ser.WriteObject(fs, toFile);
+                        }
                     }
+                    */
 
                     #region backup due to bug in crmsvcutil on some online environments
                     Models.SdkMessageWrapper[] fileBackup = null;
