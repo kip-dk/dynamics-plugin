@@ -31,7 +31,12 @@ namespace Kipon.Xrm.Extensions.Json
             }
 
             {
-                var ser = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(T));
+                var setting = new System.Runtime.Serialization.Json.DataContractJsonSerializerSettings
+                {
+                    UseSimpleDictionaryFormat = true
+                };
+
+                var ser = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(T), setting);
                 return (T)ser.ReadObject(str);
             }
         }

@@ -28,7 +28,8 @@
 
             if (string.IsNullOrEmpty(val))
             {
-                throw new InvalidPluginExecutionException($"Unable to resolve an id for the input data, ");
+                var values = row.Values.Where(e => row != null).ToArray();
+                throw new InvalidPluginExecutionException($"Unable to resolve an id for the input data: {key.ExternalName}: Keys: [{string.Join(",", row.Keys)}], Values: [{string.Join(",", values)}]");
             }
 
             var id = resolveId(val);

@@ -1,4 +1,6 @@
-## Last updated: 2025-03-15
+## Last updated: 2025-03-23
+
+### 1.0.10.33 Deserialize extension fixed to always use Dictiorary pattern
 
 ### 1.0.10.32
 Removed writing json file to c:\temp causing error if folder not available
