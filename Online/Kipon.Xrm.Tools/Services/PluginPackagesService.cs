@@ -13,13 +13,11 @@ namespace Kipon.Xrm.Tools.Services
     public class PluginPackagesService : ServiceAPI.IPluginPackagesService
     {
         private readonly Entities.IUnitOfWork uow;
-        private readonly IFileService fileService;
 
         [ImportingConstructor]
-        public PluginPackagesService(Entities.IUnitOfWork uow, ServiceAPI.IFileService fileService)
+        public PluginPackagesService(Entities.IUnitOfWork uow)
         {
             this.uow = uow;
-            this.fileService = fileService;
         }
 
         public PluginPackage GetPluginPackage(string name)
